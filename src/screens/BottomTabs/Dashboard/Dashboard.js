@@ -1,13 +1,35 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {WP, appIcons, colors, family, size} from '_utilities';
-import {Fonts} from '../../../assets/fonts/index';
-const Home = ({params}) => (
-  <View>
-    <Text style={{color: colors.p1, fontFamily: Fonts.OpenSans_ExtraBold}}>
-      Home
-    </Text>
-  </View>
-);
+import {Button, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {loginRequest} from '../../../redux/actions/index';
+import {colors, Fonts} from '../../../shared/exporter';
+const Home = ({params}) => {
+  const dispatch = useDispatch(null);
+  const loginHandler = () => {
+    const params = new FormData();
+    params.append('identifier', '+923044228401');
+    params.append('password', 123456);
+    dispatch(
+      loginRequest(
+        params,
+        res => {},
+        res => {},
+      ),
+    );
+  };
+  return (
+    <View>
+      <Text style={{color: colors.p1, fontFamily: Fonts.OpenSans_ExtraBold}}>
+        Home
+      </Text>
+      <Button
+        onPress={() => {
+          loginHandler();
+        }}
+        title={'Login'}
+      />
+    </View>
+  );
+};
 
 export default Home;

@@ -6,20 +6,20 @@ import {Icon} from 'react-native-elements';
 import Dashboard from './Dashboard';
 import Profile from './ProfileTab';
 import Order from './OrderTab';
-import {colors} from '../../utilities';
+import {colors} from '../../shared/exporter';
 
 const Tab = createBottomTabNavigator();
 
 const MainFlow = ({params}) => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
+      screenOptions={{
         activeTintColor: colors.p1,
         showLabel: false,
       }}>
       <Tab.Screen
         component={Dashboard}
-        name={'Dashboard'}
+        name={'Home'}
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (

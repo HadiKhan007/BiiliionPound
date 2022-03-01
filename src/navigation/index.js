@@ -1,11 +1,8 @@
-import 'react-native-gesture-handler';
 import React, {useState, useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-
 const AppStack = createStackNavigator();
-
 import Splash from '_screens/Splash';
 // import Login from '../screens/Login';
 // import Signup from '../screens/Signup';
@@ -25,9 +22,11 @@ const AuthStack = createStackNavigator();
 
 const HomeStack = createStackNavigator();
 
-const appStack = () => {
+const AppStackNavigator = () => {
   return (
-    <HomeStack.Navigator headerMode={'none'} initialRouteName={'Dashboard'}>
+    <HomeStack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName={'Dashboard'}>
       <HomeStack.Screen name={'Dashboard'} component={Dashboard} />
     </HomeStack.Navigator>
   );
@@ -46,9 +45,9 @@ const MainAppNav = () => {
 
   return (
     <NavigationContainer>
-      <AppStack.Navigator headerMode={'none'}>
+      <AppStack.Navigator screenOptions={{headerShown: false}}>
         {showSplash && <AppStack.Screen name={'Splash'} component={Splash} />}
-        <AppStack.Screen name={'App'} component={appStack} />
+        <AppStack.Screen name={'App'} component={AppStackNavigator} />
         {/* {isLoggedIn ? (
           <AppStack.Screen name={'App'} component={appStack} />
         ) : (

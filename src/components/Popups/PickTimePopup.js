@@ -328,7 +328,7 @@ export const PickTimePopup = ({isVisible, onCancel}) => {
             withDefault
             zIndex={100}
             data={weekdays}
-            getVal={(item) => {
+            getVal={item => {
               setWeekday(item);
             }}
           />
@@ -337,7 +337,7 @@ export const PickTimePopup = ({isVisible, onCancel}) => {
             withDefault
             zIndex={99}
             data={time}
-            getVal={(item) => {
+            getVal={item => {
               setOpenTime(item);
             }}
           />
@@ -346,7 +346,7 @@ export const PickTimePopup = ({isVisible, onCancel}) => {
             withDefault
             zIndex={98}
             data={time}
-            getVal={(item) => {
+            getVal={item => {
               setCloseTime(item);
             }}
           />
@@ -355,7 +355,7 @@ export const PickTimePopup = ({isVisible, onCancel}) => {
             withDefault
             zIndex={97}
             data={isListFeatured}
-            getVal={(item) => {
+            getVal={item => {
               setis24hour(item);
             }}
           />
@@ -364,7 +364,7 @@ export const PickTimePopup = ({isVisible, onCancel}) => {
             withDefault
             zIndex={96}
             data={isListFeatured}
-            getVal={(item) => {
+            getVal={item => {
               setClosed(item);
             }}
           />

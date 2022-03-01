@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, SafeAreaView} from 'react-native';
 import styles from './styles';
-import {colors, appIcons} from '../../utilities';
+import {colors, appIcons} from '../../shared/exporter';
 
 const Splash = ({navigation}) => {
   return (

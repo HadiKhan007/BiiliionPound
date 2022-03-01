@@ -1,7 +1,7 @@
 import {createStore, applyMiddleware} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {createLogger} from 'redux-logger';
-import {rootSaga} from '.';
+import {rootSaga} from '../saga';
 import rootReducer from '../reducers';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {persistStore, persistReducer} from 'redux-persist';

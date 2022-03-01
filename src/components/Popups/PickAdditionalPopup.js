@@ -75,19 +75,19 @@ export const PickAdditionalPopup = ({isVisible, onCancel}) => {
           <Text style={styles.lable}>{I18n.t('label')}</Text>
           <Input
             value={label}
-            onChangeText={(text) => setLabel(text)}
+            onChangeText={text => setLabel(text)}
             onlyInput
           />
           <Text style={styles.lable}>{I18n.t('value')}</Text>
           <Input
             value={value}
-            onChangeText={(text) => setValue(text)}
+            onChangeText={text => setValue(text)}
             onlyInput
           />
           <Text style={styles.lable}>{I18n.t('valueLink')}</Text>
           <Input
             value={valueLink}
-            onChangeText={(text) => setValueLink(text)}
+            onChangeText={text => setValueLink(text)}
             onlyInput
           />
           {disbaled && (

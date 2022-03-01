@@ -26,7 +26,7 @@ const sagaMiddleware = createSagaMiddleware();
 // create a redux store with our reducer above and middleware
 let store = createStore(
   pReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware, createLogger())),
+  composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 export const persistor = persistStore(store);
 
