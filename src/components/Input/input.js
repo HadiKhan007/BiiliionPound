@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useRef} from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
-import {colors, family, HP, WP} from '../../utilities';
+import {colors, family, HP, WP} from '_utilities';
 
 const Input = ({
   placeholder,

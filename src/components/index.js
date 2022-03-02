@@ -20,3 +20,7 @@ export * from './ProgressBar/RatingBar';
 //Loader
 export * from './Loader';
 export * from './Loader/SmallLoader';
+
+
+//story book components
+export * from './Button/IconButton.stories';

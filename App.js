@@ -3,7 +3,9 @@ import {StatusBar, Platform, LogBox} from 'react-native';
 import MainNavigation from '_navigation';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
-import store, {persistor} from '_redux/store';
+import store, { persistor } from '_redux/store';
+//  export {default} from './storybook';
+
 // import SplashScreen from 'react-native-splash-screen';
 // import {Settings} from 'react-native-fbsdk-next';
 
