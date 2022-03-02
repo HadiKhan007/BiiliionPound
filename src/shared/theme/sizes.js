@@ -23,7 +23,12 @@ export const size = {
   xxtiny: 10,
   xxxtiny: 9,
 };
-const Fonts = {
+
+export const appRadius = {
+  buttonRadius: 25,
+};
+
+const family = {
   comorfaBold: 'comfortaBold',
   comorfaLight: 'comfortaBold',
   comorfaRegular: 'comfortaRegular',
@@ -41,4 +46,4 @@ const Fonts = {
   OpenSans_SemiBoldItalic: 'OpenSans-SemiBoldItalic',
 };
 
-export {Fonts};
+export {family};

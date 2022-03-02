@@ -2,7 +2,8 @@ import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {loginRequest} from '../../../redux/actions/index';
-import {colors, Fonts} from '../../../shared/exporter';
+import {colors, family} from '../../../shared/exporter';
+
 const Home = ({params}) => {
   const dispatch = useDispatch(null);
   const loginHandler = () => {
@@ -19,7 +20,7 @@ const Home = ({params}) => {
   };
   return (
     <View>
-      <Text style={{color: colors.p1, fontFamily: Fonts.OpenSans_ExtraBold}}>
+      <Text style={{color: colors.p1, fontFamily: family.OpenSans_ExtraBold}}>
         Home
       </Text>
       <Button

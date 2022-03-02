@@ -3,9 +3,9 @@ export const colors = {
   bgColor: '#FFFFFF',
 
   //Primary Colours
-  p1: '#128197',
-  p2: '#E76A69',
-  p3: '#F59695',
+  p1: '#01BAFF',
+  p2: '#01BAFF',
+  p3: '#01BAFF',
   p4: '#2713C4',
 
   //Secondary Colours
