@@ -1,11 +1,9 @@
 import {action} from '@storybook/addon-actions';
 import {storiesOf} from '@storybook/react-native';
 import React from 'react';
-import ExcerciseCard from './ExcerciseCard';
+import SelectButton from './SelectButton';
 import CenterView from '../../../storybook/stories/CenterView';
 
-storiesOf('ExcerciseCard', module)
+storiesOf('SelectButton', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
-  .add('ExcerciseCard', () => (
-    <ExcerciseCard name="Arnold Press" type="Shoulder" />
-  ));
+  .add('Button', () => <SelectButton />);

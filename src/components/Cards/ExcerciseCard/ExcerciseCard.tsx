@@ -7,7 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {appImages, colors, family, WP, size, HP} from '../../shared/exporter';
+import {appImages, colors, family, WP, size, HP} from '../../../shared/exporter';
 
 interface ExcerciseCardProps {
   name: string;
