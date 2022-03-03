@@ -15,7 +15,7 @@ const Splash = ({navigation}) => {
       <Image
         source={appIcons.appLogo}
         style={styles.imageStyles}
-        resizeMode="contain"
+        resizeMode="cover"
       />
     </SafeAreaView>
   );

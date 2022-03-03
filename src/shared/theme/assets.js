@@ -1,7 +1,10 @@
 import React from 'react';
 // import {svgIcons} from '../../assets/svgs/icons';
 
-export const appImages = {};
+export const appImages = {
+  sampleExcercise: require('../../assets/images/sample_excercise.png'),
+  selectedButton: require('../../assets/images/selected_icon_button.png'),
+};
 
 export const appSliders = {};
 

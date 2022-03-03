@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {
   HP,
   colors,
@@ -10,7 +10,12 @@ import {
   size,
 } from '../../shared/exporter';
 
-const Button = ({title, withRightIcon = false}) => {
+interface ButtonProps {
+  title: string;
+  withRightIcon: boolean;
+}
+
+const Button = ({title, withRightIcon}: ButtonProps) => {
   return (
     <TouchableOpacity
       style={[

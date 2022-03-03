@@ -5,7 +5,7 @@ export const colors = {
   //Primary Colours
   p1: '#01BAFF',
   p2: '#01BAFF',
-  p3: '#01BAFF',
+  p3: '#CCF1FF',
   p4: '#2713C4',
 
   //Secondary Colours
