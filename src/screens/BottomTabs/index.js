@@ -34,7 +34,12 @@ const MainFlow = ({params}) => {
         options={{
           tabBarLabel: 'Order',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} type={'antdesign'} size={size} />
+            <Icon
+              name="reorder"
+              color={color}
+              type={'font-awesome'}
+              size={size}
+            />
           ),
         }}
       />
@@ -44,7 +49,7 @@ const MainFlow = ({params}) => {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} type={'antdesign'} size={size} />
+            <Icon name="user" color={color} type={'antdesign'} size={size} />
           ),
         }}
       />
@@ -54,7 +59,12 @@ const MainFlow = ({params}) => {
         options={{
           tabBarLabel: 'StoryBook',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} type={'antdesign'} size={size} />
+            <Icon
+              name="donut-small"
+              color={color}
+              type={'material-icon'}
+              size={size}
+            />
           ),
         }}
       />

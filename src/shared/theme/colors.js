@@ -83,4 +83,5 @@ export const colors = {
   //Pink color
   lightPink: '#FFF5F5',
   placeholder: '#F1F1F1',
+  greyBackground: '#E6E6E6',
 };
