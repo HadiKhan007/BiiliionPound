@@ -1,24 +1,20 @@
-import {StyleSheet} from 'react-native';
-import {color} from 'react-native-reanimated';
+import {Platform, StyleSheet} from 'react-native';
 import {colors, HP, WP} from '../../shared/exporter';
 
+const platformOrientedCode = (androidVal, iOSVal) =>
+  Platform.select({android: androidVal, ios: iOSVal});
+
 const styles = StyleSheet.create({
-  main: {
+  rootContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: colors.p1,
-  },
-  text: {
-    fontSize: 55,
-    color: 'white',
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    backgroundColor: colors.white,
   },
   imageStyles: {
-    // resizeMode: "stretch",
     width: WP('100%'),
-    height: HP('100%'),
-    zIndex: 100,
-    position: 'absolute',
+    height: platformOrientedCode(HP('15%'), HP('12%')),
   },
 });
 

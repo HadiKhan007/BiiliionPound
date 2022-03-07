@@ -3,11 +3,13 @@
     "target": "es6",
     "baseUrl": ".",
     "paths": {
+      "_assets": ["src/assets/*"],
       "_components": ["src/components/*"],
       "_navigation": ["src/navigation/*"],
+      "_redux": ["src/redux/*"],
       "_screens": ["src/screens/*"],
       "_service": ["src/shared/service/*"],
-      "_utilities": ["src/shared/utilities/*"]
+      "_utilities": ["src/shared/utilities/*"],
     }
   },
   "exclude": ["node_modules"]

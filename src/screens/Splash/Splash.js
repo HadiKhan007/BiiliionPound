@@ -1,23 +1,26 @@
-import React from 'react';
-import {Image, SafeAreaView} from 'react-native';
+import React, {useEffect} from 'react';
+import {Image, StatusBar, SafeAreaView} from 'react-native';
 import styles from './styles';
-import {colors, appIcons} from '../../shared/exporter';
+import {appLogos} from '../../shared/theme/assets';
 
 const Splash = ({navigation}) => {
+  useEffect(() => {
+    setTimeout(() => {
+      // navigation.replace('Walkthrough');
+    }, 2500);
+  }, []);
+
   return (
-    <SafeAreaView
-      style={[
-        styles.main,
-        {
-          backgroundColor: colors.white,
-        },
-      ]}>
-      <Image
-        source={appIcons.appLogo}
-        style={styles.imageStyles}
-        resizeMode="contain"
-      />
-    </SafeAreaView>
+    <>
+      <StatusBar hidden />
+      <SafeAreaView style={styles.rootContainer}>
+        <Image
+          source={appLogos.appLogo}
+          style={styles.imageStyles}
+          resizeMode="contain"
+        />
+      </SafeAreaView>
+    </>
   );
 };
 
