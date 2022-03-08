@@ -1,22 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StatusBar, Platform, LogBox} from 'react-native';
 import MainNavigation from './src/navigation';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import store, {persistor} from './src/redux/store';
-//  export {default} from './storybook';
 
-// import SplashScreen from 'react-native-splash-screen';
-// import {Settings} from 'react-native-fbsdk-next';
+// ignore warnings
+LogBox.ignoreAllLogs();
 
-const App = ({params}) => {
-  useEffect(() => {
-    // do stuff while splash screen is shown
-    // After having done stuff (such as async tasks) hide the splash screen
-  }, []);
-  LogBox.ignoreLogs([
-    "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-  ]);
+const App = () => {
   return (
     <Provider store={store}>
       <StatusBar

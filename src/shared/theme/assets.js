@@ -1,18 +1,19 @@
-import React from 'react';
-// import {svgIcons} from '../../assets/svgs/icons';
+import {svgIcons} from '../../assets/svgs/index';
 
-export const appImages = {
-  sampleExcercise: require('../../assets/images/sample_excercise.png'),
-  selectedButton: require('../../assets/images/selected_icon_button.png'),
+export const appLogos = {
+  appLogo: require('../../assets/logos/app_logo.png'),
 };
 
-export const appSliders = {};
+export const appImages = {
+  textLogo: require('../../assets/images/text_logo.jpg'),
+};
 
 export const appIcons = {
   appLogo: require('../../assets/logo/app_logo.jpg'),
   forwardIcon: require('../../assets/logo/forward-arrow.png'),
+  checked: require('../../assets/icons/checked.png'),
 };
 
 export const appSvgs = {
-  // ...svgIcons,
+  ...svgIcons,
 };

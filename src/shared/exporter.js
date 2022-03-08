@@ -1,4 +1,4 @@
-export {appImages, appIcons, appSvgs} from './theme/assets';
+export {appImages, appIcons, appLogos, appSvgs} from './theme/assets';
 
 export {colors} from './theme/colors';
 export {size, family, appRadius} from './theme/sizes';

@@ -1,60 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+
+import Splash from '_screens/Splash';
+import Walkthrough from '_screens/Walkthrough';
+import AuthStack from '_navigation/stacks/AuthStack';
+import Dashboard from '_screens/BottomTabs';
+
 const AppStack = createStackNavigator();
-import Splash from '../screens/Splash';
-// import Login from '../screens/Login';
-// import Signup from '../screens/Signup';
-
-import Dashboard from '../screens/BottomTabs';
-
-const AuthStack = createStackNavigator();
-
-// const authStack = () => {
-//   return (
-//     <AuthStack.Navigator headerMode={'none'} initialRouteName={'Login'}>
-//       <AppStack.Screen name={'Login'} component={Login} />
-//       <AppStack.Screen name={'Signup'} component={Signup} />
-//     </AuthStack.Navigator>
-//   );
-// };
-
-const HomeStack = createStackNavigator();
-
-const AppStackNavigator = () => {
-  return (
-    <HomeStack.Navigator
-      screenOptions={{headerShown: false}}
-      initialRouteName={'Dashboard'}>
-      <HomeStack.Screen name={'Dashboard'} component={Dashboard} />
-    </HomeStack.Navigator>
-  );
-};
 
 const MainAppNav = () => {
-  const [showSplash, setShowSplash] = useState(true);
-
-  const {isLoggedIn} = useSelector(state => state.login);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowSplash(false);
-    }, 2000);
-  }, [showSplash, isLoggedIn]);
-
   return (
     <NavigationContainer>
-      <AppStack.Navigator screenOptions={{headerShown: false}}>
-        {showSplash && <AppStack.Screen name={'Splash'} component={Splash} />}
-        <AppStack.Screen name={'App'} component={AppStackNavigator} />
-        {/* {isLoggedIn ? (
-          <AppStack.Screen name={'App'} component={appStack} />
-        ) : (
-          <AppStack.Screen name={'Auth'} component={authStack} />
-        )} */}
+      <AppStack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{headerShown: false}}>
+        <AppStack.Screen name={'Splash'} component={Splash} />
+        <AppStack.Screen name={'Walkthrough'} component={Walkthrough} />
+        <AppStack.Screen name={'Auth'} component={AuthStack} />
+        <AppStack.Screen name={'App'} component={Dashboard} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
 };
+
 export default MainAppNav;
