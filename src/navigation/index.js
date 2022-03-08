@@ -2,10 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 
-import Splash from '_screens/Splash';
-import Walkthrough from '_screens/Walkthrough';
-import AuthStack from '_navigation/stacks/AuthStack';
-import Dashboard from '_screens/BottomTabs';
+import Splash from '../screens/Splash';
+import Walkthrough from '../screens/Walkthrough';
+import AuthStack from '../navigation/stacks/AuthStack';
+import Dashboard from '../screens/BottomTabs';
 
 const AppStack = createStackNavigator();
 

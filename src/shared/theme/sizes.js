@@ -28,7 +28,7 @@ export const appRadius = {
   buttonRadius: 25,
 };
 
-const family = {
+export const family = {
   comorfaBold: 'comfortaBold',
   comorfaLight: 'comfortaBold',
   comorfaRegular: 'comfortaRegular',
@@ -45,5 +45,3 @@ const family = {
   OpenSans_SemiBold: 'OpenSans-SemiBold',
   OpenSans_SemiBoldItalic: 'OpenSans-SemiBoldItalic',
 };
-
-export {family};

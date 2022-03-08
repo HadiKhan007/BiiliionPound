@@ -9,7 +9,6 @@ export const appImages = {
 };
 
 export const appIcons = {
-  appLogo: require('../../assets/logo/app_logo.jpg'),
   forwardIcon: require('../../assets/logo/forward-arrow.png'),
   checked: require('../../assets/icons/checked.png'),
 };

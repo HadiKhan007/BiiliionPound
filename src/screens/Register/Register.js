@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const SignUp = () => (
+const Signup = ({params}) => (
   <View>
-    <Text>SignUp</Text>
+    <Text>Signup</Text>
   </View>
 );
 
-export default SignUp;
+export default Signup;

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {fontsFamily} from '../../shared/exporter';
+import {family} from '../../shared/exporter';
 
 const styles = StyleSheet.create({
   rootContainer: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 26,
     fontWeight: '500',
-    fontFamily: fontsFamily.OpenSans_ExtraBold,
+    fontFamily: family.OpenSans_ExtraBold,
   },
 });
 
