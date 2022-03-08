@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import {StatusBar, Platform, LogBox} from 'react-native';
-import MainNavigation from '_navigation';
+import MainNavigation from './src/navigation';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
-import store, {persistor} from '_redux/store';
+import store, {persistor} from './src/redux/store';
+//  export {default} from './storybook';
+
 // import SplashScreen from 'react-native-splash-screen';
 // import {Settings} from 'react-native-fbsdk-next';
 

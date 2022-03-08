@@ -3,11 +3,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 const AppStack = createStackNavigator();
-import Splash from '_screens/Splash';
+import Splash from '../screens/Splash';
 // import Login from '../screens/Login';
 // import Signup from '../screens/Signup';
 
-import Dashboard from '_screens/BottomTabs';
+import Dashboard from '../screens/BottomTabs';
 
 const AuthStack = createStackNavigator();
 

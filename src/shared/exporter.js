@@ -1,7 +1,7 @@
 export {appImages, appIcons, appSvgs} from './theme/assets';
 
 export {colors} from './theme/colors';
-export {size, Fonts} from './theme/sizes';
+export {size, family, appRadius} from './theme/sizes';
 export {spacing} from './theme/spacing';
 export {WP, HP, RF, scrHeight, scrWidth} from './theme/responsive';
 

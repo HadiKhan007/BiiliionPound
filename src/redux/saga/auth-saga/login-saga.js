@@ -1,6 +1,6 @@
 import {takeLatest, put} from 'redux-saga/effects';
 import {loginUser} from '../../../shared/service/AuthService';
-import * as types from '_redux/actions/types';
+import * as types from '../../actions/types';
 
 export function* loginRequest() {
   yield takeLatest(types.LOGIN_REQUEST_REQUEST, login);

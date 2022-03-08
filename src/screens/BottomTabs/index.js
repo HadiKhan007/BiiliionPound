@@ -7,6 +7,7 @@ import Dashboard from './Dashboard';
 import Profile from './ProfileTab';
 import Order from './OrderTab';
 import {colors} from '../../shared/exporter';
+import LinksScreen from '../../navigation/StoryBookLinkSrc';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,12 @@ const MainFlow = ({params}) => {
         options={{
           tabBarLabel: 'Order',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} type={'antdesign'} size={size} />
+            <Icon
+              name="reorder"
+              color={color}
+              type={'font-awesome'}
+              size={size}
+            />
           ),
         }}
       />
@@ -43,7 +49,22 @@ const MainFlow = ({params}) => {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color, size}) => (
-            <Icon name="home" color={color} type={'antdesign'} size={size} />
+            <Icon name="user" color={color} type={'antdesign'} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        component={LinksScreen}
+        name={'Link'}
+        options={{
+          tabBarLabel: 'StoryBook',
+          tabBarIcon: ({color, size}) => (
+            <Icon
+              name="donut-small"
+              color={color}
+              type={'material-icon'}
+              size={size}
+            />
           ),
         }}
       />
