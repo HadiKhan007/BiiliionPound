@@ -12,10 +12,14 @@ const heightPercentageToDP = heightPercent => {
   return PixelRatio.roundToNearestPixel((scrHeight * elemHeight) / 100);
 };
 
+const platformOrientedCode = (androidVal, iOSVal) =>
+  Platform.select({android: androidVal, ios: iOSVal});
+
 export {
   widthPercentageToDP as WP,
   heightPercentageToDP as HP,
   RFValue as RF,
   scrWidth,
   scrHeight,
+  platformOrientedCode,
 };

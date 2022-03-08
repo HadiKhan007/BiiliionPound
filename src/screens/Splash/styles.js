@@ -1,8 +1,5 @@
 import {Platform, StyleSheet} from 'react-native';
-import {colors, HP, WP} from '../../shared/exporter';
-
-const platformOrientedCode = (androidVal, iOSVal) =>
-  Platform.select({android: androidVal, ios: iOSVal});
+import {colors, HP, WP, platformOrientedCode} from '../../shared/exporter';
 
 const styles = StyleSheet.create({
   rootContainer: {

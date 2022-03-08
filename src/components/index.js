@@ -1,6 +1,8 @@
 //Button
-export * from './Button/IconButton';
-export * from './Button/IconButton.stories';
+export * from './Button/Button';
+export * from './Button/Button.stories';
+
+export * from './CircularProgress/CircularProgress';
 
 //Spacer
 export * from './Spacer/Spacer';
@@ -8,3 +10,4 @@ export * from './Spacer/Spacer';
 //Loader
 export * from './Loader';
 export * from './Loader/SmallLoader';
+export * from './IntroSlider/IntroSlider';

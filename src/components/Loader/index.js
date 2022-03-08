@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
   Text,
 } from 'react-native';
-import {WP, HP, colors, family, size} from '../../utilities';
+import {WP, HP, colors, family, size} from '../../shared/exporter';
 import {hasNotch} from 'react-native-device-info';
 
 export const Loader = ({loading, tagline = '', showTagLine = false}) => {

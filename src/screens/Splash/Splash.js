@@ -6,7 +6,7 @@ import {appLogos} from '../../shared/theme/assets';
 const Splash = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Walkthrough');
+      navigation.replace('GettingStarted');
     }, 2500);
   }, []);
 

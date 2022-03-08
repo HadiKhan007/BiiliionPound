@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {WP} from '../../utilities';
+import {WP} from '../../shared/exporter';
 
 const Spacer = ({params}) => <View style={styles.spacer} />;
 

@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
   Text,
 } from 'react-native';
-import {WP, HP, colors} from '../../utilities';
+import {WP, HP, colors} from '../../shared/exporter';
 import {hasNotch} from 'react-native-device-info';
 
 export const SmallLoader = ({loading, height, width = '80%'}) => {

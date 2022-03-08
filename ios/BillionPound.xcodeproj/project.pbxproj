@@ -531,6 +531,7 @@
 			baseConfigurationReference = 29FF37DD1DC5A1691981BC16 /* Pods-BillionPound-BillionPoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = HJZ6T56V6D;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -559,6 +560,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = HJZ6T56V6D;
 				INFOPLIST_FILE = BillionPoundTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -584,6 +586,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HJZ6T56V6D;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BillionPound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -610,6 +613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HJZ6T56V6D;
 				INFOPLIST_FILE = BillionPound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

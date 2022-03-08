@@ -3,7 +3,14 @@ export {appImages, appIcons, appLogos, appSvgs} from './theme/assets';
 export {colors} from './theme/colors';
 export {size, family, appRadius} from './theme/sizes';
 export {spacing} from './theme/spacing';
-export {WP, HP, RF, scrHeight, scrWidth} from './theme/responsive';
+export {
+  WP,
+  HP,
+  RF,
+  scrHeight,
+  scrWidth,
+  platformOrientedCode,
+} from './theme/responsive';
 
 export {LoginVS, SignUpVS} from './utilities/validations';
 export {
