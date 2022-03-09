@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, StatusBar} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {appImages, colors} from '../../shared/exporter';
@@ -85,6 +85,11 @@ const Walkthrough = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
+      <StatusBar
+        backgroundColor="transparent"
+        translucent={true}
+        barStyle={'light-content'}
+      />
       <AppIntroSlider
         data={slides}
         renderDoneButton={renderDoneButton}

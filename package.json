@@ -47,7 +47,7 @@
     "react-native-device-info": "^8.5.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^2.2.0",
-    "react-native-keyboard-aware-scrollview": "^2.1.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal": "^13.0.0",
     "react-native-reanimated": "^2.4.1",
     "react-native-responsive-fontsize": "^0.5.1",
