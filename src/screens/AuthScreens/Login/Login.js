@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar} from 'react-native';
-import {family} from '../../shared/exporter';
+import {family} from '../../../shared/exporter';
 import styles from './styles';
-import {AuthFooter, Button, Checkbox, Input} from '../../components';
-import {colors} from '../../shared/exporter';
+import {AuthFooter, Button, Checkbox, Input} from '../../../components';
+import {colors} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -45,7 +45,13 @@ const Login = ({params, navigation}) => {
             />
 
             {/* App Privacy Checkbox */}
-            <Text style={styles.forgotTxtStyle}>Forgot your password? </Text>
+            <Text
+              onPress={() => {
+                navigation?.navigate('ForgotPassword');
+              }}
+              style={styles.forgotTxtStyle}>
+              Forgot your password?{' '}
+            </Text>
           </View>
 
           {/* Signup Footer Part */}

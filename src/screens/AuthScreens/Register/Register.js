@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar} from 'react-native';
-import {family} from '../../shared/exporter';
+import {family} from '../../../shared/exporter';
 import styles from './styles';
-import {AuthFooter, Button, Checkbox, Input} from '../../components';
-import {colors} from '../../shared/exporter';
+import {AuthFooter, Button, Checkbox, Input} from '../../../components';
+import {colors} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -76,11 +76,21 @@ const Signup = ({params, navigation}) => {
                   setToggleCheckBox(!toggleCheckBox);
                 }}
               />
-              <Text onPress={() => {}} style={styles.rememberTxtStyle}>
+              <Text style={styles.rememberTxtStyle}>
                 By continuing you accept our{' '}
-                <Text style={styles.textDecoration}>Privacy Policy </Text>
+                <Text
+                  onPress={() => {
+                    navigation?.navigate('PrivacyPolicy');
+                  }}
+                  style={styles.textDecoration}>
+                  Privacy Policy{' '}
+                </Text>
                 and{' '}
-                <Text onPress={() => {}} style={styles.textDecoration}>
+                <Text
+                  onPress={() => {
+                    navigation?.navigate('Terms');
+                  }}
+                  style={styles.textDecoration}>
                   {' '}
                   Term of Use
                 </Text>
