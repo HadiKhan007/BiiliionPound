@@ -2,10 +2,17 @@ import {svgIcons} from '../../assets/svgs/index';
 
 export const appLogos = {
   appLogo: require('../../assets/logos/app_logo.png'),
+  appLogoWhite: require('../../assets/logos/logo_white.png'),
 };
 
 export const appImages = {
   textLogo: require('../../assets/images/text_logo.jpg'),
+  slider1: require('../../assets/images/slider1.png'),
+  slider3: require('../../assets/images/slider3.png'),
+  slider2: require('../../assets/images/slider2.png'),
+  gettingStarted: require('../../assets/images/getting_started.png'),
+  slider4: require('../../assets/images/company_pic.png'),
+  appVideo: require('../../assets/video/gym_video.mp4')
 };
 
 export const appIcons = {

@@ -6,6 +6,7 @@ import Splash from '../screens/Splash';
 import Walkthrough from '../screens/Walkthrough';
 import AuthStack from '../navigation/stacks/AuthStack';
 import Dashboard from '../screens/BottomTabs';
+import GettingStarted from '../screens/GettingStarted';
 
 const AppStack = createStackNavigator();
 
@@ -17,6 +18,7 @@ const MainAppNav = () => {
         screenOptions={{headerShown: false}}>
         <AppStack.Screen name={'Splash'} component={Splash} />
         <AppStack.Screen name={'Walkthrough'} component={Walkthrough} />
+        <AppStack.Screen name={'GettingStarted'} component={GettingStarted} />
         <AppStack.Screen name={'Auth'} component={AuthStack} />
         <AppStack.Screen name={'App'} component={Dashboard} />
       </AppStack.Navigator>

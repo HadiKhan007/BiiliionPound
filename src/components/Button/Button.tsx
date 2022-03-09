@@ -13,11 +13,13 @@ import {
 interface ButtonProps {
   title: string;
   withRightIcon: boolean;
+  onPress: () => void;
 }
 
-const Button = ({title, withRightIcon}: ButtonProps) => {
+const Button = ({title, withRightIcon, onPress}: ButtonProps) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.main,
         {justifyContent: withRightIcon ? 'space-between' : 'center'},
@@ -59,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Button;
+export {Button};

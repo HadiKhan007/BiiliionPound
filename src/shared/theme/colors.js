@@ -41,4 +41,6 @@ export const colors = {
   p_gradient: ['#FF8F8E', '#E79069'],
   //Secondary Gradient
   s_gradient: ['#E79069', '#E7BB69'],
+
+  introSliderColor: '#34C8FF',
 };
