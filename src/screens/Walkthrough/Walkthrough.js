@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {appImages, colors} from '../../shared/exporter';
-import {IntroSlider} from '../../components';
-import CircularProgress from 'react-native-circular-progress-indicator';
+import {IntroSlider, CircularProgress} from '../../components';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+// import CircularProgress from 'react-native-circular-progress-indicator';
 
 const slides = [
   {
@@ -44,64 +45,41 @@ const slides = [
   },
 ];
 
-const Walkthrough = ({params}) => {
+const Walkthrough = ({navigation}) => {
+  const [progressValue, setProgressValue] = useState(0);
+
+  useEffect(() => {
+    setProgressValue(30);
+  }, []);
+
   const renderItem = ({item, index}) => {
     return <IntroSlider item={item} index={index} />;
   };
 
   const renderNextButton = props => {
-    console.log('[Button props]', props);
-
     return (
-      <View
-        style={{
-          width: 55,
-          height: 55,
-          // backgroundColor: 'transparent',
-          // borderRadius: 55 / 2,
-          // justifyContent: 'center',
-          // alignItems: 'center',
-          // padding: 10,
-          // borderWidth: 2,
-          // borderColor: colors.p1,
-        }}>
-        <CircularProgress value={58}>
-          {/* <View style={styles.buttonCircle}>
-            <Icon
-              name="chevron-forward-outline"
-              type={'ionicon'}
-              color="white"
-              size={24}
-            />
-          </View> */}
-        </CircularProgress>
+      <View style={styles.buttonCircle}>
+        <Icon
+          name="chevron-forward-outline"
+          type={'ionicon'}
+          color="white"
+          size={24}
+        />
       </View>
     );
   };
 
   const renderDoneButton = () => {
     return (
-      <View
-        style={{
-          width: 55,
-          height: 55,
-          backgroundColor: 'transparent',
-          borderRadius: 55 / 2,
-          justifyContent: 'center',
-          alignItems: 'center',
-          padding: 10,
-          borderWidth: 2,
-          borderColor: colors.p1,
-        }}>
-        <View style={styles.buttonCircle}>
-          <Icon
-            name="chevron-forward-outline"
-            type={'ionicon'}
-            color="white"
-            size={24}
-          />
-        </View>
-      </View>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Auth', {
+            screen: 'SignUp',
+          })
+        }
+        style={styles.buttonCircle}>
+        <Icon name="checkmark-sharp" type={'ionicon'} color="white" size={24} />
+      </TouchableOpacity>
     );
   };
 
@@ -122,11 +100,34 @@ const Walkthrough = ({params}) => {
 export default Walkthrough;
 
 const styles = StyleSheet.create({
+  buttonUperContainer: {
+    width: 55,
+    height: 55,
+    backgroundColor: 'transparent',
+    borderRadius: 55 / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: colors.p1,
+    zIndex: 1,
+    position: 'absolute',
+  },
+  buttonOuterContainer: {
+    width: 55,
+    height: 55,
+    backgroundColor: 'transparent',
+    // borderRadius: 55 / 2,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    padding: 10,
+    // borderWidth: 2,
+    // borderColor: colors.p6,
+  },
   buttonCircle: {
-    width: 40,
-    height: 40,
+    width: 45,
+    height: 45,
     backgroundColor: colors.p1,
-    borderRadius: 20,
+    borderRadius: 45 / 2,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -136,8 +137,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-
-    elevation: 7,
     //  borderWidth: 1,
   },
   dotStyle: {

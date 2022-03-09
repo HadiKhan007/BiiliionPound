@@ -11,11 +11,6 @@ import {appImages, colors, family, HP, size} from '../../shared/exporter';
 import Video from 'react-native-video';
 
 const IntroSlider = ({item, isVideo = false, index}) => {
-  useEffect(() => {
-    console.log('[Item]', item);
-    console.log('[index]', index);
-  }, [item]);
-
   //Video
   if (item.key === 1) {
     return (

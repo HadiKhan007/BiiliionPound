@@ -11,3 +11,5 @@ export * from './Spacer/Spacer';
 export * from './Loader';
 export * from './Loader/SmallLoader';
 export * from './IntroSlider/IntroSlider';
+
+export * from './Input/Input';
