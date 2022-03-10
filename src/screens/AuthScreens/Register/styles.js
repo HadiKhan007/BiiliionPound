@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 import {
   HP,
   WP,
@@ -12,11 +12,12 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: 'white',
-    justifyContent: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
 
   contentContainer: {
     marginHorizontal: WP('5'),
+    flex: 1,
   },
   inputContainer: {
     height: scrHeight / 2,
@@ -33,11 +34,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
   },
-  btnContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
+
   textDecoration: {
     textDecorationLine: 'underline',
   },

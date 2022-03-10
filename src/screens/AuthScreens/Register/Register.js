@@ -101,7 +101,7 @@ const Signup = ({params, navigation}) => {
             subtitle={'Login'}
             buttonTxt={'Register'}
             onPressBtn={() => {
-              console.log('coming');
+              navigation?.navigate('App');
             }}
             onApplePress={() => {
               console.log('Apple Signup');

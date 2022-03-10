@@ -57,7 +57,7 @@ const Login = ({params, navigation}) => {
             subtitle={'Register'}
             buttonTxt={'Login'}
             onPressBtn={() => {
-              console.log('Coming');
+              navigation?.navigate('App');
             }}
             onApplePress={() => {
               console.log('Apple Login');

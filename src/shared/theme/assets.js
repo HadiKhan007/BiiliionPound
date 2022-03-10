@@ -1,5 +1,4 @@
 import {svgIcons} from '../../assets/svgs/index';
-
 export const appLogos = {
   appLogo: require('../../assets/logos/app_logo.png'),
   appLogoWhite: require('../../assets/logos/logo_white.png'),
@@ -21,6 +20,10 @@ export const appIcons = {
   unchecked: require('../../assets/icons/unchecked.png'),
   apple: require('../../assets/icons/apple.png'),
   google: require('../../assets/icons/google.png'),
+  home: require('../../assets/icons/home.png'),
+  event: require('../../assets/icons/event.png'),
+  board: require('../../assets/icons/board.png'),
+  profile: require('../../assets/icons/profile.png'),
 };
 
 export const appSvgs = {

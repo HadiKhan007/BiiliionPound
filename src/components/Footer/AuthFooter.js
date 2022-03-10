@@ -57,7 +57,7 @@ AuthFooter.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 20,
     paddingHorizontal: 20,
     width: '100%',
   },
