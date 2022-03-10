@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar} from 'react-native';
-import {family} from '../../../shared/exporter';
 import styles from './styles';
-import {AuthFooter, Button, Checkbox, Input} from '../../../components';
+import {AuthFooter, Checkbox, Input, WelcomeBox} from '../../../components';
 import {colors} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -12,11 +11,6 @@ const Signup = ({params, navigation}) => {
 
   return (
     <SafeAreaView style={styles.main}>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent={true}
-        barStyle={'dark-content'}
-      />
       <View style={styles.contentContainer}>
         <WelcomeBox title={'Hey there,'} subtitle={'Create your account'} />
         {/* Signup Inputs */}
@@ -99,8 +93,8 @@ const Signup = ({params, navigation}) => {
           </View>
 
           {/* Signup Footer Part */}
-          <FooterBox
-            onPress={() => {
+          <AuthFooter
+            onPressText={() => {
               navigation?.navigate('Login');
             }}
             title={'Already have an account?'}
@@ -109,32 +103,16 @@ const Signup = ({params, navigation}) => {
             onPressBtn={() => {
               console.log('coming');
             }}
+            onApplePress={() => {
+              console.log('Apple Signup');
+            }}
+            onGooglePress={() => {
+              console.log('Google Signup');
+            }}
           />
         </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>
-  );
-};
-
-const WelcomeBox = ({title, subtitle}) => {
-  return (
-    <View style={styles.welcomeTextContainer}>
-      <Text style={{fontFamily: family.OpenSans_Regular, fontSize: 15}}>
-        {title}
-      </Text>
-      <Text style={{fontFamily: family.OpenSans_Bold, fontSize: 20}}>
-        {subtitle}
-      </Text>
-    </View>
-  );
-};
-
-const FooterBox = ({title, subtitle, buttonTxt, onPress, onPressBtn}) => {
-  return (
-    <View style={styles.btnContainer}>
-      <Button onPress={onPressBtn} title={buttonTxt} />
-      <AuthFooter onPress={onPress} title={title} subtitle={subtitle} />
-    </View>
   );
 };
 

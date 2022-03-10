@@ -1,33 +1,46 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {appIcons, colors, family, size, spacing} from '../../shared/exporter';
 import PropTypes from 'prop-types';
-
-export const AuthFooter = ({title, subtitle, onPress}) => {
+import {Button} from '../../components';
+export const AuthFooter = ({
+  title,
+  subtitle,
+  onPressBtn,
+  buttonTxt,
+  onPressText,
+  onApplePress,
+  onGooglePress,
+}) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.line1Container}>
-        <View style={styles.line1Style} />
-        <View>
-          <Text style={styles.linetext}>Or</Text>
+    <View style={styles.btnContainer}>
+      <Button onPress={onPressBtn} title={buttonTxt} />
+      <View style={styles.container}>
+        <View style={styles.line1Container}>
+          <View style={styles.line1Style} />
+          <View>
+            <Text style={styles.linetext}>Or</Text>
+          </View>
+          <View style={styles.line2Style} />
         </View>
-        <View style={styles.line2Style} />
-      </View>
-      <View style={styles.cardView}>
-        <View style={styles.cardContainer}>
-          <Image source={appIcons.google} style={styles.icon18} />
+        <View style={styles.cardView}>
+          <TouchableOpacity
+            onPress={onGooglePress}
+            style={styles.cardContainer}>
+            <Image source={appIcons.google} style={styles.icon18} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onApplePress} style={styles.cardContainer}>
+            <Image source={appIcons.apple} style={styles.icon24} />
+          </TouchableOpacity>
         </View>
-        <View style={styles.cardContainer}>
-          <Image source={appIcons.apple} style={styles.icon24} />
-        </View>
-      </View>
-      <View style={spacing.mb5}>
-        <Text style={styles.footertext}>
-          {title}{' '}
-          <Text onPress={onPress} style={styles.footertext1}>
-            {subtitle}
+        <View style={spacing.mb5}>
+          <Text style={styles.footertext}>
+            {title}{' '}
+            <Text onPress={onPressText} style={styles.footertext1}>
+              {subtitle}
+            </Text>
           </Text>
-        </Text>
+        </View>
       </View>
     </View>
   );
@@ -35,7 +48,11 @@ export const AuthFooter = ({title, subtitle, onPress}) => {
 AuthFooter.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  onPress: PropTypes.func,
+  onPressText: PropTypes.func,
+  buttonTxt: PropTypes.string,
+  onPressBtn: PropTypes.func,
+  onApplePress: PropTypes.func,
+  onGooglePress: PropTypes.func,
 };
 
 const styles = StyleSheet.create({
@@ -100,5 +117,11 @@ const styles = StyleSheet.create({
     color: colors.p1,
     fontSize: size.xsmall,
     fontFamily: family.OpenSans_Medium,
+  },
+  btnContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    width: '100%',
   },
 });

@@ -3,8 +3,7 @@ import {HP, platformOrientedCode, WP} from '../../shared/exporter';
 
 const styles = StyleSheet.create({
   main: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    flex: 1,
   },
   logo: {
     width: WP('100%'),

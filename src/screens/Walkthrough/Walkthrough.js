@@ -85,11 +85,6 @@ const Walkthrough = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent={true}
-        barStyle={'light-content'}
-      />
       <AppIntroSlider
         data={slides}
         renderDoneButton={renderDoneButton}

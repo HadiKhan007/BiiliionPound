@@ -12,11 +12,6 @@ const Splash = ({navigation}) => {
 
   return (
     <>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent={true}
-        barStyle={'dark-content'}
-      />
       <SafeAreaView style={styles.rootContainer}>
         <Image
           source={appLogos.appLogo}

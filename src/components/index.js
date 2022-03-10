@@ -19,3 +19,6 @@ export * from './CheckBox/CheckBox';
 
 //Footer
 export * from './Footer/AuthFooter';
+
+//Box
+export * from './Box/WelcomeBox';

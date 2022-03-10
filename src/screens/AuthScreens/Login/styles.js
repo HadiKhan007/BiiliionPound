@@ -33,12 +33,6 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('5'),
     textDecorationLine: 'underline',
   },
-
-  btnContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-  },
 });
 
 export default styles;

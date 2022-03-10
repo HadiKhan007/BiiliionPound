@@ -14,10 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
   },
-  welcomeTextContainer: {
-    alignItems: 'center',
-    marginVertical: HP('3'),
-  },
+
   contentContainer: {
     marginHorizontal: WP('5'),
   },

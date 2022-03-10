@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar} from 'react-native';
-import {family} from '../../../shared/exporter';
 import styles from './styles';
-import {AuthFooter, Button, Checkbox, Input} from '../../../components';
+import {AuthFooter, Input, WelcomeBox} from '../../../components';
 import {colors} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -10,11 +9,6 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 const Login = ({params, navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
-      <StatusBar
-        backgroundColor="transparent"
-        translucent={true}
-        barStyle={'dark-content'}
-      />
       <View style={styles.contentContainer}>
         <WelcomeBox title={'Hey there,'} subtitle={'Welcome Back!'} />
         {/* Signup Inputs */}
@@ -54,9 +48,9 @@ const Login = ({params, navigation}) => {
             </Text>
           </View>
 
-          {/* Signup Footer Part */}
-          <FooterBox
-            onPress={() => {
+          {/* Login Footer Part */}
+          <AuthFooter
+            onPressText={() => {
               navigation?.navigate('SignUp');
             }}
             title={`Don't have an account?`}
@@ -65,32 +59,16 @@ const Login = ({params, navigation}) => {
             onPressBtn={() => {
               console.log('Coming');
             }}
+            onApplePress={() => {
+              console.log('Apple Login');
+            }}
+            onGooglePress={() => {
+              console.log('Google Login');
+            }}
           />
         </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>
-  );
-};
-
-const WelcomeBox = ({title, subtitle}) => {
-  return (
-    <View style={styles.welcomeTextContainer}>
-      <Text style={{fontFamily: family.OpenSans_Regular, fontSize: 15}}>
-        {title}
-      </Text>
-      <Text style={{fontFamily: family.OpenSans_Bold, fontSize: 20}}>
-        {subtitle}
-      </Text>
-    </View>
-  );
-};
-
-const FooterBox = ({title, subtitle, buttonTxt, onPress, onPressBtn}) => {
-  return (
-    <View style={styles.btnContainer}>
-      <Button onPress={onPressBtn} title={buttonTxt} />
-      <AuthFooter onPress={onPress} title={title} subtitle={subtitle} />
-    </View>
   );
 };
 
