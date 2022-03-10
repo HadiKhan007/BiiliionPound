@@ -7,13 +7,17 @@ import store, {persistor} from './src/redux/store';
 
 // ignore warnings
 LogBox.ignoreAllLogs();
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+]);
 
 const App = () => {
   return (
     <Provider store={store}>
       <StatusBar
-        hidden={false}
-        barStyle={Platform.OS === 'android' ? 'light-content' : 'dark-content'}
+        translucent={true}
+        backgroundColor={'transparent'}
+        barStyle={'dark-content'}
       />
       <PersistGate persistor={persistor}>
         <MainNavigation />

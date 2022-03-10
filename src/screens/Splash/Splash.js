@@ -12,7 +12,6 @@ const Splash = ({navigation}) => {
 
   return (
     <>
-      <StatusBar hidden />
       <SafeAreaView style={styles.rootContainer}>
         <Image
           source={appLogos.appLogo}

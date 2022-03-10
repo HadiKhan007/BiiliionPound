@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, View, ImageBackground, Image} from 'react-native';
-import {appImages, appLogos, HP} from '../../shared/exporter';
+import {Text, View, ImageBackground, Image, StatusBar} from 'react-native';
+import {appImages, appLogos} from '../../shared/exporter';
 import {Button} from '../../components';
 import styles from './styles';
 

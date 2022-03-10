@@ -13,3 +13,12 @@ export * from './Loader/SmallLoader';
 export * from './IntroSlider/IntroSlider';
 
 export * from './Input/Input';
+
+//CheckBox
+export * from './CheckBox/CheckBox';
+
+//Footer
+export * from './Footer/AuthFooter';
+
+//Box
+export * from './Box/WelcomeBox';

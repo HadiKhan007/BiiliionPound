@@ -12,12 +12,15 @@ export const appImages = {
   slider2: require('../../assets/images/slider2.png'),
   gettingStarted: require('../../assets/images/getting_started.png'),
   slider4: require('../../assets/images/company_pic.png'),
-  appVideo: require('../../assets/video/gym_video.mp4')
+  appVideo: require('../../assets/video/gym_video.mp4'),
 };
 
 export const appIcons = {
   forwardIcon: require('../../assets/logo/forward-arrow.png'),
   checked: require('../../assets/icons/checked.png'),
+  unchecked: require('../../assets/icons/unchecked.png'),
+  apple: require('../../assets/icons/apple.png'),
+  google: require('../../assets/icons/google.png'),
 };
 
 export const appSvgs = {
