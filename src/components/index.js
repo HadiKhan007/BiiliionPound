@@ -22,3 +22,6 @@ export * from './Footer/AuthFooter';
 
 //Box
 export * from './Box/WelcomeBox';
+
+//Tabs
+export * from './Tabs/BottomTab';

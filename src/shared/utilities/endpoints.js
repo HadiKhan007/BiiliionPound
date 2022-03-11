@@ -1,8 +1,8 @@
-const BASE_URL = 'https://api.resihop.com/';
+const BASE_URL = 'https://billion-pound.herokuapp.com/api/v1/';
 
 const ENDPOINTS = {
-  REGISTER: 'register',
-  LOGIN: 'auth/local',
+  REGISTER: 'signup',
+  LOGIN: 'signin',
   LOGOUT: 'logout',
   ACCESS_TOKEN: 'get_access_token',
 };

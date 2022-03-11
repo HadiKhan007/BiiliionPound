@@ -1,4 +1,4 @@
 const ANDROID = Platform.OS === 'android';
 const IOS = Platform.OS === 'ios';
-
-export {ANDROID, IOS};
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+export {ANDROID, IOS, emailRegex};

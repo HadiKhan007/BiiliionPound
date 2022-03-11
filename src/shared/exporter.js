@@ -12,7 +12,13 @@ export {
   platformOrientedCode,
 } from './theme/responsive';
 
-export {LoginVS, SignUpVS} from './utilities/validations';
+export {
+  passwordValidation,
+  emailValidation,
+  firstNameValidation,
+  lastNameValidation,
+} from // LoginVS, loginFormFields
+'./utilities/validations';
 export {
   StatusBarHeight,
   DimensionsWindowHeight,
@@ -21,5 +27,5 @@ export {
 
 export {setupAxios, HTTP_CLIENT, initialConfig} from './utilities/config';
 export {BASE_URL, ENDPOINTS} from './utilities/endpoints';
-export {ANDROID, IOS} from './utilities/constant';
+export {ANDROID, IOS, emailRegex} from './utilities/constant';
 export {header, authHeader} from './utilities/headers';

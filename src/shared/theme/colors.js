@@ -47,4 +47,6 @@ export const colors = {
   s_gradient: ['#E79069', '#E7BB69'],
 
   introSliderColor: '#34C8FF',
+  // red
+  red: 'red',
 };

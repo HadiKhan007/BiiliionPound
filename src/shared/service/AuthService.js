@@ -5,6 +5,7 @@ export const registerUser = params => {
 };
 
 export const loginUser = params => {
+  console.log(params);
   return HTTP_CLIENT.post(ENDPOINTS.LOGIN, params);
 };
 
