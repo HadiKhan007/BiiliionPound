@@ -1,6 +1,5 @@
 //Button
 export * from './Button/Button';
-export * from './Button/Button.stories';
 
 export * from './CircularProgress/CircularProgress';
 

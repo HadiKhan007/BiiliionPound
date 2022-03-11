@@ -1,170 +1,191 @@
 import React, {useState} from 'react';
-import {Text, View, SafeAreaView, Image, StatusBar} from 'react-native';
+import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Checkbox, Input, WelcomeBox} from '../../../components';
-import {
-  colors,
-  emailValidation,
-  firstNameValidation,
-  passwordValidation,
-} from '../../../shared/exporter';
+import {colors, signupFormFields, SignUpVS} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Formik} from 'formik';
+import {useDispatch} from 'react-redux';
+import {signUpRequest} from '../../../redux/actions';
 
 const Signup = ({params, navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firsrNameErrorMsg, setfirstNameErrorMsg] = useState('');
-  const [lastNameErrorMsg, setlastNameErrorMsg] = useState('');
-  const [emailErrorMsg, setemailErrorMsg] = useState('');
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
+  const [loading, setloading] = useState(false);
 
-  const onSubmitSignup = () => {
-    const errorMsgEmail = emailValidation(email);
-    setemailErrorMsg(errorMsgEmail);
-    const errorMsgPassword = passwordValidation(password);
-    setPasswordErrorMsg(errorMsgPassword);
-    const errorMsgFirstName = firstNameValidation(firstName);
-    setfirstNameErrorMsg(errorMsgFirstName);
-    const errorMsglastName = firstNameValidation(lastName);
-    setlastNameErrorMsg(errorMsglastName);
-    if (
-      !errorMsgPassword &&
-      !errorMsgEmail &&
-      !errorMsgFirstName &&
-      !errorMsglastName
-    ) {
-      setemailErrorMsg('');
-      setPasswordErrorMsg('');
-      setfirstNameErrorMsg('');
-      setlastNameErrorMsg('');
-    }
+  const dispatch = useDispatch(null);
+  const onSubmitSignup = values => {
+    setloading(true);
+    const requestBdy = {
+      email: values?.email,
+      password: values?.password,
+      password_confirmation: values?.password,
+      first_name: values?.firstName,
+      last_name: values?.lastName,
+    };
+    dispatch(
+      signUpRequest(
+        requestBdy,
+        res => {
+          setloading(false);
+          if (res?.email != undefined) {
+            setloading(false);
+            Alert.alert('Success', 'User Resgisted Successfully');
+          } else {
+            Alert.alert('Failed', res?.message || 'Registeration Failed');
+          }
+        },
+        res => {
+          Alert.alert('Failed', res?.message || 'Registeration Failed');
+          setloading(false);
+        },
+      ),
+    );
   };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <WelcomeBox title={'Hey there,'} subtitle={'Create your account'} />
         {/* Signup Inputs */}
-        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.inputContainer}>
-            <Input
-              onChangeText={val => {
-                setFirstName(val);
-              }}
-              errorMessage={firsrNameErrorMsg}
-              renderErrorMessage={true}
-              placeholder="First Name"
-              leftIcon={
-                <Icon
-                  type={'font-awesome'}
-                  name={'user'}
-                  size={22}
-                  color={colors.g1}
+        {/* Signup Inputs */}
+        <Formik
+          initialValues={signupFormFields}
+          onSubmit={values => {
+            onSubmitSignup(values);
+          }}
+          validationSchema={SignUpVS}>
+          {({
+            values,
+            handleChange,
+            errors,
+            setFieldTouched,
+            touched,
+            isValid,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.inputContainer}>
+                <Input
+                  onChangeText={handleChange('firstName')}
+                  errorMessage={errors.firstName}
+                  renderErrorMessage={true}
+                  placeholder="First Name"
+                  leftIcon={
+                    <Icon
+                      type={'font-awesome'}
+                      name={'user'}
+                      size={22}
+                      color={colors.g1}
+                    />
+                  }
                 />
-              }
-            />
-            <Input
-              onChangeText={val => {
-                setLastName(val);
-              }}
-              errorMessage={lastNameErrorMsg}
-              renderErrorMessage={true}
-              placeholder="Last Name"
-              leftIcon={
-                <Icon
-                  type={'font-awesome'}
-                  name={'user'}
-                  size={22}
-                  color={colors.g1}
+                <Input
+                  onChangeText={handleChange('lastName')}
+                  errorMessage={errors?.lastName}
+                  renderErrorMessage={true}
+                  placeholder="Last Name"
+                  leftIcon={
+                    <Icon
+                      type={'font-awesome'}
+                      name={'user'}
+                      size={22}
+                      color={colors.g1}
+                    />
+                  }
                 />
-              }
-            />
-            <Input
-              placeholder="Email"
-              leftIcon={
-                <Icon
-                  type={'material'}
-                  name={'email'}
-                  size={22}
-                  color={colors.g1}
+                <Input
+                  onChangeText={handleChange('email')}
+                  renderErrorMessage={true}
+                  placeholder="Email"
+                  leftIcon={
+                    <Icon
+                      type={'material'}
+                      name={'email'}
+                      size={22}
+                      color={colors.g1}
+                    />
+                  }
+                  value={values.email}
+                  onBlur={handleBlur('email')}
+                  blurOnSubmit={false}
+                  disableFullscreenUI={true}
+                  autoCapitalize="none"
+                  touched={touched.email}
+                  errorMessage={errors.email}
                 />
-              }
-              onChangeText={val => {
-                setEmail(val);
-              }}
-              renderErrorMessage={true}
-              errorMessage={emailErrorMsg}
-            />
-            <Input
-              placeholder="Password"
-              secureTextEntry
-              onChangeText={val => {
-                setPassword(val);
-              }}
-              errorMessage={passwordErrorMsg}
-              renderErrorMessage={true}
-              leftIcon={
-                <Icon
-                  type={'material'}
-                  name={'lock'}
-                  size={22}
-                  color={colors.g1}
+                <Input
+                  onChangeText={handleChange('password')}
+                  renderErrorMessage={true}
+                  placeholder="Password"
+                  value={values.password}
+                  onBlur={() => setFieldTouched('password')}
+                  blurOnSubmit={false}
+                  disableFullscreenUI={true}
+                  autoCapitalize="none"
+                  touched={touched.password}
+                  errorMessage={errors.password}
+                  secureTextEntry
+                  leftIcon={
+                    <Icon
+                      type={'material'}
+                      name={'lock'}
+                      size={22}
+                      color={colors.g1}
+                    />
+                  }
                 />
-              }
-            />
 
-            {/* App Privacy Checkbox */}
-            <View style={styles.rememberTxtContainer}>
-              <Checkbox
-                toggleCheckBox={toggleCheckBox}
-                setToggleCheckBox={() => {
-                  setToggleCheckBox(!toggleCheckBox);
+                {/* App Privacy Checkbox */}
+                <View style={styles.rememberTxtContainer}>
+                  <Checkbox
+                    toggleCheckBox={toggleCheckBox}
+                    setToggleCheckBox={() => {
+                      setToggleCheckBox(!toggleCheckBox);
+                    }}
+                  />
+                  <Text style={styles.rememberTxtStyle}>
+                    By continuing you accept our{' '}
+                    <Text
+                      onPress={() => {
+                        navigation?.navigate('PrivacyPolicy');
+                      }}
+                      style={styles.textDecoration}>
+                      Privacy Policy{' '}
+                    </Text>
+                    and{' '}
+                    <Text
+                      onPress={() => {
+                        navigation?.navigate('Terms');
+                      }}
+                      style={styles.textDecoration}>
+                      {' '}
+                      Term of Use
+                    </Text>
+                  </Text>
+                </View>
+              </View>
+
+              {/* Signup Footer Part */}
+              <AuthFooter
+                loading={loading}
+                onPressText={() => {
+                  navigation?.navigate('Login');
+                }}
+                title={'Already have an account?'}
+                subtitle={'Login'}
+                buttonTxt={'Register'}
+                onPressBtn={handleSubmit}
+                onApplePress={() => {
+                  console.log('Apple Signup');
+                }}
+                onGooglePress={() => {
+                  console.log('Google Signup');
                 }}
               />
-              <Text style={styles.rememberTxtStyle}>
-                By continuing you accept our{' '}
-                <Text
-                  onPress={() => {
-                    navigation?.navigate('PrivacyPolicy');
-                  }}
-                  style={styles.textDecoration}>
-                  Privacy Policy{' '}
-                </Text>
-                and{' '}
-                <Text
-                  onPress={() => {
-                    navigation?.navigate('Terms');
-                  }}
-                  style={styles.textDecoration}>
-                  {' '}
-                  Term of Use
-                </Text>
-              </Text>
-            </View>
-          </View>
-
-          {/* Signup Footer Part */}
-          <AuthFooter
-            onPressText={() => {
-              navigation?.navigate('Login');
-            }}
-            title={'Already have an account?'}
-            subtitle={'Login'}
-            buttonTxt={'Register'}
-            onPressBtn={() => {
-              onSubmitSignup();
-            }}
-            onApplePress={() => {
-              console.log('Apple Signup');
-            }}
-            onGooglePress={() => {
-              console.log('Google Signup');
-            }}
-          />
-        </KeyboardAwareScrollView>
+            </KeyboardAwareScrollView>
+          )}
+        </Formik>
       </View>
     </SafeAreaView>
   );

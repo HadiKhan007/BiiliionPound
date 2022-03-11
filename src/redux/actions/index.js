@@ -1,1 +1,1 @@
-export {loginRequest, signUpAction} from "./auth-actions/auth-action";
+export {loginRequest, signUpRequest} from './auth-actions/auth-action';

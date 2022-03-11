@@ -1,124 +1,137 @@
-import React, {useEffect, useState} from 'react';
-import {Text, View, SafeAreaView, Image, StatusBar} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Input, WelcomeBox} from '../../../components';
-import {
-  BASE_URL,
-  colors,
-  emailValidation,
-  passwordValidation,
-} from '../../../shared/exporter';
+import {colors, loginFormFields, LoginVS} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Formik} from 'formik';
 import {useDispatch} from 'react-redux';
 import {loginRequest} from '../../../redux/actions';
-import axios from 'axios';
 
 const Login = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailErrorMsg, setemailErrorMsg] = useState('');
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState('');
   const dispatch = useDispatch(null);
-  const onSubmitLogin = async () => {
-    // const errorMsgEmail = emailValidation(email);
-    // setemailErrorMsg(errorMsgEmail);
-    // const errorMsgPassword = passwordValidation(password);
-    // setPasswordErrorMsg(errorMsgPassword);
-    // if (!errorMsgPassword && !errorMsgEmail) {
-    //   const requestBody = {
-    //     email: email,
-    //     password: password,
-    //   };
-    // dispatch(
-    //   loginRequest(
-    //     requestBody,
-    //     () => {},
-    //     () => {},
-    //   ),
-    // );
-    // setemailErrorMsg('');
-    // setPasswordErrorMsg('');
-    // }
+  const [loading, setloading] = useState(false);
+  const onSubmitLogin = async values => {
+    setloading(true);
+    const requestBody = {
+      email: values?.email,
+      password: values?.password,
+    };
+    dispatch(
+      loginRequest(
+        requestBody,
+        res => {
+          setloading(false);
+          if (res?.user != undefined) {
+            setloading(false);
+            Alert.alert('Success', 'User Logged In Successfully');
+          } else {
+            Alert.alert('Failed', res?.message || 'Logged In Failed');
+          }
+        },
+        res => {
+          Alert.alert('Failed', res?.message || 'Logged In Failed');
+          setloading(false);
+        },
+      ),
+    );
   };
-  useEffect(() => {
-    const res = axios
-      .get('https://jsonplaceholder.typicode.com/posts/1')
-      .then(resp => {
-        return resp.data;
-      });
-    console.log(res);
-  }, []);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <WelcomeBox title={'Hey there,'} subtitle={'Welcome Back!'} />
         {/* Signup Inputs */}
-        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.inputContainer}>
-            <Input
-              onChangeText={val => {
-                setEmail(val);
-              }}
-              renderErrorMessage={true}
-              placeholder="Email"
-              leftIcon={
-                <Icon
-                  type={'material'}
-                  name={'email'}
-                  size={22}
-                  color={colors.g1}
+        <Formik
+          initialValues={loginFormFields}
+          onSubmit={values => {
+            onSubmitLogin(values);
+          }}
+          validationSchema={LoginVS}>
+          {({
+            values,
+            handleChange,
+            errors,
+            setFieldTouched,
+            touched,
+            isValid,
+            handleBlur,
+            handleSubmit,
+          }) => (
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.inputContainer}>
+                <Input
+                  onChangeText={handleChange('email')}
+                  renderErrorMessage={true}
+                  placeholder="Email"
+                  leftIcon={
+                    <Icon
+                      type={'material'}
+                      name={'email'}
+                      size={22}
+                      color={colors.g1}
+                    />
+                  }
+                  value={values.email}
+                  onBlur={handleBlur('email')}
+                  blurOnSubmit={false}
+                  disableFullscreenUI={true}
+                  autoCapitalize="none"
+                  touched={touched.email}
+                  errorMessage={errors.email}
                 />
-              }
-              errorMessage={emailErrorMsg}
-            />
-            <Input
-              onChangeText={val => {
-                setPassword(val);
-              }}
-              errorMessage={passwordErrorMsg}
-              renderErrorMessage={true}
-              placeholder="Password"
-              secureTextEntry
-              leftIcon={
-                <Icon
-                  type={'material'}
-                  name={'lock'}
-                  size={22}
-                  color={colors.g1}
+                <Input
+                  onChangeText={handleChange('password')}
+                  renderErrorMessage={true}
+                  placeholder="Password"
+                  value={values.password}
+                  onBlur={() => setFieldTouched('password')}
+                  blurOnSubmit={false}
+                  disableFullscreenUI={true}
+                  autoCapitalize="none"
+                  touched={touched.password}
+                  errorMessage={errors.password}
+                  secureTextEntry
+                  leftIcon={
+                    <Icon
+                      type={'material'}
+                      name={'lock'}
+                      size={22}
+                      color={colors.g1}
+                    />
+                  }
                 />
-              }
-            />
 
-            {/* App Privacy Checkbox */}
-            <Text
-              onPress={() => {
-                navigation?.navigate('ForgotPassword');
-              }}
-              style={styles.forgotTxtStyle}>
-              Forgot your password?{' '}
-            </Text>
-          </View>
+                {/* App Privacy Checkbox */}
+                <Text
+                  onPress={() => {
+                    navigation?.navigate('ForgotPassword');
+                  }}
+                  style={styles.forgotTxtStyle}>
+                  Forgot your password?{' '}
+                </Text>
+              </View>
 
-          {/* Login Footer Part */}
-          <AuthFooter
-            onPressText={() => {
-              navigation?.navigate('SignUp');
-            }}
-            title={`Don't have an account?`}
-            subtitle={'Register'}
-            buttonTxt={'Login'}
-            onPressBtn={() => {
-              onSubmitLogin();
-            }}
-            onApplePress={() => {
-              console.log('Apple Login');
-            }}
-            onGooglePress={() => {
-              console.log('Google Login');
-            }}
-          />
-        </KeyboardAwareScrollView>
+              {/* Login Footer Part */}
+              <AuthFooter
+                loading={loading}
+                onPressText={() => {
+                  navigation?.navigate('SignUp');
+                }}
+                title={`Don't have an account?`}
+                subtitle={'Register'}
+                buttonTxt={'Login'}
+                onPressBtn={handleSubmit}
+                onApplePress={() => {
+                  console.log('Apple Login');
+                }}
+                onGooglePress={() => {
+                  console.log('Google Login');
+                }}
+              />
+            </KeyboardAwareScrollView>
+          )}
+        </Formik>
       </View>
     </SafeAreaView>
   );

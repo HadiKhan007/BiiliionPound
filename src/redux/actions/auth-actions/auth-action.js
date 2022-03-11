@@ -11,7 +11,7 @@ export const loginRequest = (params, cbSuccess, cbFailure) => {
 };
 
 //Sign up obj Action
-export const signUpAction = (params, cbSuccess, cbFailure) => {
+export const signUpRequest = (params, cbSuccess, cbFailure) => {
   return {
     type: TYPES.SIGNUP_REQUEST,
     params,

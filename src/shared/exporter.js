@@ -13,12 +13,11 @@ export {
 } from './theme/responsive';
 
 export {
-  passwordValidation,
-  emailValidation,
-  firstNameValidation,
-  lastNameValidation,
-} from // LoginVS, loginFormFields
-'./utilities/validations';
+  LoginVS,
+  loginFormFields,
+  signupFormFields,
+  SignUpVS,
+} from './utilities/validations';
 export {
   StatusBarHeight,
   DimensionsWindowHeight,
