@@ -29,27 +29,24 @@ const Login = ({navigation}) => {
         email: values?.email,
         password: values?.password,
       };
-      dispatch(
-        loginRequest(
-          requestBody,
-          res => {
-            setloading(false);
-            if (res?.user != undefined) {
-              setloading(false);
-              navigation?.replace('App');
-            } else {
-              Alert.alert('Failed', res?.message || 'Logged In Failed');
-            }
-          },
-          res => {
-            Alert.alert('Failed', res?.message || 'Logged In Failed');
-            setloading(false);
-          },
-        ),
-      );
+      dispatch(loginRequest(requestBody, onLoginSuccess, onLoginFailure));
     } else {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
+  };
+  //onLogin Success
+  const onLoginSuccess = res => {
+    setloading(false);
+    if (res?.user != undefined) {
+      navigation?.replace('App');
+    } else {
+      Alert.alert('Failed', res?.message || 'Logged In Failed');
+    }
+  };
+  //On Login Failure
+  const onLoginFailure = res => {
+    Alert.alert('Failed', res?.message || 'Logged In Failed');
+    setloading(false);
   };
 
   return (

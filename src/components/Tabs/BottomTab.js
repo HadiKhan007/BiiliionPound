@@ -4,7 +4,9 @@ import {appIcons, colors, family, HP, size, WP} from '../../shared/exporter';
 import {FlatList} from 'react-native-gesture-handler';
 
 export const BottomTab = ({state, descriptors, navigation}) => {
+  //Tab State
   const [tab, setTab] = useState('Home');
+  //Select Tabs
   const setSelectedTab = (tabName, index) => {
     if (state?.routes[index]?.name === tabName) {
       setTab(state?.routes[index]?.name);
