@@ -14,12 +14,14 @@ interface ButtonProps {
   title: string;
   withRightIcon: boolean;
   onPress: () => void;
+  disabled: boolean;
 }
 
-const Button = ({title, withRightIcon, onPress}: ButtonProps) => {
+const Button = ({title, withRightIcon, onPress, disabled}: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={disabled}
       style={[
         styles.main,
         {justifyContent: withRightIcon ? 'space-between' : 'center'},

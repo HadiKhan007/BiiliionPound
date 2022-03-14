@@ -7,6 +7,7 @@ import ForgotPassword from '../../screens/AuthScreens/ForgotPassword';
 import ResetPassword from '../../screens/AuthScreens/ResetPassword';
 import Terms from '../../screens/Terms/Terms';
 import PrivacyPolicy from '../../screens/PrivacyPolicy';
+import VerifyOtp from '../../screens/AuthScreens/VerifyOtp';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ function AuthStack(props) {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
       <Stack.Screen name="Terms" component={Terms} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
     </Stack.Navigator>

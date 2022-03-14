@@ -1,5 +1,6 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import * as types from '../../actions/types';
+import {registerUser} from '../../../shared/service/AuthService';
 
 export function* signUpRequest() {
   yield takeLatest(types.SIGNUP_REQUEST, signUp);
@@ -7,21 +8,18 @@ export function* signUpRequest() {
 }
 
 function* signUp(params) {
-  console.log('[signUp-saga]', params);
   try {
-    let response = yield;
-    console.log('[signUp-saga response]', response);
-    if (response) {
-      const {uid} = response.user;
-      params.cbSuccess(response, uid);
-      yield put({type: types.SIGNUP_SUCCESS, data: uid});
-      //  yield put({type: types.SAVE_INFO_REQUEST, data: response.user});
-    } else {
-      params.cbFailure(response.message);
-    }
+    registerUser(params?.params)
+      .then(res => {
+        console.log(res?.data);
+        params?.cbSuccess(res.data);
+      })
+      .catch(error => {
+        params?.cbFailure(error);
+      });
   } catch (error) {
-    params.cbFailure(error.message);
-    yield put({type: types.SIGNUP_FAILURE, error: 'Network Error'});
+    params.cbFailure(error);
+    // yield put({type: types.SIGNUP_FAILURE, error: 'Network Error'});
   }
 }
 

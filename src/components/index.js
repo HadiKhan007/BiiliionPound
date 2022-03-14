@@ -1,6 +1,5 @@
 //Button
 export * from './Button/Button';
-export * from './Button/Button.stories';
 
 export * from './CircularProgress/CircularProgress';
 
@@ -22,3 +21,6 @@ export * from './Footer/AuthFooter';
 
 //Box
 export * from './Box/WelcomeBox';
+
+//Tabs
+export * from './Tabs/BottomTab';

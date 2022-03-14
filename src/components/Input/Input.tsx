@@ -9,6 +9,15 @@ interface InputProps {
   leftIcon: IconProps;
   rightIcon: IconProps;
   secureTextEntry: boolean;
+  renderErrorMessage: boolean;
+  onChangeText: () => {};
+  onBlur: () => {};
+  errorMessage: string;
+  blurOnSubmit: boolean;
+  disableFullscreenUI: boolean;
+  autoCapitalize: any;
+  touched: any;
+  value: any;
 }
 
 const Input = ({
@@ -16,10 +25,17 @@ const Input = ({
   leftIcon,
   rightIcon,
   secureTextEntry,
+  renderErrorMessage,
+  errorMessage,
+  onChangeText,
+  disableFullscreenUI,
+  autoCapitalize,
+  touched,
+  blurOnSubmit,
+  onBlur,
+  value,
 }: InputProps) => {
-  const [secure, setSecure] = React.useState(secureTextEntry);
-
-  const [showPass, setShowPass] = React.useState(true);
+  const [showPass, setShowPass] = React.useState(secureTextEntry);
 
   return (
     <RNInput
@@ -28,6 +44,12 @@ const Input = ({
       inputContainerStyle={styles.inputContainerStyle}
       inputStyle={styles.inputStyle}
       leftIcon={leftIcon}
+      onChangeText={onChangeText}
+      onBlur={onBlur}
+      value={value}
+      disableFullscreenUI={disableFullscreenUI}
+      autoCapitalize={autoCapitalize}
+      blurOnSubmit={blurOnSubmit}
       rightIcon={
         secureTextEntry ? (
           <Icon
@@ -42,6 +64,8 @@ const Input = ({
           />
         ) : null
       }
+      errorMessage={errorMessage}
+      renderErrorMessage={renderErrorMessage}
       autoCompleteType={undefined}
     />
   );

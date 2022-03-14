@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.introSliderColor,
   },
   textContainer: {
-    flex: 0.3,
+    flex: 0.5,
     justifyContent: 'center',
     paddingHorizontal: 20,
     alignItems: 'flex-start',
     marginTop: HP('4'),
   },
   picContainer: {
-    flex: 0.7,
+    flex: 1,
   },
   title: {
     color: colors.white,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar, Platform, LogBox} from 'react-native';
 import MainNavigation from './src/navigation';
 import {Provider} from 'react-redux';

@@ -3,6 +3,7 @@ import React from 'react';
 import {appIcons, colors, family, size, spacing} from '../../shared/exporter';
 import PropTypes from 'prop-types';
 import {Button} from '../../components';
+import {Loader} from '../Loader';
 export const AuthFooter = ({
   title,
   subtitle,
@@ -11,10 +12,13 @@ export const AuthFooter = ({
   onPressText,
   onApplePress,
   onGooglePress,
+  loading,
+  disabled,
 }) => {
   return (
     <View style={styles.btnContainer}>
-      <Button onPress={onPressBtn} title={buttonTxt} />
+      {loading && <Loader loading={loading} />}
+      <Button disabled={disabled} onPress={onPressBtn} title={buttonTxt} />
       <View style={styles.container}>
         <View style={styles.line1Container}>
           <View style={styles.line1Style} />
@@ -53,11 +57,12 @@ AuthFooter.propTypes = {
   onPressBtn: PropTypes.func,
   onApplePress: PropTypes.func,
   onGooglePress: PropTypes.func,
+  loading: PropTypes?.bool,
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 20,
     paddingHorizontal: 20,
     width: '100%',
   },

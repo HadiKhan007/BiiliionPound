@@ -19,6 +19,7 @@ const pReducer = persistReducer(persistConfig, rootReducer);
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
+
 // dev tools middleware
 // const reduxDevTools =
 //     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
