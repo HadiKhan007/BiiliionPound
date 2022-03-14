@@ -19,7 +19,7 @@ const GettingStarted = ({navigation}) => {
         <Button
           title="Getting Started"
           onPress={() => {
-            navigation.navigate('Walkthrough');
+            navigation.replace('Walkthrough');
           }}
         />
       </View>

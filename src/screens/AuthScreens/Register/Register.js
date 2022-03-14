@@ -22,7 +22,7 @@ const Signup = ({params, navigation}) => {
   const dispatch = useDispatch(null);
 
   //Submit Sign Up Form
-  const onSubmitSignup = async values => {
+  const onSubmitSignup = async (values, resetForm) => {
     if (toggleCheckBox) {
       const checkInternet = await checkConnected();
       if (checkInternet) {
@@ -46,6 +46,8 @@ const Signup = ({params, navigation}) => {
                     text: 'ok',
                     onPress: () => {
                       navigation?.navigate('Login');
+                      resetForm();
+                      setToggleCheckBox(false);
                     },
                   },
                 ]);
@@ -76,8 +78,8 @@ const Signup = ({params, navigation}) => {
         {/* Signup Inputs */}
         <Formik
           initialValues={signupFormFields}
-          onSubmit={values => {
-            onSubmitSignup(values);
+          onSubmit={(values, {resetForm}) => {
+            onSubmitSignup(values, resetForm);
           }}
           validationSchema={SignUpVS}>
           {({
@@ -88,6 +90,7 @@ const Signup = ({params, navigation}) => {
             touched,
             isValid,
             handleSubmit,
+            handleReset,
           }) => (
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.inputContainer}>
@@ -204,6 +207,8 @@ const Signup = ({params, navigation}) => {
                 disabled={!isValid || loading}
                 loading={loading}
                 onPressText={() => {
+                  handleReset();
+                  setToggleCheckBox(false);
                   navigation?.navigate('Login');
                 }}
                 title={'Already have an account?'}

@@ -73,7 +73,7 @@ const Walkthrough = ({navigation}) => {
     return (
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('Auth', {
+          navigation.replace('Auth', {
             screen: 'SignUp',
           })
         }

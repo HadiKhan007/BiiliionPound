@@ -70,7 +70,6 @@ const Login = ({navigation}) => {
             setFieldTouched,
             touched,
             isValid,
-            handleBlur,
             handleSubmit,
           }) => (
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -88,7 +87,7 @@ const Login = ({navigation}) => {
                     />
                   }
                   value={values.email}
-                  onBlur={handleBlur('email')}
+                  onBlur={() => setFieldTouched('email')}
                   blurOnSubmit={false}
                   disableFullscreenUI={true}
                   autoCapitalize="none"
