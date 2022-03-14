@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Checkbox, Input, WelcomeBox} from '../../../components';
-import {colors, signupFormFields, SignUpVS} from '../../../shared/exporter';
+import {
+  checkConnected,
+  colors,
+  signupFormFields,
+  SignUpVS,
+} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
@@ -13,40 +18,61 @@ const Signup = ({params, navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [loading, setloading] = useState(false);
 
+  //Redux States
   const dispatch = useDispatch(null);
-  const onSubmitSignup = values => {
-    setloading(true);
-    const requestBdy = {
-      email: values?.email,
-      password: values?.password,
-      password_confirmation: values?.password,
-      first_name: values?.firstName,
-      last_name: values?.lastName,
-    };
-    dispatch(
-      signUpRequest(
-        requestBdy,
-        res => {
-          setloading(false);
-          if (res?.email != undefined) {
-            setloading(false);
-            Alert.alert('Success', 'User Resgisted Successfully');
-          } else {
-            Alert.alert('Failed', res?.message || 'Registeration Failed');
-          }
-        },
-        res => {
-          Alert.alert('Failed', res?.message || 'Registeration Failed');
-          setloading(false);
-        },
-      ),
-    );
+
+  //Submit Sign Up Form
+  const onSubmitSignup = async values => {
+    if (toggleCheckBox) {
+      const checkInternet = await checkConnected();
+      if (checkInternet) {
+        setloading(true);
+        const requestBdy = {
+          email: values?.email,
+          password: values?.password,
+          password_confirmation: values?.password,
+          first_name: values?.firstName,
+          last_name: values?.lastName,
+        };
+        dispatch(
+          signUpRequest(
+            requestBdy,
+            res => {
+              setloading(false);
+              if (res?.email != undefined) {
+                setloading(false);
+                Alert.alert('Success', 'User Resgisted Successfully', [
+                  {
+                    text: 'ok',
+                    onPress: () => {
+                      navigation?.navigate('Login');
+                    },
+                  },
+                ]);
+              } else {
+                Alert.alert('Failed', res?.message || 'Registeration Failed');
+              }
+            },
+            res => {
+              Alert.alert('Failed', res?.message || 'Registeration Failed');
+              setloading(false);
+            },
+          ),
+        );
+      } else {
+        Alert.alert('Error', 'Check your internet connectivity!');
+      }
+    } else {
+      Alert.alert(
+        'Message!',
+        'Please accept our Privacy Policy and Term of Use.',
+      );
+    }
   };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <WelcomeBox title={'Hey there,'} subtitle={'Create your account'} />
-        {/* Signup Inputs */}
         {/* Signup Inputs */}
         <Formik
           initialValues={signupFormFields}
@@ -61,7 +87,6 @@ const Signup = ({params, navigation}) => {
             setFieldTouched,
             touched,
             isValid,
-            handleBlur,
             handleSubmit,
           }) => (
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -71,6 +96,10 @@ const Signup = ({params, navigation}) => {
                   errorMessage={errors.firstName}
                   renderErrorMessage={true}
                   placeholder="First Name"
+                  value={values.firstName}
+                  onBlur={() => setFieldTouched('firstName')}
+                  blurOnSubmit={false}
+                  disableFullscreenUI={true}
                   leftIcon={
                     <Icon
                       type={'font-awesome'}
@@ -85,6 +114,10 @@ const Signup = ({params, navigation}) => {
                   errorMessage={errors?.lastName}
                   renderErrorMessage={true}
                   placeholder="Last Name"
+                  value={values?.lastName}
+                  onBlur={() => setFieldTouched('lastName')}
+                  blurOnSubmit={false}
+                  disableFullscreenUI={true}
                   leftIcon={
                     <Icon
                       type={'font-awesome'}
@@ -107,7 +140,7 @@ const Signup = ({params, navigation}) => {
                     />
                   }
                   value={values.email}
-                  onBlur={handleBlur('email')}
+                  onBlur={() => setFieldTouched('email')}
                   blurOnSubmit={false}
                   disableFullscreenUI={true}
                   autoCapitalize="none"
@@ -168,6 +201,7 @@ const Signup = ({params, navigation}) => {
 
               {/* Signup Footer Part */}
               <AuthFooter
+                disabled={!isValid || loading}
                 loading={loading}
                 onPressText={() => {
                   navigation?.navigate('Login');

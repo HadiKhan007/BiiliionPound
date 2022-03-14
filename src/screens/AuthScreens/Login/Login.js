@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Input, WelcomeBox} from '../../../components';
-import {colors, loginFormFields, LoginVS} from '../../../shared/exporter';
+import {
+  checkConnected,
+  colors,
+  loginFormFields,
+  LoginVS,
+} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
@@ -10,38 +15,48 @@ import {useDispatch} from 'react-redux';
 import {loginRequest} from '../../../redux/actions';
 
 const Login = ({navigation}) => {
-  const dispatch = useDispatch(null);
   const [loading, setloading] = useState(false);
+
+  //Redux States
+  const dispatch = useDispatch(null);
+
+  //On Submit Login Form
   const onSubmitLogin = async values => {
-    setloading(true);
-    const requestBody = {
-      email: values?.email,
-      password: values?.password,
-    };
-    dispatch(
-      loginRequest(
-        requestBody,
-        res => {
-          setloading(false);
-          if (res?.user != undefined) {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setloading(true);
+      const requestBody = {
+        email: values?.email,
+        password: values?.password,
+      };
+      dispatch(
+        loginRequest(
+          requestBody,
+          res => {
             setloading(false);
-            Alert.alert('Success', 'User Logged In Successfully');
-          } else {
+            if (res?.user != undefined) {
+              setloading(false);
+              navigation?.replace('App');
+            } else {
+              Alert.alert('Failed', res?.message || 'Logged In Failed');
+            }
+          },
+          res => {
             Alert.alert('Failed', res?.message || 'Logged In Failed');
-          }
-        },
-        res => {
-          Alert.alert('Failed', res?.message || 'Logged In Failed');
-          setloading(false);
-        },
-      ),
-    );
+            setloading(false);
+          },
+        ),
+      );
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <WelcomeBox title={'Hey there,'} subtitle={'Welcome Back!'} />
-        {/* Signup Inputs */}
+        {/* Login Inputs */}
         <Formik
           initialValues={loginFormFields}
           onSubmit={values => {
@@ -114,6 +129,7 @@ const Login = ({navigation}) => {
 
               {/* Login Footer Part */}
               <AuthFooter
+                disabled={loading || !isValid}
                 loading={loading}
                 onPressText={() => {
                   navigation?.navigate('SignUp');

@@ -28,3 +28,4 @@ export {setupAxios, HTTP_CLIENT, initialConfig} from './utilities/config';
 export {BASE_URL, ENDPOINTS} from './utilities/endpoints';
 export {ANDROID, IOS, emailRegex} from './utilities/constant';
 export {header, authHeader} from './utilities/headers';
+export {checkConnected} from './utilities/helper';

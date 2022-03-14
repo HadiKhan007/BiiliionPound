@@ -13,11 +13,12 @@ export const AuthFooter = ({
   onApplePress,
   onGooglePress,
   loading,
+  disabled,
 }) => {
   return (
     <View style={styles.btnContainer}>
       {loading && <Loader loading={loading} />}
-      <Button onPress={onPressBtn} title={buttonTxt} />
+      <Button disabled={disabled} onPress={onPressBtn} title={buttonTxt} />
       <View style={styles.container}>
         <View style={styles.line1Container}>
           <View style={styles.line1Style} />
