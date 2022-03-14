@@ -1,7 +1,7 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {HomeHeader} from '../../../components';
+import {AppHeader, HomeHeader} from '../../../components';
 const Dashboard = () => {
   return (
     <SafeAreaView style={styles.main}>

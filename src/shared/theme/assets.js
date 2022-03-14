@@ -25,6 +25,7 @@ export const appIcons = {
   board: require('../../assets/icons/board.png'),
   profile: require('../../assets/icons/profile.png'),
   notification: require('../../assets/icons/notification.png'),
+  backArrow: require('../../assets/icons/backArrow.png'),
 };
 
 export const appSvgs = {
