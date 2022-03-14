@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-
+import styles from './styles';
 const PrivacyPolicy = () => {
   return (
     <View>
@@ -10,5 +10,3 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
-
-const styles = StyleSheet.create({});

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
+import {Text, View, SafeAreaView, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Checkbox, Input, WelcomeBox} from '../../../components';
 import {
@@ -14,7 +14,7 @@ import {Formik} from 'formik';
 import {useDispatch} from 'react-redux';
 import {signUpRequest} from '../../../redux/actions';
 
-const Signup = ({params, navigation}) => {
+const Signup = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [loading, setloading] = useState(false);
 
@@ -71,6 +71,7 @@ const Signup = ({params, navigation}) => {
       );
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
