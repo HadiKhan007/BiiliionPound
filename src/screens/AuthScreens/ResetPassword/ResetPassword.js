@@ -6,7 +6,7 @@ import {colors, WP} from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-const ResetPassword = ({params, navigation}) => {
+const ResetPassword = ({navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -21,7 +21,7 @@ const ResetPassword = ({params, navigation}) => {
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.inputContainer}>
             <Input
-              placeholder="Password"
+              placeholder="New Password"
               secureTextEntry
               leftIcon={
                 <Icon
@@ -33,7 +33,7 @@ const ResetPassword = ({params, navigation}) => {
               }
             />
             <Input
-              placeholder="Confirm Password"
+              placeholder="New Confirm Password"
               secureTextEntry
               leftIcon={
                 <Icon
@@ -52,7 +52,7 @@ const ResetPassword = ({params, navigation}) => {
               onPress={() => {
                 navigation?.navigate('App');
               }}
-              title={'Next'}
+              title={'Reset'}
             />
           </View>
         </KeyboardAwareScrollView>

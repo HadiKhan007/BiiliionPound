@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginTop: HP('4'),
   },
   picContainer: {
-    flex: 0.6,
+    flex: 1,
   },
   title: {
     color: colors.white,

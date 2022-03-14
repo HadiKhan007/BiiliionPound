@@ -37,28 +37,8 @@ const Signup = ({navigation}) => {
         dispatch(
           signUpRequest(
             requestBdy,
-            res => {
-              setloading(false);
-              if (res?.email != undefined) {
-                setloading(false);
-                Alert.alert('Success', 'User Resgisted Successfully', [
-                  {
-                    text: 'ok',
-                    onPress: () => {
-                      navigation?.navigate('Login');
-                      resetForm();
-                      setToggleCheckBox(false);
-                    },
-                  },
-                ]);
-              } else {
-                Alert.alert('Failed', res?.message || 'Registeration Failed');
-              }
-            },
-            res => {
-              Alert.alert('Failed', res?.message || 'Registeration Failed');
-              setloading(false);
-            },
+            res => onSignUpSuccess(res, resetForm),
+            onSignUpFailure,
           ),
         );
       } else {
@@ -71,7 +51,29 @@ const Signup = ({navigation}) => {
       );
     }
   };
-
+  //SignUp Failure
+  const onSignUpFailure = res => {
+    Alert.alert('Failed', res?.message || 'Registeration Failed');
+    setloading(false);
+  };
+  //SignUp Success
+  const onSignUpSuccess = (res, resetForm) => {
+    setloading(false);
+    if (res?.email != undefined) {
+      Alert.alert('Success', 'User Resgisted Successfully', [
+        {
+          text: 'ok',
+          onPress: () => {
+            navigation?.navigate('Login');
+            resetForm();
+            setToggleCheckBox(false);
+          },
+        },
+      ]);
+    } else {
+      Alert.alert('Failed', res?.message || 'Registeration Failed');
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
