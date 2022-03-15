@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Input, WelcomeBox} from '../../../components';
@@ -7,18 +7,32 @@ import {
   colors,
   loginFormFields,
   LoginVS,
+  web_client_id,
 } from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
 import {useDispatch} from 'react-redux';
-import {loginRequest} from '../../../redux/actions';
+import {loginRequest, socialLoginRequest} from '../../../redux/actions';
+import {appleAuth} from '@invertase/react-native-apple-authentication';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+// import {firebase} from '@react-native-firebase/auth';
 
 const Login = ({navigation}) => {
   const [loading, setloading] = useState(false);
 
   //Redux States
   const dispatch = useDispatch(null);
+
+  //Initialize Google Signin
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: web_client_id,
+    });
+  }, []);
 
   //On Submit Login Form
   const onSubmitLogin = async values => {
@@ -49,6 +63,85 @@ const Login = ({navigation}) => {
     setloading(false);
   };
 
+  //Google Login
+  const onGoogleButtonPress = async () => {
+    setloading(true);
+    try {
+      await GoogleSignin.hasPlayServices();
+      const {idToken} = await GoogleSignin.signIn();
+      // ***********use for authentication*************
+      // const googleCredential =
+      //   firebase?.auth.GoogleAuthProvider.credential(idToken);
+      // const res = await firebase.auth().signInWithCredential(googleCredential);
+      // ***********use for authentication*************
+      const requestBody = {
+        token: idToken,
+      };
+      dispatch(
+        socialLoginRequest(
+          requestBody,
+          onSocialLoginSuccess,
+          onSocialLoginFailed,
+        ),
+      );
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        setloading(false);
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        setloading(false);
+      } else {
+        setloading(false);
+      }
+    }
+  };
+  //On Social Login Success
+  const onSocialLoginSuccess = res => {
+    navigation?.replace('App');
+    setloading(false);
+    console.log('Social Login Success', res);
+  };
+  //On Social Login Failed
+  const onSocialLoginFailed = res => {
+    setloading(false);
+    console.log('Social Login Failed');
+  };
+
+  //On Apple SignIn
+  const onAppleButtonPress = async () => {
+    try {
+      setloading(true);
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+      const {identityToken, nonce} = appleAuthRequestResponse;
+      if (identityToken) {
+        setloading(false);
+        console.log(identityToken);
+
+        // ***********use for authentication*************
+        //Can be used in future
+        // const appleCredential = firebase.auth.AppleAuthProvider.credential(
+        //   identityToken,
+        //   nonce,
+        // );
+        // const userCredential = await firebase
+        //   .auth()
+        //   .signInWithCredential(appleCredential);
+        // ***********use for authentication*************
+
+        console.warn(
+          `Firebase authenticated via Apple, UID: ${userCredential.user.uid}`,
+        );
+      } else {
+        // handle this - retry?
+        Alert.alert('Error', 'Try Again few seconds later.');
+        setloading(false);
+      }
+    } catch (error) {
+      setloading(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -134,12 +227,8 @@ const Login = ({navigation}) => {
                 subtitle={'Register'}
                 buttonTxt={'Login'}
                 onPressBtn={handleSubmit}
-                onApplePress={() => {
-                  console.log('Apple Login');
-                }}
-                onGooglePress={() => {
-                  console.log('Google Login');
-                }}
+                onApplePress={onAppleButtonPress}
+                onGooglePress={onGoogleButtonPress}
               />
             </KeyboardAwareScrollView>
           )}

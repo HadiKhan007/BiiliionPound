@@ -1,9 +1,25 @@
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import React from 'react';
-import {appIcons, colors, family, size, spacing} from '../../shared/exporter';
+import {
+  appIcons,
+  colors,
+  family,
+  HP,
+  size,
+  spacing,
+} from '../../shared/exporter';
 import PropTypes from 'prop-types';
 import {Button} from '../../components';
 import {Loader} from '../Loader';
+import {AppleButton} from '@invertase/react-native-apple-authentication';
+
 export const AuthFooter = ({
   title,
   subtitle,
@@ -29,13 +45,24 @@ export const AuthFooter = ({
         </View>
         <View style={styles.cardView}>
           <TouchableOpacity
+            disabled={loading}
             onPress={onGooglePress}
             style={styles.cardContainer}>
             <Image source={appIcons.google} style={styles.icon18} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={onApplePress} style={styles.cardContainer}>
-            <Image source={appIcons.apple} style={styles.icon24} />
-          </TouchableOpacity>
+          {Platform.OS === 'ios' && (
+            <TouchableOpacity
+              disabled={loading}
+              onPress={onApplePress}
+              style={styles.cardContainer}>
+              <AppleButton
+                buttonStyle={AppleButton.Style.WHITE}
+                buttonType={AppleButton.Type.SIGN_IN}
+                style={styles.icon45}
+                onPress={onApplePress}
+              />
+            </TouchableOpacity>
+          )}
         </View>
         <View style={spacing.mb5}>
           <Text style={styles.footertext}>
@@ -111,6 +138,10 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24,
     resizeMode: 'contain',
+  },
+  icon45: {
+    width: 45, // You must specify a width
+    height: 45, // You must specify a height
   },
   footertext: {
     textAlign: 'center',

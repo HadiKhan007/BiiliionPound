@@ -31,6 +31,26 @@ const authReducer = (state = initialState, actions) => {
         userInfo: null,
       };
 
+    //************Social Login Sates*************
+
+    case TYPES.SOCIAL_LOGIN_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userInfo: payload,
+      };
+
+    case TYPES.SOCIAL_LOGIN_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userInfo: null,
+      };
+
     //************SignUp Sates*************
 
     case TYPES.SIGNUP_SUCCESS:

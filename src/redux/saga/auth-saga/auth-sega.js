@@ -1,15 +1,14 @@
-import axios from 'axios';
 import {takeLatest, put} from 'redux-saga/effects';
 import {
   forgotPassword,
   loginUser,
   registerUser,
   resetPassword,
+  socialLogin,
 } from '../../../shared/service/AuthService';
 import * as types from '../../actions/types';
 
 // *************Login Sega**************
-
 export function* loginRequest() {
   yield takeLatest(types.LOGIN_REQUEST_REQUEST, login);
 }
@@ -38,8 +37,38 @@ function* login(params) {
     params?.cbFailure(error?.response?.data?.error[0]);
   }
 }
-// *************Sign Up Sega**************
 
+// *************Social Login Login Sega**************
+export function* socialLoginRequest() {
+  yield takeLatest(types.SOCIAL_LOGIN_REQUEST_REQUEST, socialLoginUser);
+}
+function* socialLoginUser(params) {
+  try {
+    const res = yield socialLogin(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.SOCIAL_LOGIN_REQUEST_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.SOCIAL_LOGIN_REQUEST_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(error);
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.SOCIAL_LOGIN_REQUEST_FAILURE,
+      payload: null,
+    });
+    params?.cbFailure(error?.response?.data?.error[0]);
+  }
+}
+
+// *************Sign Up Sega**************
 export function* signUpRequest() {
   yield takeLatest(types.SIGNUP_REQUEST, signUp);
 }
@@ -60,7 +89,6 @@ function* signUp(params) {
 }
 
 // *************Forgot Sega**************
-
 export function* forgotPassRequest() {
   yield takeLatest(types.FORGOT_PASSWORD_REQUEST, forgot);
 }
@@ -90,7 +118,6 @@ function* forgot(params) {
   }
 }
 // *************Reset Password Sega**************
-
 export function* resetPassRequest() {
   yield takeLatest(types.RESET_PASSWORD_REQUEST, resetPass);
 }

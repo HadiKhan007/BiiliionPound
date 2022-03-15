@@ -33,9 +33,13 @@
     "installLibs": "yarn add @react-native-async-storage/async-storage @react-native-community/masked-view @react-navigation/bottom-tabs @react-navigation/native @react-navigation/stack react-native-gesture-handler react-native-reanimated react-native-safe-area-context react-native-screens react-native-elements react-native-vector-icons react-redux redux redux-devtools-extension redux-logger redux-persist redux-saga"
   },
   "dependencies": {
+    "@invertase/react-native-apple-authentication": "^2.1.5",
     "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "^8.1.0",
+    "@react-native-firebase/app": "^14.5.1",
+    "@react-native-firebase/auth": "^14.5.1",
+    "@react-native-google-signin/google-signin": "^7.2.1",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
