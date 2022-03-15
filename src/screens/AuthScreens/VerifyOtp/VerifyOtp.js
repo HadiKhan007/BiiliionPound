@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {TouchableOpacity, View, SafeAreaView, Text} from 'react-native';
+import {TouchableOpacity, View, SafeAreaView, Text, Alert} from 'react-native';
 import styles from './styles';
 import {WelcomeBox, Button} from '../../../components';
 import {WP, colors} from '../../../shared/exporter';
@@ -9,16 +9,35 @@ import {
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import CountDown from 'react-native-countdown-component';
+import {useSelector} from 'react-redux';
 
-const VerifyOtp = ({params, navigation}) => {
+const VerifyOtp = ({navigation}) => {
+  //States Declaration
   const [value, setValue] = useState('');
   const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
   const [resendCode, setResendCode] = useState(false);
+
+  //Reference Declraration
   const ref = useRef();
 
+  //Redux Declaration
+  const {forgotPassRes} = useSelector(state => state?.auth);
+
+  //Confirm OTP Handler
+  const confirmOtp = code => {
+    if (code != '') {
+      if (forgotPassRes?.otp == code) {
+        navigation?.replace('ResetPassword');
+      } else {
+        Alert.alert('Error', 'Invalid OTP code!');
+      }
+    } else {
+      Alert.alert('Error', 'OTP required');
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -34,10 +53,15 @@ const VerifyOtp = ({params, navigation}) => {
               ref={ref}
               {...codeFieldProps}
               value={value}
-              onChangeText={setValue}
+              onChangeText={val => {
+                setValue(val);
+                if (val.length == 4) {
+                  confirmOtp(val);
+                }
+              }}
               cellCount={4}
               onSubmitEditing={() => {
-                console.log('Confirmed');
+                confirmOtp(value);
               }}
               rootStyle={styles.otpInputBox}
               keyboardType="number-pad"
@@ -91,7 +115,7 @@ const VerifyOtp = ({params, navigation}) => {
           <View style={styles.aiCenter}>
             <Button
               onPress={() => {
-                navigation?.navigate('ResetPassword');
+                confirmOtp(value);
               }}
               title={'Submit'}
             />

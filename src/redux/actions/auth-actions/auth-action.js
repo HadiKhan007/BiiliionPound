@@ -20,12 +20,29 @@ export const signUpRequest = (params, cbSuccess, cbFailure) => {
   };
 };
 
-//Save user info Action
-export const saveUserInfo = (params, cbSuccess, cbFailure) => {
+//Forgot Password Action
+export const forgotPassRequest = (params, cbSuccess, cbFailure) => {
   return {
-    type: TYPES.SAVE_INFO_REQUEST,
+    type: TYPES.FORGOT_PASSWORD_REQUEST,
     params,
     cbSuccess,
     cbFailure,
+  };
+};
+//Reset Password Action
+export const resetPassRequest = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.RESET_PASSWORD_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Set Walkthrough Action
+export const setWalkthrough = params => {
+  return {
+    type: TYPES.SET_WALKTHROUGH_REQUEST,
+    params,
   };
 };
