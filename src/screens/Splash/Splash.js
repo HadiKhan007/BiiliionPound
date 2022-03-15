@@ -5,14 +5,18 @@ import {appLogos} from '../../shared/theme/assets';
 import {useSelector} from 'react-redux';
 
 const Splash = ({navigation}) => {
-  const {walkthrough} = useSelector(state => state.auth);
+  const {walkthrough, userInfo} = useSelector(state => state.auth);
   useEffect(() => {
     setTimeout(() => {
+      // if (userInfo == null) {
       if (walkthrough?.skip) {
         navigation.replace('Auth');
       } else {
         navigation.replace('GettingStarted');
       }
+      // } else {
+      //   navigation.replace('App');
+      // }
     }, 2500);
   }, []);
 
