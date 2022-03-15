@@ -65,33 +65,38 @@ const Login = ({navigation}) => {
 
   //Google Login
   const onGoogleButtonPress = async () => {
-    setloading(true);
-    try {
-      await GoogleSignin.hasPlayServices();
-      const {idToken} = await GoogleSignin.signIn();
-      // ***********use for authentication*************
-      // const googleCredential =
-      //   firebase?.auth.GoogleAuthProvider.credential(idToken);
-      // const res = await firebase.auth().signInWithCredential(googleCredential);
-      // ***********use for authentication*************
-      const requestBody = {
-        token: idToken,
-      };
-      dispatch(
-        socialLoginRequest(
-          requestBody,
-          onSocialLoginSuccess,
-          onSocialLoginFailed,
-        ),
-      );
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        setloading(false);
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        setloading(false);
-      } else {
-        setloading(false);
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setloading(true);
+      try {
+        await GoogleSignin.hasPlayServices();
+        const {idToken} = await GoogleSignin.signIn();
+        // ***********use for authentication*************
+        // const googleCredential =
+        //   firebase?.auth.GoogleAuthProvider.credential(idToken);
+        // const res = await firebase.auth().signInWithCredential(googleCredential);
+        // ***********use for authentication*************
+        const requestBody = {
+          token: idToken,
+        };
+        dispatch(
+          socialLoginRequest(
+            requestBody,
+            onSocialLoginSuccess,
+            onSocialLoginFailed,
+          ),
+        );
+      } catch (error) {
+        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+          setloading(false);
+        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+          setloading(false);
+        } else {
+          setloading(false);
+        }
       }
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
   //On Social Login Success
@@ -118,6 +123,7 @@ const Login = ({navigation}) => {
       if (identityToken) {
         setloading(false);
         console.log(identityToken);
+        navigation?.replace('App');
 
         // ***********use for authentication*************
         //Can be used in future
