@@ -2,34 +2,99 @@ import * as TYPES from '../../actions/types';
 
 const initialState = {
   loading: false,
-  isKeepLogin: null,
-  user: null,
-  error: null,
   isSuccess: false,
   isFailure: false,
+  walkthrough: false,
+  userInfo: null,
+  forgotPassRes: null,
+  resetPassRes: null,
 };
 const authReducer = (state = initialState, actions) => {
-  const {payload, type} = actions;
+  const {type, payload} = actions;
   switch (type) {
+    //************Login Sates*************
     case TYPES.LOGIN_REQUEST_SUCCESS:
       return {
         ...state,
-        loading: true,
-        user: payload,
-        isKeepLogin: true,
+        loading: false,
         isSuccess: true,
         isFailure: false,
+        userInfo: payload,
       };
+
     case TYPES.LOGIN_REQUEST_FAILURE:
       return {
         ...state,
         loading: false,
-        isKeepLogin: false,
         isSuccess: false,
         isFailure: true,
-        user: null,
+        userInfo: null,
       };
 
+    //************SignUp Sates*************
+
+    case TYPES.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userInfo: payload,
+      };
+    case TYPES.SIGNUP_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userInfo: null,
+      };
+
+    //************Forgot Password Sates*************
+
+    case TYPES.FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: true,
+        isSuccess: true,
+        isFailure: false,
+        forgotPassRes: payload,
+      };
+    case TYPES.FORGOT_PASSWORD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        forgotPassRes: null,
+      };
+    //************Reset Password Sates*************
+
+    case TYPES.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: true,
+        isSuccess: true,
+        isFailure: false,
+        resetPassRes: payload,
+      };
+    case TYPES.RESET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        resetPassRes: null,
+      };
+
+    //************Walkthrough Sates*************
+
+    case TYPES.SET_WALKTHROUGH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        walkthrough: payload,
+      };
     default:
       return state;
   }

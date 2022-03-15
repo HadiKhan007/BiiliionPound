@@ -38,7 +38,10 @@ export const LoginVS = yup.object().shape({
     .string()
     .required('Email Required')
     .email('Please provide a valid email address'),
-  password: yup.string().required('Password Required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password Required'),
 });
 
 export const SignUpVS = yup.object().shape({
@@ -48,16 +51,23 @@ export const SignUpVS = yup.object().shape({
     .string()
     .required('Email Required')
     .email('Please provide a valid email address'),
-  password: yup.string().required('Password Required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password Required'),
 });
 
 export const ResetPasswordVS = yup.object().shape({
-  password: yup.string().required('Password Required'),
+  password: yup
+    .string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('New Password Required'),
 
   confirmPassword: yup
     .string()
-    .required('Confirm Password Required')
-    .oneOf([yup.ref('password'), null], 'Passwords do not match'),
+    .min(6, 'Password must be at least 6 characters')
+    .required('Confirm New Password Required')
+    .oneOf([yup.ref('password'), null], 'New Passwords do not match'),
 });
 
 export const ForgotPasswordVS = yup.object().shape({

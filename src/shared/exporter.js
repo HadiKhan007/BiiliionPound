@@ -17,6 +17,10 @@ export {
   loginFormFields,
   signupFormFields,
   SignUpVS,
+  forgotFormFields,
+  ForgotPasswordVS,
+  resetFormFields,
+  ResetPasswordVS,
 } from './utilities/validations';
 export {
   StatusBarHeight,

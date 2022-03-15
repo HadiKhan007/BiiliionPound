@@ -1,1 +1,7 @@
-export {loginRequest, signUpRequest} from './auth-actions/auth-action';
+export {
+  loginRequest,
+  signUpRequest,
+  forgotPassRequest,
+  resetPassRequest,
+  setWalkthrough,
+} from './auth-actions/auth-action';
