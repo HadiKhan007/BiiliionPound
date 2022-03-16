@@ -7,6 +7,7 @@ import HomeStack from '../stacks/HomeStack';
 import {BottomTab} from '../../components';
 
 const Tab = createBottomTabNavigator();
+
 const MainFlow = () => {
   return (
     <Tab.Navigator

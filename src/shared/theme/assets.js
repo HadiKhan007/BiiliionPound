@@ -9,6 +9,8 @@ export const appImages = {
   slider1: require('../../assets/images/slider1.png'),
   slider3: require('../../assets/images/slider3.png'),
   slider2: require('../../assets/images/slider2.png'),
+  sampple_exercise: require('../../assets/images/sample_excercise.png'),
+
   gettingStarted: require('../../assets/images/getting_started.png'),
   slider4: require('../../assets/images/company_pic.png'),
   appVideo: require('../../assets/video/gym_video.mp4'),
@@ -26,6 +28,9 @@ export const appIcons = {
   profile: require('../../assets/icons/profile.png'),
   notification: require('../../assets/icons/notification.png'),
   backArrow: require('../../assets/icons/backArrow.png'),
+  plus: require('../../assets/icons/plus.png'),
+  search: require('../../assets/icons/search.png'),
+  filter: require('../../assets/icons/filter.png'),
 };
 
 export const appSvgs = {

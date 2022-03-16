@@ -44,7 +44,7 @@ export function* socialLoginRequest() {
 }
 function* socialLoginUser(params) {
   try {
-    const res = yield socialLogin(params?.params);
+    const res = yield socialLogin(params?.login_type, params?.params);
     if (res.data) {
       yield put({
         type: types.SOCIAL_LOGIN_REQUEST_SUCCESS,
@@ -158,4 +158,18 @@ function* set_walkthrough(params) {
       payload: params?.params,
     });
   } catch (error) {}
+}
+//************* Logout **************
+export function* logoutRequestSega() {
+  yield takeLatest(types.LOGOUT_REQUEST_REQUEST, logout);
+}
+function* logout(params) {
+  try {
+    yield put({
+      type: types.LOGOUT_REQUEST_SUCCESS,
+      payload: params,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }

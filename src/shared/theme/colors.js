@@ -46,7 +46,8 @@ export const colors = {
   p_gradient: ['#FF8F8E', '#E79069'],
   //Secondary Gradient
   s_gradient: ['#E79069', '#E7BB69'],
-
+  t_gradient: ['#01BAFF', '#01BAFF'],
+  shadowColor: 'rgba(1, 186, 255, 0.2)',
   introSliderColor: '#34C8FF',
   // red
   red: 'red',

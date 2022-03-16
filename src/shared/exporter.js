@@ -33,3 +33,4 @@ export {BASE_URL, ENDPOINTS} from './utilities/endpoints';
 export {ANDROID, IOS, emailRegex, web_client_id} from './utilities/constant';
 export {header, authHeader} from './utilities/headers';
 export {checkConnected} from './utilities/helper';
+export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';

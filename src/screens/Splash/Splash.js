@@ -8,15 +8,15 @@ const Splash = ({navigation}) => {
   const {walkthrough, userInfo} = useSelector(state => state.auth);
   useEffect(() => {
     setTimeout(() => {
-      // if (userInfo == null) {
-      if (walkthrough?.skip) {
-        navigation.replace('Auth');
+      if (userInfo?.user == null) {
+        if (walkthrough?.skip) {
+          navigation.replace('Auth');
+        } else {
+          navigation.replace('GettingStarted');
+        }
       } else {
-        navigation.replace('GettingStarted');
+        navigation.replace('App');
       }
-      // } else {
-      //   navigation.replace('App');
-      // }
     }, 2500);
   }, []);
 

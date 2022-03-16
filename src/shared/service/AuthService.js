@@ -8,8 +8,15 @@ export const loginUser = params => {
   return HTTP_CLIENT.post(ENDPOINTS.LOGIN, params);
 };
 
-export const socialLogin = params => {
-  return HTTP_CLIENT.post(ENDPOINTS.GOOGLE_SIGN_IN, params);
+export const socialLogin = (logintype, params) => {
+  return HTTP_CLIENT.post(
+    `${
+      logintype == 'google'
+        ? ENDPOINTS.GOOGLE_SIGN_IN
+        : ENDPOINTS?.APPLE_SIGN_IN
+    }`,
+    params,
+  );
 };
 
 export const forgotPassword = params => {

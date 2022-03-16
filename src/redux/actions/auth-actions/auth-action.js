@@ -10,9 +10,15 @@ export const loginRequest = (params, cbSuccess, cbFailure) => {
   };
 };
 //Social Login Action
-export const socialLoginRequest = (params, cbSuccess, cbFailure) => {
+export const socialLoginRequest = (
+  login_type,
+  params,
+  cbSuccess,
+  cbFailure,
+) => {
   return {
     type: TYPES.SOCIAL_LOGIN_REQUEST_REQUEST,
+    login_type,
     params,
     cbSuccess,
     cbFailure,
@@ -51,6 +57,14 @@ export const resetPassRequest = (params, cbSuccess, cbFailure) => {
 export const setWalkthrough = params => {
   return {
     type: TYPES.SET_WALKTHROUGH_REQUEST,
+    params,
+  };
+};
+
+//Set Walkthrough Action
+export const logoutRequset = params => {
+  return {
+    type: TYPES.LOGOUT_REQUEST_REQUEST,
     params,
   };
 };

@@ -6,7 +6,7 @@ import {appIcons, colors, family, size} from '../../shared/exporter';
 export const HomeHeader = ({title, subtitle, icon, onPressBtn}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.aiCenter}>
+      <View>
         <Text style={styles.titleStyle}>{title}</Text>
         <Text style={styles.subtitleStyle}>{subtitle}</Text>
       </View>
@@ -21,7 +21,7 @@ export const HomeHeader = ({title, subtitle, icon, onPressBtn}) => {
 HomeHeader.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  icon: PropTypes.string,
+  icon: PropTypes.any,
   onPressBtn: PropTypes.func,
 };
 const styles = StyleSheet.create({

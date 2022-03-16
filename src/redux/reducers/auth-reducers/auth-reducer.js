@@ -107,6 +107,24 @@ const authReducer = (state = initialState, actions) => {
         resetPassRes: null,
       };
 
+    //************Logout Sates*************
+    case TYPES.LOGOUT_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userInfo: null,
+      };
+
+    case TYPES.LOGOUT_REQUEST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userInfo: state?.userInfo,
+      };
     //************Walkthrough Sates*************
 
     case TYPES.SET_WALKTHROUGH_SUCCESS:

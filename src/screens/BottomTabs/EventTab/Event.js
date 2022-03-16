@@ -1,14 +1,22 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import React from 'react';
+import styles from './styles';
+import {AppHeader} from '../../../components';
+import {appIcons} from '../../../shared/exporter';
 
 const Event = () => {
   return (
-    <View>
-      <Text>Event</Text>
-    </View>
+    <SafeAreaView style={styles.main}>
+      <View style={styles.contentContainer}>
+        <AppHeader
+          title={'Event'}
+          icon={appIcons.backArrow}
+          onPressBtn={() => {}}
+        />
+        <View></View>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default Event;
-
-const styles = StyleSheet.create({});

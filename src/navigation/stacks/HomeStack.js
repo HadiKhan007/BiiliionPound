@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Dashboard from '../../screens/BottomTabs/DashboardTab';
+import Dashboard from '../../screens/BottomTabs/DashboardTab/Home';
+
 const Stack = createStackNavigator();
 
 function AuthStack(props) {

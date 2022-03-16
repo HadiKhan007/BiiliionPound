@@ -5,4 +5,5 @@ export {
   resetPassRequest,
   setWalkthrough,
   socialLoginRequest,
+  logoutRequset,
 } from './auth-actions/auth-action';

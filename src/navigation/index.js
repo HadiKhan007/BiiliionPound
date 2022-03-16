@@ -6,6 +6,7 @@ import Walkthrough from '../screens/Walkthrough';
 import AuthStack from '../navigation/stacks/AuthStack';
 import Dashboard from './BottomTabs';
 import GettingStarted from '../screens/GettingStarted';
+import ExerciseStack from './stacks/ExcerciseStack';
 
 const AppStack = createStackNavigator();
 
@@ -20,6 +21,7 @@ const MainAppNav = () => {
         <AppStack.Screen name={'GettingStarted'} component={GettingStarted} />
         <AppStack.Screen name={'Auth'} component={AuthStack} />
         <AppStack.Screen name={'App'} component={Dashboard} />
+        <AppStack.Screen name={'ExerciseStack'} component={ExerciseStack} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

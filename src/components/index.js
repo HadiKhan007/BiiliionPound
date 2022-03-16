@@ -25,6 +25,15 @@ export * from './Footer/AuthFooter';
 
 //Box
 export * from './Box/WelcomeBox';
+export * from './Box/ParaBox';
 
 //Tabs
 export * from './Tabs/BottomTab';
+
+//Circle
+export * from './Circle/HomeCircle';
+
+// Bar
+export * from './Bar/SearchBar';
+//Cards
+export * from './Cards/ExcerciseCard/ExcerciseCard';

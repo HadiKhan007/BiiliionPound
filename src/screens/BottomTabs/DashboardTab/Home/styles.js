@@ -6,7 +6,7 @@ import {
   family,
   colors,
   scrHeight,
-} from '../../../shared/exporter';
+} from '../../../../shared/exporter';
 
 const styles = StyleSheet.create({
   main: {
@@ -18,6 +18,11 @@ const styles = StyleSheet.create({
   contentContainer: {
     marginHorizontal: WP('5'),
     flex: 1,
+  },
+  itemView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

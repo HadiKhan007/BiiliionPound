@@ -7,7 +7,14 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {appImages, colors, family, WP, size, HP} from '../../../shared/exporter';
+import {
+  appImages,
+  colors,
+  family,
+  WP,
+  size,
+  HP,
+} from '../../../shared/exporter';
 
 interface ExcerciseCardProps {
   name: string;
@@ -16,7 +23,12 @@ interface ExcerciseCardProps {
   icon: string;
 }
 
-const ExcerciseCard = ({name, isSelected, type, icon}: ExcerciseCardProps) => {
+export const ExcerciseCard = ({
+  name,
+  isSelected,
+  type,
+  icon,
+}: ExcerciseCardProps) => {
   if (isSelected) {
     return (
       <TouchableOpacity style={styles.selectedContainer}>
@@ -57,8 +69,6 @@ const ExcerciseCard = ({name, isSelected, type, icon}: ExcerciseCardProps) => {
     </TouchableOpacity>
   );
 };
-
-export default ExcerciseCard;
 
 const styles = StyleSheet.create({
   container: {
