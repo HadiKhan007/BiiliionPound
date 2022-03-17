@@ -26,6 +26,7 @@ export const size = {
 
 export const appRadius = {
   buttonRadius: 25,
+  boxRadius: 18,
 };
 
 export const family = {

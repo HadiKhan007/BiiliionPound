@@ -32,6 +32,9 @@ export const appIcons = {
   plus: require('../../assets/icons/plus.png'),
   search: require('../../assets/icons/search.png'),
   filter: require('../../assets/icons/filter.png'),
+  share: require('../../assets/icons/share.png'),
+  cross: require('../../assets/icons/cross.png'),
+  weight: require('../../assets/icons/weight.png'),
 };
 
 export const appSvgs = {

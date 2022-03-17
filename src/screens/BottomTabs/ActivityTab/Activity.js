@@ -8,7 +8,7 @@ import {useDispatch} from 'react-redux';
 import {logoutRequset} from '../../../redux/actions';
 const Activity = ({navigation}) => {
   const dispatch = useDispatch(null);
-  const onLogout = () => {
+  const onLogout = async () => {
     dispatch(logoutRequset(null));
     GoogleSignin.signOut();
     navigation?.navigate('Auth');

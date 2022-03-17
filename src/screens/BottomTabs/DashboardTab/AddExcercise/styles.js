@@ -21,6 +21,20 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
   },
+  sectionHeader: {
+    backgroundColor: colors.white,
+    paddingVertical: 8,
+    paddingLeft: 10,
+  },
+  sectionHeaderText: {
+    fontSize: size.large,
+    fontFamily: family.OpenSans_SemiBold,
+    color: colors.b7,
+  },
+  sectionlistStyle: {flex: 1, marginHorizontal: 5},
+  flatListStyle: {
+    flex: 0.5,
+  },
 });
 
 export default styles;

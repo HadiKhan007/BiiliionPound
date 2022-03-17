@@ -51,10 +51,7 @@ export const AuthFooter = ({
             <Image source={appIcons.google} style={styles.icon18} />
           </TouchableOpacity>
           {Platform.OS === 'ios' && (
-            <TouchableOpacity
-              disabled={loading}
-              onPress={onApplePress}
-              style={styles.cardContainer}>
+            <TouchableOpacity disabled={loading} style={styles.cardContainer}>
               <AppleButton
                 buttonStyle={AppleButton.Style.WHITE}
                 buttonType={AppleButton.Type.SIGN_IN}

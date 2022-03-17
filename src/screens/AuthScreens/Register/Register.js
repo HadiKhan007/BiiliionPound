@@ -167,6 +167,7 @@ const Signup = ({navigation}) => {
                   autoCapitalize="none"
                   touched={touched.password}
                   errorMessage={errors.password}
+                  onSubmitEditing={handleSubmit}
                   secureTextEntry
                   leftIcon={
                     <Icon

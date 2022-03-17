@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import {colors, family, size} from '../../shared/exporter';
 import {useNavigation} from '@react-navigation/core';
 
-export const AppHeader = ({title, subtitle, icon, onPressBack}) => {
+export const AppHeader = ({
+  title,
+  subtitle,
+  icon,
+  onPressBack,
+  secondaryIcon,
+  rightIcon,
+}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -17,11 +24,27 @@ export const AppHeader = ({title, subtitle, icon, onPressBack}) => {
               <Image style={styles.imageStyle} source={icon} />
             </TouchableOpacity>
           )}
+          {secondaryIcon && (
+            <TouchableOpacity
+              onPress={onPressBack ? onPressBack : () => navigation?.goBack()}
+              style={styles.buttonStyle}>
+              <Image style={styles.icon24} source={secondaryIcon} />
+            </TouchableOpacity>
+          )}
         </View>
         <Text style={[styles.titleStyle, {right: icon && !subtitle ? 15 : 0}]}>
           {title}
         </Text>
-        <Text style={styles.subtitleStyle}>{subtitle}</Text>
+        {subtitle && (
+          <TouchableOpacity>
+            <Text style={styles.subtitleStyle}>{subtitle}</Text>
+          </TouchableOpacity>
+        )}
+        {rightIcon && (
+          <TouchableOpacity>
+            <Image style={styles.rightIconStyle} source={rightIcon} />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -65,6 +88,16 @@ const styles = StyleSheet.create({
   imageStyle: {
     height: 10,
     width: 6,
+    resizeMode: 'contain',
+  },
+  icon24: {
+    height: 24,
+    width: 24,
+    resizeMode: 'contain',
+  },
+  rightIconStyle: {
+    width: 18,
+    height: 20,
     resizeMode: 'contain',
   },
 });

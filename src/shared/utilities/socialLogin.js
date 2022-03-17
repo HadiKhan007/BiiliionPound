@@ -45,21 +45,7 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
     Alert.alert('Error', 'Check your internet connectivity!');
   }
 };
-//On Social Login Success
-const onSocialLoginSuccess = (res, navigation, setloading) => {
-  if (res) {
-    navigation?.replace('App');
-    setloading(false);
-    console.log('Social Login Success', res);
-  } else {
-    Alert.alert('Error', res?.message);
-  }
-};
-//On Social Login Failed
-const onSocialLoginFailed = (res, setloading) => {
-  setloading(false);
-  console.log('Social Login Failed');
-};
+
 //On Apple SignIn
 export const onAppleLogin = async (navigation, dispatch, setloading) => {
   const checkInternet = await checkConnected();
@@ -72,9 +58,10 @@ export const onAppleLogin = async (navigation, dispatch, setloading) => {
       });
       const {identityToken, nonce} = appleAuthRequestResponse;
       if (identityToken) {
-        console.log(identityToken);
         const requestBody = {
           token: identityToken,
+          first_name: appleAuthRequestResponse?.fullName?.givenName,
+          last_name: appleAuthRequestResponse?.fullName?.familyName,
         };
         dispatch(
           socialLoginRequest(
@@ -105,4 +92,19 @@ export const onAppleLogin = async (navigation, dispatch, setloading) => {
   } else {
     Alert.alert('Error', 'Check your internet connectivity!');
   }
+};
+//On Social Login Success
+const onSocialLoginSuccess = (res, navigation, setloading) => {
+  if (res) {
+    navigation?.replace('App');
+    setloading(false);
+    console.log('Social Login Success', res);
+  } else {
+    Alert.alert('Error', res?.message);
+  }
+};
+//On Social Login Failed
+const onSocialLoginFailed = (res, setloading) => {
+  setloading(false);
+  console.log('Social Login Failed');
 };

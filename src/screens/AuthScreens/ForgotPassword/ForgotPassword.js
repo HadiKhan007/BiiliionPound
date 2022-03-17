@@ -100,6 +100,7 @@ const ForgotPassword = ({navigation}) => {
                   autoCapitalize="none"
                   touched={touched.email}
                   errorMessage={errors.email}
+                  onSubmitEditing={handleSubmit}
                 />
               </View>
 

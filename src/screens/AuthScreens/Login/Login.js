@@ -52,7 +52,6 @@ const Login = ({navigation}) => {
     Alert.alert('Failed', res?.message || 'Logged In Failed');
     setloading(false);
   };
-
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -106,6 +105,7 @@ const Login = ({navigation}) => {
                   autoCapitalize="none"
                   touched={touched.password}
                   errorMessage={errors.password}
+                  onSubmitEditing={handleSubmit}
                   secureTextEntry
                   leftIcon={
                     <Icon
@@ -138,9 +138,9 @@ const Login = ({navigation}) => {
                 subtitle={'Register'}
                 buttonTxt={'Login'}
                 onPressBtn={handleSubmit}
-                onApplePress={() =>
-                  onAppleLogin(navigation, dispatch, setloading)
-                }
+                onApplePress={() => {
+                  onAppleLogin(navigation, dispatch, setloading);
+                }}
                 onGooglePress={() =>
                   onGoogleLogin(navigation, dispatch, setloading)
                 }

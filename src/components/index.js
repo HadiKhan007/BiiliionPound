@@ -4,17 +4,15 @@ export * from './Header/HomeHeader';
 
 //Button
 export * from './Button/Button';
-
 export * from './CircularProgress/CircularProgress';
-
 //Spacer
 export * from './Spacer/Spacer';
-
 //Loader
 export * from './Loader';
 export * from './Loader/SmallLoader';
 export * from './IntroSlider/IntroSlider';
 
+//Input
 export * from './Input/Input';
 
 //CheckBox
@@ -36,9 +34,13 @@ export * from './Circle/HomeCircle';
 
 // Bar
 export * from './Bar/SearchBar';
+export * from './Cards/ActivityCard/ActivityCard';
+
 //Cards
 export * from './Cards/ExcerciseCard/ExcerciseCard';
 //Modals
 export * from './Modal/ExcerciseFilter';
+export * from './Modal/ActivitySuccess';
+
 //Headings
 export * from './Headings/PrimaryHeading';

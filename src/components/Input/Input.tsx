@@ -18,6 +18,7 @@ interface InputProps {
   autoCapitalize: any;
   touched: any;
   value: any;
+  onSubmitEditing: any;
 }
 
 const Input = ({
@@ -34,6 +35,7 @@ const Input = ({
   blurOnSubmit,
   onBlur,
   value,
+  onSubmitEditing,
 }: InputProps) => {
   const [showPass, setShowPass] = React.useState(secureTextEntry);
 
@@ -67,6 +69,7 @@ const Input = ({
       errorMessage={errorMessage}
       renderErrorMessage={renderErrorMessage}
       autoCompleteType={undefined}
+      onSubmitEditing={onSubmitEditing}
     />
   );
 };

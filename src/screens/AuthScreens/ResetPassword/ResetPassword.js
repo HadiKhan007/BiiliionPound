@@ -126,6 +126,7 @@ const ResetPassword = ({navigation}) => {
                   autoCapitalize="none"
                   touched={touched.confirmPassword}
                   errorMessage={errors.confirmPassword}
+                  onSubmitEditing={handleSubmit}
                   secureTextEntry
                   leftIcon={
                     <Icon
