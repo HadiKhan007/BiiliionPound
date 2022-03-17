@@ -9,16 +9,18 @@ export const AppHeader = ({title, subtitle, icon}) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerStyle}>
-        {icon && (
-          <TouchableOpacity
-            onPress={() => {
-              navigation?.goBack();
-            }}
-            style={styles.buttonStyle}>
-            <Image style={styles.imageStyle} source={icon} />
-          </TouchableOpacity>
-        )}
-        <Text style={styles.titleStyle}>{title}</Text>
+        <View>
+          {icon && (
+            <TouchableOpacity
+              onPress={() => {
+                navigation?.goBack();
+              }}
+              style={styles.buttonStyle}>
+              <Image style={styles.imageStyle} source={icon} />
+            </TouchableOpacity>
+          )}
+        </View>
+        <Text style={[styles.titleStyle, {right: icon ? 15 : 0}]}>{title}</Text>
         <Text style={styles.subtitleStyle}>{subtitle}</Text>
       </View>
     </View>
@@ -40,7 +42,6 @@ const styles = StyleSheet.create({
     fontSize: size.normal,
     color: colors.b7,
     fontFamily: family.Poppins_Bold,
-    right: 10,
   },
   headerStyle: {
     flexDirection: 'row',

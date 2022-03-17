@@ -22,6 +22,9 @@ export const socialLogin = (logintype, params) => {
 export const forgotPassword = params => {
   return HTTP_CLIENT.post(ENDPOINTS.FORGOT_PASS, params);
 };
+export const OTPVerify = params => {
+  return HTTP_CLIENT.post(ENDPOINTS.VERIFY_OTP, params);
+};
 
 export const resetPassword = params => {
   return HTTP_CLIENT.post(ENDPOINTS.RESET_PASS, params);

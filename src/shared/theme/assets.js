@@ -9,7 +9,8 @@ export const appImages = {
   slider1: require('../../assets/images/slider1.png'),
   slider3: require('../../assets/images/slider3.png'),
   slider2: require('../../assets/images/slider2.png'),
-  sampple_exercise: require('../../assets/images/sample_excercise.png'),
+  sample_exercise: require('../../assets/images/sample_excercise.png'),
+  selected_icon_button: require('../../assets/images/selected_icon_button.png'),
 
   gettingStarted: require('../../assets/images/getting_started.png'),
   slider4: require('../../assets/images/company_pic.png'),

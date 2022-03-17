@@ -3,13 +3,17 @@ import React, {useEffect} from 'react';
 import styles from './styles';
 import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
 import {appIcons} from '../../../../shared/exporter';
+import {useSelector} from 'react-redux';
 const Dashboard = ({navigation}) => {
+  const {userInfo} = useSelector(state => state?.auth);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <HomeHeader
           title={'Welcome Back'}
-          subtitle={'Stefani Wong'}
+          subtitle={`${userInfo?.user?.first_name || 'Stefani'} ${
+            userInfo?.user?.last_name || 'Wong'
+          }`}
           icon={appIcons.notification}
           onPressBtn={() => {}}
         />

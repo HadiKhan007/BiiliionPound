@@ -6,4 +6,5 @@ export {
   setWalkthrough,
   socialLoginRequest,
   logoutRequset,
+  verifyOTPRequest,
 } from './auth-actions/auth-action';

@@ -34,12 +34,12 @@ const AddExcercise = ({navigation}) => {
             data={[1, 2, 3, 4]}
             renderItem={({item}) => {
               return (
-                <View style={{marginVertical: 5}}>
+                <View style={{marginVertical: 10}}>
                   <ExcerciseCard
                     type={'Shoulder'}
-                    icon={appImages.sampple_exercise}
-                    name={'Umer'}
-                    isSelected={true}
+                    icon={appImages.sample_exercise}
+                    name={'Arnold Press (Dumbbell)'}
+                    // isSelected={true}
                   />
                 </View>
               );

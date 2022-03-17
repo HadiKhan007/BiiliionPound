@@ -20,7 +20,7 @@ interface ExcerciseCardProps {
   name: string;
   isSelected: boolean;
   type: string;
-  icon: string;
+  icon: any;
 }
 
 export const ExcerciseCard = ({
@@ -33,11 +33,7 @@ export const ExcerciseCard = ({
     return (
       <TouchableOpacity style={styles.selectedContainer}>
         <View style={styles.imageContainer}>
-          <Image
-            source={appImages.sampleExcercise}
-            resizeMode={'contain'}
-            style={styles.image}
-          />
+          <Image source={icon} resizeMode={'contain'} style={styles.image} />
         </View>
 
         <View style={styles.titleContainer}>
@@ -45,7 +41,7 @@ export const ExcerciseCard = ({
           <Text style={styles.type}>{type}</Text>
         </View>
         <Image
-          source={appImages.selectedButton}
+          source={appImages.selected_icon_button}
           resizeMode={'contain'}
           style={styles.selectedImage}
         />
@@ -55,11 +51,7 @@ export const ExcerciseCard = ({
   return (
     <TouchableOpacity style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={appImages.sampleExcercise}
-          resizeMode={'contain'}
-          style={styles.image}
-        />
+        <Image source={icon} resizeMode={'contain'} style={styles.image} />
       </View>
 
       <View style={styles.titleContainer}>
@@ -79,14 +71,13 @@ const styles = StyleSheet.create({
   selectedContainer: {
     flexDirection: 'row',
     paddingHorizontal: WP('3'),
-    width: Dimensions.get('window').width,
     backgroundColor: colors.p3,
     paddingVertical: HP('1'),
     justifyContent: 'space-between',
   },
   imageContainer: {
-    width: 90,
-    height: 90,
+    width: 72,
+    height: 72,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -101,28 +92,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 56,
+    height: 56,
     padding: WP('5'),
     borderRadius: 10,
   },
   titleContainer: {
     marginLeft: WP('3'),
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     marginVertical: HP('0.5'),
     flex: 1,
   },
   name: {
-    fontFamily: family.OpenSans_Bold,
-    fontSize: size.medium,
+    fontFamily: family.OpenSans_SemiBold,
+    fontSize: size.normal,
+    color: colors.b7,
+    marginVertical: 5,
   },
   type: {
     fontFamily: family.OpenSans_Regular,
-    color: colors.mediumGrey,
+    color: colors.g1,
+    fontSize: size.xsmall,
   },
   selectedImage: {
-    width: 50,
-    height: 50,
+    width: 36,
+    height: 36,
     alignSelf: 'center',
   },
 });

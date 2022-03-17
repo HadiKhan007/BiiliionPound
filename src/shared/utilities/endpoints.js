@@ -9,6 +9,7 @@ const ENDPOINTS = {
   RESET_PASS: 'password/reset',
   LOGOUT: 'logout',
   ACCESS_TOKEN: 'get_access_token',
+  VERIFY_OTP: 'password/check_otp',
 };
 
 export {BASE_URL, ENDPOINTS};

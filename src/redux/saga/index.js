@@ -8,6 +8,7 @@ import {
   resetPassRequest,
   socialLoginRequest,
   logoutRequestSega,
+  OTPVerifyRequest,
 } from './auth-saga/auth-sega';
 
 export function* rootSaga() {
@@ -18,4 +19,5 @@ export function* rootSaga() {
   yield fork(resetPassRequest);
   yield fork(socialLoginRequest);
   yield fork(logoutRequestSega);
+  yield fork(OTPVerifyRequest);
 }

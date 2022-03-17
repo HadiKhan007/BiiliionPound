@@ -8,11 +8,7 @@ const Event = () => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
-        <AppHeader
-          title={'Event'}
-          icon={appIcons.backArrow}
-          onPressBtn={() => {}}
-        />
+        <AppHeader title={'Event'} />
         <View></View>
       </View>
     </SafeAreaView>

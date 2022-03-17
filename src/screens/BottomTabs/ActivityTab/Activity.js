@@ -16,7 +16,7 @@ const Activity = ({navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
-        <AppHeader title={'Activity'} icon={appIcons.backArrow} />
+        <AppHeader title={'Activity'} />
         <View>
           <Button onPress={onLogout} title={'Logout'} />
         </View>

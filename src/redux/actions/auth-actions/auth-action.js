@@ -52,6 +52,15 @@ export const resetPassRequest = (params, cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+//Verify OTP Action
+export const verifyOTPRequest = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.OTP_VERIFY_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
 
 //Set Walkthrough Action
 export const setWalkthrough = params => {

@@ -5,6 +5,7 @@ import {
   registerUser,
   resetPassword,
   socialLogin,
+  OTPVerify,
 } from '../../../shared/service/AuthService';
 import * as types from '../../actions/types';
 
@@ -26,7 +27,7 @@ function* login(params) {
         type: types.LOGIN_REQUEST_FAILURE,
         payload: null,
       });
-      params?.cbFailure(error);
+      params?.cbFailure(res?.data);
     }
   } catch (error) {
     console.log(error);
@@ -56,7 +57,7 @@ function* socialLoginUser(params) {
         type: types.SOCIAL_LOGIN_REQUEST_FAILURE,
         payload: null,
       });
-      params?.cbFailure(error);
+      params?.cbFailure(res?.data);
     }
   } catch (error) {
     console.log(error);
@@ -107,7 +108,7 @@ function* forgot(params) {
         type: types.FORGOT_PASSWORD_FAILURE,
         payload: null,
       });
-      params?.cbFailure(error);
+      params?.cbFailure(res?.data);
     }
   } catch (error) {
     yield put({
@@ -117,6 +118,37 @@ function* forgot(params) {
     params.cbFailure(error?.response?.data?.error[0]);
   }
 }
+
+// *************Verify OTP Sega**************
+export function* OTPVerifyRequest() {
+  yield takeLatest(types.OTP_VERIFY_REQUEST, verifyOTP);
+}
+
+function* verifyOTP(params) {
+  try {
+    const res = yield OTPVerify(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.OTP_VERIFY_SUCCESS,
+        payload: res?.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.OTP_VERIFY_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+    }
+  } catch (error) {
+    yield put({
+      type: types.OTP_VERIFY_FAILURE,
+      payload: null,
+    });
+    params.cbFailure(error?.response?.data?.error[0]);
+  }
+}
+
 // *************Reset Password Sega**************
 export function* resetPassRequest() {
   yield takeLatest(types.RESET_PASSWORD_REQUEST, resetPass);
@@ -136,7 +168,7 @@ function* resetPass(params) {
         type: types.RESET_PASSWORD_FAILURE,
         payload: null,
       });
-      params?.cbFailure(error);
+      params?.cbFailure(res?.data);
     }
   } catch (error) {
     yield put({

@@ -8,11 +8,7 @@ const Profile = () => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
-        <AppHeader
-          title={'Profile'}
-          icon={appIcons.backArrow}
-          onPressBtn={() => {}}
-        />
+        <AppHeader title={'Profile'} />
         <View></View>
       </View>
     </SafeAreaView>
