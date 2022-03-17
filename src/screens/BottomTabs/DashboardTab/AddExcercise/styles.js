@@ -21,21 +21,6 @@ const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
   },
-  recentText: {
-    fontSize: size.large,
-    color: colors.b7,
-    fontFamily: family.OpenSans_SemiBold,
-  },
-  removeText: {
-    color: colors.g1,
-    fontSize: size.tiny,
-  },
-  headingContainer: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    paddingHorizontal: 10,
-  },
 });
 
 export default styles;

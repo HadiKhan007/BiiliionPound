@@ -62,42 +62,47 @@ const onSocialLoginFailed = (res, setloading) => {
 };
 //On Apple SignIn
 export const onAppleLogin = async (navigation, dispatch, setloading) => {
-  try {
-    setloading(true);
-    const appleAuthRequestResponse = await appleAuth.performRequest({
-      requestedOperation: appleAuth.Operation.LOGIN,
-      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-    });
-    const {identityToken, nonce} = appleAuthRequestResponse;
-    if (identityToken) {
-      console.log(identityToken);
-      const requestBody = {
-        token: identityToken,
-      };
-      dispatch(
-        socialLoginRequest(
-          'apple',
-          requestBody,
-          res => onSocialLoginSuccess(res, navigation, setloading),
-          res => onSocialLoginFailed(res, setloading),
-        ),
-      );
-      // ***********use for authentication*************
-      //Can be used in future
-      // const appleCredential = firebase.auth.AppleAuthProvider.credential(
-      //   identityToken,
-      //   nonce,
-      // );
-      // const userCredential = await firebase
-      //   .auth()
-      //   .signInWithCredential(appleCredential);
-      // ***********use for authentication*************
-    } else {
-      // handle this - retry?
-      Alert.alert('Error', 'Try Again few seconds later.');
+  const checkInternet = await checkConnected();
+  if (checkInternet) {
+    try {
+      setloading(true);
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: appleAuth.Operation.LOGIN,
+        requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+      });
+      const {identityToken, nonce} = appleAuthRequestResponse;
+      if (identityToken) {
+        console.log(identityToken);
+        const requestBody = {
+          token: identityToken,
+        };
+        dispatch(
+          socialLoginRequest(
+            'apple',
+            requestBody,
+            res => onSocialLoginSuccess(res, navigation, setloading),
+            res => onSocialLoginFailed(res, setloading),
+          ),
+        );
+        // ***********use for authentication*************
+        //Can be used in future
+        // const appleCredential = firebase.auth.AppleAuthProvider.credential(
+        //   identityToken,
+        //   nonce,
+        // );
+        // const userCredential = await firebase
+        //   .auth()
+        //   .signInWithCredential(appleCredential);
+        // ***********use for authentication*************
+      } else {
+        // handle this - retry?
+        Alert.alert('Error', 'Try Again few seconds later.');
+        setloading(false);
+      }
+    } catch (error) {
       setloading(false);
     }
-  } catch (error) {
-    setloading(false);
+  } else {
+    Alert.alert('Error', 'Check your internet connectivity!');
   }
 };

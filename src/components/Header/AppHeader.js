@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {colors, family, size} from '../../shared/exporter';
 import {useNavigation} from '@react-navigation/core';
 
-export const AppHeader = ({title, subtitle, icon}) => {
+export const AppHeader = ({title, subtitle, icon, onPressBack}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -12,15 +12,15 @@ export const AppHeader = ({title, subtitle, icon}) => {
         <View>
           {icon && (
             <TouchableOpacity
-              onPress={() => {
-                navigation?.goBack();
-              }}
+              onPress={onPressBack ? onPressBack : () => navigation?.goBack()}
               style={styles.buttonStyle}>
               <Image style={styles.imageStyle} source={icon} />
             </TouchableOpacity>
           )}
         </View>
-        <Text style={[styles.titleStyle, {right: icon ? 15 : 0}]}>{title}</Text>
+        <Text style={[styles.titleStyle, {right: icon && !subtitle ? 15 : 0}]}>
+          {title}
+        </Text>
         <Text style={styles.subtitleStyle}>{subtitle}</Text>
       </View>
     </View>

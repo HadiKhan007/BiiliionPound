@@ -26,6 +26,7 @@ export * from './Footer/AuthFooter';
 //Box
 export * from './Box/WelcomeBox';
 export * from './Box/ParaBox';
+export * from './Box/FilterBox';
 
 //Tabs
 export * from './Tabs/BottomTab';
@@ -37,3 +38,7 @@ export * from './Circle/HomeCircle';
 export * from './Bar/SearchBar';
 //Cards
 export * from './Cards/ExcerciseCard/ExcerciseCard';
+//Modals
+export * from './Modal/ExcerciseFilter';
+//Headings
+export * from './Headings/PrimaryHeading';

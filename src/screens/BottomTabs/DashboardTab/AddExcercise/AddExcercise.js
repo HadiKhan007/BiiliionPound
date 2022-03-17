@@ -1,16 +1,33 @@
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
 import styles from './styles';
 import {
   AppHeader,
-  ParaBox,
   SearchBar,
   ExcerciseCard,
+  ExerciseFilter,
+  PrimaryHeading,
 } from '../../../../components';
-import {appIcons, appImages} from '../../../../shared/exporter';
+import {appIcons, appImages, spacing} from '../../../../shared/exporter';
 import {FlatList} from 'react-native-gesture-handler';
+const filterItem = [
+  {id: 1, title: 'Core', tick: false},
+  {id: 2, title: 'Back', tick: false},
+  {id: 3, title: 'Arms', tick: false},
+  {id: 4, title: 'Shoulders', tick: false},
+  {id: 5, title: 'Chest', tick: false},
+  {id: 6, title: 'Legs', tick: false},
+  {id: 7, title: 'Full Body', tick: false},
+  {id: 8, title: 'Olympic', tick: false},
+  {id: 9, title: 'Other', tick: false},
+];
 const AddExcercise = ({navigation}) => {
+  const [filterExcersice, setFilterExcersice] = useState(false);
+  const [selectedItem, setselectedItem] = useState(0);
   useEffect(() => {});
+  const onPressSelectedItem = item => {
+    setselectedItem(item);
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -23,12 +40,11 @@ const AddExcercise = ({navigation}) => {
           <SearchBar
             placeholder={'Search...'}
             onPressFilter={() => {
-              console.log('leoo');
+              setFilterExcersice(true);
             }}
           />
-          <View style={styles.headingContainer}>
-            <Text style={styles.recentText}>Recent Search</Text>
-            <Text style={styles.removeText}>remove</Text>
+          <View style={spacing.px2}>
+            <PrimaryHeading title={'Recent Search'} subtitle={'remove'} />
           </View>
           <FlatList
             data={[1, 2, 3, 4]}
@@ -47,6 +63,17 @@ const AddExcercise = ({navigation}) => {
           />
         </View>
       </View>
+      {filterExcersice && (
+        <ExerciseFilter
+          selectedItem={selectedItem}
+          onPressItem={onPressSelectedItem}
+          filterItems={filterItem}
+          show={filterExcersice}
+          onPressHide={() => {
+            setFilterExcersice(false);
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 };
