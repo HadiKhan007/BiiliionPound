@@ -1,4 +1,5 @@
 import {takeLatest, put} from 'redux-saga/effects';
+import {responseValidator} from '../../../shared/exporter';
 import {
   forgotPassword,
   loginUser,
@@ -30,12 +31,12 @@ function* login(params) {
       params?.cbFailure(res?.data);
     }
   } catch (error) {
-    console.log(error);
     yield put({
       type: types.LOGIN_REQUEST_FAILURE,
       payload: null,
     });
-    params?.cbFailure(error?.response?.data?.error[0]);
+    let msg = responseValidator(error?.response?.status);
+    params?.cbFailure(msg);
   }
 }
 
@@ -65,7 +66,8 @@ function* socialLoginUser(params) {
       type: types.SOCIAL_LOGIN_REQUEST_FAILURE,
       payload: null,
     });
-    params?.cbFailure(error?.response?.data?.error[0]);
+    let msg = responseValidator(error?.response?.status);
+    params?.cbFailure(msg);
   }
 }
 
@@ -85,7 +87,8 @@ function* signUp(params) {
         params?.cbFailure(error);
       });
   } catch (error) {
-    params.cbFailure(error?.response?.data?.error[0]);
+    let msg = responseValidator(error?.response?.status);
+    params?.cbFailure(msg);
   }
 }
 
@@ -115,7 +118,8 @@ function* forgot(params) {
       type: types.FORGOT_PASSWORD_FAILURE,
       payload: null,
     });
-    params.cbFailure(error?.response?.data?.error[0]);
+    let msg = responseValidator(error?.response?.status);
+    params?.cbFailure(msg);
   }
 }
 
@@ -145,7 +149,8 @@ function* verifyOTP(params) {
       type: types.OTP_VERIFY_FAILURE,
       payload: null,
     });
-    params.cbFailure(error?.response?.data?.error[0]);
+    let msg = responseValidator(error?.response?.status);
+    params?.cbFailure(msg);
   }
 }
 
@@ -175,7 +180,8 @@ function* resetPass(params) {
       type: types.RESET_PASSWORD_FAILURE,
       payload: null,
     });
-    params.cbFailure(error?.response?.data?.error[0]);
+    let msg = responseValidator(error?.response?.status);
+    params?.cbFailure(msg);
   }
 }
 

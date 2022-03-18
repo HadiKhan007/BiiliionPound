@@ -2,7 +2,7 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import styles from './styles';
 import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
-import {appIcons} from '../../../../shared/exporter';
+import {appIcons, capitalizeFirstLetter} from '../../../../shared/exporter';
 import {useSelector} from 'react-redux';
 const Dashboard = ({navigation}) => {
   const {userInfo} = useSelector(state => state?.auth);
@@ -11,9 +11,9 @@ const Dashboard = ({navigation}) => {
       <View style={styles.contentContainer}>
         <HomeHeader
           title={'Welcome Back'}
-          subtitle={`${userInfo?.user?.first_name || 'Stefani'} ${
-            userInfo?.user?.last_name || 'Wong'
-          }`}
+          subtitle={`${
+            capitalizeFirstLetter(userInfo?.user?.first_name) || 'Stefani'
+          } ${capitalizeFirstLetter(userInfo?.user?.last_name) || 'Wong'}`}
           icon={appIcons.notification}
           onPressBtn={() => {}}
         />

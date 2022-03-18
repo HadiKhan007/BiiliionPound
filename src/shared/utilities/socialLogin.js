@@ -34,8 +34,10 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
       );
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Alert.alert('Error', 'Operation canceled by user');
         setloading(false);
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert('Error', 'No User Available');
         setloading(false);
       } else {
         setloading(false);

@@ -38,6 +38,8 @@ export * from './Cards/ActivityCard/ActivityCard';
 
 //Cards
 export * from './Cards/ExcerciseCard/ExcerciseCard';
+export * from './Cards/FitnessCard/FitnessCard';
+
 //Modals
 export * from './Modal/ExcerciseFilter';
 export * from './Modal/ActivitySuccess';

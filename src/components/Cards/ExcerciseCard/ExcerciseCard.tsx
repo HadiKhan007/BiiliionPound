@@ -15,6 +15,7 @@ import {
   size,
   HP,
 } from '../../../shared/exporter';
+import {FitnessCard} from '../FitnessCard/FitnessCard';
 
 interface ExcerciseCardProps {
   name: string;
@@ -32,9 +33,7 @@ export const ExcerciseCard = ({
   if (isSelected) {
     return (
       <TouchableOpacity style={styles.selectedContainer}>
-        <View style={styles.imageContainer}>
-          <Image source={icon} resizeMode={'contain'} style={styles.image} />
-        </View>
+        <FitnessCard icon={icon} />
 
         <View style={styles.titleContainer}>
           <Text style={styles.name}>{name}</Text>
@@ -50,9 +49,7 @@ export const ExcerciseCard = ({
   }
   return (
     <TouchableOpacity style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={icon} resizeMode={'contain'} style={styles.image} />
-      </View>
+      <FitnessCard icon={icon} />
 
       <View style={styles.titleContainer}>
         <Text style={styles.name}>{name}</Text>
@@ -75,28 +72,7 @@ const styles = StyleSheet.create({
     paddingVertical: HP('1'),
     justifyContent: 'space-between',
   },
-  imageContainer: {
-    width: 72,
-    height: 72,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-    borderRadius: 10,
-    backgroundColor: colors.white,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: 56,
-    height: 56,
-    padding: WP('5'),
-    borderRadius: 10,
-  },
+
   titleContainer: {
     marginLeft: WP('3'),
     // justifyContent: 'space-around',

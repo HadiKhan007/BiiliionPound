@@ -5,7 +5,12 @@ import {appIcons, appRadius, colors} from '../../../shared/exporter';
 export const ActivityCard = () => {
   return (
     <View style={styles.cardContainer}>
-      <View>
+      <View
+        style={{
+          backgroundColor: 'green',
+          width: '65%',
+          justifyContent: 'center',
+        }}>
         <Text>John Doe</Text>
         <Text>Front Raises</Text>
         <Text>Shoulder</Text>
@@ -16,7 +21,15 @@ export const ActivityCard = () => {
         <Text>Exercise</Text>
         <Text>2x Front Raises</Text>
       </View>
-      <View></View>
+      <View
+        style={{
+          backgroundColor: 'red',
+          width: '35%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Text>Hello</Text>
+      </View>
     </View>
   );
 };
@@ -24,7 +37,9 @@ export const ActivityCard = () => {
 const styles = StyleSheet.create({
   cardContainer: {
     height: 170,
+    paddingHorizontal: 20,
     width: '100%',
+    flexDirection: 'row',
     backgroundColor: colors.white,
     borderRadius: appRadius.boxRadius,
     shadowColor: colors.light_shadow,
