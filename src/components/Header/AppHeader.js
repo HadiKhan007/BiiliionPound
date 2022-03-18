@@ -35,16 +35,13 @@ export const AppHeader = ({
         <Text style={[styles.titleStyle, {right: icon && !subtitle ? 15 : 0}]}>
           {title}
         </Text>
-        {subtitle && (
-          <TouchableOpacity>
-            <Text style={styles.subtitleStyle}>{subtitle}</Text>
-          </TouchableOpacity>
-        )}
-        {rightIcon && (
-          <TouchableOpacity>
+        <TouchableOpacity>
+          {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
+
+          {rightIcon && (
             <Image style={styles.rightIconStyle} source={rightIcon} />
-          </TouchableOpacity>
-        )}
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );

@@ -9,70 +9,69 @@ import {
   PrimaryHeading,
   ActivitySuccess,
 } from '../../../../components';
-import {appIcons, appImages, spacing} from '../../../../shared/exporter';
+import {
+  appIcons,
+  appImages,
+  filterBody,
+  filterCategory,
+  spacing,
+} from '../../../../shared/exporter';
 import AlphabetSectionList from 'react-native-alphabet-sectionlist';
-
-const filterItem = [
-  {id: 1, title: 'Core', tick: false},
-  {id: 2, title: 'Back', tick: false},
-  {id: 3, title: 'Arms', tick: false},
-  {id: 4, title: 'Shoulders', tick: false},
-  {id: 5, title: 'Chest', tick: false},
-  {id: 6, title: 'Legs', tick: false},
-  {id: 7, title: 'Full Body', tick: false},
-  {id: 8, title: 'Olympic', tick: false},
-  {id: 9, title: 'Other', tick: false},
-];
-
+const sectionListItem = {
+  A: [
+    {
+      name: 'Arnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+    {
+      name: 'Arnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+    {
+      name: 'Arnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+  ],
+  B: [
+    {
+      name: 'Brnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+    {
+      name: 'Brnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+    {
+      name: 'Brnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+    {
+      name: 'Brnold Press (Dumbbell)',
+      icon: appImages.sample_exercise,
+      type: 'Shoulder',
+    },
+  ],
+};
 const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
-  const [selectedItem, setselectedItem] = useState(0);
-  const sectionListItem = {
-    A: [
-      {
-        name: 'Arnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-      {
-        name: 'Arnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-      {
-        name: 'Arnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-    ],
-    B: [
-      {
-        name: 'Brnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-      {
-        name: 'Brnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-      {
-        name: 'Brnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-      {
-        name: 'Brnold Press (Dumbbell)',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-      },
-    ],
-  };
-  useEffect(() => {});
-  const onPressSelectedItem = item => {
-    setselectedItem(item);
-  };
+  const [selectedCategory, setSelectedCategory] = useState(0);
+  const [selectedBody, setSelectedBody] = useState(0);
 
+  const [onSuccess, setonSuccess] = useState(false);
+
+  useEffect(() => {});
+  const onPressSelectedBody = item => {
+    setSelectedBody(item);
+  };
+  const onPressSelectedCategory = item => {
+    setSelectedCategory(item);
+  };
   const renderItem = ({item}) => {
     return (
       <View style={spacing.py2}>
@@ -80,6 +79,9 @@ const AddExcercise = ({navigation}) => {
           type={item?.type}
           icon={item?.icon}
           name={item?.name}
+          onPressCard={() => {
+            setonSuccess(true);
+          }}
           // isSelected={true}
         />
       </View>
@@ -108,10 +110,10 @@ const AddExcercise = ({navigation}) => {
               setFilterExcersice(true);
             }}
           />
-          {/* <View style={spacing.px2}>
+          <View style={spacing.px2}>
             <PrimaryHeading title={'Recent Search'} subtitle={'remove'} />
-          </View> */}
-          {/* <View style={styles.flatListStyle}>
+          </View>
+          <View style={styles.flatListStyle}>
             <FlatList
               data={[1, 2]}
               showsVerticalScrollIndicator={false}
@@ -119,6 +121,9 @@ const AddExcercise = ({navigation}) => {
                 return (
                   <View style={spacing.py2}>
                     <ExcerciseCard
+                      onPressCard={() => {
+                        navigation?.navigate('AddReps');
+                      }}
                       type={'Shoulder'}
                       icon={appImages.sample_exercise}
                       name={'Arnold Press (Dumbbell)'}
@@ -128,7 +133,7 @@ const AddExcercise = ({navigation}) => {
                 );
               }}
             />
-          </View> */}
+          </View>
           <View style={styles.sectionlistStyle}>
             <AlphabetSectionList
               showsVerticalScrollIndicator={false}
@@ -141,16 +146,31 @@ const AddExcercise = ({navigation}) => {
       </View>
       {filterExcersice && (
         <ExerciseFilter
-          selectedItem={selectedItem}
-          onPressItem={onPressSelectedItem}
-          filterItems={filterItem}
+          selectedBody={selectedBody}
+          onPressBody={onPressSelectedBody}
+          selectedCategory={selectedCategory}
+          onPressCategory={onPressSelectedCategory}
+          filterItems={{body: filterBody, category: filterCategory}}
           show={filterExcersice}
           onPressHide={() => {
             setFilterExcersice(false);
           }}
         />
       )}
-      <ActivitySuccess />
+      {onSuccess && (
+        <ActivitySuccess
+          name={'John Doe'}
+          type={'Shoulder'}
+          weight={'150LBS'}
+          excercise={'2x Front Raises'}
+          mode={'Front Raises'}
+          show={onSuccess}
+          onPressHide={() => {
+            setonSuccess(false);
+          }}
+          cardIcon={appImages.sample_exercise}
+        />
+      )}
     </SafeAreaView>
   );
 };

@@ -15,11 +15,16 @@ export const ExerciseFilter = ({
   show,
   onPressHide,
   filterItems,
-  onPressItem,
-  selectedItem,
+  onPressBody,
+  selectedBody,
+  selectedCategory,
+  onPressCategory,
 }) => {
-  const onSelectItem = item => {
-    onPressItem(item);
+  const onSelectBody = item => {
+    onPressBody(item);
+  };
+  const onSelectCategory = item => {
+    onPressCategory(item);
   };
   return (
     <Modal animationType="slide" style={styles.container} visible={show}>
@@ -30,31 +35,60 @@ export const ExerciseFilter = ({
           title={'Filter'}
           subtitle={'Save'}
         />
-        <PrimaryHeading title={'Body Part'} />
-        <FlatList
-          data={filterItems}
-          contentContainerStyle={styles.flatlistWrap}
-          renderItem={({item}) => {
-            return (
-              <FilterBox
-                onPressItem={() => {
-                  onSelectItem(item);
-                }}
-                title={item?.title}
-                backgroundColor={
-                  item?.id == selectedItem?.id ? colors.p7 : colors.g10
-                }
-                titleColor={
-                  item?.id == selectedItem?.id ? colors.p1 : colors.g1
-                }
-                borderColor={
-                  item?.id == selectedItem?.id ? colors.p1 : colors.g1
-                }
-                borderWidth={item?.id == selectedItem?.id ? 1 : 0}
-              />
-            );
-          }}
-        />
+        <View>
+          <PrimaryHeading title={'Body Part'} />
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={filterItems?.body}
+            contentContainerStyle={styles.flatlistWrap}
+            renderItem={({item}) => {
+              return (
+                <FilterBox
+                  onPressItem={() => {
+                    onSelectBody(item);
+                  }}
+                  title={item?.title}
+                  backgroundColor={
+                    item?.id == selectedBody?.id ? colors.p7 : colors.g10
+                  }
+                  titleColor={
+                    item?.id == selectedBody?.id ? colors.p1 : colors.g1
+                  }
+                  borderColor={
+                    item?.id == selectedBody?.id ? colors.p1 : colors.g1
+                  }
+                  borderWidth={item?.id == selectedBody?.id ? 1 : 0}
+                />
+              );
+            }}
+          />
+          <PrimaryHeading title={'Category'} />
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={filterItems?.category}
+            contentContainerStyle={styles.flatlistWrap}
+            renderItem={({item}) => {
+              return (
+                <FilterBox
+                  onPressItem={() => {
+                    onSelectCategory(item);
+                  }}
+                  title={item?.title}
+                  backgroundColor={
+                    item?.id == selectedCategory?.id ? colors.p7 : colors.g10
+                  }
+                  titleColor={
+                    item?.id == selectedCategory?.id ? colors.p1 : colors.g1
+                  }
+                  borderColor={
+                    item?.id == selectedCategory?.id ? colors.p1 : colors.g1
+                  }
+                  borderWidth={item?.id == selectedCategory?.id ? 1 : 0}
+                />
+              );
+            }}
+          />
+        </View>
       </SafeAreaView>
     </Modal>
   );

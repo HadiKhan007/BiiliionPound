@@ -11,7 +11,7 @@ const Activity = ({navigation}) => {
   const onLogout = async () => {
     dispatch(logoutRequset(null));
     GoogleSignin.signOut();
-    navigation?.navigate('Auth');
+    navigation?.replace('Auth');
   };
   return (
     <SafeAreaView style={styles.main}>

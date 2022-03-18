@@ -22,6 +22,7 @@ interface ExcerciseCardProps {
   isSelected: boolean;
   type: string;
   icon: any;
+  onPressCard: () => {};
 }
 
 export const ExcerciseCard = ({
@@ -29,10 +30,14 @@ export const ExcerciseCard = ({
   isSelected,
   type,
   icon,
+  onPressCard,
 }: ExcerciseCardProps) => {
   if (isSelected) {
     return (
-      <TouchableOpacity style={styles.selectedContainer}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={onPressCard}
+        style={styles.selectedContainer}>
         <FitnessCard icon={icon} />
 
         <View style={styles.titleContainer}>
@@ -48,7 +53,10 @@ export const ExcerciseCard = ({
     );
   }
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={onPressCard}
+      style={styles.container}>
       <FitnessCard icon={icon} />
 
       <View style={styles.titleContainer}>

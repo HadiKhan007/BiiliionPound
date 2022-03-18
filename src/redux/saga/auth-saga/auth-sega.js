@@ -35,7 +35,7 @@ function* login(params) {
       type: types.LOGIN_REQUEST_FAILURE,
       payload: null,
     });
-    let msg = responseValidator(error?.response?.status);
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
 }
@@ -87,7 +87,7 @@ function* signUp(params) {
         params?.cbFailure(error);
       });
   } catch (error) {
-    let msg = responseValidator(error?.response?.status);
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
 }
@@ -114,11 +114,12 @@ function* forgot(params) {
       params?.cbFailure(res?.data);
     }
   } catch (error) {
+    console.log(error);
     yield put({
       type: types.FORGOT_PASSWORD_FAILURE,
       payload: null,
     });
-    let msg = responseValidator(error?.response?.status);
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
 }
@@ -149,7 +150,7 @@ function* verifyOTP(params) {
       type: types.OTP_VERIFY_FAILURE,
       payload: null,
     });
-    let msg = responseValidator(error?.response?.status);
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
 }
@@ -180,7 +181,7 @@ function* resetPass(params) {
       type: types.RESET_PASSWORD_FAILURE,
       payload: null,
     });
-    let msg = responseValidator(error?.response?.status);
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
 }

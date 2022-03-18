@@ -14,6 +14,7 @@ export * from './IntroSlider/IntroSlider';
 
 //Input
 export * from './Input/Input';
+export * from './Input/RepsInput';
 
 //CheckBox
 export * from './CheckBox/CheckBox';

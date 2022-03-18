@@ -129,8 +129,8 @@ const Login = ({navigation}) => {
 
               {/* Login Footer Part */}
               <AuthFooter
-                // disabled={loading || !isValid}
-                // loading={loading}
+                disabled={loading || !isValid}
+                loading={loading}
                 onPressText={() => {
                   navigation?.navigate('SignUp');
                 }}

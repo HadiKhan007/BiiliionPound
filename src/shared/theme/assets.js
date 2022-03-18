@@ -35,6 +35,7 @@ export const appIcons = {
   share: require('../../assets/icons/share.png'),
   cross: require('../../assets/icons/cross.png'),
   weight: require('../../assets/icons/weight.png'),
+  tick: require('../../assets/icons/tick.png'),
 };
 
 export const appSvgs = {

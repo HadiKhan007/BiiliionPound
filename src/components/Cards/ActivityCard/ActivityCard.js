@@ -1,34 +1,42 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
-import {appIcons, appRadius, colors} from '../../../shared/exporter';
+import {
+  appIcons,
+  appRadius,
+  capitalizeFirstLetter,
+  colors,
+  family,
+  size,
+  spacing,
+} from '../../../shared/exporter';
+import {FitnessCard} from '../FitnessCard/FitnessCard';
 
-export const ActivityCard = () => {
+export const ActivityCard = ({
+  cardIcon,
+  name,
+  mode,
+  type,
+  weight,
+  excercise,
+}) => {
   return (
     <View style={styles.cardContainer}>
-      <View
-        style={{
-          backgroundColor: 'green',
-          width: '65%',
-          justifyContent: 'center',
-        }}>
-        <Text>John Doe</Text>
-        <Text>Front Raises</Text>
-        <Text>Shoulder</Text>
-        <View>
+      <View style={styles.leftContainer}>
+        <Text style={styles.name}>{capitalizeFirstLetter(name)}</Text>
+        <Text style={styles.title}>{mode}</Text>
+        <Text style={styles.subtitle}>{type}</Text>
+        <View style={styles.textConatiner}>
           <Image source={appIcons.weight} style={styles.icon24} />
-          <Text>150LBS</Text>
+          <Text style={styles.subtitle}>{weight}</Text>
         </View>
-        <Text>Exercise</Text>
-        <Text>2x Front Raises</Text>
+        <Text style={styles.type}>Exercise</Text>
+        <Text style={styles.subtitle}>{excercise}</Text>
       </View>
-      <View
-        style={{
-          backgroundColor: 'red',
-          width: '35%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text>Hello</Text>
+      <View style={styles.rightContainer}>
+        <View style={spacing.pt3}>
+          <FitnessCard icon={cardIcon} />
+        </View>
+        <Text style={styles.subtitle}>(+2LBS) x 10</Text>
       </View>
     </View>
   );
@@ -40,6 +48,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: '100%',
     flexDirection: 'row',
+    borderWidth: 0.5,
+    borderColor: colors.light_shadow,
     backgroundColor: colors.white,
     borderRadius: appRadius.boxRadius,
     shadowColor: colors.light_shadow,
@@ -51,9 +61,47 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 8,
   },
+  textConatiner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 3,
+  },
   icon24: {
     height: 24,
     width: 24,
     resizeMode: 'contain',
+    marginHorizontal: 3,
+  },
+  name: {
+    fontFamily: family.OpenSans_SemiBold,
+    fontSize: size.normal,
+    color: colors.p1,
+  },
+  title: {
+    fontFamily: family.OpenSans_SemiBold,
+    fontSize: size.normal,
+    color: colors.b7,
+    marginVertical: 3,
+  },
+  leftContainer: {
+    width: '65%',
+    justifyContent: 'center',
+  },
+  rightContainer: {
+    width: '35%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+  },
+  subtitle: {
+    fontSize: size.xsmall,
+    color: colors.g1,
+    fontFamily: family.OpenSans_Regular,
+  },
+  type: {
+    fontSize: size.normal,
+    fontFamily: family.OpenSans_SemiBold,
+    color: colors.b7,
+    marginVertical: 3,
   },
 });

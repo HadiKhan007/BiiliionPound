@@ -1,6 +1,5 @@
 import NetInfo from '@react-native-community/netinfo';
 import {createContext, useContext, useEffect} from 'react';
-import {Alert} from 'react-native';
 export const checkConnected = () => {
   return NetInfo.fetch().then(state => {
     return state.isConnected;
@@ -30,36 +29,17 @@ export const useOnlineStatus = () => {
 export const capitalizeFirstLetter = string => {
   return string?.charAt(0).toUpperCase() + string?.slice(1);
 };
-export const responseValidator = response => {
+export const responseValidator = (response, errorMsg) => {
   let errorCode = response;
+  const msg = errorMsg?.error[0];
   if (errorCode == 401) {
-    Alert.alert(
-      'Error',
-      'Something went wrong!',
-      [{text: 'Ok', onPress: () => console.log('Cancelled')}],
-      {cancelable: false},
-    );
+    return msg || 'Something went wrong!';
   } else if (errorCode == 400) {
-    Alert.alert(
-      'Error',
-      'Something went wrong!',
-      [{text: 'Ok', onPress: () => console.log('Cancelled')}],
-      {cancelable: false},
-    );
+    return msg || 'Something went wrong!';
   } else if (errorCode == 404) {
-    Alert.alert(
-      'Error',
-      'Something went wrong!',
-      [{text: 'Ok', onPress: () => console.log('Cancelled')}],
-      {cancelable: false},
-    );
+    return msg || 'Something went wrong!';
   } else if (errorCode == 500) {
-    Alert.alert(
-      'Error',
-      'Something went wrong!',
-      [{text: 'Ok', onPress: () => console.log('Cancelled')}],
-      {cancelable: false},
-    );
+    return msg || 'Something went wrong!';
   } else {
   }
 };
