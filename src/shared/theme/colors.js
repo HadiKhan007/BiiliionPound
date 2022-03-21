@@ -53,4 +53,5 @@ export const colors = {
   light_shadow: '#979797',
   // red
   red: 'red',
+  r1: '#CB0005',
 };

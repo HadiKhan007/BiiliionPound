@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
     color: colors.b7,
     fontFamily: family.Poppins_SemiBold,
   },
+  margin0: {
+    marginHorizontal: -WP('5'),
+    height: '65%',
+  },
 });
 
 export default styles;

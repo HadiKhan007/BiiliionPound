@@ -11,6 +11,7 @@ export const AppHeader = ({
   onPressBack,
   secondaryIcon,
   rightIcon,
+  onPressBtn,
 }) => {
   const navigation = useNavigation();
   return (
@@ -35,7 +36,7 @@ export const AppHeader = ({
         <Text style={[styles.titleStyle, {right: icon && !subtitle ? 15 : 0}]}>
           {title}
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressBtn}>
           {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
 
           {rightIcon && (
