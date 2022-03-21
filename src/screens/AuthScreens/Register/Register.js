@@ -5,6 +5,8 @@ import {AuthFooter, Checkbox, Input, WelcomeBox} from '../../../components';
 import {
   checkConnected,
   colors,
+  onAppleLogin,
+  onGoogleLogin,
   signupFormFields,
   SignUpVS,
 } from '../../../shared/exporter';
@@ -74,6 +76,7 @@ const Signup = ({navigation}) => {
       Alert.alert('Failed', res?.message || 'Registeration Failed');
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -164,6 +167,7 @@ const Signup = ({navigation}) => {
                   autoCapitalize="none"
                   touched={touched.password}
                   errorMessage={errors.password}
+                  onSubmitEditing={handleSubmit}
                   secureTextEntry
                   leftIcon={
                     <Icon
@@ -218,12 +222,12 @@ const Signup = ({navigation}) => {
                 subtitle={'Login'}
                 buttonTxt={'Register'}
                 onPressBtn={handleSubmit}
-                onApplePress={() => {
-                  console.log('Apple Signup');
-                }}
-                onGooglePress={() => {
-                  console.log('Google Signup');
-                }}
+                onApplePress={() =>
+                  onAppleLogin(navigation, dispatch, setloading)
+                }
+                onGooglePress={() =>
+                  onGoogleLogin(navigation, dispatch, setloading)
+                }
               />
             </KeyboardAwareScrollView>
           )}

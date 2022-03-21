@@ -6,6 +6,7 @@ export const colors = {
   p4: '#01BAFF66',
   p5: '#01BAFF33',
   p6: '#01BAFF1A',
+  p7: '#CCF1FF',
 
   // Secondary Color
   s1: '#EF9924',
@@ -36,6 +37,7 @@ export const colors = {
   g8: '#DDDADA',
   g8: '#E1E1E1',
   g9: '#626262',
+  g10: '#E6E6E6',
   //White colors
   white: '#ffffff',
 
@@ -45,8 +47,11 @@ export const colors = {
   p_gradient: ['#FF8F8E', '#E79069'],
   //Secondary Gradient
   s_gradient: ['#E79069', '#E7BB69'],
-
+  t_gradient: ['#01BAFF', '#01BAFF'],
+  shadowColor: 'rgba(1, 186, 255, 0.2)',
   introSliderColor: '#34C8FF',
+  light_shadow: '#979797',
   // red
   red: 'red',
+  r1: '#CB0005',
 };

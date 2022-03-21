@@ -1,12 +1,10 @@
-import {combineReducers} from "redux";
+import {combineReducers} from 'redux';
 
-import loginReducer from "./auth-reducers/login-reducer";
-import signUpReducer from "./auth-reducers/signup-reducer";
+import authReducer from './auth-reducers/auth-reducer';
 
 let rootReducer;
 export default rootReducer = combineReducers(
- Object.assign({
-  signup: signUpReducer,
-  login: loginReducer,
- })
+  Object.assign({
+    auth: authReducer,
+  }),
 );

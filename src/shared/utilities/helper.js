@@ -26,3 +26,20 @@ export const useOnlineStatus = () => {
   const store = useContext(OnlineStatusContext);
   return store;
 };
+export const capitalizeFirstLetter = string => {
+  return string?.charAt(0).toUpperCase() + string?.slice(1);
+};
+export const responseValidator = (response, errorMsg) => {
+  let errorCode = response;
+  const msg = errorMsg?.error[0];
+  if (errorCode == 401) {
+    return msg || 'Something went wrong!';
+  } else if (errorCode == 400) {
+    return msg || 'Something went wrong!';
+  } else if (errorCode == 404) {
+    return msg || 'Something went wrong!';
+  } else if (errorCode == 500) {
+    return msg || 'Something went wrong!';
+  } else {
+  }
+};

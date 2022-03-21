@@ -1,23 +1,76 @@
 import React, {useState, useRef} from 'react';
-import {TouchableOpacity, View, SafeAreaView, Text} from 'react-native';
+import {TouchableOpacity, View, SafeAreaView, Text, Alert} from 'react-native';
 import styles from './styles';
-import {WelcomeBox, Button} from '../../../components';
-import {WP, colors} from '../../../shared/exporter';
+import {WelcomeBox, Button, Loader} from '../../../components';
+import {WP, colors, checkConnected} from '../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {
   CodeField,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 import CountDown from 'react-native-countdown-component';
+import {useDispatch, useSelector} from 'react-redux';
+import {verifyOTPRequest} from '../../../redux/actions';
 
-const VerifyOtp = ({params, navigation}) => {
+const VerifyOtp = ({navigation}) => {
+  //States Declaration
+  const [isLoading, setisLoading] = useState(false);
   const [value, setValue] = useState('');
   const [codeFieldProps, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
   });
   const [resendCode, setResendCode] = useState(false);
+
+  //Reference Declraration
   const ref = useRef();
+
+  //Redux Declaration
+  const {forgotPassRes} = useSelector(state => state?.auth);
+  const dispatch = useDispatch(null);
+
+  //verify OTP Handler Hanlder
+  const confirmOtp = async code => {
+    if (code != '') {
+      const checkInternet = await checkConnected();
+      if (checkInternet) {
+        setisLoading(true);
+        const requestBody = {
+          email: forgotPassRes?.email,
+          otp: code,
+        };
+        dispatch(
+          verifyOTPRequest(
+            requestBody,
+            onVerificationSuccess,
+            onVerificationFailed,
+          ),
+        );
+      } else {
+        Alert.alert('Error', 'Check your internet connectivity!');
+      }
+    } else {
+      Alert.alert('Error', 'OTP required');
+    }
+  };
+
+  //On Success Verify OTP
+  const onVerificationSuccess = res => {
+    setisLoading(false);
+    if (res?.message == 'Otp is not matched') {
+      Alert.alert('Error', res?.message);
+    } else {
+      navigation?.replace('ResetPassword');
+      console.log('OTP Verified', res);
+    }
+  };
+
+  // On Failed Verify OTP
+  const onVerificationFailed = res => {
+    setisLoading(false);
+    Alert.alert('Error', res?.message);
+    console.log('OTP Verified', res);
+  };
 
   return (
     <SafeAreaView style={styles.main}>
@@ -34,10 +87,15 @@ const VerifyOtp = ({params, navigation}) => {
               ref={ref}
               {...codeFieldProps}
               value={value}
-              onChangeText={setValue}
+              onChangeText={val => {
+                setValue(val);
+                if (val.length == 4) {
+                  confirmOtp(val);
+                }
+              }}
               cellCount={4}
               onSubmitEditing={() => {
-                console.log('Confirmed');
+                confirmOtp(value);
               }}
               rootStyle={styles.otpInputBox}
               keyboardType="number-pad"
@@ -90,14 +148,16 @@ const VerifyOtp = ({params, navigation}) => {
           {/* Footer Button */}
           <View style={styles.aiCenter}>
             <Button
+              disabled={isLoading}
               onPress={() => {
-                navigation?.navigate('ResetPassword');
+                confirmOtp(value);
               }}
               title={'Submit'}
             />
           </View>
         </KeyboardAwareScrollView>
       </View>
+      {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
   );
 };

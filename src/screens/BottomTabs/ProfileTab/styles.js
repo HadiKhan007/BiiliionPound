@@ -1,13 +1,23 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
+import {
+  HP,
+  WP,
+  size,
+  family,
+  colors,
+  scrHeight,
+} from '../../../shared/exporter';
 
 const styles = StyleSheet.create({
-  container: {
+  main: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height / 2.4,
+
+  contentContainer: {
+    marginHorizontal: WP('5'),
+    flex: 1,
   },
 });
 

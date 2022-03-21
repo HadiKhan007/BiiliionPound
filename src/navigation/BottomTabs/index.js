@@ -7,9 +7,12 @@ import HomeStack from '../stacks/HomeStack';
 import {BottomTab} from '../../components';
 
 const Tab = createBottomTabNavigator();
+
 const MainFlow = () => {
   return (
-    <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
+    <Tab.Navigator
+      screenOptions={{headerShown: false}}
+      tabBar={props => <BottomTab {...props} />}>
       <Tab.Screen component={HomeStack} name={'Home'} />
       <Tab.Screen component={ActivityStack} name={'Activity'} />
       <Tab.Screen component={EventStack} name={'Event'} />

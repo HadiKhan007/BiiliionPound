@@ -4,6 +4,8 @@ import MainNavigation from './src/navigation';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import store, {persistor} from './src/redux/store';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {web_client_id} from './src/shared/exporter';
 
 // ignore warnings
 LogBox.ignoreAllLogs();
@@ -12,6 +14,13 @@ LogBox.ignoreLogs([
 ]);
 
 const App = () => {
+  //Initialize Google Signin
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: web_client_id,
+    });
+  }, []);
+
   return (
     <Provider store={store}>
       <StatusBar
