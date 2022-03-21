@@ -71,6 +71,7 @@ const Login = ({navigation}) => {
             touched,
             isValid,
             handleSubmit,
+            handleReset,
           }) => (
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.inputContainer}>
@@ -120,6 +121,7 @@ const Login = ({navigation}) => {
                 {/* App Privacy Checkbox */}
                 <Text
                   onPress={() => {
+                    handleReset();
                     navigation?.navigate('ForgotPassword');
                   }}
                   style={styles.forgotTxtStyle}>
@@ -132,6 +134,7 @@ const Login = ({navigation}) => {
                 disabled={loading || !isValid}
                 loading={loading}
                 onPressText={() => {
+                  handleReset();
                   navigation?.navigate('SignUp');
                 }}
                 title={`Don't have an account?`}

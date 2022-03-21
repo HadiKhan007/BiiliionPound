@@ -2,11 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaView, FlatList, Text, View} from 'react-native';
 import styles from './styles';
 import {AppHeader, FitnessCard, RepsInput} from '../../../../components';
-import {appIcons, appImages, colors} from '../../../../shared/exporter';
+import {
+  appIcons,
+  appImages,
+  colors,
+  spacing,
+} from '../../../../shared/exporter';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
   const [delItem, setdelItem] = useState([]);
+  const [enableCheck, setenableCheck] = useState(false);
 
   const onPressDelItem = (item, index) => {
     inputList[index] = undefined;
@@ -15,6 +22,15 @@ const AddRaps = ({navigation}) => {
   const onFinish = () => {
     console.log(inputList);
   };
+
+  const onAddConfirmed = (item, index, lbs, rep) => {
+    if (item?.id == inputList[index]?.id) {
+      inputList[index].lbsValue = lbs;
+      inputList[index].repValue = rep;
+      inputList[index].completeEditing = true;
+    }
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -24,15 +40,16 @@ const AddRaps = ({navigation}) => {
           subtitle={'Finish'}
           onPressBtn={onFinish}
         />
-        <View style={styles.topItems}>
-          <FitnessCard icon={appImages.sample_exercise} />
-          <Text style={styles.title}>Front Raises</Text>
-          <Text style={styles.subtitle}>Shoulder</Text>
-        </View>
-        <View>
+        <KeyboardAwareScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.flatStyle}>
+          <View style={styles.topItems}>
+            <FitnessCard icon={appImages.sample_exercise} />
+            <Text style={styles.title}>Front Raises</Text>
+            <Text style={styles.subtitle}>Shoulder</Text>
+          </View>
           <Text style={styles.header}>Front Raises (Dumbbell)</Text>
           <FlatList
-            style={styles.margin0}
             data={inputList}
             showsVerticalScrollIndicator={false}
             renderItem={({item, index}) => {
@@ -41,6 +58,9 @@ const AddRaps = ({navigation}) => {
                   item={item}
                   onDeletePress={() => {
                     onPressDelItem(item, index);
+                  }}
+                  onItemAdded={(lbs, rep) => {
+                    onAddConfirmed(item, index, lbs, rep);
                   }}
                   backgroundColor={colors.white}
                   enableAddSet={false}
@@ -55,6 +75,11 @@ const AddRaps = ({navigation}) => {
                   backgroundColor={colors.p7}
                   enableAddSet={true}
                   enableSwipe={false}
+                  onItemAdded={(lbs, rep) => {
+                    console.log(lbs, rep);
+                    setenableCheck(!enableCheck);
+                  }}
+                  enableCheck={enableCheck}
                   onPressAddSet={(lbs, reps) => {
                     setInputList([
                       ...inputList,
@@ -62,7 +87,7 @@ const AddRaps = ({navigation}) => {
                         id: inputList.length + 1,
                         lbsValue: lbs,
                         repValue: reps,
-                        completeEditing: false,
+                        completeEditing: true,
                       },
                     ]);
                   }}
@@ -70,7 +95,7 @@ const AddRaps = ({navigation}) => {
               );
             }}
           />
-        </View>
+        </KeyboardAwareScrollView>
       </View>
     </SafeAreaView>
   );

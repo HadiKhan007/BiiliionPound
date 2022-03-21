@@ -1,13 +1,19 @@
 import {Image, StyleSheet, Text, View, Animated} from 'react-native';
 import React, {useState} from 'react';
-import {appIcons, colors, family, size, WP} from '../../shared/exporter';
+import {
+  appIcons,
+  colors,
+  family,
+  scrWidth,
+  size,
+  WP,
+} from '../../shared/exporter';
 import {
   Swipeable,
   TextInput,
   TouchableOpacity,
 } from 'react-native-gesture-handler';
 export const RepsInput = ({
-  tintColor,
   backgroundColor,
   onDeletePress,
   onPressCard,
@@ -16,15 +22,18 @@ export const RepsInput = ({
   onPressAddSet,
   item,
   inputList,
+  onItemAdded,
+  enableCheck,
 }) => {
-  const [lbs, setLbs] = useState('');
-  const [reps, setReps] = useState('');
+  const [lbs, setLbs] = useState(item?.lbsValue);
+  const [reps, setReps] = useState(item?.repValue);
   const renderRightActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
+    console.log(item);
     return (
       <TouchableOpacity
         activeOpacity={0.7}
@@ -54,6 +63,7 @@ export const RepsInput = ({
         <View style={styles.setinputCon}>
           <Text style={styles.titleStyle}>SETS</Text>
           <TextInput
+            keyboardType={'decimal-pad'}
             placeholder={`${item?.id || inputList.length + 1}`}
             placeholderTextColor={colors.b7}
             value={item?.id}
@@ -65,8 +75,10 @@ export const RepsInput = ({
         <View style={styles.lbsInputCon}>
           <Text style={styles.titleStyle}>LBS</Text>
           <TextInput
-            placeholder={item?.lbsValue}
-            placeholderTextColor={colors.b7}
+            editable={enableCheck ? false : true}
+            value={lbs}
+            keyboardType={'decimal-pad'}
+            placeholder={''}
             onChangeText={text => {
               setLbs(text);
             }}
@@ -77,8 +89,10 @@ export const RepsInput = ({
         <View style={styles.lbsInputCon}>
           <Text style={styles.titleStyle}>REPS</Text>
           <TextInput
-            placeholder={item?.repValue}
-            placeholderTextColor={colors.b7}
+            editable={enableCheck ? false : true}
+            keyboardType={'decimal-pad'}
+            placeholder={''}
+            value={reps}
             onChangeText={text => {
               setReps(text);
             }}
@@ -86,8 +100,29 @@ export const RepsInput = ({
             style={styles.lbsInput}
           />
         </View>
-        <TouchableOpacity style={[styles.btnConatiner]}>
-          <Image source={appIcons.tick} style={[styles.tickStyle]} />
+        <TouchableOpacity
+          onPress={() => {
+            onItemAdded(lbs, reps);
+          }}
+          style={[
+            styles.btnConatiner,
+            {
+              backgroundColor:
+                item?.completeEditing || enableCheck ? colors.s1 : colors.g10,
+            },
+          ]}>
+          <Image
+            source={appIcons.tick}
+            style={[
+              styles.tickStyle,
+              {
+                tintColor:
+                  item?.completeEditing || enableCheck
+                    ? colors.white
+                    : colors.b7,
+              },
+            ]}
+          />
         </TouchableOpacity>
         <View style={[styles.addBtnContainer]}>
           {enableAddSet && (
