@@ -1,33 +1,32 @@
 import React, {useEffect, useState} from 'react';
 import {SafeAreaView, FlatList, Text, View} from 'react-native';
 import styles from './styles';
-import {AppHeader, FitnessCard, RepsInput} from '../../../../components';
 import {
-  appIcons,
-  appImages,
-  colors,
-  spacing,
-} from '../../../../shared/exporter';
+  ActivitySuccess,
+  AppHeader,
+  FitnessCard,
+  RepsInput,
+} from '../../../../components';
+import {appIcons, appImages, colors} from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
-  const [delItem, setdelItem] = useState([]);
-  const [enableCheck, setenableCheck] = useState(false);
-
+  const [onSuccess, setonSuccess] = useState(false);
   const onPressDelItem = (item, index) => {
     inputList[index] = undefined;
     setInputList(inputList.filter(item => item != undefined));
   };
   const onFinish = () => {
+    setonSuccess(true);
     console.log(inputList);
   };
 
-  const onAddConfirmed = (item, index, lbs, rep) => {
+  const onAddConfirmed = (item, index, lbs, rep, enableCheck) => {
     if (item?.id == inputList[index]?.id) {
       inputList[index].lbsValue = lbs;
       inputList[index].repValue = rep;
-      inputList[index].completeEditing = true;
+      inputList[index].completeEditing = !enableCheck;
     }
   };
 
@@ -55,12 +54,13 @@ const AddRaps = ({navigation}) => {
             renderItem={({item, index}) => {
               return (
                 <RepsInput
+                  index={index}
                   item={item}
                   onDeletePress={() => {
                     onPressDelItem(item, index);
                   }}
-                  onItemAdded={(lbs, rep) => {
-                    onAddConfirmed(item, index, lbs, rep);
+                  onItemAdded={(lbs, rep, enableCheck) => {
+                    onAddConfirmed(item, index, lbs, rep, enableCheck);
                   }}
                   backgroundColor={colors.white}
                   enableAddSet={false}
@@ -75,11 +75,7 @@ const AddRaps = ({navigation}) => {
                   backgroundColor={colors.p7}
                   enableAddSet={true}
                   enableSwipe={false}
-                  onItemAdded={(lbs, rep) => {
-                    console.log(lbs, rep);
-                    setenableCheck(!enableCheck);
-                  }}
-                  enableCheck={enableCheck}
+                  onItemAdded={(lbs, rep) => {}}
                   onPressAddSet={(lbs, reps) => {
                     setInputList([
                       ...inputList,
@@ -87,7 +83,7 @@ const AddRaps = ({navigation}) => {
                         id: inputList.length + 1,
                         lbsValue: lbs,
                         repValue: reps,
-                        completeEditing: true,
+                        completeEditing: false,
                       },
                     ]);
                   }}
@@ -97,6 +93,21 @@ const AddRaps = ({navigation}) => {
           />
         </KeyboardAwareScrollView>
       </View>
+      {onSuccess && (
+        <ActivitySuccess
+          name={'John Doe'}
+          type={'Shoulder'}
+          weight={'150LBS'}
+          excercise={'2x Front Raises'}
+          mode={'Front Raises'}
+          show={onSuccess}
+          onPressHide={() => {
+            setonSuccess(false);
+            navigation?.replace('AddExercise');
+          }}
+          cardIcon={appImages.sample_exercise}
+        />
+      )}
     </SafeAreaView>
   );
 };

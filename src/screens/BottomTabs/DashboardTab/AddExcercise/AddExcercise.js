@@ -7,7 +7,7 @@ import {
   ExcerciseCard,
   ExerciseFilter,
   PrimaryHeading,
-  ActivitySuccess,
+  SelectButton,
 } from '../../../../components';
 import {
   appIcons,
@@ -20,41 +20,60 @@ import AlphabetSectionList from 'react-native-alphabet-sectionlist';
 const sectionListItem = {
   A: [
     {
+      id: 0,
       name: 'Arnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
     {
+      id: 1,
+
       name: 'Arnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
     {
+      id: 2,
+
       name: 'Arnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
   ],
   B: [
     {
+      id: 3,
       name: 'Brnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
     {
+      id: 4,
+
       name: 'Brnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
     {
+      id: 5,
+
       name: 'Brnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
     {
+      id: 6,
+
       name: 'Brnold Press (Dumbbell)',
       icon: appImages.sample_exercise,
       type: 'Shoulder',
+      selected: false,
     },
   ],
 };
@@ -62,7 +81,6 @@ const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedBody, setSelectedBody] = useState(0);
-
   const [onSuccess, setonSuccess] = useState(false);
 
   useEffect(() => {});
@@ -72,9 +90,9 @@ const AddExcercise = ({navigation}) => {
   const onPressSelectedCategory = item => {
     setSelectedCategory(item);
   };
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     return (
-      <View style={spacing.py2}>
+      <View style={[spacing.my2]}>
         <ExcerciseCard
           type={item?.type}
           icon={item?.icon}
@@ -82,7 +100,7 @@ const AddExcercise = ({navigation}) => {
           onPressCard={() => {
             setonSuccess(true);
           }}
-          // isSelected={true}
+          isSelected={item?.id == index ? true : false}
         />
       </View>
     );
@@ -122,12 +140,11 @@ const AddExcercise = ({navigation}) => {
                   <View style={spacing.py2}>
                     <ExcerciseCard
                       onPressCard={() => {
-                        navigation?.navigate('AddReps');
+                        // setonSuccess(!onSuccess);
                       }}
                       type={'Shoulder'}
                       icon={appImages.sample_exercise}
                       name={'Arnold Press (Dumbbell)'}
-                      // isSelected={true}
                     />
                   </View>
                 );
@@ -139,7 +156,15 @@ const AddExcercise = ({navigation}) => {
               showsVerticalScrollIndicator={false}
               data={sectionListItem}
               renderItem={renderItem}
+              hideRightSectionList={true}
               renderSectionHeader={renderSectionHeader}
+            />
+          </View>
+          <View style={styles.selectionBtn}>
+            <SelectButton
+              onPress={() => {
+                navigation?.navigate('AddReps');
+              }}
             />
           </View>
         </View>
@@ -155,20 +180,6 @@ const AddExcercise = ({navigation}) => {
           onPressHide={() => {
             setFilterExcersice(false);
           }}
-        />
-      )}
-      {onSuccess && (
-        <ActivitySuccess
-          name={'John Doe'}
-          type={'Shoulder'}
-          weight={'150LBS'}
-          excercise={'2x Front Raises'}
-          mode={'Front Raises'}
-          show={onSuccess}
-          onPressHide={() => {
-            setonSuccess(false);
-          }}
-          cardIcon={appImages.sample_exercise}
         />
       )}
     </SafeAreaView>
