@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Input, WelcomeBox} from '../../../components';
@@ -7,12 +7,16 @@ import {
   colors,
   loginFormFields,
   LoginVS,
+  onAppleLogin,
+  onGoogleLogin,
 } from '../../../shared/exporter';
 import {Icon} from 'react-native-elements';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
 import {useDispatch} from 'react-redux';
 import {loginRequest} from '../../../redux/actions';
+
+// import {firebase} from '@react-native-firebase/auth';
 
 const Login = ({navigation}) => {
   const [loading, setloading] = useState(false);
@@ -48,7 +52,6 @@ const Login = ({navigation}) => {
     Alert.alert('Failed', res?.message || 'Logged In Failed');
     setloading(false);
   };
-
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -68,6 +71,7 @@ const Login = ({navigation}) => {
             touched,
             isValid,
             handleSubmit,
+            handleReset,
           }) => (
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.inputContainer}>
@@ -102,6 +106,7 @@ const Login = ({navigation}) => {
                   autoCapitalize="none"
                   touched={touched.password}
                   errorMessage={errors.password}
+                  onSubmitEditing={handleSubmit}
                   secureTextEntry
                   leftIcon={
                     <Icon
@@ -116,6 +121,7 @@ const Login = ({navigation}) => {
                 {/* App Privacy Checkbox */}
                 <Text
                   onPress={() => {
+                    handleReset();
                     navigation?.navigate('ForgotPassword');
                   }}
                   style={styles.forgotTxtStyle}>
@@ -128,6 +134,7 @@ const Login = ({navigation}) => {
                 disabled={loading || !isValid}
                 loading={loading}
                 onPressText={() => {
+                  handleReset();
                   navigation?.navigate('SignUp');
                 }}
                 title={`Don't have an account?`}
@@ -135,11 +142,11 @@ const Login = ({navigation}) => {
                 buttonTxt={'Login'}
                 onPressBtn={handleSubmit}
                 onApplePress={() => {
-                  console.log('Apple Login');
+                  onAppleLogin(navigation, dispatch, setloading);
                 }}
-                onGooglePress={() => {
-                  console.log('Google Login');
-                }}
+                onGooglePress={() =>
+                  onGoogleLogin(navigation, dispatch, setloading)
+                }
               />
             </KeyboardAwareScrollView>
           )}

@@ -26,6 +26,7 @@ export const size = {
 
 export const appRadius = {
   buttonRadius: 25,
+  boxRadius: 18,
 };
 
 export const family = {
@@ -44,4 +45,23 @@ export const family = {
   OpenSans_Regular: 'OpenSans-Regular',
   OpenSans_SemiBold: 'OpenSans-SemiBold',
   OpenSans_SemiBoldItalic: 'OpenSans-SemiBoldItalic',
+  // English Fonts
+  Poppins_ThinItalic: 'Poppins-ThinItalic',
+  Poppins_Thin: 'Poppins-Thin',
+  Poppins_SemiBoldItalic: 'Poppins-SemiBoldItalic',
+  Poppins_SemiBold: 'Poppins-SemiBold',
+  Poppins_Regular: 'Poppins-Regular',
+  Poppins_MediumItalic: 'Poppins-MediumItalic',
+  Poppins_Medium: 'Poppins-Medium',
+  Poppins_LightItalic: 'Poppins-LightItalic',
+  Poppins_Light: 'Poppins-Light',
+  Poppins_Italic: 'Poppins-Italic',
+  Poppins_ExtraLightItalic: 'Poppins-ExtraLightItalic',
+  Poppins_ExtraLight: 'Poppins-ExtraLight',
+  Poppins_ExtraBoldItalic: 'Poppins-ExtraBoldItalic',
+  Poppins_ExtraBold: 'Poppins-ExtraBold',
+  Poppins_BoldItalic: 'Poppins-BoldItalic',
+  Poppins_Bold: 'Poppins-Bold',
+  Poppins_BlackItalic: 'Poppins-BlackItalic',
+  Poppins_Black: 'Poppins-Black',
 };

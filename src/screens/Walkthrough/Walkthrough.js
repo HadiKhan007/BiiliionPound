@@ -6,6 +6,8 @@ import {appImages, colors} from '../../shared/exporter';
 import {IntroSlider, CircularProgress} from '../../components';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
+import {useDispatch} from 'react-redux';
+import {setWalkthrough} from '../../redux/actions';
 // import CircularProgress from 'react-native-circular-progress-indicator';
 
 const slides = [
@@ -48,7 +50,7 @@ const slides = [
 
 const Walkthrough = ({navigation}) => {
   const [progressValue, setProgressValue] = useState(0);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setProgressValue(30);
   }, []);
@@ -73,11 +75,15 @@ const Walkthrough = ({navigation}) => {
   const renderDoneButton = () => {
     return (
       <TouchableOpacity
-        onPress={() =>
+        onPress={() => {
+          const body = {
+            skip: true,
+          };
+          dispatch(setWalkthrough(body));
           navigation.replace('Auth', {
             screen: 'SignUp',
-          })
-        }
+          });
+        }}
         style={styles.buttonCircle}>
         <Icon name="checkmark-sharp" type={'ionicon'} color="white" size={24} />
       </TouchableOpacity>

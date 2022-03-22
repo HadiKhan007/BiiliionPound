@@ -9,6 +9,9 @@ export const appImages = {
   slider1: require('../../assets/images/slider1.png'),
   slider3: require('../../assets/images/slider3.png'),
   slider2: require('../../assets/images/slider2.png'),
+  sample_exercise: require('../../assets/images/sample_excercise.png'),
+  selected_icon_button: require('../../assets/images/selected_icon_button.png'),
+
   gettingStarted: require('../../assets/images/getting_started.png'),
   slider4: require('../../assets/images/company_pic.png'),
   appVideo: require('../../assets/video/gym_video.mp4'),
@@ -24,6 +27,16 @@ export const appIcons = {
   event: require('../../assets/icons/event.png'),
   board: require('../../assets/icons/board.png'),
   profile: require('../../assets/icons/profile.png'),
+  notification: require('../../assets/icons/notification.png'),
+  backArrow: require('../../assets/icons/backArrow.png'),
+  plus: require('../../assets/icons/plus.png'),
+  search: require('../../assets/icons/search.png'),
+  filter: require('../../assets/icons/filter.png'),
+  share: require('../../assets/icons/share.png'),
+  cross: require('../../assets/icons/cross.png'),
+  weight: require('../../assets/icons/weight.png'),
+  tick: require('../../assets/icons/tick.png'),
+  delete: require('../../assets/icons/delete.png'),
 };
 
 export const appSvgs = {

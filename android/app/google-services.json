@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "396667718237",
+    "project_id": "billionpound-f25a5",
+    "storage_bucket": "billionpound-f25a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396667718237:android:07a838fb72b4a011421bb4",
+        "android_client_info": {
+          "package_name": "com.billionpound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396667718237-90crj3fop7lu2ndm6at4uhnltma08li8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.billionpound",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB42QXaN3eCG6WQ-_Yhl54azeebyFsy50Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396667718237-h5bclbn14pbilgdmrodqtjrnetvske73.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.billionpound.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
