@@ -21,6 +21,8 @@ export {
   ForgotPasswordVS,
   resetFormFields,
   ResetPasswordVS,
+  updateFormFields,
+  UpdateVS,
 } from './utilities/validations';
 export {
   StatusBarHeight,
@@ -37,6 +39,7 @@ export {
   web_client_id,
   filterBody,
   filterCategory,
+  image_options,
 } from './utilities/constant';
 export {header, authHeader} from './utilities/headers';
 export {

@@ -13,7 +13,6 @@ export const updateFormFields = {
   firstName: '',
   lastName: '',
   email: '',
-  password: '',
 };
 
 export const loginFormFields = {
@@ -71,6 +70,15 @@ export const ResetPasswordVS = yup.object().shape({
 });
 
 export const ForgotPasswordVS = yup.object().shape({
+  email: yup
+    .string()
+    .required('Email Required')
+    .email('Please provide a valid email address'),
+});
+
+export const UpdateVS = yup.object().shape({
+  firstName: yup.string().required('First Name Required').label('firstName'),
+  lastName: yup.string().required('Last Name Required').label('lastName'),
   email: yup
     .string()
     .required('Email Required')

@@ -41,10 +41,13 @@ export * from './Cards/ActivityCard/ActivityCard';
 //Cards
 export * from './Cards/ExcerciseCard/ExcerciseCard';
 export * from './Cards/FitnessCard/FitnessCard';
+export * from './Cards/ProfileImageCard/ProfileImage';
 
 //Modals
 export * from './Modal/ExcerciseFilter';
 export * from './Modal/ActivitySuccess';
+export * from './Modal/ImagePickerModal';
 
 //Headings
 export * from './Headings/PrimaryHeading';
+export * from './Headings/Title';

@@ -28,6 +28,14 @@ const swipe_config = {
   velocityThreshold: 0.3,
   directionalOffsetThreshold: 80,
 };
+let image_options = {
+  title: 'Select Avatar',
+  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 export {
   ANDROID,
   IOS,
@@ -36,4 +44,5 @@ export {
   filterBody,
   filterCategory,
   swipe_config,
+  image_options,
 };

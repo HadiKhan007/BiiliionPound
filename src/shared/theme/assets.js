@@ -37,6 +37,14 @@ export const appIcons = {
   weight: require('../../assets/icons/weight.png'),
   tick: require('../../assets/icons/tick.png'),
   delete: require('../../assets/icons/delete.png'),
+  camera: require('../../assets/icons/camera.png'),
+  logout: require('../../assets/icons/logout.png'),
+  faqs: require('../../assets/icons/faqs.png'),
+  policy: require('../../assets/icons/policy.png'),
+  security: require('../../assets/icons/security.png'),
+  gallery: require('../../assets/icons/gallery.png'),
+  themeCamera: require('../../assets/icons/themeCamera.png'),
+  downArrow: require('../../assets/icons/downArrow.png'),
 };
 
 export const appSvgs = {
