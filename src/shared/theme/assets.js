@@ -19,6 +19,7 @@ export const appImages = {
 
 export const appIcons = {
   forwardIcon: require('../../assets/logo/forward-arrow.png'),
+  rightIcon: require('../../assets/icons/forwardArrow.png'),
   checked: require('../../assets/icons/checked.png'),
   unchecked: require('../../assets/icons/unchecked.png'),
   apple: require('../../assets/icons/apple.png'),
@@ -45,6 +46,9 @@ export const appIcons = {
   gallery: require('../../assets/icons/gallery.png'),
   themeCamera: require('../../assets/icons/themeCamera.png'),
   downArrow: require('../../assets/icons/downArrow.png'),
+  circle: require('../../assets/icons/circle.png'),
+  radio: require('../../assets/icons/radio.png'),
+  threeDots: require('../../assets/icons/threeDots.png'),
 };
 
 export const appSvgs = {

@@ -6,7 +6,8 @@ import {
   family,
   colors,
   scrHeight,
-} from '../../../shared/exporter';
+  scrWidth,
+} from '../../../../shared/exporter';
 
 const styles = StyleSheet.create({
   main: {
@@ -14,34 +15,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
-
   contentContainer: {
     marginHorizontal: WP('5'),
     flex: 1,
   },
-  inputContainer: {
-    height: scrHeight / 2,
+  itemContainer: {
+    height: scrHeight / 1.35,
   },
-  rememberTxtStyle: {
-    width: '70%',
-    fontSize: size.xxtiny,
-    top: 5,
+  titleStyle: {
+    fontSize: size.tiny,
+    color: colors.g1,
     fontFamily: family.OpenSans_Regular,
-    color: colors.g2,
+    paddingLeft: WP('8'),
+    paddingVertical: 5,
   },
-  rememberTxtContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-
-  textDecoration: {
-    textDecorationLine: 'underline',
-  },
-  icon15: {
-    height: 15,
-    width: 15,
+  inputIcon: {
+    width: 6,
+    height: 10,
     resizeMode: 'contain',
+    tintColor: colors.g6,
+  },
+  aiEnd: {
+    alignItems: 'flex-end',
   },
 });
 

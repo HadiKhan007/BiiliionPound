@@ -23,6 +23,8 @@ export {
   ResetPasswordVS,
   updateFormFields,
   UpdateVS,
+  AddNewExerciseVS,
+  AddNewExerciseFormFields,
 } from './utilities/validations';
 export {
   StatusBarHeight,
@@ -40,6 +42,7 @@ export {
   filterBody,
   filterCategory,
   image_options,
+  period_list,
 } from './utilities/constant';
 export {header, authHeader} from './utilities/headers';
 export {

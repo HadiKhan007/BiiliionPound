@@ -8,12 +8,18 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import styles from './styles';
-import {ActivityCard, AppHeader, Title} from '../../../components';
+import {ActivityCard, AppHeader, PeriodModal, Title} from '../../../components';
 import {appIcons, appImages, spacing} from '../../../shared/exporter';
 
 const Activity = ({navigation}) => {
+  // State Declaration
+  const [selectPeriod, setselectPeriod] = useState(null);
+
+  //References
+  const periodSheetRef = useRef(null);
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -21,7 +27,11 @@ const Activity = ({navigation}) => {
         <View style={{flex: 1}}>
           <View style={styles.headerContainer}>
             <Title title={'Activity'} />
-            <TouchableOpacity style={styles.btnContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                periodSheetRef.current.show();
+              }}
+              style={styles.btnContainer}>
               <Text style={styles.textStyle}>Weekly</Text>
               <Image source={appIcons.downArrow} style={styles.imageStyle} />
             </TouchableOpacity>
@@ -47,6 +57,16 @@ const Activity = ({navigation}) => {
           />
         </View>
       </View>
+      <PeriodModal
+        show={periodSheetRef}
+        onPressHide={() => {
+          periodSheetRef?.current?.hide();
+        }}
+        setPeriod={item => {
+          setselectPeriod(item);
+        }}
+        selectedPeriod={selectPeriod}
+      />
     </SafeAreaView>
   );
 };

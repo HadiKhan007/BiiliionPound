@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {SafeAreaView, FlatList, Text, View} from 'react-native';
 import styles from './styles';
 import {
@@ -8,6 +8,7 @@ import {
   ExerciseFilter,
   PrimaryHeading,
   SelectButton,
+  AddNewExercise,
 } from '../../../../components';
 import {
   appIcons,
@@ -82,14 +83,20 @@ const AddExcercise = ({navigation}) => {
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedBody, setSelectedBody] = useState(0);
   const [onSuccess, setonSuccess] = useState(false);
+  //References
+  const addExerciseSheetRef = useRef(null);
 
   useEffect(() => {});
+
+  //Filter Functions
   const onPressSelectedBody = item => {
     setSelectedBody(item);
   };
   const onPressSelectedCategory = item => {
     setSelectedCategory(item);
   };
+
+  //Render Exercise Cards
   const renderItem = ({item, index}) => {
     return (
       <View style={[spacing.my2]}>
@@ -127,9 +134,12 @@ const AddExcercise = ({navigation}) => {
             onPressFilter={() => {
               setFilterExcersice(true);
             }}
+            onPressDots={() => {
+              addExerciseSheetRef.current.show();
+            }}
           />
-          <View style={spacing.px2}>
-            <PrimaryHeading title={'Recent Search'} subtitle={'remove'} />
+          <View style={spacing.py4}>
+            <PrimaryHeading title={'Recent Search'} subtitle={'Remove'} />
           </View>
           <View style={styles.flatListStyle}>
             <FlatList
@@ -182,6 +192,16 @@ const AddExcercise = ({navigation}) => {
           }}
         />
       )}
+      <AddNewExercise
+        show={addExerciseSheetRef}
+        onPressHide={() => {
+          addExerciseSheetRef?.current?.hide();
+        }}
+        onAddPress={() => {
+          addExerciseSheetRef?.current?.hide();
+          navigation?.navigate('AddNewExercise');
+        }}
+      />
     </SafeAreaView>
   );
 };

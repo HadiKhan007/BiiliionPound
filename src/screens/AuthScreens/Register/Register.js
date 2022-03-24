@@ -3,6 +3,7 @@ import {Text, View, SafeAreaView, Alert} from 'react-native';
 import styles from './styles';
 import {AuthFooter, Checkbox, Input, WelcomeBox} from '../../../components';
 import {
+  appIcons,
   checkConnected,
   colors,
   onAppleLogin,
@@ -182,10 +183,14 @@ const Signup = ({navigation}) => {
                 {/* App Privacy Checkbox */}
                 <View style={styles.rememberTxtContainer}>
                   <Checkbox
+                    checkIcon={appIcons.checked}
+                    uncheckIcon={appIcons.unchecked}
                     toggleCheckBox={toggleCheckBox}
                     setToggleCheckBox={() => {
                       setToggleCheckBox(!toggleCheckBox);
                     }}
+                    CheckImagestyle={styles.icon15}
+                    UnCheckImagestyle={styles.icon15}
                   />
                   <Text style={styles.rememberTxtStyle}>
                     By continuing you accept our{' '}

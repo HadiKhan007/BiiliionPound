@@ -19,6 +19,7 @@ interface InputProps {
   touched: any;
   value: any;
   onSubmitEditing: any;
+  editable: boolean;
 }
 
 const Input = ({
@@ -36,6 +37,7 @@ const Input = ({
   onBlur,
   value,
   onSubmitEditing,
+  editable,
 }: InputProps) => {
   const [showPass, setShowPass] = React.useState(secureTextEntry);
 
@@ -52,6 +54,7 @@ const Input = ({
       disableFullscreenUI={disableFullscreenUI}
       autoCapitalize={autoCapitalize}
       blurOnSubmit={blurOnSubmit}
+      editable={editable}
       rightIcon={
         secureTextEntry ? (
           <Icon
@@ -64,7 +67,9 @@ const Input = ({
             color={colors.g1}
             tvParallaxProperties={undefined}
           />
-        ) : null
+        ) : (
+          rightIcon
+        )
       }
       errorMessage={errorMessage}
       renderErrorMessage={renderErrorMessage}

@@ -47,6 +47,7 @@
     "formik": "^2.2.9",
     "react": "17.0.2",
     "react-native": "0.67.3",
+    "react-native-actions-sheet": "^0.6.0",
     "react-native-alphabet-sectionlist": "^0.0.4",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-circular-progress-indicator": "^2.0.6",

@@ -47,6 +47,9 @@ export * from './Cards/ProfileImageCard/ProfileImage';
 export * from './Modal/ExcerciseFilter';
 export * from './Modal/ActivitySuccess';
 export * from './Modal/ImagePickerModal';
+export * from './Modal/PeriodModal';
+export * from './Modal/AddNewExercise';
+export * from './Modal/CategorySelection';
 
 //Headings
 export * from './Headings/PrimaryHeading';

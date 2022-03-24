@@ -29,6 +29,11 @@ export const forgotFormFields = {
 export const codeFormFields = {
   code: '',
 };
+export const AddNewExerciseFormFields = {
+  exercise_name: '',
+  category: '',
+  bodyPart: '',
+};
 
 const passwordRegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
 
@@ -83,4 +88,10 @@ export const UpdateVS = yup.object().shape({
     .string()
     .required('Email Required')
     .email('Please provide a valid email address'),
+});
+
+export const AddNewExerciseVS = yup.object().shape({
+  exercise_name: yup.string().required('Exercise Name Required'),
+  category: yup.string().required('Exercise Category Required'),
+  bodyPart: yup.string().required('Exercise Body Part  Required'),
 });

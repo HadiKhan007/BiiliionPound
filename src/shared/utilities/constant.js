@@ -24,6 +24,28 @@ const filterCategory = [
   {id: 7, title: 'Cardio exercise', tick: false},
   {id: 8, title: 'Duration', tick: false},
 ];
+const period_list = [
+  {
+    id: 0,
+    title: 'Today',
+    status: false,
+  },
+  {
+    id: 1,
+    title: 'Weekly',
+    status: false,
+  },
+  {
+    id: 2,
+    title: 'Monthly',
+    status: false,
+  },
+  {
+    id: 3,
+    title: 'Yearly',
+    status: false,
+  },
+];
 const swipe_config = {
   velocityThreshold: 0.3,
   directionalOffsetThreshold: 80,
@@ -45,4 +67,5 @@ export {
   filterCategory,
   swipe_config,
   image_options,
+  period_list,
 };

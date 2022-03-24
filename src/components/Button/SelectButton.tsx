@@ -4,11 +4,15 @@ import {appIcons, appImages, colors} from '../../shared/exporter';
 
 interface SelectButtonProps {
   onPress: () => void;
+  disabled: boolean;
 }
 
-export const SelectButton = ({onPress}: SelectButtonProps) => {
+export const SelectButton = ({onPress, disabled}: SelectButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={styles.container}>
       <Image
         source={appIcons.tick}
         resizeMode={'contain'}

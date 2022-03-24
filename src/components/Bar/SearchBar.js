@@ -3,24 +3,35 @@ import React from 'react';
 import {Input} from 'react-native-elements';
 import {appIcons, colors, family, size, WP} from '../../shared/exporter';
 
-export const SearchBar = ({onChangeText, placeholder, onPressFilter}) => {
+export const SearchBar = ({
+  onChangeText,
+  placeholder,
+  onPressFilter,
+  onPressDots,
+}) => {
   return (
-    <View>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View style={styles.inputContainerStyle}>
         <Input
           inputStyle={styles.inputStyle}
-          inputContainerStyle={styles.inputContainerStyle}
           onChangeText={onChangeText}
+          inputContainerStyle={styles.inputContainer}
           placeholderTextColor={colors.g4}
           placeholder={placeholder}
           leftIcon={<Image style={styles.icon19} source={appIcons.search} />}
         />
-        <TouchableOpacity
-          onPress={onPressFilter}
-          style={styles.rightInputContainer}>
-          <Image style={styles.rightIcon} source={appIcons.filter} />
-        </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        onPress={onPressFilter}
+        style={styles.rightInputContainer}>
+        <Image style={styles.rightIcon} source={appIcons.filter} />
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={onPressDots}
+        style={styles.rightInputContainer2}>
+        <Image style={styles.dotIcon} source={appIcons.threeDots} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -28,8 +39,10 @@ export const SearchBar = ({onChangeText, placeholder, onPressFilter}) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: '85%',
-    marginTop: 5,
+    width: '100%',
+    marginVertical: 10,
+    justifyContent: 'space-between',
+    height: 48,
   },
   icon19: {
     height: 19,
@@ -42,7 +55,11 @@ const styles = StyleSheet.create({
     width: 16,
     resizeMode: 'contain',
   },
-
+  dotIcon: {
+    height: 16,
+    width: 5,
+    resizeMode: 'contain',
+  },
   inputStyle: {
     fontFamily: family.OpenSans_Regular,
     fontSize: size.small,
@@ -54,12 +71,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.g10,
     borderBottomWidth: 0,
     paddingHorizontal: 10,
+    height: 48,
+    width: '66%',
+  },
+  inputContainer: {
+    borderRadius: 8,
+    backgroundColor: colors.g10,
+    borderBottomWidth: 0,
   },
   rightInputContainer: {
-    height: 48,
-    width: 48,
+    width: '14%',
     backgroundColor: colors.g10,
     borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightInputContainer2: {
+    width: '10%',
     alignItems: 'center',
     justifyContent: 'center',
   },
