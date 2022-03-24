@@ -42,6 +42,7 @@ export * from './Cards/ActivityCard/ActivityCard';
 export * from './Cards/ExcerciseCard/ExcerciseCard';
 export * from './Cards/FitnessCard/FitnessCard';
 export * from './Cards/ProfileImageCard/ProfileImage';
+export * from './Cards/NotificationCard/NotificationCard';
 
 //Modals
 export * from './Modal/ExcerciseFilter';

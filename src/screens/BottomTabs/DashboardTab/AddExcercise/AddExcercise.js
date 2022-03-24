@@ -82,7 +82,7 @@ const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [selectedBody, setSelectedBody] = useState(0);
-  const [onSuccess, setonSuccess] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(0);
   //References
   const addExerciseSheetRef = useRef(null);
 
@@ -105,9 +105,9 @@ const AddExcercise = ({navigation}) => {
           icon={item?.icon}
           name={item?.name}
           onPressCard={() => {
-            setonSuccess(true);
+            setSelectedItem(item?.id);
           }}
-          isSelected={item?.id == index ? true : false}
+          isSelected={item?.id == selectedItem ? true : false}
         />
       </View>
     );

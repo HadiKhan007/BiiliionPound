@@ -6,7 +6,6 @@ import {
   family,
   colors,
   scrHeight,
-  scrWidth,
 } from '../../../../shared/exporter';
 
 const styles = StyleSheet.create({
@@ -19,24 +18,13 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('5'),
     flex: 1,
   },
+  separator: {
+    borderBottomWidth: 1,
+    borderColor: colors.g8,
+    marginVertical: 5,
+  },
   itemContainer: {
-    height: scrHeight / 1.35,
-  },
-  titleStyle: {
-    fontSize: size.tiny,
-    color: colors.g1,
-    fontFamily: family.OpenSans_Regular,
-    paddingLeft: WP('8'),
-    paddingBottom: 5,
-  },
-  inputIcon: {
-    width: 6,
-    height: 10,
-    resizeMode: 'contain',
-    tintColor: colors.g6,
-  },
-  aiEnd: {
-    alignItems: 'flex-end',
+    marginHorizontal: WP('3'),
   },
 });
 

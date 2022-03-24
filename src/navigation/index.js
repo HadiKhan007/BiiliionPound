@@ -11,6 +11,7 @@ import Terms from '../screens/Terms/Terms';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 import Faqs from '../screens/Faqs';
 import EditProfile from '../screens/BottomTabs/ProfileTab/EditProfile';
+import NotificationList from '../screens/BottomTabs/DashboardTab/NotificationList';
 
 const AppStack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const MainAppNav = () => {
         <AppStack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
         <AppStack.Screen name="EditProfile" component={EditProfile} />
         <AppStack.Screen name="Faqs" component={Faqs} />
+        <AppStack.Screen name="NotificationList" component={NotificationList} />
         <AppStack.Screen name={'Auth'} component={AuthStack} />
         <AppStack.Screen name={'App'} component={Dashboard} />
         <AppStack.Screen name={'ExerciseStack'} component={ExerciseStack} />

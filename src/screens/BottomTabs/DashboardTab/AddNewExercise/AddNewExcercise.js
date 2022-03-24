@@ -38,7 +38,7 @@ const AddNewExcercise = ({navigation}) => {
         <Formik
           initialValues={AddNewExerciseFormFields}
           onSubmit={values => {
-            console.log(values);
+            navigation?.navigate('AddExercise');
           }}
           validationSchema={AddNewExerciseVS}>
           {({
