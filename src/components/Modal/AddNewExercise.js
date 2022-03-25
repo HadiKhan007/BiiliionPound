@@ -18,18 +18,36 @@ import {
   appIcons,
 } from '../../shared/exporter';
 
-export const AddNewExercise = ({show, onPressHide, onAddPress}) => {
+export const AddNewExercise = ({
+  show,
+  onPressHide,
+  onAddPress,
+  icon,
+  title,
+  bgColor,
+  textColor,
+  nodeColor,
+  borderleftRadius,
+  borderRightRadius,
+}) => {
   return (
     <ActionSheet
-      indicatorColor={colors.white}
+      indicatorColor={nodeColor ? nodeColor : colors.white}
       gestureEnabled={true}
       closable={true}
       onClose={onPressHide}
       ref={show}
-      containerStyle={styles.containerStyle}>
+      containerStyle={[
+        styles.containerStyle,
+        {
+          backgroundColor: bgColor,
+          borderTopLeftRadius: borderleftRadius,
+          borderTopRightRadius: borderRightRadius,
+        },
+      ]}>
       <TouchableOpacity onPress={onAddPress} style={styles.titleContainer}>
-        <Image style={styles.icon12} source={appIcons.plus} />
-        <Title color={colors.b7} title={'Create Exercise'} />
+        {icon && <Image style={styles.icon12} source={icon} />}
+        <Title color={textColor} title={title} />
       </TouchableOpacity>
     </ActionSheet>
   );
@@ -37,8 +55,6 @@ export const AddNewExercise = ({show, onPressHide, onAddPress}) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
     height: scrHeight / 7,
     alignItems: 'center',
     justifyContent: 'center',

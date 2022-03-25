@@ -24,6 +24,16 @@ const filterCategory = [
   {id: 7, title: 'Cardio exercise', tick: false},
   {id: 8, title: 'Duration', tick: false},
 ];
+const filterTeam = [
+  {id: 1, title: 'Team Red', tick: false},
+  {id: 2, title: 'Team Black', tick: false},
+  {id: 3, title: 'Team Yellow', tick: false},
+  {id: 4, title: 'Team Pink', tick: false},
+  {id: 5, title: 'Team Orange', tick: false},
+  {id: 6, title: 'Team White', tick: false},
+  {id: 7, title: 'Cardio exercise', tick: false},
+  {id: 8, title: 'Team Blue', tick: false},
+];
 const period_list = [
   {
     id: 0,
@@ -70,4 +80,5 @@ export {
   image_options,
   period_list,
   profile_uri,
+  filterTeam,
 };

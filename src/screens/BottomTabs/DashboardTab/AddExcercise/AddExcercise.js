@@ -13,6 +13,7 @@ import {
 import {
   appIcons,
   appImages,
+  colors,
   filterBody,
   filterCategory,
   spacing,
@@ -197,10 +198,16 @@ const AddExcercise = ({navigation}) => {
         onPressHide={() => {
           addExerciseSheetRef?.current?.hide();
         }}
+        title={'Create Exercise'}
         onAddPress={() => {
           addExerciseSheetRef?.current?.hide();
           navigation?.navigate('AddNewExercise');
         }}
+        icon={appIcons.plus}
+        bgColor={colors.white}
+        textColor={colors.b7}
+        borderleftRadius={15}
+        borderRightRadius={15}
       />
     </SafeAreaView>
   );

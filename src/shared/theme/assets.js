@@ -51,6 +51,8 @@ export const appIcons = {
   threeDots: require('../../assets/icons/threeDots.png'),
   minus: require('../../assets/icons/minus.png'),
   location: require('../../assets/icons/location.png'),
+  user: require('../../assets/icons/user.png'),
+  visa: require('../../assets/icons/visa.png'),
 };
 
 export const appSvgs = {
