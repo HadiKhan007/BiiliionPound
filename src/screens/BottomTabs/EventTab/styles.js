@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('5'),
     flex: 1,
   },
+  itemConatiner: {
+    flex: 1,
+  },
 });
 
 export default styles;

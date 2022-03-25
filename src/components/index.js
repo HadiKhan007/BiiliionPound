@@ -43,6 +43,8 @@ export * from './Cards/ExcerciseCard/ExcerciseCard';
 export * from './Cards/FitnessCard/FitnessCard';
 export * from './Cards/ProfileImageCard/ProfileImage';
 export * from './Cards/NotificationCard/NotificationCard';
+export * from './Cards/OngoingEventCard/OngoingEventCard';
+export * from './Cards/UpcomingEventCard/UpcomingEventCard';
 
 //Modals
 export * from './Modal/ExcerciseFilter';

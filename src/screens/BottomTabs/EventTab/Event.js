@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, FlatList} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {AppHeader} from '../../../components';
+import {AppHeader, OngoingEventCard, PrimaryHeading} from '../../../components';
 import {appIcons} from '../../../shared/exporter';
 
 const Event = () => {
@@ -9,7 +9,19 @@ const Event = () => {
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader title={'Event'} />
-        <View></View>
+        <View style={styles.itemConatiner}>
+          <PrimaryHeading title={'Ongoing Events'} normalText={'See All'} />
+          <View>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              data={[1, 2, 3]}
+              renderItem={({item}) => {
+                return <OngoingEventCard />;
+              }}
+            />
+          </View>
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -58,6 +58,7 @@ let image_options = {
     path: 'images',
   },
 };
+const profile_uri = 'https://unsplash.it/400/400?image=1';
 export {
   ANDROID,
   IOS,
@@ -68,4 +69,5 @@ export {
   swipe_config,
   image_options,
   period_list,
+  profile_uri,
 };

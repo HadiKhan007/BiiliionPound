@@ -43,6 +43,7 @@ export {
   filterCategory,
   image_options,
   period_list,
+  profile_uri,
 } from './utilities/constant';
 export {header, authHeader} from './utilities/headers';
 export {
