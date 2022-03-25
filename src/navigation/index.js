@@ -12,6 +12,7 @@ import PrivacyPolicy from '../screens/PrivacyPolicy';
 import Faqs from '../screens/Faqs';
 import EditProfile from '../screens/BottomTabs/ProfileTab/EditProfile';
 import NotificationList from '../screens/BottomTabs/DashboardTab/NotificationList';
+import EventDetail from '../screens/BottomTabs/EventTab/EventDetail';
 
 const AppStack = createStackNavigator();
 
@@ -32,6 +33,7 @@ const MainAppNav = () => {
         <AppStack.Screen name={'Auth'} component={AuthStack} />
         <AppStack.Screen name={'App'} component={Dashboard} />
         <AppStack.Screen name={'ExerciseStack'} component={ExerciseStack} />
+        <AppStack.Screen name={'EventDetail'} component={EventDetail} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

@@ -50,6 +50,7 @@ export const appIcons = {
   radio: require('../../assets/icons/radio.png'),
   threeDots: require('../../assets/icons/threeDots.png'),
   minus: require('../../assets/icons/minus.png'),
+  location: require('../../assets/icons/location.png'),
 };
 
 export const appSvgs = {

@@ -45,6 +45,7 @@ export * from './Cards/ProfileImageCard/ProfileImage';
 export * from './Cards/NotificationCard/NotificationCard';
 export * from './Cards/OngoingEventCard/OngoingEventCard';
 export * from './Cards/UpcomingEventCard/UpcomingEventCard';
+export * from './Cards/OngoingEventCard/OngoingItem';
 
 //Modals
 export * from './Modal/ExcerciseFilter';
