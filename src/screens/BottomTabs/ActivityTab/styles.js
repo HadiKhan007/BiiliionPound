@@ -19,6 +19,30 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('5'),
     flex: 1,
   },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  btnContainer: {
+    width: 76,
+    height: 30,
+    borderRadius: 50,
+    backgroundColor: colors.p1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  textStyle: {
+    fontSize: size.xxtiny,
+    color: colors.white,
+    fontFamily: family.OpenSans_Regular,
+  },
+  imageStyle: {
+    height: 5,
+    width: 9,
+    resizeMode: 'contain',
+    marginHorizontal: 5,
+  },
 });
 
 export default styles;

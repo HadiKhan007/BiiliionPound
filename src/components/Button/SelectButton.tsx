@@ -1,16 +1,20 @@
 import * as React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import {appImages} from '../../shared/exporter';
+import {appIcons, appImages, colors} from '../../shared/exporter';
 
 interface SelectButtonProps {
   onPress: () => void;
+  disabled: boolean;
 }
 
-const SelectButton = ({onPress}: SelectButtonProps) => {
+export const SelectButton = ({onPress, disabled}: SelectButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={styles.container}>
       <Image
-        source={appImages.selectedButton}
+        source={appIcons.tick}
         resizeMode={'contain'}
         style={styles.selectedImage}
       />
@@ -18,13 +22,19 @@ const SelectButton = ({onPress}: SelectButtonProps) => {
   );
 };
 
-export default SelectButton;
-
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 57,
+    height: 57,
+    borderRadius: 57,
+    backgroundColor: colors.p1,
+  },
   selectedImage: {
-    width: 55,
-    height: 55,
-    alignSelf: 'center',
+    height: 12,
+    width: 19,
+    tintColor: colors.white,
+    resizeMode: 'contain',
   },
 });

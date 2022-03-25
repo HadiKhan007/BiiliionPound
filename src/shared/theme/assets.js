@@ -19,6 +19,7 @@ export const appImages = {
 
 export const appIcons = {
   forwardIcon: require('../../assets/logo/forward-arrow.png'),
+  rightIcon: require('../../assets/icons/forwardArrow.png'),
   checked: require('../../assets/icons/checked.png'),
   unchecked: require('../../assets/icons/unchecked.png'),
   apple: require('../../assets/icons/apple.png'),
@@ -37,6 +38,19 @@ export const appIcons = {
   weight: require('../../assets/icons/weight.png'),
   tick: require('../../assets/icons/tick.png'),
   delete: require('../../assets/icons/delete.png'),
+  camera: require('../../assets/icons/camera.png'),
+  logout: require('../../assets/icons/logout.png'),
+  faqs: require('../../assets/icons/faqs.png'),
+  policy: require('../../assets/icons/policy.png'),
+  security: require('../../assets/icons/security.png'),
+  gallery: require('../../assets/icons/gallery.png'),
+  themeCamera: require('../../assets/icons/themeCamera.png'),
+  downArrow: require('../../assets/icons/downArrow.png'),
+  circle: require('../../assets/icons/circle.png'),
+  radio: require('../../assets/icons/radio.png'),
+  threeDots: require('../../assets/icons/threeDots.png'),
+  minus: require('../../assets/icons/minus.png'),
+  location: require('../../assets/icons/location.png'),
 };
 
 export const appSvgs = {

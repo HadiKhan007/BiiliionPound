@@ -15,7 +15,9 @@ const Dashboard = ({navigation}) => {
             capitalizeFirstLetter(userInfo?.user?.first_name) || 'Stefani'
           } ${capitalizeFirstLetter(userInfo?.user?.last_name) || 'Wong'}`}
           icon={appIcons.notification}
-          onPressBtn={() => {}}
+          onPressBtn={() => {
+            navigation?.navigate('NotificationList');
+          }}
         />
         <View style={styles.itemView}>
           <HomeCircle

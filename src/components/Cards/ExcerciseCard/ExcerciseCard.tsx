@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   selectedContainer: {
     flexDirection: 'row',
     paddingHorizontal: WP('3'),
-    backgroundColor: colors.p3,
+    backgroundColor: colors.p7,
     paddingVertical: HP('1'),
     justifyContent: 'space-between',
   },

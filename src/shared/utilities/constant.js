@@ -24,10 +24,41 @@ const filterCategory = [
   {id: 7, title: 'Cardio exercise', tick: false},
   {id: 8, title: 'Duration', tick: false},
 ];
+const period_list = [
+  {
+    id: 0,
+    title: 'Today',
+    status: false,
+  },
+  {
+    id: 1,
+    title: 'Weekly',
+    status: false,
+  },
+  {
+    id: 2,
+    title: 'Monthly',
+    status: false,
+  },
+  {
+    id: 3,
+    title: 'Yearly',
+    status: false,
+  },
+];
 const swipe_config = {
   velocityThreshold: 0.3,
   directionalOffsetThreshold: 80,
 };
+let image_options = {
+  title: 'Select Avatar',
+  customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+const profile_uri = 'https://unsplash.it/400/400?image=1';
 export {
   ANDROID,
   IOS,
@@ -36,4 +67,7 @@ export {
   filterBody,
   filterCategory,
   swipe_config,
+  image_options,
+  period_list,
+  profile_uri,
 };

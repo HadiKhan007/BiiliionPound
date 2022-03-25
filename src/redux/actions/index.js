@@ -8,3 +8,4 @@ export {
   logoutRequset,
   verifyOTPRequest,
 } from './auth-actions/auth-action';
+export {setProfileImage} from './profile-actions/profile-action';

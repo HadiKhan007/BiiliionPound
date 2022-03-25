@@ -1,15 +1,63 @@
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {AppHeader} from '../../../components';
-import {appIcons} from '../../../shared/exporter';
+import {
+  AppHeader,
+  OngoingEventCard,
+  PrimaryHeading,
+  UpcomingEventCard,
+} from '../../../components';
+import {appIcons, spacing} from '../../../shared/exporter';
 
-const Event = () => {
+const Event = ({navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader title={'Event'} />
-        <View></View>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.itemConatiner}>
+          <PrimaryHeading title={'Ongoing Events'} normalText={'See All'} />
+          <View style={spacing.py2}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal={true}
+              data={[1, 2, 3]}
+              renderItem={({item}) => {
+                return (
+                  <OngoingEventCard
+                    onPressCard={() => {
+                      navigation.navigate('EventDetail');
+                    }}
+                  />
+                );
+              }}
+            />
+          </View>
+          <PrimaryHeading title={'Upcoming Events'} />
+          <View style={{flex: 1}}>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={[1, 2, 3, 4, 5, 6, 7, 8]}
+              renderItem={({item}) => {
+                return (
+                  <UpcomingEventCard
+                    onPressCard={() => {
+                      navigation.navigate('EventDetail');
+                    }}
+                  />
+                );
+              }}
+            />
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

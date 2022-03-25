@@ -48,8 +48,22 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>For Billion Pound camera</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>For Billion Pound</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Billion Pound always use</string>
+	<key>NSLocationDefaultAccuracyReduced</key>
+	<string>Location in Billion Pound use</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Location Usage</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>Location In Use</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>For Billion Pound additional Gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For Billion Pound Gallery</string>	
 	<key>UIAppFonts</key>
 	<array>
 		<string>Comfortaa-Bold.ttf</string>

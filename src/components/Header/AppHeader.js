@@ -12,12 +12,14 @@ export const AppHeader = ({
   secondaryIcon,
   rightIcon,
   onPressBtn,
+  smSubtitle,
+  titleColor,
 }) => {
   const navigation = useNavigation();
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <View style={styles.headerStyle}>
-        <View>
+        <View style={styles.leftContainer}>
           {icon && (
             <TouchableOpacity
               onPress={onPressBack ? onPressBack : () => navigation?.goBack()}
@@ -33,11 +35,18 @@ export const AppHeader = ({
             </TouchableOpacity>
           )}
         </View>
-        <Text style={[styles.titleStyle, {right: icon && !subtitle ? 15 : 0}]}>
+        <Text
+          style={[
+            styles.titleStyle,
+            {color: titleColor ? titleColor : colors.b7},
+          ]}>
           {title}
         </Text>
-        <TouchableOpacity onPress={onPressBtn}>
+        <TouchableOpacity style={styles.rightContainer} onPress={onPressBtn}>
           {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
+          {smSubtitle && (
+            <Text style={styles.smSubtitleStyle}>{smSubtitle}</Text>
+          )}
 
           {rightIcon && (
             <Image style={styles.rightIconStyle} source={rightIcon} />
@@ -50,7 +59,7 @@ export const AppHeader = ({
 AppHeader.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  icon: PropTypes.string,
+  icon: PropTypes.any,
   onPressBtn: PropTypes.func,
 };
 const styles = StyleSheet.create({
@@ -63,6 +72,8 @@ const styles = StyleSheet.create({
     fontSize: size.normal,
     color: colors.b7,
     fontFamily: family.Poppins_Bold,
+    width: '50%',
+    textAlign: 'center',
   },
   headerStyle: {
     flexDirection: 'row',
@@ -72,6 +83,11 @@ const styles = StyleSheet.create({
   },
   subtitleStyle: {
     fontSize: size.normal,
+    color: colors.p1,
+    fontFamily: family.Poppins_Medium,
+  },
+  smSubtitleStyle: {
+    fontSize: size.tiny,
     color: colors.p1,
     fontFamily: family.Poppins_Medium,
   },
@@ -97,5 +113,13 @@ const styles = StyleSheet.create({
     width: 18,
     height: 20,
     resizeMode: 'contain',
+  },
+  leftContainer: {
+    width: '25%',
+  },
+  rightContainer: {
+    alignItems: 'flex-end',
+    width: '25%',
+    justifyContent: 'center',
   },
 });

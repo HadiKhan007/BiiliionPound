@@ -38,6 +38,11 @@ const styles = StyleSheet.create({
   textDecoration: {
     textDecorationLine: 'underline',
   },
+  icon15: {
+    height: 15,
+    width: 15,
+    resizeMode: 'contain',
+  },
 });
 
 export default styles;

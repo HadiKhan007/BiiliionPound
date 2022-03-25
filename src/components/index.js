@@ -4,6 +4,7 @@ export * from './Header/HomeHeader';
 
 //Button
 export * from './Button/Button';
+export * from './Button/SelectButton';
 export * from './CircularProgress/CircularProgress';
 //Spacer
 export * from './Spacer/Spacer';
@@ -40,10 +41,20 @@ export * from './Cards/ActivityCard/ActivityCard';
 //Cards
 export * from './Cards/ExcerciseCard/ExcerciseCard';
 export * from './Cards/FitnessCard/FitnessCard';
+export * from './Cards/ProfileImageCard/ProfileImage';
+export * from './Cards/NotificationCard/NotificationCard';
+export * from './Cards/OngoingEventCard/OngoingEventCard';
+export * from './Cards/UpcomingEventCard/UpcomingEventCard';
+export * from './Cards/OngoingEventCard/OngoingItem';
 
 //Modals
 export * from './Modal/ExcerciseFilter';
 export * from './Modal/ActivitySuccess';
+export * from './Modal/ImagePickerModal';
+export * from './Modal/PeriodModal';
+export * from './Modal/AddNewExercise';
+export * from './Modal/CategorySelection';
 
 //Headings
 export * from './Headings/PrimaryHeading';
+export * from './Headings/Title';

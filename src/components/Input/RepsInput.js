@@ -13,6 +13,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native-gesture-handler';
+
 export const RepsInput = ({
   backgroundColor,
   onDeletePress,
@@ -23,17 +24,18 @@ export const RepsInput = ({
   item,
   inputList,
   onItemAdded,
-  enableCheck,
+  index,
 }) => {
   const [lbs, setLbs] = useState(item?.lbsValue);
   const [reps, setReps] = useState(item?.repValue);
+  const [enableCheck, setEnableCheck] = useState(false);
+
   const renderRightActions = (progress, dragX) => {
     const scale = dragX.interpolate({
       inputRange: [-100, 0],
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
-    console.log(item);
     return (
       <TouchableOpacity
         activeOpacity={0.7}
@@ -46,6 +48,7 @@ export const RepsInput = ({
       </TouchableOpacity>
     );
   };
+
   return (
     <Swipeable
       containerStyle={styles.cardContainer}
@@ -64,7 +67,7 @@ export const RepsInput = ({
           <Text style={styles.titleStyle}>SETS</Text>
           <TextInput
             keyboardType={'decimal-pad'}
-            placeholder={`${item?.id || inputList.length + 1}`}
+            placeholder={`${index + 1 || inputList.length + 1}`}
             placeholderTextColor={colors.b7}
             value={item?.id}
             editable={false}
@@ -75,7 +78,7 @@ export const RepsInput = ({
         <View style={styles.lbsInputCon}>
           <Text style={styles.titleStyle}>LBS</Text>
           <TextInput
-            editable={enableCheck ? false : true}
+            editable={enableCheck || item?.completeEditing ? false : true}
             value={lbs}
             keyboardType={'decimal-pad'}
             placeholder={''}
@@ -89,7 +92,7 @@ export const RepsInput = ({
         <View style={styles.lbsInputCon}>
           <Text style={styles.titleStyle}>REPS</Text>
           <TextInput
-            editable={enableCheck ? false : true}
+            editable={enableCheck || item?.completeEditing ? false : true}
             keyboardType={'decimal-pad'}
             placeholder={''}
             value={reps}
@@ -102,7 +105,8 @@ export const RepsInput = ({
         </View>
         <TouchableOpacity
           onPress={() => {
-            onItemAdded(lbs, reps);
+            onItemAdded(lbs, reps, enableCheck);
+            setEnableCheck(!enableCheck);
           }}
           style={[
             styles.btnConatiner,
@@ -128,7 +132,7 @@ export const RepsInput = ({
           {enableAddSet && (
             <TouchableOpacity
               onPress={() => onPressAddSet(lbs, reps)}
-              style={styles.addBtn}>
+              style={[styles.addBtn]}>
               <Text style={styles.addBtntxt}>Add Set</Text>
             </TouchableOpacity>
           )}

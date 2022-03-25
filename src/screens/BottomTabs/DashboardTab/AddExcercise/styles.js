@@ -6,6 +6,7 @@ import {
   family,
   colors,
   scrHeight,
+  scrWidth,
 } from '../../../../shared/exporter';
 
 const styles = StyleSheet.create({
@@ -31,9 +32,18 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_SemiBold,
     color: colors.b7,
   },
-  sectionlistStyle: {flex: 1, marginHorizontal: 5},
+  sectionlistStyle: {
+    flex: 1,
+    marginHorizontal: -WP('5'),
+    paddingBottom: 20,
+  },
   flatListStyle: {
     flex: 0.5,
+  },
+  selectionBtn: {
+    position: 'absolute',
+    bottom: 20,
+    alignSelf: 'center',
   },
 });
 
