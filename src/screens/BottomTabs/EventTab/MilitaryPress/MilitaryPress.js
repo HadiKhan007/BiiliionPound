@@ -124,8 +124,14 @@ const MilitaryPress = ({navigation}) => {
             }}
           />
 
-          <View style={{alignItems: 'center', marginTop: WP('2')}}>
-            <Button title="Participate" withRightIcon />
+          <View style={{alignItems: 'center', marginVertical: WP('2')}}>
+            <Button
+              title="Participate"
+              withRightIcon
+              onPress={() => {
+                navigation?.navigate('ExerciseStack');
+              }}
+            />
           </View>
         </ScrollView>
       </View>
