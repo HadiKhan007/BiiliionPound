@@ -44,7 +44,7 @@
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
-    "@stripe/stripe-react-native": "0.3.0",
+    "@stripe/stripe-react-native": "0.2.3",
     "add": "^2.0.6",
     "axios": "^0.26.1",
     "formik": "^2.2.9",

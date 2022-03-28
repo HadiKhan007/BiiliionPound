@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
     borderRadius: WP('1'),
-    //   height: hasNotch() ? HP('12') : HP('15'),
+    height: HP('15'),
     width: WP('30'),
     ...Platform.select({
       ios: {
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
     borderRadius: WP('1'),
-    //  height: hasNotch() ? HP('15') : HP('20'),
+    height: HP('20'),
     width: WP('80'),
     ...Platform.select({
       ios: {
