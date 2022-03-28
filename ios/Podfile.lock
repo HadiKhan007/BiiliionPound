@@ -466,6 +466,23 @@ PODS:
     - React-Core
   - RNVectorIcons (9.1.0):
     - React-Core
+  - Stripe (21.12.0):
+    - Stripe/Stripe3DS2 (= 21.12.0)
+    - StripeApplePay (= 21.12.0)
+    - StripeCore (= 21.12.0)
+    - StripeUICore (= 21.12.0)
+  - stripe-react-native (0.4.0):
+    - React-Core
+    - Stripe (~> 21.12.0)
+  - Stripe/Stripe3DS2 (21.12.0):
+    - StripeApplePay (= 21.12.0)
+    - StripeCore (= 21.12.0)
+    - StripeUICore (= 21.12.0)
+  - StripeApplePay (21.12.0):
+    - StripeCore (= 21.12.0)
+  - StripeCore (21.12.0)
+  - StripeUICore (21.12.0):
+    - StripeCore (= 21.12.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -541,6 +558,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -570,6 +588,10 @@ SPEC REPOS:
     - nanopb
     - OpenSSL-Universal
     - PromisesObjC
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeUICore
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -665,6 +687,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
+  stripe-react-native:
+    :path: "../node_modules/@stripe/stripe-react-native"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -740,6 +764,11 @@ SPEC CHECKSUMS:
   RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
+  Stripe: c3692f360abcdfeef9751e3c240e7efbc68b921f
+  stripe-react-native: 624b96fa6725576f96d1c4af566ac00c3f1c3e8d
+  StripeApplePay: 14db90fdf89abb2809ce41fc68bc6b1a86221408
+  StripeCore: 5e38cdea3dc176a32d8797ef312fe1ab41571272
+  StripeUICore: c28e371b385f968388ae38bedb93a2723c078442
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

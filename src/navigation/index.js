@@ -13,6 +13,7 @@ import Faqs from '../screens/Faqs';
 import EditProfile from '../screens/BottomTabs/ProfileTab/EditProfile';
 import NotificationList from '../screens/BottomTabs/DashboardTab/NotificationList';
 import EventDetail from '../screens/BottomTabs/EventTab/EventDetail';
+import Payment from '../screens/BottomTabs/EventTab/Payment';
 
 const AppStack = createStackNavigator();
 
@@ -34,6 +35,7 @@ const MainAppNav = () => {
         <AppStack.Screen name={'App'} component={Dashboard} />
         <AppStack.Screen name={'ExerciseStack'} component={ExerciseStack} />
         <AppStack.Screen name={'EventDetail'} component={EventDetail} />
+        <AppStack.Screen name={'Payment'} component={Payment} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
