@@ -30,11 +30,12 @@ const styles = StyleSheet.create({
     marginLeft: WP('2'),
   },
   cardContainer: {
-    width: '90%',
-    marginVertical: 10,
+    // width: '90%',
+    marginVertical: WP('1'),
     // flexDirection: 'row',
-    height: 40,
+    // height: 60,
     // marginHorizontal: WP('3'),
+    // backgroundColor: 'green',
   },
   cardLeftContainer: {
     backgroundColor: colors.p5,

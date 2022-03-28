@@ -7,21 +7,11 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {
-  ActivityCard,
-  AppHeader,
-  Button,
-  HomeCircle,
-  MilitaryPressCard,
-  OngoingEventCard,
-  OngoingItem,
-  PrimaryHeading,
-  Title,
-  UpcomingEventCard,
-} from '../../../../components';
+import {ActivityCard, AppHeader} from '../../../../components';
 import {
   appIcons,
   appImages,
@@ -30,8 +20,6 @@ import {
   spacing,
   WP,
 } from '../../../../shared/exporter';
-import {Divider, Tab, TabView} from 'react-native-elements';
-import {cps} from 'redux-saga/effects';
 
 const ActivityTab = ({navigation}) => {
   const [index, setIndex] = React.useState(0);
@@ -64,99 +52,88 @@ const ActivityTab = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.headerStyle}>
+      <View style={styles.contentContainer}>
         <AppHeader
           title={'Military Press'}
           titleColor={colors.b7}
           icon={appIcons.backArrow}
         />
+        <View style={styles.containerTab}>
+          <TouchableOpacity
+            onPress={() => {
+              setIndex(0);
+            }}
+            style={[styles.leftTab]}>
+            <Text
+              style={[
+                styles.tabTextStyle,
+                {
+                  color: index == 0 ? colors.p1 : colors.g1,
+                },
+              ]}>
+              All Activity
+            </Text>
+            <View
+              style={[
+                styles.leftTabbar,
+                {
+                  borderBottomWidth: index == 0 ? 2 : 0,
+                },
+              ]}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setIndex(1);
+            }}
+            style={styles.rightTab}>
+            <Text
+              style={[
+                styles.tabTextStyle,
+                {
+                  color: index == 1 ? colors.p1 : colors.g1,
+                },
+              ]}>
+              Your Activity
+            </Text>
+            <View
+              style={[
+                styles.rightTabbar,
+                {
+                  borderBottomWidth: index == 1 ? 2 : 0,
+                },
+              ]}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{flex: 1}}>
+          <FlatList
+            data={[1, 2, 3, 4]}
+            showsVerticalScrollIndicator={false}
+            renderItem={({item}) => {
+              return (
+                <View style={spacing.py2}>
+                  <ActivityCard
+                    name={'John Doe'}
+                    type={'Shoulder'}
+                    weight={'150LBS'}
+                    excercise={'2x Front Raises'}
+                    mode={'Front Raises'}
+                    cardIcon={appImages.sample_exercise}
+                  />
+                </View>
+              );
+            }}
+          />
+        </View>
       </View>
 
-      <Tab
-        value={index}
-        onChange={e => setIndex(e)}
-        indicatorStyle={{
-          backgroundColor: colors.p1,
-          height: 3,
-          width: '40%',
-          alignItems: 'center',
-        }}
-        containerStyle={{backgroundColor: colors.white}}
-        variant={colors.p1}>
-        <Tab.Item
-          title="My Activity"
-          titleStyle={{
-            fontSize: 12,
-            color: colors.p1,
-            backgroundColor: colors.white,
-          }}
-          //   style={{color: colors.p1, backgroundColor: colors.white}}
-          buttonStyle={active => {
-            backgroundColor: colors.white;
-          }}
-        />
-        <Tab.Item
-          title="Your Activity"
-          titleStyle={{
-            fontSize: 12,
-            color: colors.p1,
-            backgroundColor: colors.white,
-          }}
-          //   style={{color: colors.p1, backgroundColor: colors.white}}
-          buttonStyle={active => {
-            backgroundColor: colors.white;
-          }}
-        />
-      </Tab>
-
-      <TabView value={0} onChange={setIndex} animationType="spring">
-        <TabView.Item style={{flex: 1, width: '100%'}}>
-          <FlatList
-            data={[1, 2, 3, 4]}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => {
-              return (
-                <View style={spacing.py2}>
-                  <ActivityCard
-                    name={'John Doe'}
-                    type={'Shoulder'}
-                    weight={'150LBS'}
-                    excercise={'2x Front Raises'}
-                    mode={'Front Raises'}
-                    cardIcon={appImages.sample_exercise}
-                  />
-                </View>
-              );
-            }}
-          />
-        </TabView.Item>
-        {/* <TabView.Item style={{flex: 1, width: '100%'}}>
-          <FlatList
-            data={[1, 2, 3, 4]}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => {
-              return (
-                <View style={spacing.py2}>
-                  <ActivityCard
-                    name={'John Doe'}
-                    type={'Shoulder'}
-                    weight={'150LBS'}
-                    excercise={'2x Front Raises'}
-                    mode={'Front Raises'}
-                    cardIcon={appImages.sample_exercise}
-                  />
-                </View>
-              );
-            }}
-          />
-        </TabView.Item> */}
-        {/* <TabView.Item style={{backgroundColor: 'red'}}>
+      {/* <TabView.Item style={{backgroundColor: 'red'}}>
           <Text>Recent</Text>
         </TabView.Item>
         <TabView.Item style={{backgroundColor: 'blue'}}>
           <Text>Favorite</Text>
         </TabView.Item> */}
-      </TabView>
     </SafeAreaView>
   );
 };

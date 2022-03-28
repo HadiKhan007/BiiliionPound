@@ -8,7 +8,6 @@ import {
   Text,
 } from 'react-native';
 import {WP, HP, colors, family, size} from '../../shared/exporter';
-import {hasNotch} from 'react-native-device-info';
 
 export const Loader = ({loading, tagline = '', showTagLine = false}) => {
   return (
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
     borderRadius: WP('1'),
-    height: hasNotch() ? HP('12') : HP('15'),
+    //   height: hasNotch() ? HP('12') : HP('15'),
     width: WP('30'),
     ...Platform.select({
       ios: {
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
     borderRadius: WP('1'),
-    height: hasNotch() ? HP('15') : HP('20'),
+    //  height: hasNotch() ? HP('15') : HP('20'),
     width: WP('80'),
     ...Platform.select({
       ios: {

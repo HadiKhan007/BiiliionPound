@@ -7,7 +7,6 @@ import {
   Text,
 } from 'react-native';
 import {WP, HP, colors} from '../../shared/exporter';
-import {hasNotch} from 'react-native-device-info';
 
 export const SmallLoader = ({loading, height, width = '80%'}) => {
   return (
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
     alignItems: 'center',
-    height: hasNotch() ? HP('12') : HP('15'),
+    // height: hasNotch() ? HP('12') : HP('15'),
     width: WP('80%'),
     flex: 1,
     marginHorizontal: WP('0'),

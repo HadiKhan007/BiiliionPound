@@ -2496,10 +2496,10 @@
     telejson "^3.2.0"
     util-deprecate "^1.0.2"
 
-"@stripe/stripe-react-native@^0.4.0":
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-react-native/-/stripe-react-native-0.4.0.tgz#d01d41822648698553c0262c9229f9b30cf3d323"
-  integrity sha512-hYJhIMy98mxagKc+TCWMrGY7d0cJ41vX7epsbAf8amvgxH2kJlUf1Dil6IXvsBGEN7C4bXEqHirsJ2jU+NY+rw==
+"@stripe/stripe-react-native@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-react-native/-/stripe-react-native-0.3.0.tgz#d89dc4617f586cb5f4abec288cf47dfd70ce3ec7"
+  integrity sha512-XKg+hjuiLgDEOwp8P/63DOlX5UlU/TieTPMc/Alpa0xver9k8O9FZ+qXhGc+F60B0AsLmQ3GLhsLycdFetCo3g==
   dependencies:
     "@expo/config-plugins" "^3.0.5"
 
@@ -10415,11 +10415,6 @@ react-native-countdown-component@^2.7.1:
     lodash "^4.17.13"
     prop-types "^15.5.8"
     sprintf-js "^1.1.1"
-
-react-native-device-info@^8.5.1:
-  version "8.5.1"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.5.1.tgz#40b38506d7cc1e2266da49fe7b9672166c765fc9"
-  integrity sha512-VMEP1c/X0KSOqBZDzs9/GHbacgdsoQqaBqI/fK98S5oMmKAfuIFjAjb4kvcNjC2mklD6JrlgXPnqKQQaX+kklg==
 
 react-native-elements@^3.4.2:
   version "3.4.2"

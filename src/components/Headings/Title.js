@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
   },
   Container: {
     alignItems: 'flex-start',
-    marginHorizontal: WP('5'),
     marginVertical: WP('2'),
   },
 });
