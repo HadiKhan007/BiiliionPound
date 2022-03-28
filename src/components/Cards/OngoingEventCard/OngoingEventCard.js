@@ -19,13 +19,13 @@ import {
 } from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
 import {OngoingItem} from './OngoingItem';
-export const OngoingEventCard = ({onPressCard}) => {
+export const OngoingEventCard = ({ onPressCard, allEvents }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={styles.container}
+      style={[styles.container, { width: allEvents ? WP('85') : WP('65') }]}
       onPress={onPressCard}>
-      <View style={styles.primaryContainer}>
+      <View style={[styles.primaryContainer, { width: allEvents ? WP('80') : WP('60') }]}>
         <ImageBackground
           style={styles.bgContainer}
           source={appImages.sample_exercise}
@@ -41,7 +41,7 @@ export const OngoingEventCard = ({onPressCard}) => {
         </Text>
         <OngoingItem
           title={'+20 Going'}
-          titleStyle={styles.countStyle}
+          titleStyle={[styles.countStyle, { marginLeft: allEvents ? WP('5') : null }]}
           imageHeight={24}
           imageWidth={24}
           subtitle={'$59.99'}
@@ -51,9 +51,11 @@ export const OngoingEventCard = ({onPressCard}) => {
             <Image source={appIcons.location} style={styles.locationStyle} />
             <Text style={styles.textStyle}>Your Favorite Gym`</Text>
           </View>
+          {allEvents ? null : 
           <TouchableOpacity style={styles.btnContainer}>
             <Text style={styles.btnText}>Joined</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          }
         </View>
       </View>
     </TouchableOpacity>
