@@ -63,8 +63,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>For Billion Pound additional Gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For Billion Pound Gallery</string>
-	
+	<string>For Billion Pound Gallery</string>	
 	<key>UIAppFonts</key>
 	<array>
 		<string>Comfortaa-Bold.ttf</string>
