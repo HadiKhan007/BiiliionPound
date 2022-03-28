@@ -88,7 +88,7 @@ const MilitaryPress = ({navigation}) => {
           subTitle={'150 LBS'}
           price={'59.99'}
           liftedAmount={'15000'}
-          onPressCard={() => navigation.navigate('Activity')}
+          onPressCard={() => navigation.navigate('ActivityTab')}
         />
         <OngoingItem
           title={'+5 People enrolled'}

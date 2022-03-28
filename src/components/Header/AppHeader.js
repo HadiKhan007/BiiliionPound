@@ -64,7 +64,7 @@ AppHeader.propTypes = {
 };
 const styles = StyleSheet.create({
   container: {
-    // height: '20%',
+    height: '10%',
     alignItems: 'center',
     justifyContent: 'center',
     // backgroundColor: 'green',
