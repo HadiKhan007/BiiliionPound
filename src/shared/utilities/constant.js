@@ -68,6 +68,8 @@ let image_options = {
     path: 'images',
   },
 };
+const stripe_publishableKey =
+  'pk_test_51HHZGDJdTAy1qfYOFzlK3i3oPJDG3d4D1LgXHDsivAXq9hr3CCK20CP4pLUMymj8KiKsQezvdWp6reLvCkYm3hVt007hOHMr1A';
 const profile_uri = 'https://unsplash.it/400/400?image=1';
 export {
   ANDROID,
@@ -81,4 +83,5 @@ export {
   period_list,
   profile_uri,
   filterTeam,
+  stripe_publishableKey,
 };

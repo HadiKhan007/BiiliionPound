@@ -5,7 +5,8 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import store, {persistor} from './src/redux/store';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {web_client_id} from './src/shared/exporter';
+import {stripe_publishableKey, web_client_id} from './src/shared/exporter';
+import {StripeProvider} from '@stripe/stripe-react-native';
 
 // ignore warnings
 LogBox.ignoreAllLogs();
@@ -22,16 +23,20 @@ const App = () => {
   }, []);
 
   return (
-    <Provider store={store}>
-      <StatusBar
-        translucent={true}
-        backgroundColor={'transparent'}
-        barStyle={'dark-content'}
-      />
-      <PersistGate persistor={persistor}>
-        <MainNavigation />
-      </PersistGate>
-    </Provider>
+    <StripeProvider
+      publishableKey={stripe_publishableKey}
+      merchantIdentifier="merchant.identifier">
+      <Provider store={store}>
+        <StatusBar
+          translucent={true}
+          backgroundColor={'transparent'}
+          barStyle={'dark-content'}
+        />
+        <PersistGate persistor={persistor}>
+          <MainNavigation />
+        </PersistGate>
+      </Provider>
+    </StripeProvider>
   );
 };
 

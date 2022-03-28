@@ -18,6 +18,7 @@ import {
   CategorySelection,
   AddNewExercise,
   PrimaryHeading,
+  PaymentMethodCard,
   PaymentCard,
 } from '../../../../components';
 import {
@@ -34,6 +35,11 @@ const Payment = ({navigation}) => {
     {id: 1, title: 'Pay With Apple', icon: appIcons.apple, tick: false},
     {id: 2, title: 'Pay With Google', icon: appIcons.google, tick: false},
   ];
+  const payment_card_list = [
+    {id: 0, title: 'Visa Debit Card', icon: appIcons.blueBg, tick: false},
+    {id: 1, title: 'Visa Debit Card', icon: appIcons.orangeBg, tick: false},
+    {id: 2, title: 'Visa Debit Card', icon: appIcons.blueBg, tick: false},
+  ];
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -46,30 +52,40 @@ const Payment = ({navigation}) => {
             <PrimaryHeading title={'Saved Cards'} />
             <FlatList
               data={[1, 2, 3, 4, 5]}
+              horizontal={true}
               renderItem={() => {
-                return <Text>Hello</Text>;
+                return (
+                  <View>
+                    <PaymentCard />
+                  </View>
+                );
               }}
             />
             <PrimaryHeading title={'Payment Type'} />
           </View>
-          <FlatList
-            data={button_list}
-            renderItem={({item, index}) => {
-              return (
-                <View style={spacing.py3}>
-                  <PaymentCard
-                    title={item?.title}
-                    selectedCard={selection}
-                    onPressCard={() => {
-                      setSelection(item);
-                    }}
-                    icon={item?.icon}
-                    index={index}
-                  />
-                </View>
-              );
-            }}
-          />
+          <View>
+            <FlatList
+              data={button_list}
+              renderItem={({item, index}) => {
+                return (
+                  <View style={spacing.py3}>
+                    <PaymentMethodCard
+                      title={item?.title}
+                      selectedCard={selection}
+                      onPressCard={() => {
+                        setSelection(item);
+                      }}
+                      icon={item?.icon}
+                      index={index}
+                    />
+                  </View>
+                );
+              }}
+            />
+          </View>
+          <View>
+            <PrimaryHeading title={'Personal Details'} />
+          </View>
         </View>
       </View>
     </SafeAreaView>

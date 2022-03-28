@@ -47,6 +47,7 @@ export * from './Cards/OngoingEventCard/OngoingEventCard';
 export * from './Cards/UpcomingEventCard/UpcomingEventCard';
 export * from './Cards/OngoingEventCard/OngoingItem';
 export * from './Cards/EventInfoCard/EventInfoCard';
+export * from './Cards/PaymentMethodCard/PaymentMethodCard';
 export * from './Cards/PaymentCard/PaymentCard';
 
 //Modals
