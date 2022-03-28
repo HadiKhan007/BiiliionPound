@@ -55,6 +55,8 @@ export const appIcons = {
   visa: require('../../assets/icons/visa.png'),
   blueBg: require('../../assets/icons/blueBg.png'),
   orangeBg: require('../../assets/icons/orangeBg.png'),
+  priceTag: require('../../assets/icons/priceTag.png'),
+  arrow: require('../../assets/icons/Arrow.png'),
 };
 
 export const appSvgs = {

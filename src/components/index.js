@@ -49,6 +49,8 @@ export * from './Cards/OngoingEventCard/OngoingItem';
 export * from './Cards/EventInfoCard/EventInfoCard';
 export * from './Cards/PaymentMethodCard/PaymentMethodCard';
 export * from './Cards/PaymentCard/PaymentCard';
+export * from './Cards/MilitaryPressCard/MilitaryPressCard';
+export * from './Cards/TitleCard/TitleCard';
 
 //Modals
 export * from './Modal/ExcerciseFilter';
