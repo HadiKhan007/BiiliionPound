@@ -1,10 +1,12 @@
+import {appIcons} from '../exporter';
+
 const ANDROID = Platform.OS === 'android';
 const IOS = Platform.OS === 'ios';
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const web_client_id =
   '396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com';
 const filterBody = [
-  {id: 1, title: 'Core', tick: false},
+  {id: 1, title: 'Core', tick: true},
   {id: 2, title: 'Back', tick: false},
   {id: 3, title: 'Arms', tick: false},
   {id: 4, title: 'Shoulders', tick: false},
@@ -16,7 +18,7 @@ const filterBody = [
   {id: 10, title: 'None', tick: false},
 ];
 const filterCategory = [
-  {id: 1, title: 'Barbell', tick: false},
+  {id: 1, title: 'Barbell', tick: true},
   {id: 2, title: 'Dumbbell', tick: false},
   {id: 3, title: 'Machine/Other', tick: false},
   {id: 4, title: 'Weighted bodyweight', tick: false},
@@ -36,6 +38,26 @@ const filterTeam = [
   {id: 7, title: 'Cardio exercise', tick: false},
   {id: 8, title: 'Team Blue', tick: false},
   {id: 9, title: 'None', tick: false},
+];
+const eventDetail_list = [
+  {
+    id: 0,
+    title: 'Sat,May 25, 2022',
+    date: '10:00 AM - 9:00 PM',
+    icon: appIcons.calender,
+  },
+  {
+    id: 1,
+    title: 'Your Favorite Gym',
+    date: '',
+    icon: appIcons.badge,
+  },
+  {
+    id: 0,
+    title: 'Team Red',
+    date: '10:00 AM - 9:00 PM',
+    icon: appIcons.peoples,
+  },
 ];
 const period_list = [
   {
@@ -87,4 +109,5 @@ export {
   profile_uri,
   filterTeam,
   stripe_publishableKey,
+  eventDetail_list,
 };

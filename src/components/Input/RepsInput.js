@@ -64,7 +64,7 @@ export const RepsInput = ({
           },
         ]}>
         <View style={styles.setinputCon}>
-          <Text style={styles.titleStyle}>SETS</Text>
+          <Text style={styles.titleStyle}>SET</Text>
           <TextInput
             keyboardType={'decimal-pad'}
             placeholder={`${index + 1 || inputList.length + 1}`}

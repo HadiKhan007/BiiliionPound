@@ -46,6 +46,7 @@ export {
   profile_uri,
   filterTeam,
   stripe_publishableKey,
+  eventDetail_list,
 } from './utilities/constant';
 export {header, authHeader} from './utilities/headers';
 export {

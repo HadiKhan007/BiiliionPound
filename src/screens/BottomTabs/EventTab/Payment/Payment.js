@@ -34,8 +34,8 @@ const Payment = ({navigation}) => {
 
   const button_list = [
     {id: 0, title: 'Visa Debit Card', icon: appIcons.visa, tick: false},
-    {id: 1, title: 'Pay With Apple', icon: appIcons.apple, tick: false},
-    {id: 2, title: 'Pay With Google', icon: appIcons.google, tick: false},
+    {id: 1, title: 'Pay With Apple', icon: appIcons.capple, tick: false},
+    {id: 2, title: 'Pay With Google', icon: appIcons.cgoogle, tick: false},
   ];
   const payment_card_list = [
     {id: 0, title: 'Visa Debit Card', icon: appIcons.blueBg, tick: false},

@@ -24,6 +24,8 @@ export const appIcons = {
   unchecked: require('../../assets/icons/unchecked.png'),
   apple: require('../../assets/icons/apple.png'),
   google: require('../../assets/icons/google.png'),
+  capple: require('../../assets/icons/capple.png'),
+  cgoogle: require('../../assets/icons/cgoogle.png'),
   home: require('../../assets/icons/home.png'),
   event: require('../../assets/icons/event.png'),
   board: require('../../assets/icons/board.png'),
@@ -55,6 +57,11 @@ export const appIcons = {
   visa: require('../../assets/icons/visa.png'),
   blueBg: require('../../assets/icons/blueBg.png'),
   orangeBg: require('../../assets/icons/orangeBg.png'),
+  priceTag: require('../../assets/icons/priceTag.png'),
+  arrow: require('../../assets/icons/Arrow.png'),
+  calender: require('../../assets/icons/calender.png'),
+  badge: require('../../assets/icons/badge.png'),
+  peoples: require('../../assets/icons/peoples.png'),
 };
 
 export const appSvgs = {

@@ -24,10 +24,11 @@ export const OngoingItem = ({
   titleStyle,
   title,
   subtitle,
+  width = '55%',
 }) => {
   return (
     <View style={styles.itemsStyle}>
-      <View style={styles.flatStyle}>
+      <View style={[styles.flatStyle, {width: width}]}>
         <FlatList
           data={[
             {

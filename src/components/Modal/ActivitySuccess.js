@@ -53,8 +53,6 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingBottom: WP('10'),
+    paddingVertical: WP('50'),
   },
 });

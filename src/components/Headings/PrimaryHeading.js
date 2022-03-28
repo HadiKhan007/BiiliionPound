@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors, family, size} from '../../shared/exporter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -7,6 +7,8 @@ export const PrimaryHeading = ({
   title,
   subtitle,
   normalText,
+  TouchableText,
+  onPress,
   onPressSubtitle,
 }) => {
   return (
@@ -22,6 +24,12 @@ export const PrimaryHeading = ({
           <Text style={styles.normalTextStyle}>{normalText}</Text>
           <AntDesign name={'caretright'} color={colors.g6} size={9} />
         </View>
+      )}
+      {TouchableText && (
+        <TouchableOpacity style={styles.aiRow} onPress={onPress}>
+          <Text style={styles.normalTextStyle}>{TouchableText}</Text>
+          <AntDesign name={'caretright'} color={colors.g6} size={9} />
+        </TouchableOpacity>
       )}
     </View>
   );

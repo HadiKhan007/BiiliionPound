@@ -7,7 +7,13 @@ import {
   FlatList,
 } from 'react-native';
 import React from 'react';
-import {appIcons, colors, family, size} from '../../../shared/exporter';
+import {
+  appIcons,
+  colors,
+  eventDetail_list,
+  family,
+  size,
+} from '../../../shared/exporter';
 
 export const EventInfoCard = ({title, subtitle, rightIcon}) => {
   return (
@@ -23,16 +29,16 @@ export const EventInfoCard = ({title, subtitle, rightIcon}) => {
         )}
       </View>
       <FlatList
-        data={[1, 2, 3]}
+        data={eventDetail_list}
         renderItem={({item}) => {
           return (
             <View style={styles.cardContainer}>
               <View style={styles.cardLeftContainer}>
-                <Image source={appIcons.user} style={styles.icon24} />
+                <Image source={item?.icon} style={styles.icon24} />
               </View>
               <View style={styles.rightContainer}>
-                <Text style={styles.titleStyle}>Sat,May 25, 2022</Text>
-                <Text style={styles.subtitleStyle}>10:00 AM - 9:00 PM</Text>
+                <Text style={styles.titleStyle}>{item?.title}</Text>
+                <Text style={styles.subtitleStyle}>{item?.date}</Text>
               </View>
             </View>
           );
@@ -71,6 +77,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     flexDirection: 'row',
     height: 40,
+    borderRadius: 5,
   },
   cardLeftContainer: {
     width: '12%',

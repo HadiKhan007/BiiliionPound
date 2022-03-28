@@ -24,7 +24,11 @@ const Event = ({navigation}) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.itemConatiner}>
-          <PrimaryHeading title={'Ongoing Events'} normalText={'See All'} />
+          <PrimaryHeading
+            title={'Ongoing Events'}
+            TouchableText={'See All'}
+            onPress={() => navigation.navigate('OngoingEvent')}
+          />
           <View style={spacing.py2}>
             <FlatList
               showsHorizontalScrollIndicator={false}
@@ -33,9 +37,7 @@ const Event = ({navigation}) => {
               renderItem={({item}) => {
                 return (
                   <OngoingEventCard
-                    onPressCard={() => {
-                      navigation.navigate('EventDetail');
-                    }}
+                    onPressCard={() => navigation.navigate('MilitaryPress')}
                   />
                 );
               }}

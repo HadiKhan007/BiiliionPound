@@ -84,16 +84,17 @@ const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
   const [recentSearch, setrecentSearch] = useState([1, 2]);
-  const [filteredItems, setfilteredItems] = useState([]);
+  const [filteredItems, setfilteredItems] = useState([1, 2]);
+
   //References
   const addExerciseSheetRef = useRef(null);
 
   //Filter Functions
   const onPressSelectedBody = index => {
-    filterBody[index].tick = !filterBody[index].tick;
+    // filterBody[index].tick = !filterBody[index].tick;
   };
   const onPressSelectedCategory = index => {
-    filterCategory[index].tick = !filterBody[index].tick;
+    // filterCategory[index].tick = !filterBody[index].tick;
   };
 
   //Render Exercise Cards
@@ -113,7 +114,6 @@ const AddExcercise = ({navigation}) => {
     );
   };
   const onFilterSave = () => {
-    setfilteredItems([...filterBody, ...filterCategory]);
     setFilterExcersice(false);
   };
   const renderSectionHeader = ({section: {title}}) => {
@@ -144,21 +144,16 @@ const AddExcercise = ({navigation}) => {
           {filteredItems != '' ? (
             <View>
               <FlatList
-                data={[
-                  ...new Set(filteredItems.filter(item => item != undefined)),
-                ]}
+                data={[...new Set(filteredItems)]}
                 numColumns={3}
                 showsVerticalScrollIndicator={false}
-                renderItem={({item, index}) => {
+                renderItem={({item}) => {
                   return (
                     <View style={spacing.m1}>
                       <FilterItem
                         clearButton={true}
-                        title={item?.title}
+                        title={'Arms'}
                         selected={true}
-                        onPress={() => {
-                          filteredItems[index] = undefined;
-                        }}
                       />
                     </View>
                   );

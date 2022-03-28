@@ -51,6 +51,7 @@ const EventDetail = ({navigation}) => {
   const onEndSelection = () => {
     setSelectionModal(false);
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>

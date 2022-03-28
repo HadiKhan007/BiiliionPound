@@ -10,7 +10,15 @@ export const PaymentMethodCard = ({
   icon,
 }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={onPressCard}
+      style={[
+        styles.container,
+        {
+          borderColor: selectedCard.id == index ? colors.p1 : colors.g10,
+          shadowColor: selectedCard.id == index ? colors.p1 : colors.g10,
+        },
+      ]}>
       <View style={styles.aiCenter}>
         <Image style={styles.imageStyle} source={icon} />
         <Text style={styles.titleStyle}>{title}</Text>
@@ -21,7 +29,7 @@ export const PaymentMethodCard = ({
           source={selectedCard.id == index ? appIcons.radio : appIcons?.circle}
         />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -34,11 +42,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
+    borderRadius: 5,
     justifyContent: 'space-between',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
   },
   imageStyle: {
-    height: 16,
-    width: 32,
+    height: 24,
+    width: 24,
     resizeMode: 'contain',
     marginRight: 10,
     top: 2,
