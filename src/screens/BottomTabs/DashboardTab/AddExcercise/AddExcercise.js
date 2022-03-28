@@ -19,6 +19,7 @@ import {
   spacing,
 } from '../../../../shared/exporter';
 import AlphabetSectionList from 'react-native-alphabet-sectionlist';
+import FilterItem from '../../../../components/Cards/FilterItem/FilterItem';
 const sectionListItem = {
   A: [
     {
@@ -81,20 +82,18 @@ const sectionListItem = {
 };
 const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  const [selectedBody, setSelectedBody] = useState(0);
   const [selectedItem, setSelectedItem] = useState(0);
+  const [recentSearch, setrecentSearch] = useState([1, 2]);
+  const [filteredItems, setfilteredItems] = useState([]);
   //References
   const addExerciseSheetRef = useRef(null);
 
-  useEffect(() => {});
-
   //Filter Functions
-  const onPressSelectedBody = item => {
-    setSelectedBody(item);
+  const onPressSelectedBody = index => {
+    filterBody[index].tick = !filterBody[index].tick;
   };
-  const onPressSelectedCategory = item => {
-    setSelectedCategory(item);
+  const onPressSelectedCategory = index => {
+    filterCategory[index].tick = !filterBody[index].tick;
   };
 
   //Render Exercise Cards
@@ -113,7 +112,10 @@ const AddExcercise = ({navigation}) => {
       </View>
     );
   };
-
+  const onFilterSave = () => {
+    setfilteredItems([...filterBody, ...filterCategory]);
+    setFilterExcersice(false);
+  };
   const renderSectionHeader = ({section: {title}}) => {
     return (
       <View style={styles.sectionHeader}>
@@ -139,12 +141,49 @@ const AddExcercise = ({navigation}) => {
               addExerciseSheetRef.current.show();
             }}
           />
-          <View style={spacing.py4}>
-            <PrimaryHeading title={'Recent Search'} subtitle={'Remove'} />
-          </View>
-          <View style={styles.flatListStyle}>
+          {filteredItems != '' ? (
+            <View>
+              <FlatList
+                data={[
+                  ...new Set(filteredItems.filter(item => item != undefined)),
+                ]}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item, index}) => {
+                  return (
+                    <View style={spacing.m1}>
+                      <FilterItem
+                        clearButton={true}
+                        title={item?.title}
+                        selected={true}
+                        onPress={() => {
+                          filteredItems[index] = undefined;
+                        }}
+                      />
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          ) : (
+            false
+          )}
+
+          {recentSearch != '' ? (
+            <View style={spacing.py4}>
+              <PrimaryHeading
+                onPressSubtitle={() => {
+                  setrecentSearch([]);
+                }}
+                title={'Recent Search'}
+                subtitle={'Remove'}
+              />
+            </View>
+          ) : null}
+
+          <View style={{flex: recentSearch != '' ? 0.5 : 0}}>
             <FlatList
-              data={[1, 2]}
+              data={recentSearch}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
@@ -182,15 +221,15 @@ const AddExcercise = ({navigation}) => {
       </View>
       {filterExcersice && (
         <ExerciseFilter
-          selectedBody={selectedBody}
           onPressBody={onPressSelectedBody}
-          selectedCategory={selectedCategory}
           onPressCategory={onPressSelectedCategory}
-          filterItems={{body: filterBody, category: filterCategory}}
+          filterCategory={filterCategory}
+          filterBody={filterBody}
           show={filterExcersice}
           onPressHide={() => {
             setFilterExcersice(false);
           }}
+          onPressSave={onFilterSave}
         />
       )}
       <AddNewExercise

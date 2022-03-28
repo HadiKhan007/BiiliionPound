@@ -37,9 +37,7 @@ const styles = StyleSheet.create({
     marginHorizontal: -WP('5'),
     paddingBottom: 20,
   },
-  flatListStyle: {
-    flex: 0.5,
-  },
+
   selectionBtn: {
     position: 'absolute',
     bottom: 20,

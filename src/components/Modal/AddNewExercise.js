@@ -8,15 +8,8 @@ import {
   Image,
 } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
-import {Checkbox, Title} from '..';
-import {
-  scrHeight,
-  colors,
-  size,
-  family,
-  period_list,
-  appIcons,
-} from '../../shared/exporter';
+import {Title} from '..';
+import {scrHeight, colors} from '../../shared/exporter';
 
 export const AddNewExercise = ({
   show,
@@ -58,6 +51,7 @@ const styles = StyleSheet.create({
     height: scrHeight / 7,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
 
   titleContainer: {

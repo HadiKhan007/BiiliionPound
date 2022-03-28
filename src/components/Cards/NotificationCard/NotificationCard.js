@@ -47,9 +47,8 @@ const styles = StyleSheet.create({
   profileImage: {
     height: 40,
     width: 40,
-    borderRadius: 40,
+    borderRadius: 100,
     resizeMode: 'contain',
-    backgroundColor: 'green',
   },
   rightContainer: {
     width: '85%',

@@ -36,6 +36,22 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: family.OpenSans_Regular,
   },
+  aiCenter: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 30,
+  },
+  readMoreStyle: {
+    color: colors.p1,
+    fontFamily: family.OpenSans_Regular,
+    fontSize: size.xsmall,
+  },
+  unreadStyle: {
+    color: colors.p1,
+    fontFamily: family.OpenSans_Regular,
+    fontSize: size.xsmall,
+    paddingVertical: 10,
+  },
 });
 
 export default styles;

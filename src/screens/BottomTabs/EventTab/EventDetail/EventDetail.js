@@ -47,6 +47,7 @@ const EventDetail = ({navigation}) => {
       </Text>
     );
   };
+
   const onEndSelection = () => {
     setSelectionModal(false);
   };
@@ -70,10 +71,11 @@ const EventDetail = ({navigation}) => {
             </View>
           </View>
           <ScrollView
-            style={{flex: 1}}
-            contentContainerStyle={{paddingVertical: 20}}>
-            <View style={{marginTop: 30}}>
-              <EventInfoCard />
+            style={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={spacing.my2}>
+            <View style={styles.eventInfo}>
+              <EventInfoCard title={'Jumping Pack'} rightIcon={appIcons.user} />
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
@@ -92,7 +94,7 @@ const EventDetail = ({navigation}) => {
                 <Image source={appIcons.rightIcon} style={styles.inputIcon} />
               </TouchableOpacity>
             </View>
-
+            {/* About Event Flow */}
             <View style={[styles.inputContainer, spacing.py3]}>
               <Text style={styles.titleStyle}>About The Event</Text>
               <ReadMore
@@ -109,11 +111,11 @@ const EventDetail = ({navigation}) => {
                   your friends and family and have a great time. Food local food
                   trucks will be available for purchase. Enjoy your favorite
                   game and a lovely your friends and family and have a great
-                  time. Food local food trucks will be available for
-                  purchase.Read More...
+                  time. Food local food trucks will be available for purchase.
                 </Text>
               </ReadMore>
             </View>
+            {/* Join NOW */}
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {

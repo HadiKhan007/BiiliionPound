@@ -1,73 +1,86 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {colors, family, size} from '../../shared/exporter';
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  Image,
+} from 'react-native';
+import ActionSheet from 'react-native-actions-sheet';
+import {Button, PaymentCardField} from '..';
+import {
+  scrHeight,
+  colors,
+  size,
+  family,
+  period_list,
+  appIcons,
+  WP,
+} from '../../shared/exporter';
 
 export const AddCardModal = ({
-  title,
-  onPressCard,
-  onPressWallet,
-  btn,
-  onCardChange,
-  onFocus,
-  disabled,
-  onChangeText,
+  show,
+  onPressHide,
+  onAddPress,
+  bgColor,
+  borderleftRadius,
+  borderRightRadius,
 }) => {
   return (
-    <View>
-      {title && (
-        <View style={styles.h1container}>
-          <Text style={styles.h1}>{title}</Text>
-        </View>
-      )}
-      <View style={styles.fieldContainer}>
-        <CardField
-          placeholder={{
-            number: 4242424224242,
-          }}
-          postalCodeEnabled={false}
-          cardStyle={styles.cardStyle}
-          style={styles.payStyle}
-          onCardChange={onCardChange}
-          onFocus={onFocus}
-        />
+    <ActionSheet
+      indicatorColor={'transparent'}
+      gestureEnabled={true}
+      closable={true}
+      onClose={onPressHide}
+      keyboardHandlerEnabled={true}
+      ref={show}
+      containerStyle={[
+        styles.containerStyle,
+        {
+          backgroundColor: bgColor,
+          borderTopLeftRadius: borderleftRadius,
+          borderTopRightRadius: borderRightRadius,
+        },
+      ]}>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleStyle}>Add Credit/Debit Card</Text>
+        <TouchableOpacity onPress={onPressHide}>
+          <Image style={styles.icon24} source={appIcons.cross} />
+        </TouchableOpacity>
       </View>
-      <PaymentInput
-        onChangeText={onChangeText}
-        placeholder={'Card Holder Name'}
-        placeholderTextColor={colors.g1}
-      />
-
-      <View style={{paddingVertical: 20}}></View>
-    </View>
+      <PaymentCardField />
+      <View style={styles.aiCenter}>
+        <Button onPress={onAddPress} title={'Add Card'} />
+      </View>
+    </ActionSheet>
   );
 };
 
 const styles = StyleSheet.create({
-  h1: {
+  containerStyle: {
+    paddingHorizontal: WP('5'),
+  },
+
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  titleStyle: {
     fontSize: size.normal,
-    color: colors.b1,
-    fontFamily: family.OpenSans_Regular,
+    color: colors.b7,
+    fontFamily: family.Poppins_Regular,
   },
-  h1container: {
-    paddingVertical: 30,
+  icon24: {
+    height: 24,
+    width: 24,
+    resizeMode: 'contain',
+    tintColor: colors.b1,
   },
-  fieldContainer: {
-    borderBottomWidth: 1,
-    borderBottomColor: colors.g2,
-  },
-  cardStyle: {
-    backgroundColor: '#FFFFFF',
-    textColor: '#000000',
-    placeholderColor: colors.g1,
-    fontSize: size.small,
-  },
-  payStyle: {
-    width: '100%',
-    height: 50,
-    left: -15,
-  },
-  infoStyle: {
-    color: colors.g1,
-    fontSize: size.xxsmall,
+  aiCenter: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20,
   },
 });

@@ -3,11 +3,20 @@ import React from 'react';
 import {colors, family, size} from '../../shared/exporter';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-export const PrimaryHeading = ({title, subtitle, normalText}) => {
+export const PrimaryHeading = ({
+  title,
+  subtitle,
+  normalText,
+  onPressSubtitle,
+}) => {
   return (
     <View style={styles.headingContainer}>
       <Text style={styles.titleStyle}>{title}</Text>
-      {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
+      {subtitle && (
+        <Text onPress={onPressSubtitle} style={styles.subtitleStyle}>
+          {subtitle}
+        </Text>
+      )}
       {normalText && (
         <View style={styles.aiRow}>
           <Text style={styles.normalTextStyle}>{normalText}</Text>
@@ -23,7 +32,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    width: '100%',
   },
   titleStyle: {
     fontSize: size.large,

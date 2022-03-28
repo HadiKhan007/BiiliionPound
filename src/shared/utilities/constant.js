@@ -13,6 +13,7 @@ const filterBody = [
   {id: 7, title: 'Full Body', tick: false},
   {id: 8, title: 'Olympic', tick: false},
   {id: 9, title: 'Other', tick: false},
+  {id: 10, title: 'None', tick: false},
 ];
 const filterCategory = [
   {id: 1, title: 'Barbell', tick: false},
@@ -23,6 +24,7 @@ const filterCategory = [
   {id: 6, title: 'Raps only', tick: false},
   {id: 7, title: 'Cardio exercise', tick: false},
   {id: 8, title: 'Duration', tick: false},
+  {id: 9, title: 'None', tick: false},
 ];
 const filterTeam = [
   {id: 1, title: 'Team Red', tick: false},
@@ -33,6 +35,7 @@ const filterTeam = [
   {id: 6, title: 'Team White', tick: false},
   {id: 7, title: 'Cardio exercise', tick: false},
   {id: 8, title: 'Team Blue', tick: false},
+  {id: 9, title: 'None', tick: false},
 ];
 const period_list = [
   {

@@ -8,6 +8,9 @@ export const spacing = StyleSheet.create({
   m1: {
     margin: RF(4),
   },
+  m2: {
+    margin: RF(6),
+  },
   ml0: {
     marginLeft: RF(2),
   },

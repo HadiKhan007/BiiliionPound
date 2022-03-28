@@ -49,6 +49,7 @@ export * from './Cards/OngoingEventCard/OngoingItem';
 export * from './Cards/EventInfoCard/EventInfoCard';
 export * from './Cards/PaymentMethodCard/PaymentMethodCard';
 export * from './Cards/PaymentCard/PaymentCard';
+export * from './Cards/FilterItem/FilterItem';
 
 //Modals
 export * from './Modal/ExcerciseFilter';
@@ -57,7 +58,13 @@ export * from './Modal/ImagePickerModal';
 export * from './Modal/PeriodModal';
 export * from './Modal/AddNewExercise';
 export * from './Modal/CategorySelection';
+export * from './Modal/AddCardModal';
+export * from './Modal/TransactionSuccess';
 
 //Headings
 export * from './Headings/PrimaryHeading';
 export * from './Headings/Title';
+export * from './Headings/NormHeading';
+
+//Field
+export * from './Field/PaymentCardFiled';

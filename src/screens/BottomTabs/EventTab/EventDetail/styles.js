@@ -106,6 +106,14 @@ const styles = StyleSheet.create({
   btnAlign: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 20,
+  },
+  eventInfo: {
+    marginTop: 30,
+    padding: 20,
+  },
+  scrollContainer: {
+    flex: 1,
   },
 });
 

@@ -9,14 +9,18 @@ import {
 import React from 'react';
 import {appIcons, colors, family, size} from '../../../shared/exporter';
 
-export const EventInfoCard = () => {
+export const EventInfoCard = ({title, subtitle, rightIcon}) => {
   return (
-    <View style={{padding: 20}}>
+    <View>
       <View style={styles.container}>
-        <Text style={styles.headerStyle}>Jumping Pack</Text>
-        <TouchableOpacity style={styles.rightIconStyle}>
-          <Image style={styles.rightIcon} source={appIcons.user} />
-        </TouchableOpacity>
+        <Text style={styles.headerStyle}>
+          {title} <Text style={styles.title2}>{subtitle}</Text>
+        </Text>
+        {rightIcon && (
+          <TouchableOpacity style={styles.rightIconStyle}>
+            <Image style={styles.rightIcon} source={rightIcon} />
+          </TouchableOpacity>
+        )}
       </View>
       <FlatList
         data={[1, 2, 3]}
@@ -48,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: size.normal,
     color: colors.b7,
     fontFamily: family.OpenSans_SemiBold,
+    marginBottom: 5,
   },
   rightIconStyle: {
     backgroundColor: colors.gr1,
@@ -92,5 +97,10 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_Regular,
     fontSize: size.tiny,
     color: colors.g5,
+  },
+  title2: {
+    fontSize: size.xsmall,
+    color: colors.g1,
+    fontFamily: family.OpenSans_Regular,
   },
 });

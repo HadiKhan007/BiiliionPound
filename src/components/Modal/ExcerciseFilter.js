@@ -14,11 +14,11 @@ import {appIcons, colors, WP} from '../../shared/exporter';
 export const ExerciseFilter = ({
   show,
   onPressHide,
-  filterItems,
+  filterCategory,
   onPressBody,
-  selectedBody,
-  selectedCategory,
   onPressCategory,
+  onPressSave,
+  filterBody,
 }) => {
   const onSelectBody = item => {
     onPressBody(item);
@@ -34,30 +34,25 @@ export const ExerciseFilter = ({
           icon={appIcons.backArrow}
           title={'Filter'}
           subtitle={'Save'}
+          onPressBtn={onPressSave}
         />
         <View>
           <PrimaryHeading title={'Body Part'} />
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={filterItems?.body}
+            data={filterBody}
             contentContainerStyle={styles.flatlistWrap}
-            renderItem={({item}) => {
+            renderItem={({item, index}) => {
               return (
                 <FilterBox
                   onPressItem={() => {
-                    onSelectBody(item);
+                    onSelectBody(index);
                   }}
                   title={item?.title}
-                  backgroundColor={
-                    item?.id == selectedBody?.id ? colors.p7 : colors.g10
-                  }
-                  titleColor={
-                    item?.id == selectedBody?.id ? colors.p1 : colors.g1
-                  }
-                  borderColor={
-                    item?.id == selectedBody?.id ? colors.p1 : colors.g1
-                  }
-                  borderWidth={item?.id == selectedBody?.id ? 1 : 0}
+                  backgroundColor={item?.tick ? colors.p7 : colors.g10}
+                  titleColor={item?.tick ? colors.p1 : colors.g1}
+                  borderColor={item?.tick ? colors.p1 : colors.g1}
+                  borderWidth={item?.tick ? 1 : 0}
                 />
               );
             }}
@@ -65,25 +60,19 @@ export const ExerciseFilter = ({
           <PrimaryHeading title={'Category'} />
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={filterItems?.category}
+            data={filterCategory}
             contentContainerStyle={styles.flatlistWrap}
-            renderItem={({item}) => {
+            renderItem={({item, index}) => {
               return (
                 <FilterBox
                   onPressItem={() => {
-                    onSelectCategory(item);
+                    onSelectCategory(index);
                   }}
                   title={item?.title}
-                  backgroundColor={
-                    item?.id == selectedCategory?.id ? colors.p7 : colors.g10
-                  }
-                  titleColor={
-                    item?.id == selectedCategory?.id ? colors.p1 : colors.g1
-                  }
-                  borderColor={
-                    item?.id == selectedCategory?.id ? colors.p1 : colors.g1
-                  }
-                  borderWidth={item?.id == selectedCategory?.id ? 1 : 0}
+                  backgroundColor={item?.tick ? colors.p7 : colors.g10}
+                  titleColor={item?.tick ? colors.p1 : colors.g1}
+                  borderColor={item?.tick ? colors.p1 : colors.g1}
+                  borderWidth={item?.tick ? 1 : 0}
                 />
               );
             }}
