@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 6,
     marginVertical: 10,
-    // marginHorizontal: WP('3'),
   },
   leftContainer: {
     width: '30%',

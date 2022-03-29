@@ -5,7 +5,11 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import store, {persistor} from './src/redux/store';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {stripe_publishableKey, web_client_id} from './src/shared/exporter';
+import {
+  initialConfig,
+  stripe_publishableKey,
+  web_client_id,
+} from './src/shared/exporter';
 import {StripeProvider} from '@stripe/stripe-react-native';
 
 // ignore warnings
@@ -20,6 +24,7 @@ const App = () => {
     GoogleSignin.configure({
       webClientId: web_client_id,
     });
+    initialConfig();
   }, []);
 
   return (

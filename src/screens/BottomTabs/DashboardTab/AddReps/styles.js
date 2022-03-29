@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   flatStyle: {
     marginHorizontal: -WP('5'),
-    height: '70%',
+    flex: 1,
   },
 });
 

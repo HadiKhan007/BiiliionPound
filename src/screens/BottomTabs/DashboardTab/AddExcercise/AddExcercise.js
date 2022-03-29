@@ -17,6 +17,7 @@ import {
   filterBody,
   filterCategory,
   spacing,
+  WP,
 } from '../../../../shared/exporter';
 import AlphabetSectionList from 'react-native-alphabet-sectionlist';
 import FilterItem from '../../../../components/Cards/FilterItem/FilterItem';
@@ -105,6 +106,7 @@ const AddExcercise = ({navigation}) => {
           type={item?.type}
           icon={item?.icon}
           name={item?.name}
+          paddingHorizontal={WP('5')}
           onPressCard={() => {
             setSelectedItem(item?.id);
           }}
@@ -149,7 +151,7 @@ const AddExcercise = ({navigation}) => {
                 showsVerticalScrollIndicator={false}
                 renderItem={({item}) => {
                   return (
-                    <View style={spacing.m1}>
+                    <View style={[spacing.mr1, spacing.my1]}>
                       <FilterItem
                         clearButton={true}
                         title={'Arms'}
@@ -165,7 +167,7 @@ const AddExcercise = ({navigation}) => {
           )}
 
           {recentSearch != '' ? (
-            <View style={spacing.py4}>
+            <View style={[spacing.my3]}>
               <PrimaryHeading
                 onPressSubtitle={() => {
                   setrecentSearch([]);
@@ -176,13 +178,17 @@ const AddExcercise = ({navigation}) => {
             </View>
           ) : null}
 
-          <View style={{flex: recentSearch != '' ? 0.5 : 0}}>
+          <View
+            style={[
+              styles.sectionlistStyle,
+              {flex: recentSearch != '' ? 0.5 : 0},
+            ]}>
             <FlatList
               data={recentSearch}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
-                  <View style={spacing.py2}>
+                  <View style={[spacing.py2]}>
                     <ExcerciseCard
                       onPressCard={() => {
                         // setonSuccess(!onSuccess);
@@ -190,6 +196,7 @@ const AddExcercise = ({navigation}) => {
                       type={'Shoulder'}
                       icon={appImages.sample_exercise}
                       name={'Arnold Press (Dumbbell)'}
+                      paddingHorizontal={WP('5')}
                     />
                   </View>
                 );
@@ -200,6 +207,7 @@ const AddExcercise = ({navigation}) => {
             <AlphabetSectionList
               showsVerticalScrollIndicator={false}
               data={sectionListItem}
+              headerStyle={{paddingHorizontal: WP('5')}}
               renderItem={renderItem}
               hideRightSectionList={true}
               renderSectionHeader={renderSectionHeader}

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     backgroundColor: colors.white,
     paddingVertical: 8,
-    paddingLeft: 10,
+    paddingHorizontal: WP('5.5'),
   },
   sectionHeaderText: {
     fontSize: size.large,
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     marginHorizontal: -WP('5'),
     paddingBottom: 20,
   },
-
   selectionBtn: {
     position: 'absolute',
     bottom: 20,

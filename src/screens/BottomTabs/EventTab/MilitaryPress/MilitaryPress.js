@@ -93,7 +93,7 @@ const MilitaryPress = ({navigation}) => {
             titleStyle={styles.countStyle}
             imageHeight={44}
             imageWidth={44}
-            width={'65%'}
+            width={'46%'}
           />
           <Title title={'Participants'} isLeft />
 
@@ -112,7 +112,10 @@ const MilitaryPress = ({navigation}) => {
                     <View style={styles.rightContainer}>
                       <Text style={styles.titleStyle}>{item.name}</Text>
                       <Text style={styles.subtitleStyle}>
-                        {item.liftedAmount}
+                        Lifted Amount :
+                        <Text style={[styles.subtitleBoldStyle]}>
+                          {item.liftedAmount}
+                        </Text>
                       </Text>
                     </View>
                   </View>

@@ -38,7 +38,11 @@ export const EventInfoCard = ({title, subtitle, rightIcon}) => {
               </View>
               <View style={styles.rightContainer}>
                 <Text style={styles.titleStyle}>{item?.title}</Text>
-                <Text style={styles.subtitleStyle}>{item?.date}</Text>
+                {item?.date ? (
+                  <Text style={styles.subtitleStyle}>{item?.date}</Text>
+                ) : (
+                  false
+                )}
               </View>
             </View>
           );
@@ -64,6 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gr1,
     height: 60,
     width: 60,
+    borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -84,6 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.p5,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 5,
   },
   icon24: {
     height: 24,
@@ -94,6 +100,7 @@ const styles = StyleSheet.create({
   rightContainer: {
     width: '88%',
     marginHorizontal: 10,
+    justifyContent: 'center',
   },
   titleStyle: {
     fontFamily: family.OpenSans_SemiBold,

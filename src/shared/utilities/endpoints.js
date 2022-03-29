@@ -10,6 +10,8 @@ const ENDPOINTS = {
   LOGOUT: 'logout',
   ACCESS_TOKEN: 'get_access_token',
   VERIFY_OTP: 'password/check_otp',
+  EXERCISES: 'exercises',
+  EVENTS: 'events',
 };
 
 export {BASE_URL, ENDPOINTS};

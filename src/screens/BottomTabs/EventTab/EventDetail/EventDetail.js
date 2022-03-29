@@ -25,12 +25,16 @@ import {
   spacing,
 } from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
+import {useSelector} from 'react-redux';
 
 const EventDetail = ({navigation}) => {
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
   //References
   const joinSheetRef = useRef(null);
+  const {upcoming_event_detail, ongoing_event_detail} = useSelector(
+    state => state?.event,
+  );
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -67,7 +71,10 @@ const EventDetail = ({navigation}) => {
                 titleStyle={styles.countStyle}
                 imageHeight={35}
                 imageWidth={35}
+                width={'45%'}
                 title={'+20 Going'}
+                justifyContent={'center'}
+                users_lists={upcoming_event_detail?.users}
               />
             </View>
           </View>
@@ -90,7 +97,7 @@ const EventDetail = ({navigation}) => {
                     styles.btnText,
                     {color: selectCategoryItem ? colors.p1 : colors.b1},
                   ]}>
-                  {selectCategoryItem?.title || 'All Team'}
+                  {selectCategoryItem?.name || 'All Team'}
                 </Text>
                 <Image source={appIcons.rightIcon} style={styles.inputIcon} />
               </TouchableOpacity>
@@ -106,13 +113,7 @@ const EventDetail = ({navigation}) => {
                   console.log('hello');
                 }}>
                 <Text style={styles.description}>
-                  Enjoy your favorite game and a lovely your friends and family
-                  and have a great time. Food local food trucks will be
-                  available for purchase. Enjoy your favorite game and a lovely
-                  your friends and family and have a great time. Food local food
-                  trucks will be available for purchase. Enjoy your favorite
-                  game and a lovely your friends and family and have a great
-                  time. Food local food trucks will be available for purchase.
+                  {upcoming_event_detail?.description}
                 </Text>
               </ReadMore>
             </View>
@@ -131,7 +132,7 @@ const EventDetail = ({navigation}) => {
       </View>
       {selectionModal && (
         <CategorySelection
-          data={filterTeam}
+          data={upcoming_event_detail?.teams}
           setSelectItem={item => {
             setselectCategoryItem(item);
           }}

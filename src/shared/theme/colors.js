@@ -57,6 +57,7 @@ export const colors = {
   s_gradient: ['#E79069', '#E7BB69'],
   t_gradient: ['#01BAFF', '#01BAFF'],
   shadowColor: 'rgba(1, 186, 255, 0.2)',
+  box_shadow: 'rgba(0, 0, 0, 0.18)',
   introSliderColor: '#34C8FF',
   light_shadow: '#979797',
   // red

@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   tickStyle: {
-    height: 9,
-    width: 13,
+    height: 24,
+    width: 24,
     resizeMode: 'contain',
     tintColor: colors.g1,
   },

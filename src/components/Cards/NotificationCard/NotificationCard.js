@@ -2,7 +2,12 @@ import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {appIcons, colors, family, size} from '../../../shared/exporter';
 
-export const NotificationCard = ({profileImage, title, subtitle}) => {
+export const NotificationCard = ({
+  profileImage,
+  title,
+  subtitle,
+  onPressThreeDots,
+}) => {
   return (
     <View style={styles.conatiner}>
       <View style={styles.leftContainer}>
@@ -15,7 +20,7 @@ export const NotificationCard = ({profileImage, title, subtitle}) => {
           <Text style={styles.titleStyle}>{title}</Text>
           <Text style={styles.subtitleStyle}>{subtitle}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onPressThreeDots} hitSlop={styles.hitSlop}>
           <Image style={styles.DotStyle} source={appIcons.threeDots} />
         </TouchableOpacity>
       </View>
@@ -67,5 +72,11 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 100,
     resizeMode: 'contain',
+  },
+  hitSlop: {
+    top: 30,
+    bottom: 30,
+    left: 30,
+    right: 30,
   },
 });

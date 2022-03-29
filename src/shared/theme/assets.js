@@ -67,3 +67,6 @@ export const appIcons = {
 export const appSvgs = {
   ...svgIcons,
 };
+export const appJSON = {
+  congratulation: require('../../assets/json/congratulation.json'),
+};

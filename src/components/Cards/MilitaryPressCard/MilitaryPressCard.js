@@ -7,7 +7,14 @@ import {
   FlatList,
 } from 'react-native';
 import React from 'react';
-import {appIcons, colors, family, size, WP} from '../../../shared/exporter';
+import {
+  appIcons,
+  colors,
+  family,
+  size,
+  spacing,
+  WP,
+} from '../../../shared/exporter';
 import {TitleCard} from '../TitleCard/TitleCard';
 
 export const MilitaryPressCard = ({
@@ -74,8 +81,13 @@ export const MilitaryPressCard = ({
           </Text>
         </View>
       </View>
-      <TitleCard title={'View Activity'} rightIcon onPressCard={onPressCard} />
-
+      <View style={spacing.mx1}>
+        <TitleCard
+          title={'View Activity'}
+          rightIcon
+          onPressCard={onPressCard}
+        />
+      </View>
       <FlatList
         data={data}
         renderItem={({item}) => {
@@ -136,10 +148,11 @@ const styles = StyleSheet.create({
     height: 40,
   },
   cardLeftContainer: {
-    width: '12%',
+    width: '13%',
     backgroundColor: colors.p5,
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 5,
   },
   icon24: {
     height: 24,

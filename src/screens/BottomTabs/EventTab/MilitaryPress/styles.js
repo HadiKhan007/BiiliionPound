@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     fontSize: size.tiny,
     color: colors.p1,
     fontFamily: family.OpenSans_SemiBold,
-    marginLeft: WP('2'),
   },
   cardContainer: {
     // width: '90%',
@@ -65,6 +64,11 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_Regular,
     fontSize: size.tiny,
     color: colors.g5,
+  },
+  subtitleBoldStyle: {
+    fontFamily: family.OpenSans_Bold,
+    fontSize: size.tiny,
+    color: colors.p1,
   },
   coloredSubTitle: {
     fontFamily: family.OpenSans_Bold,
@@ -116,6 +120,7 @@ const styles = StyleSheet.create({
   dividerStyle: {
     borderColor: colors.g8,
     borderWidth: 1,
+    marginVertical: 5,
   },
 });
 

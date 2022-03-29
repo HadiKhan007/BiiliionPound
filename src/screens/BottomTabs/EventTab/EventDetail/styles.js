@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     marginBottom: -30,
-    paddingHorizontal: 10,
   },
   countStyle: {
     fontSize: size.xsmall,
