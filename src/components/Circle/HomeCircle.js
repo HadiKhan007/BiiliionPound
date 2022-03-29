@@ -2,13 +2,22 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors, family, HP, size, WP} from '../../shared/exporter';
 import LinearGradient from 'react-native-linear-gradient';
+import {SmallLoader} from '..';
 
-export const HomeCircle = ({title, subtitle, icon, onPressAdd}) => {
+export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
   return (
     <View style={styles.aiCenter}>
       <View style={styles.circleContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subtitle}</Text>
+        {!isLoading ? (
+          <>
+            <Text style={styles.title}>
+              {title?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            </Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
+          </>
+        ) : (
+          <SmallLoader size={30} />
+        )}
       </View>
       {icon && (
         <LinearGradient colors={colors.t_gradient} style={styles.btnContainer}>

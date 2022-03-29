@@ -2,6 +2,11 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Event from '../../screens/BottomTabs/EventTab';
+import EventDetail from '../../screens/BottomTabs/EventTab/EventDetail';
+import OngoingEvent from '../../screens/BottomTabs/EventTab/OngoingEvent/OngoingEvent';
+import MilitaryPress from '../../screens/BottomTabs/EventTab/MilitaryPress';
+import ActivityTab from '../../screens/BottomTabs/EventTab/ActivityTab';
+
 const Stack = createStackNavigator();
 
 function AuthStack(props) {
@@ -10,6 +15,10 @@ function AuthStack(props) {
       initialRouteName="Event"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Event" component={Event} />
+      <Stack.Screen name="EventDetail" component={EventDetail} />
+      <Stack.Screen name="OngoingEvent" component={OngoingEvent} />
+      <Stack.Screen name="MilitaryPress" component={MilitaryPress} />
+      <Stack.Screen name="ActivityTab" component={ActivityTab} />
     </Stack.Navigator>
   );
 }

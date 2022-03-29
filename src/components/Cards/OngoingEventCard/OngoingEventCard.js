@@ -15,54 +15,66 @@ import {
   family,
   profile_uri,
   size,
+  spacing,
   WP,
 } from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
 import {OngoingItem} from './OngoingItem';
-export const OngoingEventCard = ({onPressCard}) => {
+export const OngoingEventCard = ({onPressCard, allEvents}) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={styles.container}
-      onPress={onPressCard}>
-      <View style={styles.primaryContainer}>
-        <ImageBackground
-          style={styles.bgContainer}
-          source={appImages.sample_exercise}
-          imageStyle={styles.imageStyle}>
-          <View style={styles.littleBox}>
-            <Text style={styles.textStyle}>10 June</Text>
-          </View>
-        </ImageBackground>
-      </View>
-      <View style={styles.secondaryContainer}>
-        <Text style={styles.titleStyle} numberOfLines={1}>
-          Funxional Fitness Burb...
-        </Text>
-        <OngoingItem
-          title={'+20 Going'}
-          titleStyle={styles.countStyle}
-          imageHeight={24}
-          imageWidth={24}
-          subtitle={'$59.99'}
-        />
-        <View style={styles.itemsStyle}>
-          <View style={styles.textAlignment}>
-            <Image source={appIcons.location} style={styles.locationStyle} />
-            <Text style={styles.textStyle}>Your Favorite Gym`</Text>
-          </View>
-          <TouchableOpacity style={styles.btnContainer}>
-            <Text style={styles.btnText}>Joined</Text>
-          </TouchableOpacity>
+    <View style={spacing.mx1}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={[styles.container, {width: allEvents ? WP('85') : WP('65')}]}
+        onPress={onPressCard}>
+        <View
+          style={[
+            styles.primaryContainer,
+            {width: allEvents ? WP('80') : WP('60')},
+          ]}>
+          <ImageBackground
+            style={styles.bgContainer}
+            source={appImages.sample_exercise}
+            imageStyle={styles.imageStyle}>
+            <View style={styles.littleBox}>
+              <Text style={styles.textStyle}>10 June</Text>
+            </View>
+          </ImageBackground>
         </View>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.secondaryContainer}>
+          <Text style={styles.titleStyle} numberOfLines={1}>
+            Funxional Fitness Burb...
+          </Text>
+          <OngoingItem
+            title={'+20 Going'}
+            titleStyle={[
+              styles.countStyle,
+              {marginLeft: allEvents ? WP('5') : null},
+            ]}
+            imageHeight={24}
+            imageWidth={24}
+            subtitle={'$59.99'}
+          />
+          <View style={styles.itemsStyle}>
+            <View style={styles.textAlignment}>
+              <Image source={appIcons.location} style={styles.locationStyle} />
+              <Text style={styles.textStyle}>Your Favorite Gym`</Text>
+            </View>
+            {allEvents ? null : (
+              <TouchableOpacity style={styles.btnContainer}>
+                <Text style={styles.btnText}>Joined</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    height: WP('65'),
+    height: WP('67'),
     width: WP('65'),
     marginVertical: 10,
     padding: 10,

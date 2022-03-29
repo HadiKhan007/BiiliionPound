@@ -1,58 +1,68 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
   appIcons,
   appImages,
-  appRadius,
   colors,
   family,
   profile_uri,
   size,
+  spacing,
   WP,
 } from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
-export const UpcomingEventCard = ({onPressCard}) => {
+import moment from 'moment';
+import {SmallLoader} from '../..';
+export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      style={styles.container}
-      onPress={onPressCard}>
-      <View style={styles.leftContainer}>
-        <View style={styles.imageContainer}>
-          <Image source={appImages.sample_exercise} style={styles.imageStyle} />
-        </View>
-      </View>
-      <View style={styles.rightContainer}>
-        <Text style={styles.title}>Wed, Apr 28 • 5:30 PM</Text>
-        <View style={{alignItems: 'center', flexDirection: 'row'}}>
-          <Text style={styles.subtitle}>Shaquille O'Neal vs. Kevin Hart </Text>
-          <Text style={styles.priceStyle}>$59.99 </Text>
-        </View>
-        <View style={styles.itemStyle}>
-          <View style={styles.textAlignment}>
-            <Image source={appIcons.location} style={styles.locationStyle} />
-            <Text style={styles.textStyle}>Your Favorite Gym`</Text>
+    <View style={spacing.mx1}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.container}
+        onPress={onPressCard}>
+        <View style={styles.leftContainer}>
+          <View style={styles.imageContainer}>
+            <Image
+              progressiveRenderingEnabled={true}
+              source={{
+                uri: upcoming_event_item?.event_image_url,
+              }}
+              style={styles.imageStyle}
+            />
           </View>
-          <TouchableOpacity style={styles.btnContainer}>
-            <Text style={styles.btnText}>Joined</Text>
-          </TouchableOpacity>
         </View>
-      </View>
-    </TouchableOpacity>
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>
+            {moment(new Date()).format('ddd, MMM DD')} •{' '}
+            {moment(new Date()).format('hh:mm A')}
+          </Text>
+          <View style={{alignItems: 'center', flexDirection: 'row'}}>
+            <Text numberOfLines={2} style={styles.subtitle}>
+              {upcoming_event_item?.title}
+            </Text>
+            <Text style={styles.priceStyle}>
+              ${upcoming_event_item?.price}{' '}
+            </Text>
+          </View>
+          <View style={styles.itemStyle}>
+            <View style={styles.textAlignment}>
+              <Image source={appIcons.location} style={styles.locationStyle} />
+              <Text style={styles.textStyle}>Your Favorite Gym`</Text>
+            </View>
+            <TouchableOpacity style={styles.btnContainer}>
+              <Text style={styles.btnText}>{upcoming_event_item?.status}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: WP('27'),
+    height: WP('30'),
     width: '100%',
     backgroundColor: colors.white,
     borderColor: colors.light_shadow,
@@ -82,7 +92,7 @@ const styles = StyleSheet.create({
     height: 92,
     width: 80,
     borderRadius: 15,
-    padding: 10,
+    padding: 5,
   },
   imageStyle: {
     height: '100%',

@@ -11,6 +11,13 @@ import {
   OTPVerifyRequest,
 } from './auth-saga/auth-sega';
 import {setProfileImageRequest} from './profile-sega/profile-sega';
+import {getWeightLiftedRequest} from './exercise-sega/exercise-sega';
+import {
+  getOngoingEventRequest,
+  getUpcomingEventRequest,
+  setOngoingEventRequest,
+  setUpcomingEventRequest,
+} from './event-sega/event-sega';
 
 export function* rootSaga() {
   yield fork(loginRequest);
@@ -22,4 +29,9 @@ export function* rootSaga() {
   yield fork(logoutRequestSega);
   yield fork(OTPVerifyRequest);
   yield fork(setProfileImageRequest);
+  yield fork(getWeightLiftedRequest);
+  yield fork(getUpcomingEventRequest);
+  yield fork(getOngoingEventRequest);
+  yield fork(setUpcomingEventRequest);
+  yield fork(setOngoingEventRequest);
 }

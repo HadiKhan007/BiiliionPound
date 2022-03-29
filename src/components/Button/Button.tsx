@@ -15,19 +15,40 @@ interface ButtonProps {
   withRightIcon: boolean;
   onPress: () => void;
   disabled: boolean;
+  bgColor: string;
+  textColor: string;
+  shadowColor: string;
 }
 
-const Button = ({title, withRightIcon, onPress, disabled}: ButtonProps) => {
+const Button = ({
+  title,
+  withRightIcon,
+  onPress,
+  disabled,
+  bgColor,
+  textColor,
+  shadowColor,
+}: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
       style={[
         styles.main,
-        {justifyContent: withRightIcon ? 'space-between' : 'center'},
+        {
+          justifyContent: withRightIcon ? 'space-between' : 'center',
+          backgroundColor: bgColor ? bgColor : colors.p1,
+          shadowColor: shadowColor ? shadowColor : colors.p1,
+        },
       ]}>
       <Text></Text>
-      <Text style={styles.textStyle}>{title}</Text>
+      <Text
+        style={[
+          styles.textStyle,
+          {color: textColor ? textColor : colors.white},
+        ]}>
+        {title}
+      </Text>
       {withRightIcon ? (
         <Image
           source={appIcons.forwardIcon}

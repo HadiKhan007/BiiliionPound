@@ -1,11 +1,43 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
 import {appIcons, capitalizeFirstLetter} from '../../../../shared/exporter';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {useIsFocused} from '@react-navigation/native';
+import {get_lifted_weight_request} from '../../../../redux/actions';
 const Dashboard = ({navigation}) => {
+  const isFocus = useIsFocused(null);
+
+  //Redux States
   const {userInfo} = useSelector(state => state?.auth);
+  const {lifted_weight} = useSelector(state => state?.exercise);
+  const [isLoading, setisLoading] = useState(false);
+  const dispatch = useDispatch(null);
+
+  //Get Wieght Lifted
+  useEffect(() => {
+    if (isFocus) {
+      gettotalWeight();
+    }
+  }, [isFocus]);
+
+  //Get Lifted Weight
+  const gettotalWeight = () => {
+    setisLoading(true);
+    //Get Lifted Weight Succees
+    const getWeightSuccess = res => {
+      console.log('Total Weight Lifted', res);
+      setisLoading(false);
+    };
+    //Get Lifted Weight Failure
+    const getWeightFailure = res => {
+      setisLoading(false);
+      console.log(res);
+    };
+    dispatch(get_lifted_weight_request(getWeightSuccess, getWeightFailure));
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -22,7 +54,8 @@ const Dashboard = ({navigation}) => {
         <View style={styles.itemView}>
           <HomeCircle
             icon={appIcons.plus}
-            title={'5,722'}
+            title={lifted_weight || ''}
+            isLoading={isLoading}
             subtitle={'Total Pounds Lifted'}
             onPressAdd={() => {
               navigation?.navigate('ExerciseStack');

@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.p1,
   },
   selectedImage: {
-    height: 12,
-    width: 19,
+    height: 35,
+    width: 35,
     tintColor: colors.white,
     resizeMode: 'contain',
   },

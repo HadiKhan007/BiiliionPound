@@ -22,6 +22,7 @@ interface ExcerciseCardProps {
   isSelected: boolean;
   type: string;
   icon: any;
+  paddingHorizontal;
   onPressCard: () => {};
 }
 
@@ -31,13 +32,17 @@ export const ExcerciseCard = ({
   type,
   icon,
   onPressCard,
+  paddingHorizontal,
 }: ExcerciseCardProps) => {
   if (isSelected) {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={onPressCard}
-        style={styles.selectedContainer}>
+        style={[
+          styles.selectedContainer,
+          {paddingHorizontal: paddingHorizontal},
+        ]}>
         <FitnessCard icon={icon} />
 
         <View style={styles.titleContainer}>
@@ -56,7 +61,7 @@ export const ExcerciseCard = ({
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={onPressCard}
-      style={styles.container}>
+      style={[styles.container, {paddingHorizontal: paddingHorizontal}]}>
       <FitnessCard icon={icon} />
 
       <View style={styles.titleContainer}>
@@ -70,12 +75,12 @@ export const ExcerciseCard = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: WP('3'),
+    // paddingHorizontal: WP('3'),
     width: Dimensions.get('window').width,
   },
   selectedContainer: {
     flexDirection: 'row',
-    paddingHorizontal: WP('3'),
+    // paddingHorizontal: WP('3'),
     backgroundColor: colors.p7,
     paddingVertical: HP('1'),
     justifyContent: 'space-between',

@@ -33,7 +33,7 @@ export const CategorySelection = ({
           CheckImagestyle={styles.icon20}
           UnCheckImagestyle={styles.icon20}
         />
-        <Text style={styles.titleStyle}>{item?.title}</Text>
+        <Text style={styles.titleStyle}>{item?.title || item?.name}</Text>
       </View>
     );
   };

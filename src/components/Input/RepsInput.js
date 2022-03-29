@@ -64,7 +64,7 @@ export const RepsInput = ({
           },
         ]}>
         <View style={styles.setinputCon}>
-          <Text style={styles.titleStyle}>SETS</Text>
+          <Text style={styles.titleStyle}>SET</Text>
           <TextInput
             keyboardType={'decimal-pad'}
             placeholder={`${index + 1 || inputList.length + 1}`}
@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   tickStyle: {
-    height: 9,
-    width: 13,
+    height: 24,
+    width: 24,
     resizeMode: 'contain',
     tintColor: colors.g1,
   },

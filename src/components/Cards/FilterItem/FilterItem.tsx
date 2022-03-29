@@ -22,9 +22,9 @@ const FilterItem = ({
       style={[
         selected ? styles.selectedContainer : styles.container,
         {
-          width: clearButton ? 110 : 100,
+          // width: clearButton ? 110 : 100,
           justifyContent: clearButton ? 'space-around' : 'center',
-          paddingHorizontal: clearButton ? 0 : WP('2'),
+          // paddingHorizontal: clearButton ? 0 : WP('2'),
         },
       ]}>
       <Text
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40,
     borderRadius: 40,
-    backgroundColor: colors.p3,
+    backgroundColor: colors.p5,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,

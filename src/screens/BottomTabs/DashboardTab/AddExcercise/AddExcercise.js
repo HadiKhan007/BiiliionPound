@@ -13,11 +13,14 @@ import {
 import {
   appIcons,
   appImages,
+  colors,
   filterBody,
   filterCategory,
   spacing,
+  WP,
 } from '../../../../shared/exporter';
 import AlphabetSectionList from 'react-native-alphabet-sectionlist';
+import FilterItem from '../../../../components/Cards/FilterItem/FilterItem';
 const sectionListItem = {
   A: [
     {
@@ -80,20 +83,19 @@ const sectionListItem = {
 };
 const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  const [selectedBody, setSelectedBody] = useState(0);
   const [selectedItem, setSelectedItem] = useState(0);
+  const [recentSearch, setrecentSearch] = useState([1, 2]);
+  const [filteredItems, setfilteredItems] = useState([1, 2]);
+
   //References
   const addExerciseSheetRef = useRef(null);
 
-  useEffect(() => {});
-
   //Filter Functions
-  const onPressSelectedBody = item => {
-    setSelectedBody(item);
+  const onPressSelectedBody = index => {
+    // filterBody[index].tick = !filterBody[index].tick;
   };
-  const onPressSelectedCategory = item => {
-    setSelectedCategory(item);
+  const onPressSelectedCategory = index => {
+    // filterCategory[index].tick = !filterBody[index].tick;
   };
 
   //Render Exercise Cards
@@ -104,6 +106,7 @@ const AddExcercise = ({navigation}) => {
           type={item?.type}
           icon={item?.icon}
           name={item?.name}
+          paddingHorizontal={WP('5')}
           onPressCard={() => {
             setSelectedItem(item?.id);
           }}
@@ -112,7 +115,9 @@ const AddExcercise = ({navigation}) => {
       </View>
     );
   };
-
+  const onFilterSave = () => {
+    setFilterExcersice(false);
+  };
   const renderSectionHeader = ({section: {title}}) => {
     return (
       <View style={styles.sectionHeader}>
@@ -138,16 +143,52 @@ const AddExcercise = ({navigation}) => {
               addExerciseSheetRef.current.show();
             }}
           />
-          <View style={spacing.py4}>
-            <PrimaryHeading title={'Recent Search'} subtitle={'Remove'} />
-          </View>
-          <View style={styles.flatListStyle}>
+          {filteredItems != '' ? (
+            <View>
+              <FlatList
+                data={[...new Set(filteredItems)]}
+                numColumns={3}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item}) => {
+                  return (
+                    <View style={[spacing.mr1, spacing.my1]}>
+                      <FilterItem
+                        clearButton={true}
+                        title={'Arms'}
+                        selected={true}
+                      />
+                    </View>
+                  );
+                }}
+              />
+            </View>
+          ) : (
+            false
+          )}
+
+          {recentSearch != '' ? (
+            <View style={[spacing.my3]}>
+              <PrimaryHeading
+                onPressSubtitle={() => {
+                  setrecentSearch([]);
+                }}
+                title={'Recent Search'}
+                subtitle={'Remove'}
+              />
+            </View>
+          ) : null}
+
+          <View
+            style={[
+              styles.sectionlistStyle,
+              {flex: recentSearch != '' ? 0.5 : 0},
+            ]}>
             <FlatList
-              data={[1, 2]}
+              data={recentSearch}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
-                  <View style={spacing.py2}>
+                  <View style={[spacing.py2]}>
                     <ExcerciseCard
                       onPressCard={() => {
                         // setonSuccess(!onSuccess);
@@ -155,6 +196,7 @@ const AddExcercise = ({navigation}) => {
                       type={'Shoulder'}
                       icon={appImages.sample_exercise}
                       name={'Arnold Press (Dumbbell)'}
+                      paddingHorizontal={WP('5')}
                     />
                   </View>
                 );
@@ -165,6 +207,7 @@ const AddExcercise = ({navigation}) => {
             <AlphabetSectionList
               showsVerticalScrollIndicator={false}
               data={sectionListItem}
+              headerStyle={{paddingHorizontal: WP('5')}}
               renderItem={renderItem}
               hideRightSectionList={true}
               renderSectionHeader={renderSectionHeader}
@@ -181,15 +224,15 @@ const AddExcercise = ({navigation}) => {
       </View>
       {filterExcersice && (
         <ExerciseFilter
-          selectedBody={selectedBody}
           onPressBody={onPressSelectedBody}
-          selectedCategory={selectedCategory}
           onPressCategory={onPressSelectedCategory}
-          filterItems={{body: filterBody, category: filterCategory}}
+          filterCategory={filterCategory}
+          filterBody={filterBody}
           show={filterExcersice}
           onPressHide={() => {
             setFilterExcersice(false);
           }}
+          onPressSave={onFilterSave}
         />
       )}
       <AddNewExercise
@@ -197,10 +240,16 @@ const AddExcercise = ({navigation}) => {
         onPressHide={() => {
           addExerciseSheetRef?.current?.hide();
         }}
+        title={'Create Exercise'}
         onAddPress={() => {
           addExerciseSheetRef?.current?.hide();
           navigation?.navigate('AddNewExercise');
         }}
+        icon={appIcons.plus}
+        bgColor={colors.white}
+        textColor={colors.b7}
+        borderleftRadius={15}
+        borderRightRadius={15}
       />
     </SafeAreaView>
   );

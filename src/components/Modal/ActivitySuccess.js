@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
 import {SafeAreaView, StyleSheet, View, Modal, Text} from 'react-native';
 import {ActivityCard, AppHeader, FilterBox, PrimaryHeading} from '..';
-import {appIcons, colors, family, size, WP} from '../../shared/exporter';
+import {
+  appIcons,
+  appJSON,
+  colors,
+  family,
+  size,
+  WP,
+} from '../../shared/exporter';
+import LottieView from 'lottie-react-native';
 
 export const ActivitySuccess = ({
   show,
@@ -22,6 +30,9 @@ export const ActivitySuccess = ({
           rightIcon={appIcons.share}
         />
         <View style={styles.content}>
+          <LottieView source={appJSON.congratulation} autoPlay loop />
+        </View>
+        <View style={styles.secondContent}>
           <Text style={styles.title}>Congratulations!</Text>
           <ActivityCard
             name={name}
@@ -53,8 +64,10 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingBottom: WP('10'),
+    paddingVertical: WP('35'),
+  },
+  secondContent: {
+    alignItems: 'center',
+    // paddingVertical: WP('5'),
   },
 });

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     backgroundColor: colors.white,
     paddingVertical: 8,
-    paddingLeft: 10,
+    paddingHorizontal: WP('5.5'),
   },
   sectionHeaderText: {
     fontSize: size.large,
@@ -36,9 +36,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: -WP('5'),
     paddingBottom: 20,
-  },
-  flatListStyle: {
-    flex: 0.5,
   },
   selectionBtn: {
     position: 'absolute',

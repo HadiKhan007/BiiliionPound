@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     height: '10%',
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: 'green',
   },
   titleStyle: {
     fontSize: size.normal,
