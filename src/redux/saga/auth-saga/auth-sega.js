@@ -29,6 +29,9 @@ function* login(params) {
         payload: null,
       });
       params?.cbFailure(res?.data);
+      console.log('==============login failed======================');
+      console.log(res?.data);
+      console.log('====================================');
     }
   } catch (error) {
     yield put({

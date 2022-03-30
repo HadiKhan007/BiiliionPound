@@ -54,7 +54,7 @@ const OngoingEvent = ({navigation}) => {
                 users_lists={user_images}
                 allEvents={true}
                 onPressCard={() => {
-                  navigation.navigate('MilitaryPress');
+                  navigation.navigate('OngoingEventDetail');
                 }}
               />
             );

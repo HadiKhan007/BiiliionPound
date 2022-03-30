@@ -8,18 +8,81 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import styles from './styles';
 import {ActivityCard, AppHeader, PeriodModal, Title} from '../../../components';
-import {appIcons, appImages, spacing} from '../../../shared/exporter';
+import {
+  appIcons,
+  appImages,
+  checkConnected,
+  spacing,
+} from '../../../shared/exporter';
+import {useDispatch} from 'react-redux';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Activity = ({navigation}) => {
   // State Declaration
   const [selectPeriod, setselectPeriod] = useState(null);
-
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch(null);
   //References
   const periodSheetRef = useRef(null);
 
+  useFocusEffect(
+    useCallback(() => {
+      getActivityData();
+      return () => {
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, [navigation]),
+  );
+
+  const getActivityData = async () => {
+    setLoading(true);
+    const checkInternet = await checkConnected();
+
+    const cbSuccess = res => {
+      console.log('===============terms & conditions=====================');
+      console.log(res);
+      console.log('====================================');
+      setLoading(false);
+    };
+
+    const cbFailure = message => {
+      setLoading(false);
+    };
+
+    if (checkInternet) {
+      // dispatch(getTermsNConditions(cbSuccess, cbFailure));
+    } else {
+      setLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+
+  const getFilteredData = async () => {
+    setLoading(true);
+    const checkInternet = await checkConnected();
+
+    const cbSuccess = res => {
+      console.log('===============terms & conditions=====================');
+      console.log(res);
+      console.log('====================================');
+      setLoading(false);
+    };
+
+    const cbFailure = message => {
+      setLoading(false);
+    };
+
+    if (checkInternet) {
+      // dispatch(getTermsNConditions(cbSuccess, cbFailure));
+    } else {
+      setLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>

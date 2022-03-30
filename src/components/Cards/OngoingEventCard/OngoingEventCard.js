@@ -48,7 +48,7 @@ export const OngoingEventCard = ({onPressCard, allEvents, users_lists}) => {
           </Text>
           <OngoingItem
             users_lists={users_lists}
-            title={`${users_lists.length} Going`}
+            title={`${users_lists?.length} Going`}
             titleStyle={[
               styles.countStyle,
               {marginLeft: allEvents ? WP('5') : null},

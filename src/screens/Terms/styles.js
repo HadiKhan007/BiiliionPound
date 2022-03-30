@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('5'),
     flex: 1,
   },
+  paraStyle: {flex: 1, marginHorizontal: WP('3')},
 });
 
 export default styles;

@@ -37,3 +37,19 @@ export const set_ongoing_event_request = (params, cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+export const getActivity = (cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.GET_ACTIVITY_REQUEST,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+export const getFilteredActivity = (cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.GET_FILTERED_ACTIVITY_REQUEST,
+    cbSuccess,
+    cbFailure,
+  };
+};

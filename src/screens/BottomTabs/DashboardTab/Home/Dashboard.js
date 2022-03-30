@@ -54,7 +54,7 @@ const Dashboard = ({navigation}) => {
         <View style={styles.itemView}>
           <HomeCircle
             icon={appIcons.plus}
-            title={lifted_weight || ''}
+            title={lifted_weight || 0}
             isLoading={isLoading}
             subtitle={'Total Pounds Lifted'}
             onPressAdd={() => {

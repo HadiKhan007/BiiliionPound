@@ -83,7 +83,7 @@ const Event = ({navigation}) => {
   const OnGoingEventPress = item => {
     //Set Ongoing Success
     const onGoingPressSuccess = () => {
-      navigation.navigate('MilitaryPress');
+      navigation.navigate('OngoingEventDetail');
       console.log('On Going Event Success');
     };
     //Set  onGoing event failure

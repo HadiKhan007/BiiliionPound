@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     justifyContent: 'center',
     borderRadius: WP('1'),
-    height: HP('15'),
-    width: WP('30'),
+    height: HP('10'),
+    width: WP('20'),
     ...Platform.select({
       ios: {
         shadowColor: colors.black,

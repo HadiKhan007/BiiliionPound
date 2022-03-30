@@ -8,6 +8,7 @@ const initialState = {
   ongoing_events: [],
   upcoming_event_detail: null,
   ongoing_event_detail: null,
+  activity: null,
 };
 const eventReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -66,6 +67,16 @@ const eventReducer = (state = initialState, actions) => {
         isSuccess: true,
         isFailure: false,
         ongoing_event_detail: null,
+      };
+    case TYPES.GET_FILTERED_ACTIVITY_SUCCESS:
+      return {
+        ...state,
+        activity: payload,
+      };
+    case TYPES.GET_ACTIVITY_SUCCESS:
+      return {
+        ...state,
+        activity: payload,
       };
     default:
       return state;
