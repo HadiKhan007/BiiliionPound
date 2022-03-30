@@ -72,7 +72,7 @@ const EventDetail = ({navigation}) => {
                 imageHeight={35}
                 imageWidth={35}
                 width={'45%'}
-                title={'+20 Going'}
+                title={`+${upcoming_event_detail?.users?.length} Going`}
                 justifyContent={'center'}
                 users_lists={upcoming_event_detail?.users}
               />

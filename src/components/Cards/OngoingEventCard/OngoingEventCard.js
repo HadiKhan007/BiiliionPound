@@ -20,7 +20,8 @@ import {
 } from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
 import {OngoingItem} from './OngoingItem';
-export const OngoingEventCard = ({onPressCard, allEvents}) => {
+export const OngoingEventCard = ({onPressCard, allEvents, users_lists}) => {
+  console.log(users_lists);
   return (
     <View style={spacing.mx1}>
       <TouchableOpacity
@@ -46,7 +47,8 @@ export const OngoingEventCard = ({onPressCard, allEvents}) => {
             Funxional Fitness Burb...
           </Text>
           <OngoingItem
-            title={'+20 Going'}
+            users_lists={users_lists}
+            title={`${users_lists.length} Going`}
             titleStyle={[
               styles.countStyle,
               {marginLeft: allEvents ? WP('5') : null},
