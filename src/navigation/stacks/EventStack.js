@@ -15,10 +15,7 @@ function AuthStack(props) {
       initialRouteName="Event"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Event" component={Event} />
-      <Stack.Screen name="EventDetail" component={EventDetail} />
       <Stack.Screen name="OngoingEvent" component={OngoingEvent} />
-      <Stack.Screen name="MilitaryPress" component={MilitaryPress} />
-      <Stack.Screen name="ActivityTab" component={ActivityTab} />
     </Stack.Navigator>
   );
 }

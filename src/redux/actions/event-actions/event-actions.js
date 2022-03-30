@@ -37,3 +37,13 @@ export const set_ongoing_event_request = (params, cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+//Set Ongoing Evenets
+export const add_card_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.ADD_CARD_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};

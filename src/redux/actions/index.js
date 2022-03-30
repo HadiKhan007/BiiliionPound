@@ -15,4 +15,5 @@ export {
   get_ongoing_event_request,
   set_ongoing_event_request,
   set_upcoming_event_request,
+  add_card_request,
 } from './event-actions/event-actions';

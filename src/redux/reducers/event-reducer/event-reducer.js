@@ -8,6 +8,7 @@ const initialState = {
   ongoing_events: [],
   upcoming_event_detail: null,
   ongoing_event_detail: null,
+  payment_card_list: [],
 };
 const eventReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -67,6 +68,26 @@ const eventReducer = (state = initialState, actions) => {
         isFailure: false,
         ongoing_event_detail: null,
       };
+
+    //************Add Debit Card*************
+    case TYPES.ADD_CARD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        payment_card_list: payload,
+      };
+
+    case TYPES.ADD_CARD_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        payment_card_list: null,
+      };
+
     default:
       return state;
   }

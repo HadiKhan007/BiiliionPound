@@ -12,6 +12,7 @@ const ENDPOINTS = {
   VERIFY_OTP: 'password/check_otp',
   EXERCISES: 'exercises',
   EVENTS: 'events',
+  CHECKOUT: 'checkout',
 };
 
 export {BASE_URL, ENDPOINTS};

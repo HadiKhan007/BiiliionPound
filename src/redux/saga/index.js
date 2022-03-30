@@ -13,6 +13,7 @@ import {
 import {setProfileImageRequest} from './profile-sega/profile-sega';
 import {getWeightLiftedRequest} from './exercise-sega/exercise-sega';
 import {
+  addcardRequest,
   getOngoingEventRequest,
   getUpcomingEventRequest,
   setOngoingEventRequest,
@@ -34,4 +35,5 @@ export function* rootSaga() {
   yield fork(getOngoingEventRequest);
   yield fork(setUpcomingEventRequest);
   yield fork(setOngoingEventRequest);
+  yield fork(addcardRequest);
 }

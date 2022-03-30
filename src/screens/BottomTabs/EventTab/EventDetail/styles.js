@@ -15,20 +15,22 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   firstConatiner: {
-    height: '20%',
     backgroundColor: colors.p1,
     zIndex: 9999,
+    flex: 1,
+    marginTop: 80,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
   },
   contentContainer: {
-    marginHorizontal: WP('5'),
     flex: 1,
   },
   itemConatiner: {
-    flex: 1,
     backgroundColor: colors.white,
-    marginHorizontal: -WP('5'),
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
+    flex: 1,
   },
   headerContainer: {
     height: 60,
@@ -110,9 +112,6 @@ const styles = StyleSheet.create({
   eventInfo: {
     marginTop: 30,
     padding: 20,
-  },
-  scrollContainer: {
-    flex: 1,
   },
 });
 

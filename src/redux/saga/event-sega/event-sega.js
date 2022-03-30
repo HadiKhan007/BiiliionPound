@@ -3,6 +3,7 @@ import {responseValidator} from '../../../shared/exporter';
 import {
   getUpcomingEvent,
   getOngoingEvent,
+  addDebitCard,
 } from '../../../shared/service/EventService';
 import * as types from '../../actions/types';
 
@@ -93,5 +94,31 @@ function* setOngoingEvent(params) {
   } catch (error) {
     console.log(error);
     params?.cbFailure();
+  }
+}
+
+// *************ADD CARD SEGA**************
+export function* addcardRequest() {
+  yield takeLatest(types.ADD_CARD_REQUEST, addCard);
+}
+function* addCard(params) {
+  try {
+    const res = yield addDebitCard(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.ADD_CARD_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    }
+  } catch (error) {
+    console.log(error);
+    // yield put({
+    //   type: types.ADD_CARD_FAILURE,
+    //   payload: null,
+    // });
+
+    // let msg = responseValidator(error?.response?.status, error?.response?.data);
+    // params?.cbFailure(msg);
   }
 }

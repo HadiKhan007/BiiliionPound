@@ -4,10 +4,6 @@ import {colors, family, size} from '../../shared/exporter';
 import {CardField, useStripe} from '@stripe/stripe-react-native';
 
 export const PaymentCardField = ({
-  title,
-  onPressCard,
-  onPressWallet,
-  btn,
   onCardChange,
   onFocus,
   disabled,
@@ -32,6 +28,7 @@ export const PaymentCardField = ({
           placeholderTextColor={colors.g1}
           placeholder={'Card Holder Name'}
           style={styles.simpleInput}
+          onChangeText={onChangeText}
         />
       </View>
     </View>

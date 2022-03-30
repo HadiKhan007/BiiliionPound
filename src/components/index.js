@@ -53,6 +53,7 @@ export * from './Cards/FilterItem/FilterItem';
 export * from './Cards/MilitaryPressCard/MilitaryPressCard';
 export * from './Cards/TitleCard/TitleCard';
 export * from './Cards/BlankCard/BlankFiled';
+export * from './Cards/EventCard/EventCard';
 
 //Modals
 export * from './Modal/ExcerciseFilter';

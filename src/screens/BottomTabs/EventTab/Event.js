@@ -112,13 +112,19 @@ const Event = ({navigation}) => {
               <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
-                data={ongoing_events}
+                data={ongoing_events?.slice(0, 3)}
                 renderItem={({item}) => {
                   return (
                     <OngoingEventCard
+                      event_image={item?.event_image_url}
+                      title={item?.title}
                       onPressCard={() => {
                         OnGoingEventPress(item);
                       }}
+                      users_lists={item?.users}
+                      event_date={item?.start_date}
+                      event_status={item?.status}
+                      event_price={item?.price}
                     />
                   );
                 }}

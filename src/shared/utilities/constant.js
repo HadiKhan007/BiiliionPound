@@ -41,21 +41,15 @@ const filterTeam = [
 ];
 const eventDetail_list = [
   {
-    id: 0,
-    title: 'Sat,May 25, 2022',
-    date: '10:00 AM - 9:00 PM',
     icon: appIcons.calender,
   },
   {
-    id: 1,
-    title: 'Your Favorite Gym',
-    date: '',
     icon: appIcons.badge,
   },
   {
-    id: 0,
-    title: 'Team Red',
-    date: '10:00 AM - 9:00 PM',
+    icon: appIcons.tag,
+  },
+  {
     icon: appIcons.peoples,
   },
 ];
@@ -94,7 +88,7 @@ let image_options = {
   },
 };
 const stripe_publishableKey =
-  'pk_test_51HHZGDJdTAy1qfYOFzlK3i3oPJDG3d4D1LgXHDsivAXq9hr3CCK20CP4pLUMymj8KiKsQezvdWp6reLvCkYm3hVt007hOHMr1A';
+  'pk_test_51Jc5CWG5H9PTsJWTIZhYvdTTYfou0YKpZcDRJemqk83fnHQfRJoJJiHLK8AioyjhRa1XYAW9Q0NggRgAIumEaUgj00g64wGpS3';
 const profile_uri = 'https://unsplash.it/400/400?image=1';
 export {
   ANDROID,
