@@ -38,6 +38,7 @@ import {
 } from '../../../../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
+import {useApplePay} from '@stripe/stripe-react-native';
 
 const button_list = [
   {id: 0, title: 'Visa Debit Card', icon: appIcons.visa, tick: false},
@@ -58,6 +59,7 @@ const Payment = ({navigation}) => {
   const [cardView, setcardView] = useState(true);
   const dispatch = useDispatch(null);
   const [isLoading, setisLoading] = useState(false);
+  const {isApplePaySupported} = useApplePay();
   const isFocus = useIsFocused();
   //References
   const addCardRef = useRef(null);
@@ -272,6 +274,7 @@ const Payment = ({navigation}) => {
                   return (
                     <View style={spacing.py3}>
                       <PaymentMethodCard
+                        applePaySupport={isApplePaySupported}
                         title={item?.title}
                         selectedCard={selection}
                         onPressCard={() => {
