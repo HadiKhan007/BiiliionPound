@@ -53,5 +53,6 @@ export {
   checkConnected,
   capitalizeFirstLetter,
   responseValidator,
+  checkBrand,
 } from './utilities/helper';
 export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';

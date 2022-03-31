@@ -29,9 +29,7 @@ const EventDetail = ({navigation}) => {
 
   //References
   const joinSheetRef = useRef(null);
-  const {upcoming_event_detail, ongoing_event_detail} = useSelector(
-    state => state?.event,
-  );
+  const {upcoming_event_detail} = useSelector(state => state?.event);
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -144,6 +142,38 @@ const EventDetail = ({navigation}) => {
           ) : null}
         </View>
       </ScrollView>
+      {selectionModal && (
+        <CategorySelection
+          data={upcoming_event_detail?.teams}
+          setSelectItem={item => {
+            setselectCategoryItem(item);
+          }}
+          selectItem={selectCategoryItem}
+          title={'Category'}
+          show={selectionModal}
+          onPressHide={() => {
+            setSelectionModal(false);
+          }}
+          onPressDone={onEndSelection}
+        />
+      )}
+      <AddNewExercise
+        show={joinSheetRef}
+        onPressHide={() => {
+          joinSheetRef?.current?.hide();
+          navigation?.navigate('Payment');
+        }}
+        onAddPress={() => {
+          joinSheetRef?.current?.hide();
+          navigation?.navigate('AddNewExercise');
+        }}
+        bgColor={colors.gr1}
+        textColor={colors.white}
+        title={'Already Joined 5 Days to go'}
+        nodeColor={colors.gr1}
+        borderRightRadius={20}
+        borderleftRadius={20}
+      />
     </SafeAreaView>
   );
 };

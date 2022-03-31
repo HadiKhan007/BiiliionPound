@@ -52,6 +52,22 @@ const styles = StyleSheet.create({
     fontSize: size.xsmall,
     paddingVertical: 10,
   },
+  cardInputStyle: {
+    width: '100%',
+    height: 45,
+    left: -10,
+  },
+  cardStyle: {
+    backgroundColor: colors.white,
+    color: colors.b1,
+    fontSize: size.xsmall,
+  },
+  fieldContainer: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.g6,
+    marginVertical: 10,
+    width: '100%',
+  },
 });
 
 export default styles;

@@ -16,4 +16,7 @@ export {
   set_ongoing_event_request,
   set_upcoming_event_request,
   add_card_request,
+  pay_with_debit_request,
+  pay_with_social_request,
+  get_payment_cards_request,
 } from './event-actions/event-actions';

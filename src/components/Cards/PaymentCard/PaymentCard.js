@@ -17,16 +17,17 @@ export const PaymentCard = ({
   onPressCard,
   cardSelection,
   index,
+  card_list,
 }) => {
   return (
-    <ImageBackground
-      style={styles.container}
-      source={bgPic}
-      imageStyle={styles.imageStyle}>
-      <TouchableOpacity activeOpacity={0.7} onPress={onPressCard}>
+    <TouchableOpacity activeOpacity={0.7} onPress={onPressCard}>
+      <ImageBackground
+        style={styles.container}
+        source={bgPic}
+        imageStyle={styles.imageStyle}>
         <View style={styles.header}>
           <Text style={styles.dateStyle}>{cardDate}</Text>
-          {cardSelection?.id === index ? (
+          {cardSelection?.id === card_list[index].id ? (
             <View style={styles.tickContainer}>
               <Image source={appIcons.tick} style={styles.tickStyle} />
             </View>
@@ -35,11 +36,11 @@ export const PaymentCard = ({
           )}
         </View>
         <View>
-          <Text style={styles.cardnoStyle}>{cardNo} </Text>
+          <Text style={styles.cardnoStyle}>**********{cardNo} </Text>
           <Text style={styles.titleStyle}>{title}</Text>
         </View>
-      </TouchableOpacity>
-    </ImageBackground>
+      </ImageBackground>
+    </TouchableOpacity>
   );
 };
 

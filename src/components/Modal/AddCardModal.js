@@ -27,6 +27,7 @@ export const AddCardModal = ({
   borderleftRadius,
   borderRightRadius,
   onChangeText,
+  paymentField,
 }) => {
   return (
     <ActionSheet
@@ -50,7 +51,10 @@ export const AddCardModal = ({
           <Image style={styles.icon24} source={appIcons.cross} />
         </TouchableOpacity>
       </View>
-      <PaymentCardField onChangeText={onChangeText} />
+      <PaymentCardField
+        paymentField={paymentField}
+        onChangeText={onChangeText}
+      />
       <View style={styles.aiCenter}>
         <Button onPress={onAddPress} title={'Add Card'} />
       </View>

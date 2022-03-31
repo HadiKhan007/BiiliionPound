@@ -15,7 +15,10 @@ import {getWeightLiftedRequest} from './exercise-sega/exercise-sega';
 import {
   addcardRequest,
   getOngoingEventRequest,
+  getPaymentCardRequest,
   getUpcomingEventRequest,
+  payWithDebitRequest,
+  payWithSocialAccountRequest,
   setOngoingEventRequest,
   setUpcomingEventRequest,
 } from './event-sega/event-sega';
@@ -36,4 +39,7 @@ export function* rootSaga() {
   yield fork(setUpcomingEventRequest);
   yield fork(setOngoingEventRequest);
   yield fork(addcardRequest);
+  yield fork(getPaymentCardRequest);
+  yield fork(payWithDebitRequest);
+  yield fork(payWithSocialAccountRequest);
 }
