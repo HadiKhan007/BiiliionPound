@@ -5,6 +5,7 @@ const initialState = {
   isSuccess: false,
   isFailure: false,
   lifted_weight: null,
+  exercise: null,
 };
 const exerciseReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -27,7 +28,12 @@ const exerciseReducer = (state = initialState, actions) => {
         isFailure: true,
         lifted_weight: null,
       };
-
+    //************Custom Exercise*************
+    case TYPES.CUSTOM_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        exercise: payload,
+      };
     default:
       return state;
   }

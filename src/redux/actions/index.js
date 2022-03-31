@@ -22,6 +22,9 @@ export {
   get_ongoing_event_request,
   set_ongoing_event_request,
   set_upcoming_event_request,
+} from './event-actions/event-actions';
+
+export {
   getActivity,
   getFilteredActivity,
-} from './event-actions/event-actions';
+} from './activity-actions/activity-actions';

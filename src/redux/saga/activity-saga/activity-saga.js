@@ -1,29 +1,31 @@
 import {takeLatest, put} from 'redux-saga/effects';
 import {responseValidator} from '../../../shared/exporter';
 import {
-  creatingCustomExercise,
-  getWeightLifted,
-} from '../../../shared/service/ExerciseService';
+  getActivity,
+  getFilteredActivity,
+} from '../../../shared/service/ActivityService';
 import * as types from '../../actions/types';
 
-// ************* Get Weight Sega**************
-export function* getWeightLiftedRequest() {
-  yield takeLatest(types.GET_LIFTED_WEIGHT_REQUEST, getTotalWightLifted);
-  yield takeLatest(types.CUSTOM_EXERCISE_REQUEST, createCustomExerciseRequest);
+export function* getActivitiesRequest() {
+  yield takeLatest(types.GET_ACTIVITY_REQUEST, getActivityRequest);
+  yield takeLatest(
+    types.GET_FILTERED_ACTIVITY_REQUEST,
+    getFilteredActivityRequest,
+  );
 }
 
-function* getTotalWightLifted(params) {
+function* getActivityRequest(params) {
   try {
-    const res = yield getWeightLifted();
+    const res = yield getActivity();
     if (res.data) {
       yield put({
-        type: types.GET_LIFTED_WEIGHT_SUCCESS,
+        type: types.GET_ACTIVITY_SUCCESS,
         payload: res.data,
       });
       params?.cbSuccess(res.data);
     } else {
       yield put({
-        type: types.GET_LIFTED_WEIGHT_FAILURE,
+        type: types.GET_ACTIVITY_FAILURE,
         payload: null,
       });
       params?.cbFailure(res?.data);
@@ -31,7 +33,7 @@ function* getTotalWightLifted(params) {
   } catch (error) {
     console.log(error);
     yield put({
-      type: types.GET_LIFTED_WEIGHT_FAILURE,
+      type: types.GET_ACTIVITY_FAILURE,
       payload: null,
     });
     let msg = responseValidator(error?.response?.status, error?.response?.data);
@@ -39,19 +41,21 @@ function* getTotalWightLifted(params) {
   }
 }
 
-// create custom exercise
-function* createCustomExerciseRequest(params) {
+function* getFilteredActivityRequest(params) {
+  console.log('============params========================');
+  console.log(params?.params);
+  console.log('====================================');
   try {
-    const res = yield creatingCustomExercise(params?.params);
+    const res = yield getFilteredActivity(params?.params?.title);
     if (res.data) {
       yield put({
-        type: types.CUSTOM_EXERCISE_SUCCESS,
+        type: types.GET_FILTERED_ACTIVITY_SUCCESS,
         payload: res.data,
       });
       params?.cbSuccess(res.data);
     } else {
       yield put({
-        type: types.CUSTOM_EXERCISE_FAILURE,
+        type: types.GET_FILTERED_ACTIVITY_FAILURE,
         payload: null,
       });
       params?.cbFailure(res?.data);
@@ -59,11 +63,10 @@ function* createCustomExerciseRequest(params) {
   } catch (error) {
     console.log(error);
     yield put({
-      type: types.CUSTOM_EXERCISE_FAILURE,
+      type: types.GET_FILTERED_ACTIVITY_FAILURE,
       payload: null,
     });
     let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
 }
-

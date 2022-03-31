@@ -45,7 +45,7 @@ export const getFAQRequest = (cbSuccess, cbFailure) => {
 
 export const getPrivacyPolicy = (cbSuccess, cbFailure) => {
   return {
-    type: TYPES.GET_TERMS_CONDITION_REQUEST,
+    type: TYPES.GET_PRIVACY_POLICY_REQUEST,
     cbSuccess,
     cbFailure,
   };

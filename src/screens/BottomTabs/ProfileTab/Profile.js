@@ -90,7 +90,7 @@ const Profile = ({navigation}) => {
   //Profile Card List
   const data = [
     {
-      title: 'Priavcy Policy',
+      title: 'Privacy Policy',
       icon: appIcons.security,
       style: styles.policyImageStyle,
       onPress: () => {

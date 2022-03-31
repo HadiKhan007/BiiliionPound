@@ -2,6 +2,7 @@ import {takeLatest, put} from 'redux-saga/effects';
 import {responseValidator} from '../../../shared/exporter';
 import {
   getFaqs,
+  getPrivacyPolicy,
   getTermsConditions,
   getUserData,
   updateUserData,
@@ -14,6 +15,7 @@ export function* setProfileImageRequest() {
   yield takeLatest(types.UPDATE_PROFILE_REQUEST, updateProfileRequest);
   yield takeLatest(types.GET_FAQ_REQUEST, getFaqRequest);
   yield takeLatest(types.GET_TERMS_CONDITION_REQUEST, getTermsCondition);
+  yield takeLatest(types.GET_PRIVACY_POLICY_REQUEST, getPrivacyPolicyRequest);
 }
 
 function* setprofileImage(params) {
@@ -82,7 +84,7 @@ function* updateProfileRequest(params) {
   }
 }
 
-function* getFaqRequest() {
+function* getFaqRequest(params) {
   try {
     const response = yield getFaqs();
     if (response.data) {
@@ -122,7 +124,7 @@ function* getFaqRequest() {
   }
 }
 
-function* getTermsCondition() {
+function* getTermsCondition(params) {
   try {
     const response = yield getTermsConditions();
     if (response.data) {
@@ -148,6 +150,35 @@ function* getTermsCondition() {
   } catch {
     yield put({
       type: types.GET_TERMS_CONDITION_FAILURE,
+      payload: null,
+    });
+    // let msg = responseValidator(error?.response?.status, error?.response?.data);
+    // params?.cbFailure(msg);
+  }
+}
+
+function* getPrivacyPolicyRequest(params) {
+  try {
+    const response = yield getPrivacyPolicy();
+    if (response.data) {
+      yield put({
+        type: types.GET_PRIVACY_POLICY_SUCCESS,
+        payload: response?.data,
+      });
+      console.log('====================================');
+      console.log('response of DATA', response?.data);
+      console.log('====================================');
+      params?.cbSuccess(response?.data);
+    } else {
+      yield put({
+        type: types.GET_PRIVACY_POLICY_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(response?.data);
+    }
+  } catch {
+    yield put({
+      type: types.GET_PRIVACY_POLICY_FAILURE,
       payload: null,
     });
     // let msg = responseValidator(error?.response?.status, error?.response?.data);

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
-import {AppHeader, ParaBox} from '../../components';
+import {AppHeader, Loader, ParaBox} from '../../components';
 import {appIcons, checkConnected} from '../../shared/exporter';
 import {FlatList} from 'react-native-gesture-handler';
 import {ListItem} from 'react-native-elements';
@@ -90,6 +90,7 @@ const Faqs = ({navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
+        {loading ? <Loader loading={loading} /> : null}
         <AppHeader icon={appIcons.backArrow} title={'Faqs'} />
         <FlatList
           showsVerticalScrollIndicator={false}

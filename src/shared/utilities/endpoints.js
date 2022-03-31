@@ -15,7 +15,7 @@ const ENDPOINTS = {
   PROFILE: id => `users/${id}`,
   FAQ: 'faqs',
   TERMS_CONDITION: 'term_and_conditions',
-  PRIVACY_POLICY: 'private_policies',
+  PRIVACY_POLICY: 'privacy_policies',
   ACTIVITY: 'exercises',
 };
 
