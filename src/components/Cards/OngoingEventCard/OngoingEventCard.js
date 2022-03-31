@@ -11,6 +11,7 @@ import {
   appIcons,
   appImages,
   appRadius,
+  capitalizeFirstLetter,
   colors,
   family,
   profile_uri,
@@ -20,8 +21,17 @@ import {
 } from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
 import {OngoingItem} from './OngoingItem';
-export const OngoingEventCard = ({onPressCard, allEvents, users_lists}) => {
-  console.log(users_lists);
+import moment from 'moment';
+export const OngoingEventCard = ({
+  onPressCard,
+  allEvents,
+  users_lists,
+  event_image,
+  title,
+  event_date,
+  event_status,
+  event_price,
+}) => {
   return (
     <View style={spacing.mx1}>
       <TouchableOpacity
@@ -35,37 +45,51 @@ export const OngoingEventCard = ({onPressCard, allEvents, users_lists}) => {
           ]}>
           <ImageBackground
             style={styles.bgContainer}
-            source={appImages.sample_exercise}
+            source={
+              event_image
+                ? {
+                    uri: event_image,
+                  }
+                : appImages.sample_exercise
+            }
             imageStyle={styles.imageStyle}>
             <View style={styles.littleBox}>
-              <Text style={styles.textStyle}>10 June</Text>
+              <Text style={styles.textStyle}>
+                {moment(event_date).format('DD MMM')}
+              </Text>
             </View>
           </ImageBackground>
         </View>
         <View style={styles.secondaryContainer}>
           <Text style={styles.titleStyle} numberOfLines={1}>
-            Funxional Fitness Burb...
+            {capitalizeFirstLetter(title)}
           </Text>
           <OngoingItem
             users_lists={users_lists}
-            title={`${users_lists?.length} Going`}
+            title={`${users_lists?.length}`}
             titleStyle={[
               styles.countStyle,
               {marginLeft: allEvents ? WP('5') : null},
             ]}
             imageHeight={24}
             imageWidth={24}
-            subtitle={'$59.99'}
+            subtitle={`$${event_price}`}
           />
           <View style={styles.itemsStyle}>
             <View style={styles.textAlignment}>
               <Image source={appIcons.location} style={styles.locationStyle} />
-              <Text style={styles.textStyle}>Your Favorite Gym`</Text>
+              <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
             {allEvents ? null : (
-              <TouchableOpacity style={styles.btnContainer}>
-                <Text style={styles.btnText}>Joined</Text>
-              </TouchableOpacity>
+              <>
+                {event_status?.match('Joined') ? (
+                  <TouchableOpacity style={styles.btnContainer}>
+                    <Text style={styles.btnText}>{event_status}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  false
+                )}
+              </>
             )}
           </View>
         </View>

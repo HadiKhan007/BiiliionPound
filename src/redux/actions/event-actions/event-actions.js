@@ -37,3 +37,41 @@ export const set_ongoing_event_request = (params, cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+//get Payment Cards
+export const get_payment_cards_request = (cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.GET_CARD_LIST_REQUEST,
+    cbSuccess,
+    cbFailure,
+  };
+};
+//Set Payment
+export const add_card_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.ADD_CARD_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Pay with Debit
+export const pay_with_debit_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.PAY_WITH_DEBIT_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Pay with Google
+export const pay_with_social_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.PAY_WITH_SOCIAL_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};

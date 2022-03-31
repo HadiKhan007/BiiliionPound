@@ -52,7 +52,11 @@ export const OngoingItem = ({
           })}
         </View>
 
-        {title && <Text style={[titleStyle, {marginLeft: 15}]}>{title}</Text>}
+        {title && (
+          <Text style={[titleStyle, {marginLeft: 15}]}>
+            {title != 0 && `+${title} Going`}
+          </Text>
+        )}
       </View>
       {subtitle && <Text style={styles.priceStyle}>{subtitle}</Text>}
     </View>

@@ -1,6 +1,7 @@
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {appIcons, colors, family, size} from '../../../shared/exporter';
+import {ApplePayButton, useApplePay} from '@stripe/stripe-react-native';
 
 export const PaymentMethodCard = ({
   onPressCard,
@@ -8,28 +9,44 @@ export const PaymentMethodCard = ({
   index,
   title,
   icon,
+  applePaySupport,
 }) => {
   return (
-    <TouchableOpacity
-      onPress={onPressCard}
-      style={[
-        styles.container,
-        {
-          borderColor: selectedCard.id == index ? colors.p1 : colors.g10,
-          shadowColor: selectedCard.id == index ? colors.p1 : colors.g10,
-        },
-      ]}>
-      <View style={styles.aiCenter}>
-        <Image style={styles.imageStyle} source={icon} />
-        <Text style={styles.titleStyle}>{title}</Text>
-      </View>
-      <TouchableOpacity onPress={onPressCard}>
-        <Image
-          style={styles.checkBox}
-          source={selectedCard.id == index ? appIcons.radio : appIcons?.circle}
+    <>
+      {index === 0 && (
+        <TouchableOpacity
+          onPress={onPressCard}
+          style={[
+            styles.container,
+            {
+              borderColor: selectedCard.id == index ? colors.p1 : colors.g10,
+              shadowColor: selectedCard.id == index ? colors.p1 : colors.g10,
+            },
+          ]}>
+          <View style={styles.aiCenter}>
+            <Image style={styles.imageStyle} source={icon} />
+            <Text style={styles.titleStyle}>{title}</Text>
+          </View>
+          <TouchableOpacity onPress={onPressCard}>
+            <Image
+              style={styles.checkBox}
+              source={
+                selectedCard.id == index ? appIcons.radio : appIcons?.circle
+              }
+            />
+          </TouchableOpacity>
+        </TouchableOpacity>
+      )}
+      {applePaySupport && index == 1 ? (
+        <ApplePayButton
+          type="plain"
+          onPress={onPressCard}
+          buttonStyle="black"
+          borderRadius={5}
+          style={styles.appleStyle}
         />
-      </TouchableOpacity>
-    </TouchableOpacity>
+      ) : null}
+    </>
   );
 };
 
@@ -71,5 +88,9 @@ const styles = StyleSheet.create({
     fontSize: size.normal,
     color: colors.b1,
     fontFamily: family.OpenSans_Regular,
+  },
+  appleStyle: {
+    width: '100%',
+    height: 50,
   },
 });

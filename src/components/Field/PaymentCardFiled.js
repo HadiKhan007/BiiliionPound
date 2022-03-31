@@ -4,34 +4,34 @@ import {colors, family, size} from '../../shared/exporter';
 import {CardField, useStripe} from '@stripe/stripe-react-native';
 
 export const PaymentCardField = ({
-  title,
-  onPressCard,
-  onPressWallet,
-  btn,
   onCardChange,
   onFocus,
   disabled,
   onChangeText,
+  paymentField,
 }) => {
   return (
     <View>
-      <View style={styles.fieldContainer}>
-        <CardField
-          placeholder={{
-            number: 'Card Number',
-          }}
-          postalCodeEnabled={false}
-          cardStyle={styles.cardStyle}
-          style={styles.payStyle}
-          onCardChange={onCardChange}
-          onFocus={onFocus}
-        />
-      </View>
+      {paymentField && (
+        <View style={styles.fieldContainer}>
+          <CardField
+            placeholder={{
+              number: 'Card Number',
+            }}
+            postalCodeEnabled={false}
+            cardStyle={styles.cardStyle}
+            style={styles.payStyle}
+            onCardChange={onCardChange}
+            onFocus={onFocus}
+          />
+        </View>
+      )}
       <View style={styles.fieldContainer}>
         <TextInput
           placeholderTextColor={colors.g1}
           placeholder={'Card Holder Name'}
           style={styles.simpleInput}
+          onChangeText={onChangeText}
         />
       </View>
     </View>
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.g6,
     marginVertical: 10,
+    width: '100%',
   },
   cardStyle: {
     backgroundColor: colors.white,

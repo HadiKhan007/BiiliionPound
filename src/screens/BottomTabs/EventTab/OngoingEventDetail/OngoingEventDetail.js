@@ -89,7 +89,7 @@ const OngoingEventDetail = ({navigation}) => {
             onPressCard={() => navigation.navigate('ActivityTab')}
           />
           <OngoingItem
-            title={'+5 People enrolled'}
+            // title={'People enrolled'}
             titleStyle={styles.countStyle}
             imageHeight={44}
             imageWidth={44}

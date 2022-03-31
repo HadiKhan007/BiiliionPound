@@ -17,6 +17,7 @@ const ENDPOINTS = {
   TERMS_CONDITION: 'term_and_conditions',
   PRIVACY_POLICY: 'privacy_policies',
   ACTIVITY: 'exercises',
+  CHECKOUT: 'checkout',
 };
 
 export {BASE_URL, ENDPOINTS};
