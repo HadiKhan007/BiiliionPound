@@ -22,6 +22,11 @@ function* login(params) {
         type: types.LOGIN_REQUEST_SUCCESS,
         payload: res.data,
       });
+      yield put({
+        type: types.GET_PROFILE_SUCCESS,
+        payload: res.data?.user,
+      });
+      
       params?.cbSuccess(res.data);
     } else {
       yield put({
@@ -29,6 +34,9 @@ function* login(params) {
         payload: null,
       });
       params?.cbFailure(res?.data);
+      console.log('==============login failed======================');
+      console.log(res?.data);
+      console.log('====================================');
     }
   } catch (error) {
     yield put({

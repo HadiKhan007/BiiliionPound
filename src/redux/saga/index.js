@@ -23,6 +23,8 @@ import {
   setUpcomingEventRequest,
 } from './event-sega/event-sega';
 
+import {getActivitiesRequest} from './activity-saga/activity-saga';
+
 export function* rootSaga() {
   yield fork(loginRequest);
   yield fork(signUpRequest);
@@ -38,6 +40,7 @@ export function* rootSaga() {
   yield fork(getOngoingEventRequest);
   yield fork(setUpcomingEventRequest);
   yield fork(setOngoingEventRequest);
+  yield fork(getActivitiesRequest);
   yield fork(addcardRequest);
   yield fork(getPaymentCardRequest);
   yield fork(payWithDebitRequest);

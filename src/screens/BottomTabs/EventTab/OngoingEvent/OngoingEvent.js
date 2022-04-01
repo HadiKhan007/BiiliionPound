@@ -49,7 +49,7 @@ const OngoingEvent = ({navigation}) => {
                 event_image={item?.event_image_url}
                 allEvents={true}
                 onPressCard={() => {
-                  navigation.navigate('MilitaryPress');
+                  navigation.navigate('OngoingEventDetail');
                 }}
               />
             );

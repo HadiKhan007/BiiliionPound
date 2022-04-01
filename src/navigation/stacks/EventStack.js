@@ -4,7 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Event from '../../screens/BottomTabs/EventTab';
 import EventDetail from '../../screens/BottomTabs/EventTab/EventDetail';
 import OngoingEvent from '../../screens/BottomTabs/EventTab/OngoingEvent/OngoingEvent';
-import MilitaryPress from '../../screens/BottomTabs/EventTab/MilitaryPress';
+import OngoingEventDetail from '../../screens/BottomTabs/EventTab/OngoingEventDetail';
 import ActivityTab from '../../screens/BottomTabs/EventTab/ActivityTab';
 
 const Stack = createStackNavigator();

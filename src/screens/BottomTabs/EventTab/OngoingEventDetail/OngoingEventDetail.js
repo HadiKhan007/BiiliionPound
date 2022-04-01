@@ -14,7 +14,7 @@ import {
   AppHeader,
   Button,
   HomeCircle,
-  MilitaryPressCard,
+  OngoingEventDetailCard,
   OngoingEventCard,
   OngoingItem,
   PrimaryHeading,
@@ -31,7 +31,7 @@ import {
 } from '../../../../shared/exporter';
 import {Divider} from 'react-native-elements';
 
-const MilitaryPress = ({navigation}) => {
+const OngoingEventDetail = ({navigation}) => {
   const data = [
     {
       id: 0,
@@ -81,7 +81,7 @@ const MilitaryPress = ({navigation}) => {
               }}
             />
           </View>
-          <MilitaryPressCard
+          <OngoingEventDetailCard
             title={'Military Press'}
             subTitle={'150 LBS'}
             price={'59.99'}
@@ -142,4 +142,4 @@ const MilitaryPress = ({navigation}) => {
   );
 };
 
-export default MilitaryPress;
+export default OngoingEventDetail;

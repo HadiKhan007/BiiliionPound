@@ -12,6 +12,11 @@ const ENDPOINTS = {
   VERIFY_OTP: 'password/check_otp',
   EXERCISES: 'exercises',
   EVENTS: 'events',
+  PROFILE: id => `users/${id}`,
+  FAQ: 'faqs',
+  TERMS_CONDITION: 'term_and_conditions',
+  PRIVACY_POLICY: 'privacy_policies',
+  ACTIVITY: 'exercises',
   CHECKOUT: 'checkout',
 };
 

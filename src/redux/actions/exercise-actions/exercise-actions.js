@@ -8,3 +8,12 @@ export const get_lifted_weight_request = (cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+export const createCustomExercise = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.CUSTOM_EXERCISE_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};

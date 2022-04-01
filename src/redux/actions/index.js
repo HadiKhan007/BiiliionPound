@@ -8,7 +8,14 @@ export {
   logoutRequset,
   verifyOTPRequest,
 } from './auth-actions/auth-action';
-export {setProfileImage} from './profile-actions/profile-action';
+export {
+  setProfileImage,
+  getProfile,
+  updateUserProfile,
+  getFAQRequest,
+  getPrivacyPolicy,
+  getTermsNConditions,
+} from './profile-actions/profile-action';
 export {get_lifted_weight_request} from './exercise-actions/exercise-actions';
 export {
   get_upcoming_event_request,
@@ -20,3 +27,8 @@ export {
   pay_with_social_request,
   get_payment_cards_request,
 } from './event-actions/event-actions';
+
+export {
+  getActivity,
+  getFilteredActivity,
+} from './activity-actions/activity-actions';

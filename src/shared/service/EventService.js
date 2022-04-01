@@ -9,6 +9,7 @@ export const getUpcomingEvent = () => {
 export const getOngoingEvent = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/ongoing_events`);
 };
+
 //GET ALL PAYMENT CARDS
 export const getPaymentCards = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.CHECKOUT}`);
