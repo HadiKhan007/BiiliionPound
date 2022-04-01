@@ -17,7 +17,7 @@ import {
 } from '../../../shared/exporter';
 import {TitleCard} from '../TitleCard/TitleCard';
 
-export const MilitaryPressCard = ({
+export const OngoingEventDetailCard = ({
   title,
   subTitle,
   price,

@@ -6,11 +6,13 @@ import {appIcons, capitalizeFirstLetter} from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import {get_lifted_weight_request} from '../../../../redux/actions';
+
 const Dashboard = ({navigation}) => {
   const isFocus = useIsFocused(null);
 
   //Redux States
   const {userInfo} = useSelector(state => state?.auth);
+  const {userData} = useSelector(state => state?.profile);
   const {lifted_weight} = useSelector(state => state?.exercise);
   const [isLoading, setisLoading] = useState(false);
   const dispatch = useDispatch(null);
@@ -43,9 +45,7 @@ const Dashboard = ({navigation}) => {
       <View style={styles.contentContainer}>
         <HomeHeader
           title={'Welcome Back'}
-          subtitle={`${
-            capitalizeFirstLetter(userInfo?.user?.first_name) || 'Stefani'
-          } ${capitalizeFirstLetter(userInfo?.user?.last_name) || 'Wong'}`}
+          subtitle={userData?.first_name + ' ' + userData?.last_name}
           icon={appIcons.notification}
           onPressBtn={() => {
             navigation?.navigate('NotificationList');
@@ -54,7 +54,7 @@ const Dashboard = ({navigation}) => {
         <View style={styles.itemView}>
           <HomeCircle
             icon={appIcons.plus}
-            title={lifted_weight || ''}
+            title={lifted_weight || 0}
             isLoading={isLoading}
             subtitle={'Total Pounds Lifted'}
             onPressAdd={() => {

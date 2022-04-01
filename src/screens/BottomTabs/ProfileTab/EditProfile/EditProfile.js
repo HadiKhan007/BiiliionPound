@@ -1,4 +1,4 @@
-import {View, Image, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, Image, SafeAreaView, TouchableOpacity, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {
@@ -7,9 +7,11 @@ import {
   Input,
   Button,
   ImagePickerModal,
+  Loader,
 } from '../../../../components';
 import {
   appIcons,
+  checkConnected,
   colors,
   image_options,
   updateFormFields,
@@ -21,17 +23,73 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Formik} from 'formik';
 import {useIsFocused} from '@react-navigation/core';
 import {useDispatch, useSelector} from 'react-redux';
-import {setProfileImage} from '../../../../redux/actions';
+import {setProfileImage, updateUserProfile} from '../../../../redux/actions';
 
 const EditProfile = ({navigation}) => {
   const [show, setShow] = useState(false);
-  const {profile_image} = useSelector(state => state?.profile);
+  const [image, setImage] = useState('');
+  const {profile_image, userData} = useSelector(state => state?.profile);
+  const {userInfo} = useSelector(state => state.auth);
   const dispatch = useDispatch(null);
   const isFocus = useIsFocused();
+  const [loading, setLoading] = useState(false);
   // useEffect(() => {
   //   if (isFocus) {
   //   }
   // }, [isFocus]);
+
+  const updateProfile = async values => {
+    console.log('====================================');
+    console.log(image);
+    console.log('====================================');
+    // setLoading(true);
+    const checkInternet = await checkConnected();
+
+    // const data = new FormData();
+    // data.append('first_name', values?.firstName);
+    // data.append('last_name', values?.lastName);
+    // data.append('email', values?.email);
+    // data.append(
+    //   'profile_image',
+    //   image,
+    //   // {
+    //   // uri: image.uri,
+    //   // type: image.type,
+    //   // name: image.fileName,
+    //   // }
+    // );
+
+    const data = {
+      first_name: values?.firstName,
+      last_name: values?.lastName,
+      email: values?.email,
+      profile_image: {
+        uri: image.uri,
+        type: image.type,
+        name: image.fileName,
+      },
+    };
+
+    console.log('====================================');
+    console.log('update profile hit', data);
+    console.log('====================================');
+
+    const cbSuccess = response => {
+      //  navigation?.goBack();
+      setLoading(false);
+    };
+
+    const cbFailure = message => {
+      setLoading(false);
+    };
+
+    if (checkInternet) {
+      dispatch(updateUserProfile(data, userInfo, cbSuccess, cbFailure));
+    } else {
+      setLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
 
   //Handlers
   const showGallery = () => {
@@ -40,7 +98,7 @@ const EditProfile = ({navigation}) => {
       try {
         launchImageLibrary(image_options, response => {
           // Use launchImageLibrary to open image gallery
-          console.log('Response = ', response);
+          console.log('Response', response);
 
           if (response.didCancel) {
             console.log('User cancelled image picker');
@@ -49,6 +107,10 @@ const EditProfile = ({navigation}) => {
           } else if (response.customButton) {
             console.log('User tapped custom button: ', response.customButton);
           } else {
+            setImage(response?.assets[0]);
+            console.log('====================================');
+            console.log('Image', response?.assets[0]?.uri);
+            console.log('====================================');
             dispatch(setProfileImage(response?.assets[0]?.uri));
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -75,6 +137,10 @@ const EditProfile = ({navigation}) => {
             console.log('User tapped custom button: ', response.customButton);
           } else {
             if (response.assets) {
+              setImage(response?.assets[0]);
+              console.log('====================================');
+              console.log('Image', response?.assets[0]);
+              console.log('====================================');
               dispatch(setProfileImage(response?.assets[0]?.uri));
             } else {
               alert('Unable to open Camera');
@@ -88,6 +154,7 @@ const EditProfile = ({navigation}) => {
   };
   return (
     <SafeAreaView style={styles.main}>
+      {loading ? <Loader loading={loading} /> : null}
       <View style={styles.contentContainer}>
         <AppHeader
           icon={appIcons.backArrow}
@@ -104,9 +171,13 @@ const EditProfile = ({navigation}) => {
           />
         </View>
         <Formik
-          initialValues={updateFormFields}
+          initialValues={{
+            firstName: userData?.first_name,
+            lastName: userData?.last_name,
+            email: userData?.email,
+          }}
           onSubmit={(values, {resetForm}) => {
-            navigation?.goBack();
+            updateProfile(values);
           }}
           validationSchema={UpdateVS}>
           {({
@@ -118,7 +189,24 @@ const EditProfile = ({navigation}) => {
             isValid,
             handleSubmit,
             handleReset,
+            setFieldValue,
           }) => {
+            useEffect(() => {
+              {
+                console.log('====================================');
+                console.log(userData?.last_name);
+                console.log('====================================');
+                if (userData?.first_name != '') {
+                  setFieldValue('firstName', userData?.first_name);
+                }
+                if (userData?.last_name != '') {
+                  setFieldValue('lastName', userData?.last_name);
+                }
+                if (userData?.email != '') {
+                  setFieldValue('email', userData?.email);
+                }
+              }
+            }, []);
             return (
               <KeyboardAwareScrollView
                 style={styles.itemContainer2}
@@ -126,13 +214,14 @@ const EditProfile = ({navigation}) => {
                 <View style={styles.inputContainer}>
                   <Input
                     onChangeText={handleChange('firstName')}
+                    value={values.firstName}
                     errorMessage={errors.firstName}
                     renderErrorMessage={true}
                     placeholder="First Name"
-                    value={values.firstName}
                     onBlur={() => setFieldTouched('firstName')}
                     blurOnSubmit={false}
                     disableFullscreenUI={true}
+                    touched={touched.firstName}
                     leftIcon={
                       <Icon
                         type={'font-awesome'}
@@ -144,13 +233,14 @@ const EditProfile = ({navigation}) => {
                   />
                   <Input
                     onChangeText={handleChange('lastName')}
-                    errorMessage={errors?.lastName}
+                    errorMessage={errors.lastName}
                     renderErrorMessage={true}
                     placeholder="Last Name"
-                    value={values?.lastName}
+                    value={values.lastName}
                     onBlur={() => setFieldTouched('lastName')}
                     blurOnSubmit={false}
                     disableFullscreenUI={true}
+                    touched={touched.lastName}
                     leftIcon={
                       <Icon
                         type={'font-awesome'}
@@ -207,6 +297,6 @@ const EditProfile = ({navigation}) => {
       </View>
     </SafeAreaView>
   );
-};
+};;;;;;
 
 export default EditProfile;

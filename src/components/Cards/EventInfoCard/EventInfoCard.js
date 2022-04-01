@@ -14,8 +14,9 @@ import {
   family,
   size,
 } from '../../../shared/exporter';
-
-export const EventInfoCard = ({title, subtitle, rightIcon}) => {
+import {EventCard} from '../..';
+import moment from 'moment';
+export const EventInfoCard = ({title, subtitle, rightIcon, events}) => {
   return (
     <View>
       <View style={styles.container}>
@@ -28,26 +29,24 @@ export const EventInfoCard = ({title, subtitle, rightIcon}) => {
           </TouchableOpacity>
         )}
       </View>
-      <FlatList
-        data={eventDetail_list}
-        renderItem={({item}) => {
-          return (
-            <View style={styles.cardContainer}>
-              <View style={styles.cardLeftContainer}>
-                <Image source={item?.icon} style={styles.icon24} />
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.titleStyle}>{item?.title}</Text>
-                {item?.date ? (
-                  <Text style={styles.subtitleStyle}>{item?.date}</Text>
-                ) : (
-                  false
-                )}
-              </View>
-            </View>
-          );
-        }}
+      <EventCard
+        icon={appIcons.calender}
+        title={moment(new Date()).format('ddd,MMM DD,YYYY')}
+        date={`${moment(events?.start_date).format('hh:mm A')} - ${moment(
+          events?.end_date,
+        ).format('hh:mm A')}`}
       />
+      <EventCard icon={appIcons.badge} title={'Your Favorite Gym'} />
+      <EventCard icon={appIcons.tag} title={`$${events?.price}`} />
+      {events?.status?.match('Joined') ? (
+        <EventCard
+          icon={appIcons.peoples}
+          title={'Team Red'}
+          date={'You are in team red'}
+        />
+      ) : (
+        false
+      )}
     </View>
   );
 };

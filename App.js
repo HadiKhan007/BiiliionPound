@@ -30,7 +30,7 @@ const App = () => {
   return (
     <StripeProvider
       publishableKey={stripe_publishableKey}
-      merchantIdentifier="merchant.identifier">
+      merchantIdentifier="merchant.com.billionpound.app">
       <Provider store={store}>
         <StatusBar
           translucent={true}

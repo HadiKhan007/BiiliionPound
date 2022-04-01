@@ -5,36 +5,92 @@ import {
   Image,
   SafeAreaView,
   FlatList,
+  Alert,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
+  Loader,
   PrimaryHeading,
   ProfileImage,
   Title,
 } from '../../../components';
-import {appIcons, colors, spacing} from '../../../shared/exporter';
+import {
+  appIcons,
+  checkConnected,
+  colors,
+  spacing,
+} from '../../../shared/exporter';
 import {TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {logoutRequset} from '../../../redux/actions';
+import {getProfile, logoutRequset} from '../../../redux/actions';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Profile = ({navigation}) => {
   //Redux States
   const dispatch = useDispatch(null);
-  const {profile_image} = useSelector(state => state?.profile);
+  const {profile_image, userData} = useSelector(state => state?.profile);
+  const {userInfo} = useSelector(state => state.auth);
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    console.log('====================================');
+    console.log(userInfo);
+    console.log('====================================');
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getUserData();
+      return () => {
+        // Do something when the screen is unfocused
+        // Useful for cleanup functions
+      };
+    }, [navigation]),
+  );
   //On Logout Hanlder
   const onLogout = async () => {
     dispatch(logoutRequset(null));
     GoogleSignin.signOut();
     navigation?.replace('Auth');
   };
+
+  //get user data
+  const getUserData = async () => {
+    setLoading(true);
+    console.log('====================================');
+    console.log('in get user data');
+    console.log('====================================');
+
+    const checkInternet = await checkConnected();
+
+    const cbSuccess = res => {
+      console.log('====================================');
+      console.log(res);
+      console.log('====================================');
+      setLoading(false);
+    };
+
+    const cbFailure = message => {
+      console.log('====================================');
+      console.log(message);
+      console.log('====================================');
+      setLoading(false);
+    };
+
+    if (checkInternet) {
+      dispatch(getProfile(userInfo?.user?.id, cbSuccess, cbFailure));
+    } else {
+      setLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
   //Profile Card List
   const data = [
     {
-      title: 'Priavcy Policy',
+      title: 'Privacy Policy',
       icon: appIcons.security,
       style: styles.policyImageStyle,
       onPress: () => {
@@ -68,6 +124,7 @@ const Profile = ({navigation}) => {
   ];
   return (
     <SafeAreaView style={styles.main}>
+      {loading ? <Loader loading={loading} /> : null}
       <View style={styles.contentContainer}>
         <AppHeader
           title={'Profile'}
@@ -77,7 +134,10 @@ const Profile = ({navigation}) => {
           }}
         />
         <View style={styles.itemContainer}>
-          <ProfileImage profileUri={profile_image} title={'John Doe'} />
+          <ProfileImage
+            profileUri={profile_image}
+            title={userData?.full_name}
+          />
         </View>
         <View style={spacing.py3}>
           <PrimaryHeading title={'Account'} />

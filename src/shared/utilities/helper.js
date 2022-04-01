@@ -1,5 +1,6 @@
 import NetInfo from '@react-native-community/netinfo';
 import {createContext, useContext, useEffect} from 'react';
+import {appIcons} from '../exporter';
 export const checkConnected = () => {
   return NetInfo.fetch().then(state => {
     return state.isConnected;
@@ -31,15 +32,42 @@ export const capitalizeFirstLetter = string => {
 };
 export const responseValidator = (response, errorMsg) => {
   let errorCode = response;
-  const msg = errorMsg?.error[0];
   if (errorCode == 401) {
-    return msg || 'Something went wrong!';
+    if (errorMsg?.error) {
+      const msg = errorMsg?.error[0];
+      return msg;
+    } else {
+      return 'Something went wrong!';
+    }
   } else if (errorCode == 400) {
-    return msg || 'Something went wrong!';
+    if (errorMsg?.error) {
+      const msg = errorMsg?.error[0];
+      return msg;
+    } else {
+      return 'Something went wrong!';
+    }
   } else if (errorCode == 404) {
-    return msg || 'Something went wrong!';
+    if (errorMsg?.error) {
+      const msg = errorMsg?.error[0];
+      return msg;
+    } else {
+      return 'Something went wrong!';
+    }
   } else if (errorCode == 500) {
-    return msg || 'Something went wrong!';
+    if (errorMsg?.error) {
+      const msg = errorMsg?.error[0];
+      return msg;
+    } else {
+      return 'Something went wrong!';
+    }
   } else {
+  }
+};
+
+export const checkBrand = name => {
+  if (name == 'Visa') {
+    return appIcons.blueBg;
+  } else if (name == 'Master') {
+    return appIcons.orangeBg;
   }
 };

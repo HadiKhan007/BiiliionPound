@@ -14,10 +14,17 @@ export const AppHeader = ({
   onPressBtn,
   smSubtitle,
   titleColor,
+  paddingHorizontal,
 }) => {
   const navigation = useNavigation();
   return (
-    <View style={[styles.container]}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingHorizontal: paddingHorizontal ? paddingHorizontal : 0,
+        },
+      ]}>
       <View style={styles.headerStyle}>
         <View style={styles.leftContainer}>
           {icon && (

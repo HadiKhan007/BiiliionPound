@@ -62,6 +62,7 @@ export const appIcons = {
   calender: require('../../assets/icons/calender.png'),
   badge: require('../../assets/icons/badge.png'),
   peoples: require('../../assets/icons/peoples.png'),
+  tag: require('../../assets/icons/tag.png'),
 };
 
 export const appSvgs = {

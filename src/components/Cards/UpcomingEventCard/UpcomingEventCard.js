@@ -24,19 +24,24 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
           <View style={styles.imageContainer}>
             <Image
               progressiveRenderingEnabled={true}
-              source={{
-                uri: upcoming_event_item?.event_image_url,
-              }}
+              source={
+                upcoming_event_item?.event_image_url
+                  ? {
+                      uri: upcoming_event_item?.event_image_url,
+                    }
+                  : appImages.sample_exercise
+              }
               style={styles.imageStyle}
             />
           </View>
         </View>
         <View style={styles.rightContainer}>
           <Text style={styles.title}>
-            {moment(new Date()).format('ddd, MMM DD')} •{' '}
-            {moment(new Date()).format('hh:mm A')}
+            {moment(upcoming_event_item?.start_date).format('ddd, MMM DD')} •{' '}
+            {moment(upcoming_event_item?.start_date).format('hh:mm A')}
           </Text>
-          <View style={{alignItems: 'center', flexDirection: 'row'}}>
+          <View
+            style={{alignItems: 'center', flexDirection: 'row', height: 50}}>
             <Text numberOfLines={2} style={styles.subtitle}>
               {upcoming_event_item?.title}
             </Text>
@@ -47,11 +52,17 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
           <View style={styles.itemStyle}>
             <View style={styles.textAlignment}>
               <Image source={appIcons.location} style={styles.locationStyle} />
-              <Text style={styles.textStyle}>Your Favorite Gym`</Text>
+              <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
-            <TouchableOpacity style={styles.btnContainer}>
-              <Text style={styles.btnText}>{upcoming_event_item?.status}</Text>
-            </TouchableOpacity>
+            {upcoming_event_item?.status.match('Joined') ? (
+              <TouchableOpacity style={styles.btnContainer}>
+                <Text style={styles.btnText}>
+                  {upcoming_event_item?.status}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              false
+            )}
           </View>
         </View>
       </TouchableOpacity>
@@ -76,6 +87,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 6,
     marginVertical: 10,
+    paddingVertical: 5,
   },
   leftContainer: {
     width: '30%',
@@ -89,8 +101,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     backgroundColor: colors.p5,
-    height: 92,
-    width: 80,
+    height: 100,
+    width: 85,
     borderRadius: 15,
     padding: 5,
   },
@@ -103,7 +115,7 @@ const styles = StyleSheet.create({
     fontSize: size.tiny,
     fontFamily: family.OpenSans_Regular,
     color: colors.p1,
-    marginTop: 5,
+    marginTop: 10,
   },
   subtitle: {
     fontSize: size.normal,
@@ -150,6 +162,5 @@ const styles = StyleSheet.create({
   itemStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
   },
 });

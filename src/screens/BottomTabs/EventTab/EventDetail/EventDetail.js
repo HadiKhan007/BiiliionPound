@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Image,
+  Alert,
 } from 'react-native';
 import React, {useRef, useState} from 'react';
 import styles from './styles';
@@ -18,23 +19,17 @@ import {
   CategorySelection,
   AddNewExercise,
 } from '../../../../components';
-import {
-  appIcons,
-  colors,
-  filterTeam,
-  spacing,
-} from '../../../../shared/exporter';
+import {appIcons, colors, spacing, WP} from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
 import {useSelector} from 'react-redux';
 
 const EventDetail = ({navigation}) => {
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
+
   //References
   const joinSheetRef = useRef(null);
-  const {upcoming_event_detail, ongoing_event_detail} = useSelector(
-    state => state?.event,
-  );
+  const {upcoming_event_detail} = useSelector(state => state?.event);
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -56,35 +51,49 @@ const EventDetail = ({navigation}) => {
     setSelectionModal(false);
   };
 
+  const joinEvent = () => {
+    if (selectCategoryItem) {
+      navigation?.navigate('Payment');
+    } else {
+      Alert.alert('Message!', 'Please select team');
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.contentContainer}>
-        <AppHeader
-          title={'Event Details'}
-          titleColor={colors.white}
-          icon={appIcons.backArrow}
-        />
-        <View style={styles.itemConatiner}>
-          <View style={styles.firstConatiner}>
+      <AppHeader
+        paddingHorizontal={WP('5')}
+        title={'Event Details'}
+        titleColor={colors.white}
+        icon={appIcons.backArrow}
+      />
+
+      <ScrollView
+        style={styles.contentContainer}
+        contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.firstConatiner}>
+          {upcoming_event_detail?.users?.length != 0 ? (
             <View style={styles.headerContainer}>
               <OngoingItem
                 titleStyle={styles.countStyle}
                 imageHeight={35}
                 imageWidth={35}
                 width={'45%'}
-                title={'+20 Going'}
+                title={upcoming_event_detail?.users?.length}
                 justifyContent={'center'}
                 users_lists={upcoming_event_detail?.users}
               />
             </View>
+          ) : null}
+        </View>
+        <View style={styles.itemConatiner}>
+          <View style={styles.eventInfo}>
+            <EventInfoCard
+              events={upcoming_event_detail}
+              title={upcoming_event_detail?.title}
+              rightIcon={appIcons.user}
+            />
           </View>
-          <ScrollView
-            style={styles.scrollContainer}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={spacing.my2}>
-            <View style={styles.eventInfo}>
-              <EventInfoCard title={'Jumping Pack'} rightIcon={appIcons.user} />
-            </View>
+          {!upcoming_event_detail?.status?.match('Joined') ? (
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
               <TouchableOpacity
@@ -102,34 +111,37 @@ const EventDetail = ({navigation}) => {
                 <Image source={appIcons.rightIcon} style={styles.inputIcon} />
               </TouchableOpacity>
             </View>
-            {/* About Event Flow */}
-            <View style={[styles.inputContainer, spacing.py3]}>
-              <Text style={styles.titleStyle}>About The Event</Text>
-              <ReadMore
-                numberOfLines={3}
-                renderTruncatedFooter={_renderTruncatedFooter}
-                renderRevealedFooter={_renderRevealedFooter}
-                onReady={() => {
-                  console.log('hello');
-                }}>
-                <Text style={styles.description}>
-                  {upcoming_event_detail?.description}
-                </Text>
-              </ReadMore>
-            </View>
-            {/* Join NOW */}
+          ) : null}
+          {/* About Event Flow */}
+          <View style={[styles.inputContainer, spacing.py3]}>
+            <Text style={styles.titleStyle}>About The Event</Text>
+            <ReadMore
+              numberOfLines={3}
+              renderTruncatedFooter={_renderTruncatedFooter}
+              renderRevealedFooter={_renderRevealedFooter}
+              onReady={() => {
+                console.log('hello');
+              }}>
+              <Text style={styles.description}>
+                {upcoming_event_detail?.description}
+              </Text>
+            </ReadMore>
+          </View>
+          {/* Join NOW */}
+          {!upcoming_event_detail?.status?.match('Joined') ? (
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
-                  joinSheetRef?.current?.show();
+                  joinEvent();
+                  // joinSheetRef?.current?.show();
                 }}
                 title={'Join'}
                 withRightIcon={true}
               />
             </View>
-          </ScrollView>
+          ) : null}
         </View>
-      </View>
+      </ScrollView>
       {selectionModal && (
         <CategorySelection
           data={upcoming_event_detail?.teams}

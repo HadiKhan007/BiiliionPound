@@ -13,11 +13,17 @@ import {
 import {setProfileImageRequest} from './profile-sega/profile-sega';
 import {getWeightLiftedRequest} from './exercise-sega/exercise-sega';
 import {
+  addcardRequest,
   getOngoingEventRequest,
+  getPaymentCardRequest,
   getUpcomingEventRequest,
+  payWithDebitRequest,
+  payWithSocialAccountRequest,
   setOngoingEventRequest,
   setUpcomingEventRequest,
 } from './event-sega/event-sega';
+
+import {getActivitiesRequest} from './activity-saga/activity-saga';
 
 export function* rootSaga() {
   yield fork(loginRequest);
@@ -34,4 +40,9 @@ export function* rootSaga() {
   yield fork(getOngoingEventRequest);
   yield fork(setUpcomingEventRequest);
   yield fork(setOngoingEventRequest);
+  yield fork(getActivitiesRequest);
+  yield fork(addcardRequest);
+  yield fork(getPaymentCardRequest);
+  yield fork(payWithDebitRequest);
+  yield fork(payWithSocialAccountRequest);
 }

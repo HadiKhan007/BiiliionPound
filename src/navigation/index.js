@@ -14,6 +14,8 @@ import EditProfile from '../screens/BottomTabs/ProfileTab/EditProfile';
 import NotificationList from '../screens/BottomTabs/DashboardTab/NotificationList';
 import EventDetail from '../screens/BottomTabs/EventTab/EventDetail';
 import Payment from '../screens/BottomTabs/EventTab/Payment';
+import OngoingEventDetail from '../screens/BottomTabs/EventTab/OngoingEventDetail';
+import ActivityTab from '../screens/BottomTabs/ActivityTab';
 
 const AppStack = createStackNavigator();
 
@@ -36,6 +38,11 @@ const MainAppNav = () => {
         <AppStack.Screen name={'ExerciseStack'} component={ExerciseStack} />
         <AppStack.Screen name={'EventDetail'} component={EventDetail} />
         <AppStack.Screen name={'Payment'} component={Payment} />
+        <AppStack.Screen
+          name="OngoingEventDetail"
+          component={OngoingEventDetail}
+        />
+        <AppStack.Screen name="ActivityTab" component={ActivityTab} />
       </AppStack.Navigator>
     </NavigationContainer>
   );
