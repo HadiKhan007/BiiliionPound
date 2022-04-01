@@ -1,5 +1,5 @@
 import {takeLatest, put} from 'redux-saga/effects';
-import {responseValidator} from '../../../shared/exporter';
+import {BASE_URL, ENDPOINTS, responseValidator} from '../../../shared/exporter';
 import {
   getFaqs,
   getPrivacyPolicy,
@@ -8,6 +8,8 @@ import {
   updateUserData,
 } from '../../../shared/service/ProfileService';
 import * as types from '../../actions/types';
+import axios from 'axios';
+
 //*************PROFILE IMAGE SEGA**************
 export function* setProfileImageRequest() {
   yield takeLatest(types.SET_PROFILE_IMAGE_REQUEST, setprofileImage);
@@ -56,32 +58,64 @@ function* getProfileRequest(params) {
 
 //get profile data of the user
 function* updateProfileRequest(params) {
-  try {
-    const response = yield updateUserData(params);
-    if (response.data) {
-      yield put({
-        type: types.UPDATE_PROFILE_SUCCESS,
-        payload: response.data,
-      });
-      console.log('====================================');
-      console.log('response of edit', response?.data);
+  const url = `${BASE_URL}${ENDPOINTS.PROFILE(params?.userId?.user?.id)}`;
+  console.log('==================url==================');
+  console.log(url);
+  console.log(params?.userId?.token);
+  console.log(params?.params);
+  console.log('====================================');
+
+  const config = {
+    method: 'put',
+    url: url,
+    data: params?.params,
+    headers: {
+      // 'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${params?.userId?.token}`,
+    },
+  };
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+      console.log('=============api response=======================');
+      console.log(response);
       console.log('====================================');
       params?.cbSuccess(response.data);
-    } else {
-      yield put({
-        type: types.UPDATE_PROFILE_FAILURE,
-        payload: null,
-      });
-      params?.cbFailure(response?.data);
-    }
-  } catch {
-    yield put({
-      type: types.UPDATE_PROFILE_FAILURE,
-      payload: null,
+    })
+    .catch(function (error) {
+      console.log(error);
+      console.log('===============api error=====================');
+      console.log(error);
+      console.log('====================================');
+      params?.cbFailure(error);
     });
-    let msg = responseValidator(error?.response?.status, error?.response?.data);
-    params?.cbFailure(msg);
-  }
+
+  // try {
+  //   const response = yield updateUserData(params);
+  //   if (response.data) {
+  //     yield put({
+  //       type: types.UPDATE_PROFILE_SUCCESS,
+  //       payload: response.data,
+  //     });
+  //     console.log('====================================');
+  //     console.log('response of edit', response?.data);
+  //     console.log('====================================');
+  //     params?.cbSuccess(response.data);
+  //   } else {
+  //     yield put({
+  //       type: types.UPDATE_PROFILE_FAILURE,
+  //       payload: null,
+  //     });
+  //     params?.cbFailure(response?.data);
+  //   }
+  // } catch {
+  //   yield put({
+  //     type: types.UPDATE_PROFILE_FAILURE,
+  //     payload: null,
+  //   });
+  //   let msg = responseValidator(error?.response?.status, error?.response?.data);
+  //   params?.cbFailure(msg);
+  // }
 }
 
 function* getFaqRequest(params) {

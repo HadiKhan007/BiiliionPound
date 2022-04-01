@@ -35,14 +35,12 @@ const Activity = ({navigation}) => {
   //References
   const periodSheetRef = useRef(null);
   const {activity} = useSelector(state => state.activity);
+  const [repLength, setRepLength] = useState(null);
 
   useFocusEffect(
     useCallback(() => {
+      setselectPeriod(null);
       getActivityData();
-      return () => {
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
-      };
     }, [navigation]),
   );
 
@@ -51,6 +49,7 @@ const Activity = ({navigation}) => {
     console.log('selected ', selectPeriod);
     console.log('====================================');
     if (selectPeriod != null) {
+      setLoading(true);
       getFilteredData();
     }
   }, [selectPeriod]);
@@ -63,6 +62,7 @@ const Activity = ({navigation}) => {
       console.log('===============Activity=====================');
       console.log(res);
       console.log('====================================');
+      console.log(activity);
       setLoading(false);
     };
 
@@ -79,10 +79,11 @@ const Activity = ({navigation}) => {
   };
 
   const getFilteredData = async () => {
-    console.log('====================================');
-    console.log('in filtered');
-    console.log('====================================');
     setLoading(true);
+
+    console.log('====================================');
+    console.log('in filtered', selectPeriod);
+    console.log('====================================');
     const checkInternet = await checkConnected();
 
     const cbSuccess = res => {
@@ -103,6 +104,7 @@ const Activity = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       {loading ? <Loader loading={loading} /> : null}
@@ -117,29 +119,33 @@ const Activity = ({navigation}) => {
               }}
               style={styles.btnContainer}>
               <Text style={styles.textStyle}>
-                {selectPeriod?.title || 'Today'}
+                {selectPeriod?.title || 'All'}
               </Text>
               <Image source={appIcons.downArrow} style={styles.imageStyle} />
             </TouchableOpacity>
           </View>
-          <FlatList
-            data={activity}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => {
-              return (
-                <View style={spacing.py2}>
-                  <ActivityCard
-                    name={item?.user?.full_name}
-                    type={item?.exercise?.exercise_type}
-                    weight={'150LBS'}
-                    excercise={'2x Front Raises'}
-                    mode={item?.exercise?.name}
-                    cardIcon={item?.exercise?.exercise_image_url}
-                  />
-                </View>
-              );
-            }}
-          />
+          {activity?.length > 0 || activity?.user_exercises?.length ? (
+            <FlatList
+              data={activity?.user_exercises || activity}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => {
+                return (
+                  <View style={spacing.py2}>
+                    <ActivityCard
+                      name={item?.user?.full_name}
+                      type={item?.exercise?.exercise_type}
+                      weight={item?.total_lbs + ' LBS'}
+                      excercise={
+                        item?.repetitions?.length + ' x ' + item?.exercise?.name
+                      }
+                      mode={item?.exercise?.name}
+                      cardIcon={item?.exercise?.exercise_image_url}
+                    />
+                  </View>
+                );
+              }}
+            />
+          ) : null}
         </View>
       </View>
       <PeriodModal
@@ -150,6 +156,7 @@ const Activity = ({navigation}) => {
         setPeriod={item => {
           console.log('item selected', item?.title);
           setselectPeriod(item);
+          periodSheetRef?.current?.hide();
           getFilteredData();
         }}
         selectedPeriod={selectPeriod}

@@ -39,18 +39,25 @@ const EditProfile = ({navigation}) => {
   // }, [isFocus]);
 
   const updateProfile = async values => {
-    setLoading(true);
+    console.log('====================================');
+    console.log(image);
+    console.log('====================================');
+    // setLoading(true);
     const checkInternet = await checkConnected();
 
     // const data = new FormData();
     // data.append('first_name', values?.firstName);
     // data.append('last_name', values?.lastName);
     // data.append('email', values?.email);
-    // data.append('profile_image', {
-    //   uri: image.uri,
-    //   type: image.type,
-    //   name: image.fileName,
-    // });
+    // data.append(
+    //   'profile_image',
+    //   image,
+    //   // {
+    //   // uri: image.uri,
+    //   // type: image.type,
+    //   // name: image.fileName,
+    //   // }
+    // );
 
     const data = {
       first_name: values?.firstName,
@@ -68,7 +75,7 @@ const EditProfile = ({navigation}) => {
     console.log('====================================');
 
     const cbSuccess = response => {
-      navigation?.goBack();
+      //  navigation?.goBack();
       setLoading(false);
     };
 
@@ -77,9 +84,7 @@ const EditProfile = ({navigation}) => {
     };
 
     if (checkInternet) {
-      dispatch(
-        updateUserProfile(data, userInfo?.user?.id, cbSuccess, cbFailure),
-      );
+      dispatch(updateUserProfile(data, userInfo, cbSuccess, cbFailure));
     } else {
       setLoading(false);
       Alert.alert('Error', 'Check your internet connectivity!');
@@ -166,7 +171,11 @@ const EditProfile = ({navigation}) => {
           />
         </View>
         <Formik
-          initialValues={updateFormFields}
+          initialValues={{
+            firstName: userData?.first_name,
+            lastName: userData?.last_name,
+            email: userData?.email,
+          }}
           onSubmit={(values, {resetForm}) => {
             updateProfile(values);
           }}
@@ -183,10 +192,17 @@ const EditProfile = ({navigation}) => {
             setFieldValue,
           }) => {
             useEffect(() => {
-              if (isFocus) {
-                {
+              {
+                console.log('====================================');
+                console.log(userData?.last_name);
+                console.log('====================================');
+                if (userData?.first_name != '') {
                   setFieldValue('firstName', userData?.first_name);
+                }
+                if (userData?.last_name != '') {
                   setFieldValue('lastName', userData?.last_name);
+                }
+                if (userData?.email != '') {
                   setFieldValue('email', userData?.email);
                 }
               }
@@ -198,13 +214,14 @@ const EditProfile = ({navigation}) => {
                 <View style={styles.inputContainer}>
                   <Input
                     onChangeText={handleChange('firstName')}
+                    value={values.firstName}
                     errorMessage={errors.firstName}
                     renderErrorMessage={true}
                     placeholder="First Name"
-                    value={values.firstName}
                     onBlur={() => setFieldTouched('firstName')}
                     blurOnSubmit={false}
                     disableFullscreenUI={true}
+                    touched={touched.firstName}
                     leftIcon={
                       <Icon
                         type={'font-awesome'}
@@ -216,13 +233,14 @@ const EditProfile = ({navigation}) => {
                   />
                   <Input
                     onChangeText={handleChange('lastName')}
-                    errorMessage={errors?.lastName}
+                    errorMessage={errors.lastName}
                     renderErrorMessage={true}
                     placeholder="Last Name"
-                    value={values?.lastName}
+                    value={values.lastName}
                     onBlur={() => setFieldTouched('lastName')}
                     blurOnSubmit={false}
                     disableFullscreenUI={true}
+                    touched={touched.lastName}
                     leftIcon={
                       <Icon
                         type={'font-awesome'}
@@ -279,6 +297,6 @@ const EditProfile = ({navigation}) => {
       </View>
     </SafeAreaView>
   );
-};
+};;;;;;
 
 export default EditProfile;

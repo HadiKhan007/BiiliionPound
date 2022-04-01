@@ -58,21 +58,25 @@ const period_list = [
     id: 0,
     title: 'Today',
     status: false,
+    key: 'day',
   },
   {
     id: 1,
     title: 'Weekly',
     status: false,
+    key: 'week',
   },
   {
     id: 2,
     title: 'Monthly',
     status: false,
+    key: 'month',
   },
   {
     id: 3,
     title: 'Yearly',
     status: false,
+    key: 'year',
   },
 ];
 const swipe_config = {

@@ -1,17 +1,20 @@
+import {retry} from 'redux-saga/effects';
 import {HTTP_CLIENT, ENDPOINTS} from '../exporter';
+import axios from 'axios';
 
 export const getUserData = params => {
   return HTTP_CLIENT.get(`${ENDPOINTS.PROFILE(params)}`);
 };
 
 export const updateUserData = params => {
-  console.log('=============Http Params======================');
-  console.log(params);
-  console.log('====================================');
-
   return HTTP_CLIENT.put(
     `${ENDPOINTS.PROFILE(params?.userId)}`,
     params?.params,
+    // {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //   },
+    // },
   );
 };
 

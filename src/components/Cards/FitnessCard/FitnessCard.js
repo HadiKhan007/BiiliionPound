@@ -1,11 +1,15 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
-import {colors, WP} from '../../../shared/exporter';
+import {appImages, colors, WP} from '../../../shared/exporter';
 
 export const FitnessCard = ({icon}) => {
   return (
     <View style={styles.imageContainer}>
-      <Image source={{uri: icon}} resizeMode={'contain'} style={styles.image} />
+      <Image
+        source={icon != null ? {uri: icon} : appImages.sample_exercise}
+        resizeMode={'contain'}
+        style={styles.image}
+      />
     </View>
   );
 };

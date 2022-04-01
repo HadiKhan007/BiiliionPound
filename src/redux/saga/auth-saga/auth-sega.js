@@ -22,6 +22,11 @@ function* login(params) {
         type: types.LOGIN_REQUEST_SUCCESS,
         payload: res.data,
       });
+      yield put({
+        type: types.GET_PROFILE_SUCCESS,
+        payload: res.data?.user,
+      });
+      
       params?.cbSuccess(res.data);
     } else {
       yield put({

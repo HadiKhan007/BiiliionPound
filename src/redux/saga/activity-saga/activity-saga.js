@@ -46,7 +46,7 @@ function* getFilteredActivityRequest(params) {
   console.log(params?.params);
   console.log('====================================');
   try {
-    const res = yield getFilteredActivity(params?.params?.title);
+    const res = yield getFilteredActivity(params?.params?.key);
     if (res.data) {
       yield put({
         type: types.GET_FILTERED_ACTIVITY_SUCCESS,
