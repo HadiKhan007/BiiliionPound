@@ -26,6 +26,8 @@ export {
   pay_with_debit_request,
   pay_with_social_request,
   get_payment_cards_request,
+  join_event_request,
+  join_event_team_request,
 } from './event-actions/event-actions';
 
 export {

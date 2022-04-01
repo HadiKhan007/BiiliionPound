@@ -7,6 +7,8 @@ import {
   payWithDebitCard,
   getPaymentCards,
   payWithSocialCard,
+  joinEvent,
+  joinTeamEvents,
 } from '../../../shared/service/EventService';
 import * as types from '../../actions/types';
 
@@ -97,6 +99,69 @@ function* setOngoingEvent(params) {
   } catch (error) {
     console.log(error);
     params?.cbFailure();
+  }
+}
+
+// *************JOIN TEAM EVENTS SEGA**************
+export function* joinTeamEventRequest() {
+  yield takeLatest(types.JOIN_TEAM_EVENTS_REQUEST, joinTeam);
+}
+function* joinTeam(params) {
+  try {
+    console.log(params?.params);
+    const res = yield joinTeamEvents(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.JOIN_TEAM_EVENTS_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.JOIN_TEAM_EVENTS_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.GET_UPCOMING_EVENTS_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+// *************JOIN EVENTS SEGA**************
+export function* joinEventRequest() {
+  yield takeLatest(types.JOIN_EVENTS_REQUEST, joinEvents);
+}
+function* joinEvents(params) {
+  try {
+    const res = yield joinEvent(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.JOIN_EVENTS_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.JOIN_EVENTS_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.GET_UPCOMING_EVENTS_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
   }
 }
 

@@ -5,16 +5,23 @@ export const getUpcomingEvent = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/upcoming_events`);
 };
 
+// Join  events
+export const joinEvent = params => {
+  return HTTP_CLIENT.post(`${ENDPOINTS.USER_EVENTS}`, params);
+};
+
+// Join Team events
+export const joinTeamEvents = params => {
+  return HTTP_CLIENT.post(`${ENDPOINTS.USERS_TEAM}`, params);
+};
 //Exercise Ongoing Requests
 export const getOngoingEvent = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/ongoing_events`);
 };
-
 //GET ALL PAYMENT CARDS
 export const getPaymentCards = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.CHECKOUT}`);
 };
-
 //Add Card Requests
 export const addDebitCard = params => {
   return HTTP_CLIENT.post(`${ENDPOINTS.CHECKOUT}`, params);

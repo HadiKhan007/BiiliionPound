@@ -33,31 +33,13 @@ const EditProfile = ({navigation}) => {
   const dispatch = useDispatch(null);
   const isFocus = useIsFocused();
   const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   if (isFocus) {
-  //   }
-  // }, [isFocus]);
 
   const updateProfile = async values => {
     console.log('====================================');
     console.log(image);
     console.log('====================================');
-    // setLoading(true);
+    setLoading(true);
     const checkInternet = await checkConnected();
-
-    // const data = new FormData();
-    // data.append('first_name', values?.firstName);
-    // data.append('last_name', values?.lastName);
-    // data.append('email', values?.email);
-    // data.append(
-    //   'profile_image',
-    //   image,
-    //   // {
-    //   // uri: image.uri,
-    //   // type: image.type,
-    //   // name: image.fileName,
-    //   // }
-    // );
 
     const data = {
       first_name: values?.firstName,
@@ -70,12 +52,9 @@ const EditProfile = ({navigation}) => {
       },
     };
 
-    console.log('====================================');
-    console.log('update profile hit', data);
-    console.log('====================================');
-
     const cbSuccess = response => {
-      //  navigation?.goBack();
+      navigation?.goBack();
+      console.log('Response Success', response?.data);
       setLoading(false);
     };
 
@@ -191,22 +170,6 @@ const EditProfile = ({navigation}) => {
             handleReset,
             setFieldValue,
           }) => {
-            useEffect(() => {
-              {
-                console.log('====================================');
-                console.log(userData?.last_name);
-                console.log('====================================');
-                if (userData?.first_name != '') {
-                  setFieldValue('firstName', userData?.first_name);
-                }
-                if (userData?.last_name != '') {
-                  setFieldValue('lastName', userData?.last_name);
-                }
-                if (userData?.email != '') {
-                  setFieldValue('email', userData?.email);
-                }
-              }
-            }, []);
             return (
               <KeyboardAwareScrollView
                 style={styles.itemContainer2}
@@ -297,6 +260,6 @@ const EditProfile = ({navigation}) => {
       </View>
     </SafeAreaView>
   );
-};;;;;;
+};
 
 export default EditProfile;

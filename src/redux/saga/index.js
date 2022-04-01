@@ -17,6 +17,8 @@ import {
   getOngoingEventRequest,
   getPaymentCardRequest,
   getUpcomingEventRequest,
+  joinEventRequest,
+  joinTeamEventRequest,
   payWithDebitRequest,
   payWithSocialAccountRequest,
   setOngoingEventRequest,
@@ -45,4 +47,6 @@ export function* rootSaga() {
   yield fork(getPaymentCardRequest);
   yield fork(payWithDebitRequest);
   yield fork(payWithSocialAccountRequest);
+  yield fork(joinEventRequest);
+  yield fork(joinTeamEventRequest);
 }

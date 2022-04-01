@@ -18,19 +18,27 @@ import {
   Button,
   CategorySelection,
   AddNewExercise,
+  Loader,
 } from '../../../../components';
-import {appIcons, colors, spacing, WP} from '../../../../shared/exporter';
+import {
+  appIcons,
+  checkConnected,
+  colors,
+  spacing,
+  WP,
+} from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {join_event_team_request} from '../../../../redux/actions';
 
 const EventDetail = ({navigation}) => {
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
-
+  const [isLoading, setisLoading] = useState(false);
   //References
   const joinSheetRef = useRef(null);
   const {upcoming_event_detail} = useSelector(state => state?.event);
-
+  const dispatch = useDispatch(null);
   const _renderTruncatedFooter = handlePress => {
     return (
       <Text style={styles.readMoreStyle} onPress={handlePress}>
@@ -50,14 +58,38 @@ const EventDetail = ({navigation}) => {
   const onEndSelection = () => {
     setSelectionModal(false);
   };
-
-  const joinEvent = () => {
+  //Join Team Events
+  const joinEvent = async () => {
     if (selectCategoryItem) {
-      navigation?.navigate('Payment');
+      const isConnected = await checkConnected();
+      if (isConnected) {
+        setisLoading(true);
+        const requestBody = {
+          user_teams: {
+            team_id: selectCategoryItem?.id,
+          },
+        };
+        const onSuccessJoin = res => {
+          console.log('Event team Join Success', res);
+          navigation?.navigate('Payment');
+          setisLoading(false);
+        };
+        const onFailedJoin = res => {
+          console.log('Event team Join Failed', res);
+          Alert.alert('Error', res);
+          setisLoading(false);
+        };
+        dispatch(
+          join_event_team_request(requestBody, onSuccessJoin, onFailedJoin),
+        );
+      } else {
+        Alert.alert('Message!', 'Please select team');
+      }
     } else {
-      Alert.alert('Message!', 'Please select team');
+      Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <AppHeader
@@ -174,6 +206,7 @@ const EventDetail = ({navigation}) => {
         borderRightRadius={20}
         borderleftRadius={20}
       />
+      {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
   );
 };

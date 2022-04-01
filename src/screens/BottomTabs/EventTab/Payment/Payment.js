@@ -41,9 +41,9 @@ import {
 import {
   add_card_request,
   get_payment_cards_request,
+  join_event_request,
   pay_with_debit_request,
   pay_with_social_request,
-  socialLoginRequest,
 } from '../../../../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
@@ -59,7 +59,7 @@ const button_list = [
   },
 ];
 
-const Payment = ({navigation}) => {
+const Payment = ({navigation, route}) => {
   const [selection, setSelection] = useState({
     id: 0,
     title: 'Visa Debit Card',
@@ -190,10 +190,6 @@ const Payment = ({navigation}) => {
   const proceedToPay = () => {
     if (selection?.title == 'Visa Debit Card') {
       payWithDebitCardHanlder();
-    } else if (selection?.title == 'Pay With Apple') {
-      applePay();
-    } else if (selection?.title == 'Pay With Google') {
-      googlePay();
     } else if (cardSelection) {
       payWithSelectedCardHanlder();
     } else {
@@ -216,8 +212,7 @@ const Payment = ({navigation}) => {
         };
         const payWithDebitSuccees = res => {
           console.log('Pay with Debit Success', res);
-          setShowSuccess(true);
-          setisLoading(false);
+          joinEvent();
         };
         const payWithDebitFailure = res => {
           Alert.alert('Failed', res);
@@ -245,9 +240,7 @@ const Payment = ({navigation}) => {
     };
     console.log(requestBody);
     const payWithSelectedCardSuccees = res => {
-      console.log('Pay with selected card Success', res);
-      setShowSuccess(true);
-      setisLoading(false);
+      joinEvent();
     };
     const payWithSelectedCardFailure = res => {
       Alert.alert('Failed', res);
@@ -280,7 +273,7 @@ const Payment = ({navigation}) => {
         requiredBillingContactFields: ['phoneNumber', 'name'],
       });
       if (error) {
-        console.log(error);
+        setisLoading(false);
         // handle error
       } else {
         if (paymentMethod) {
@@ -289,17 +282,19 @@ const Payment = ({navigation}) => {
             const {error} = await confirmApplePayPayment(
               res?.Apple?.client_secret,
             );
-            setisLoading(false);
             if (error) {
               Alert.alert('Error', 'Unable to proceed payment');
+              setisLoading(false);
             } else {
-              setShowSuccess(true);
+              joinEvent();
             }
           };
           const onFailedApplePay = res => {
             console.log('Apple Pay Failed');
             setisLoading(false);
           };
+
+          //Apple Pay Request Sending
           const requestBody = {
             event_id: upcoming_event_detail?.id,
           };
@@ -335,7 +330,35 @@ const Payment = ({navigation}) => {
       );
     }
   };
-
+  //Join Evenet
+  const joinEvent = () => {
+    const requestBody = {
+      user_event: {
+        event_id: upcoming_event_detail?.id,
+      },
+    };
+    const onSuccessJoin = res => {
+      console.log('Event Join Success', res);
+      setShowSuccess(true);
+      setisLoading(false);
+    };
+    const onFailedJoin = res => {
+      console.log('Event Join Failed', res);
+      Alert.alert('Error', res);
+      setisLoading(false);
+    };
+    dispatch(join_event_request(requestBody, onSuccessJoin, onFailedJoin));
+  };
+  const socialLogin = item => {
+    setCardSelection('Hide');
+    setcardView(false);
+    if (item?.title == 'Pay With Google') {
+      googlePay();
+    } else if (item?.title == 'Pay With Apple') {
+      applePay();
+    }
+  };
+  console.log(payment_card_list);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -344,15 +367,17 @@ const Payment = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           style={styles.itemConatiner}>
           <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+            {cardView && (
+              <TouchableOpacity
+                onPress={() => {
+                  addCardRef.current.show();
+                }}
+                style={styles.btnContainer}>
+                <Text style={styles.btnStyles}>Add New Card +</Text>
+              </TouchableOpacity>
+            )}
             {cardView && payment_card_list?.length > 0 ? (
               <>
-                <TouchableOpacity
-                  onPress={() => {
-                    addCardRef.current.show();
-                  }}
-                  style={styles.btnContainer}>
-                  <Text style={styles.btnStyles}>Add New Card +</Text>
-                </TouchableOpacity>
                 <View style={spacing.py3}>
                   <PrimaryHeading title={'Saved Cards'} />
                   <FlatList
@@ -402,8 +427,7 @@ const Payment = ({navigation}) => {
                             setCardSelection('');
                             setcardView(true);
                           } else {
-                            setCardSelection('Show');
-                            setcardView(false);
+                            socialLogin(item);
                           }
                         }}
                         icon={item?.icon}
@@ -431,15 +455,19 @@ const Payment = ({navigation}) => {
                 />
               </View>
             )}
-            <View style={styles.aiCenter}>
-              <Button
-                onPress={() => {
-                  proceedToPay();
-                }}
-                title={'Proceed to pay'}
-              />
-            </View>
 
+            {!cardSelection || cardView ? (
+              <View style={styles.aiCenter}>
+                <Button
+                  onPress={() => {
+                    proceedToPay();
+                  }}
+                  title={'Proceed to pay'}
+                />
+              </View>
+            ) : (
+              false
+            )}
             <AddCardModal
               onAddPress={() => {
                 addCardHanlder();

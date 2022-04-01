@@ -50,4 +50,3 @@ export const getPrivacyPolicy = (cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
-
