@@ -92,12 +92,13 @@ const eventReducer = (state = initialState, actions) => {
 
     //************Add Debit Card*************
     case TYPES.ADD_CARD_SUCCESS:
+      console.log('payload', payload);
       return {
         ...state,
         loading: false,
         isSuccess: true,
         isFailure: false,
-        payment_card_list: payload,
+        payment_card_list: [...state.payment_card_list, payload?.card],
       };
 
     case TYPES.ADD_CARD_FAILURE:
@@ -106,7 +107,7 @@ const eventReducer = (state = initialState, actions) => {
         loading: false,
         isSuccess: false,
         isFailure: true,
-        payment_card_list: null,
+        payment_card_list: state.payment_card_list,
       };
 
     //************Pay With Debit Card*************

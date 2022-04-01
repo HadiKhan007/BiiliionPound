@@ -1,7 +1,14 @@
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import {appIcons, colors, family, size} from '../../../shared/exporter';
-import {ApplePayButton, useApplePay} from '@stripe/stripe-react-native';
+import {ApplePayButton, GooglePayButton} from '@stripe/stripe-react-native';
 
 export const PaymentMethodCard = ({
   onPressCard,
@@ -45,6 +52,15 @@ export const PaymentMethodCard = ({
           borderRadius={5}
           style={styles.appleStyle}
         />
+      ) : null}
+      {index == 1 && Platform.OS == 'android' ? (
+        <View>
+          <GooglePayButton
+            onPress={onPressCard}
+            style={styles.appleStyle}
+            type="pay"
+          />
+        </View>
       ) : null}
     </>
   );

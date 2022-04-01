@@ -206,6 +206,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation platform('com.google.firebase:firebase-bom:29.2.0')
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    //For google pay services
+  implementation 'com.google.android.gms:play-services-wallet:19.1.0'
     //Stripe
     implementation group: 'com.google.android.material', name: 'material', version: '1.1.0-alpha05'
     implementation 'com.google.firebase:firebase-analytics'

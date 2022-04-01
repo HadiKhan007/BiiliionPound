@@ -26,5 +26,5 @@ export const payWithDebitCard = params => {
 
 //Pay With Social Card Requests
 export const payWithSocialCard = params => {
-  return HTTP_CLIENT.post(`${ENDPOINTS.CHECKOUT}/card_payment_only`, params);
+  return HTTP_CLIENT.post(`${ENDPOINTS.CHECKOUT}/apple_pay`, params);
 };

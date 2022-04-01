@@ -6,6 +6,7 @@ import {
   addDebitCard,
   payWithDebitCard,
   getPaymentCards,
+  payWithSocialCard,
 } from '../../../shared/service/EventService';
 import * as types from '../../actions/types';
 
@@ -183,7 +184,7 @@ export function* payWithSocialAccountRequest() {
 }
 function* payWithSocial(params) {
   try {
-    const res = yield addDebitCard(params?.params);
+    const res = yield payWithSocialCard(params?.params);
     if (res.data) {
       yield put({
         type: types.PAY_WITH_SOCIAL_SUCCESS,

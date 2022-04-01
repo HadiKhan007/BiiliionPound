@@ -28,6 +28,7 @@ export const AddCardModal = ({
   borderRightRadius,
   onChangeText,
   paymentField,
+  loading,
 }) => {
   return (
     <ActionSheet
@@ -56,7 +57,7 @@ export const AddCardModal = ({
         onChangeText={onChangeText}
       />
       <View style={styles.aiCenter}>
-        <Button onPress={onAddPress} title={'Add Card'} />
+        <Button disabled={loading} onPress={onAddPress} title={'Add Card'} />
       </View>
     </ActionSheet>
   );

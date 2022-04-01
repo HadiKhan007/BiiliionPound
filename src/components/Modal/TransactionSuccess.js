@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import ReadMore from 'react-native-read-more-text';
+import {useSelector} from 'react-redux';
 import {
   AboutEventCard,
   ActivityCard,
@@ -32,8 +33,8 @@ export const TransactionSuccess = ({
   show,
   _renderTruncatedFooter,
   _renderRevealedFooter,
-  onPressHide,
-  totalpounds,
+  onPress,
+  upcoming_event_detail,
 }) => {
   return (
     <Modal animationType="slide" style={styles.container} visible={show}>
@@ -52,18 +53,24 @@ export const TransactionSuccess = ({
             <NormHeading
               family={family.Poppins_SemiBold}
               title={'9874561201333'}
-              subtitle={'$59.99'}
+              subtitle={`$${upcoming_event_detail?.price}`}
             />
           </View>
           <View style={styles.headingStyle}>
             <PrimaryHeading title={'Event Details'} />
             <View style={styles.center}>
-              <Text style={styles.h1}>{totalpounds}</Text>
+              <Text style={styles.h1}>
+                {upcoming_event_detail?.goal_amount || 0}
+              </Text>
               <Text style={styles.h2}>Total Pounds Lifted</Text>
             </View>
           </View>
           <View style={spacing.my2}>
-            <EventInfoCard title={'Jumping Jack'} subtitle={'(Body)'} />
+            <EventInfoCard
+              events={upcoming_event_detail}
+              title={'Jumping Jack'}
+              subtitle={'(Body)'}
+            />
           </View>
 
           {/* About Event Flow */}
@@ -74,19 +81,13 @@ export const TransactionSuccess = ({
               renderTruncatedFooter={_renderTruncatedFooter}
               renderRevealedFooter={_renderRevealedFooter}>
               <Text style={styles.description}>
-                Enjoy your favorite game and a lovely your friends and family
-                and have a great time. Food local food trucks will be available
-                for purchase. Enjoy your favorite game and a lovely your friends
-                and family and have a great time. Food local food trucks will be
-                available for purchase. Enjoy your favorite game and a lovely
-                your friends and family and have a great time. Food local food
-                trucks will be available for purchase.
+                {upcoming_event_detail?.description}
               </Text>
             </ReadMore>
           </View>
           {/* About Event Flow  Read More only working in main container*/}
           <View style={styles.aiCenetr}>
-            <Button title={'Done'} onPress={onPressHide} />
+            <Button title={'Done'} onPress={onPress} />
           </View>
         </ScrollView>
       </SafeAreaView>

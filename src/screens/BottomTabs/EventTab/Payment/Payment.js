@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles';
@@ -30,20 +31,32 @@ import {
   spacing,
 } from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {CardField, createToken} from '@stripe/stripe-react-native';
+import {
+  CardField,
+  confirmApplePayPayment,
+  createGooglePayPaymentMethod,
+  createToken,
+  presentApplePay,
+} from '@stripe/stripe-react-native';
 import {
   add_card_request,
   get_payment_cards_request,
   pay_with_debit_request,
+  pay_with_social_request,
+  socialLoginRequest,
 } from '../../../../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
-import {useApplePay} from '@stripe/stripe-react-native';
+import {useApplePay, useGooglePay} from '@stripe/stripe-react-native';
 
 const button_list = [
   {id: 0, title: 'Visa Debit Card', icon: appIcons.visa, tick: false},
-  {id: 1, title: 'Pay With Apple', icon: appIcons.capple, tick: false},
-  {id: 2, title: 'Pay With Google', icon: appIcons.cgoogle, tick: false},
+  {
+    id: 1,
+    title: Platform.OS == 'android' ? 'Pay With Google' : 'Pay With Apple',
+    icon: appIcons.capple,
+    tick: false,
+  },
 ];
 
 const Payment = ({navigation}) => {
@@ -59,13 +72,15 @@ const Payment = ({navigation}) => {
   const [cardView, setcardView] = useState(true);
   const dispatch = useDispatch(null);
   const [isLoading, setisLoading] = useState(false);
-  const {isApplePaySupported} = useApplePay();
+
+  //Stripe Initialization
+  const {isApplePaySupported, loading} = useApplePay();
+  const {initGooglePay} = useGooglePay();
   const isFocus = useIsFocused();
   //References
   const addCardRef = useRef(null);
-  const {upcoming_event_detail, payment_card_list} = useSelector(
-    state => state?.event,
-  );
+  const {upcoming_event_detail, payment_card_list, pay_with_social} =
+    useSelector(state => state?.event);
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -87,16 +102,38 @@ const Payment = ({navigation}) => {
     getPaymentCards();
   }, [isFocus]);
 
+  //Init Google Pay
+  useEffect(() => {
+    if (Platform.OS == 'android') {
+      initializeGooglePay();
+    }
+  }, []);
+
+  //Init handler
+  const initializeGooglePay = async () => {
+    const {error} = await initGooglePay({
+      testEnv: true,
+      merchantName: 'Example Merchant',
+      countryCode: 'US',
+      existingPaymentMethodRequired: true,
+    });
+
+    if (error) {
+      console.log(error);
+      Alert.alert(error.code, error.message);
+      return;
+    }
+  };
   //Get Cards
   const getPaymentCards = async () => {
     try {
       const isConnected = await checkConnected();
       if (isConnected) {
         const getCardsSuccees = res => {
-          console.log('Get cards', res);
+          console.log('Get cards Success');
         };
         const getCardsFailure = res => {
-          console.log('Get Cards Failed', res);
+          console.log('Get Cards Failed');
         };
         dispatch(get_payment_cards_request(getCardsSuccees, getCardsFailure));
       }
@@ -112,28 +149,32 @@ const Payment = ({navigation}) => {
       try {
         if (cardHolderName != '') {
           setisLoading(true);
-          const data = await createToken({
-            name: cardHolderName,
-            type: 'Card',
-          });
-          const requestBody = {
-            token: data?.token?.id,
-            name: cardHolderName,
-          };
-          const addCardSuccees = res => {
-            addCardRef.current.hide();
-            Alert.alert('Success', 'Card Saved Successfully');
-            console.log('Card Added', res);
-            setisLoading(false);
-          };
-          const addCardFailure = res => {
-            addCardRef.current.hide();
-            console.log('Card Failed', res);
-            setisLoading(false);
-          };
-          dispatch(
-            add_card_request(requestBody, addCardSuccees, addCardFailure),
-          );
+          setTimeout(async () => {
+            const data = await createToken({
+              name: cardHolderName,
+              type: 'Card',
+            });
+            const requestBody = {
+              token: data?.token?.id,
+              name: cardHolderName,
+            };
+
+            const addCardSuccees = res => {
+              addCardRef.current.hide();
+              Alert.alert('Success', 'Card Saved Successfully');
+              console.log('Card Added', res);
+              setisLoading(false);
+            };
+            const addCardFailure = res => {
+              addCardRef.current.hide();
+              console.log('Card Failed', res);
+              setisLoading(false);
+            };
+
+            dispatch(
+              add_card_request(requestBody, addCardSuccees, addCardFailure),
+            );
+          }, 500);
         } else {
           Alert.alert('Message', 'Please enter cardholder name');
         }
@@ -150,9 +191,9 @@ const Payment = ({navigation}) => {
     if (selection?.title == 'Visa Debit Card') {
       payWithDebitCardHanlder();
     } else if (selection?.title == 'Pay With Apple') {
-      console.log('Apple Pay');
+      applePay();
     } else if (selection?.title == 'Pay With Google') {
-      console.log('Google Pay');
+      googlePay();
     } else if (cardSelection) {
       payWithSelectedCardHanlder();
     } else {
@@ -164,35 +205,37 @@ const Payment = ({navigation}) => {
   const payWithDebitCardHanlder = async () => {
     if (cardHolderName != '') {
       setisLoading(true);
-      const data = await createToken({
-        name: cardHolderName,
-        type: 'Card',
-      });
-      const requestBody = {
-        stripe_token: data?.token?.id,
-        event_id: upcoming_event_detail?.id,
-      };
-      console.log(requestBody);
-      const payWithDebitSuccees = res => {
-        console.log('Pay with Debit Success', res);
-        setShowSuccess(true);
-        setisLoading(false);
-      };
-      const payWithDebitFailure = res => {
-        Alert.alert('Failed', res);
-        setisLoading(false);
-      };
-      dispatch(
-        pay_with_debit_request(
-          requestBody,
-          payWithDebitSuccees,
-          payWithDebitFailure,
-        ),
-      );
+      setTimeout(async () => {
+        const data = await createToken({
+          name: cardHolderName,
+          type: 'Card',
+        });
+        const requestBody = {
+          stripe_token: data?.token?.id,
+          event_id: upcoming_event_detail?.id,
+        };
+        const payWithDebitSuccees = res => {
+          console.log('Pay with Debit Success', res);
+          setShowSuccess(true);
+          setisLoading(false);
+        };
+        const payWithDebitFailure = res => {
+          Alert.alert('Failed', res);
+          setisLoading(false);
+        };
+        dispatch(
+          pay_with_debit_request(
+            requestBody,
+            payWithDebitSuccees,
+            payWithDebitFailure,
+          ),
+        );
+      }, 500);
     } else {
       Alert.alert('Message', 'Please enter cardholder name');
     }
   };
+
   //Proceed With Selected Card
   const payWithSelectedCardHanlder = async () => {
     setisLoading(true);
@@ -217,6 +260,80 @@ const Payment = ({navigation}) => {
         payWithSelectedCardFailure,
       ),
     );
+  };
+
+  //Proceed With Apple Pay
+  const applePay = async () => {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setisLoading(true);
+      if (!isApplePaySupported) return;
+      const {error, paymentMethod} = await presentApplePay({
+        cartItems: [
+          {
+            label: upcoming_event_detail?.title,
+            amount: JSON.stringify(upcoming_event_detail?.price),
+          },
+        ],
+        country: 'US',
+        currency: 'USD',
+        requiredBillingContactFields: ['phoneNumber', 'name'],
+      });
+      if (error) {
+        console.log(error);
+        // handle error
+      } else {
+        if (paymentMethod) {
+          const onSuccessApplePay = async res => {
+            console.log('Apple Pay Success', res);
+            const {error} = await confirmApplePayPayment(
+              res?.Apple?.client_secret,
+            );
+            setisLoading(false);
+            if (error) {
+              Alert.alert('Error', 'Unable to proceed payment');
+            } else {
+              setShowSuccess(true);
+            }
+          };
+          const onFailedApplePay = res => {
+            console.log('Apple Pay Failed');
+            setisLoading(false);
+          };
+          const requestBody = {
+            event_id: upcoming_event_detail?.id,
+          };
+          dispatch(
+            pay_with_social_request(
+              requestBody,
+              onSuccessApplePay,
+              onFailedApplePay,
+            ),
+          );
+        }
+      }
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+
+  //Proceed With Google Pay
+  const googlePay = async () => {
+    console.log('Google Pay');
+    const {error, paymentMethod} = await createGooglePayPaymentMethod({
+      amount: 12,
+      currencyCode: 'USD',
+    });
+
+    if (error) {
+      Alert.alert(error.code, error.message);
+      return;
+    } else if (paymentMethod) {
+      Alert.alert(
+        'Success',
+        `The payment method was created successfully. paymentMethodId: ${paymentMethod.id}`,
+      );
+    }
   };
 
   return (
@@ -253,7 +370,9 @@ const Payment = ({navigation}) => {
                               setSelection({});
                             }}
                             bgPic={checkBrand(item?.brand_name)}
-                            cardDate={`${item?.expiry}`}
+                            cardDate={`${item?.expiry_month || '1'}/${
+                              item?.expiry
+                            }`}
                             cardNo={item?.card_no}
                             title={item?.name}
                             index={index}
@@ -334,19 +453,21 @@ const Payment = ({navigation}) => {
                 addCardRef?.current?.hide();
               }}
               paymentField={true}
+              loading={isLoading}
             />
           </KeyboardAwareScrollView>
         </ScrollView>
       </View>
 
       <TransactionSuccess
+        upcoming_event_detail={upcoming_event_detail}
         _renderTruncatedFooter={_renderTruncatedFooter}
         _renderRevealedFooter={_renderRevealedFooter}
         show={showSuccess}
-        onPressHide={() => {
+        onPress={() => {
           setShowSuccess(false);
+          navigation?.navigate('Home');
         }}
-        totalpounds={'5,722'}
       />
       {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
