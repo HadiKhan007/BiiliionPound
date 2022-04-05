@@ -54,10 +54,10 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
               <Image source={appIcons.location} style={styles.locationStyle} />
               <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
-            {upcoming_event_item?.status.match('Joined') ? (
+            {upcoming_event_item?.status_event[0]?.status.match('joined') ? (
               <TouchableOpacity style={styles.btnContainer}>
                 <Text style={styles.btnText}>
-                  {upcoming_event_item?.status}
+                  {upcoming_event_item?.status_event[0]?.status}
                 </Text>
               </TouchableOpacity>
             ) : (

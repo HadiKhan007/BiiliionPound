@@ -9,7 +9,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
@@ -54,6 +54,12 @@ const EventDetail = ({navigation}) => {
       </Text>
     );
   };
+
+  useEffect(() => {
+    if (upcoming_event_detail?.status_event[0]?.status?.match('joined')) {
+      joinSheetRef.current.show();
+    }
+  });
 
   const onEndSelection = () => {
     setSelectionModal(false);
@@ -125,7 +131,7 @@ const EventDetail = ({navigation}) => {
               rightIcon={appIcons.user}
             />
           </View>
-          {!upcoming_event_detail?.status?.match('Joined') ? (
+          {!upcoming_event_detail?.status_event[0]?.status?.match('joined') ? (
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
               <TouchableOpacity
@@ -160,7 +166,7 @@ const EventDetail = ({navigation}) => {
             </ReadMore>
           </View>
           {/* Join NOW */}
-          {!upcoming_event_detail?.status?.match('Joined') ? (
+          {!upcoming_event_detail?.status_event[0]?.status?.match('joined') ? (
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
@@ -193,12 +199,16 @@ const EventDetail = ({navigation}) => {
         show={joinSheetRef}
         onPressHide={() => {
           joinSheetRef?.current?.hide();
-          navigation?.navigate('Payment');
+          if (
+            !upcoming_event_detail?.status_event[0]?.status?.match('joined')
+          ) {
+            navigation?.navigate('Payment');
+          }
         }}
-        onAddPress={() => {
-          joinSheetRef?.current?.hide();
-          navigation?.navigate('AddNewExercise');
-        }}
+        // onAddPress={() => {
+        //   joinSheetRef?.current?.hide();
+        //   navigation?.navigate('AddNewExercise');
+        // }}
         bgColor={colors.gr1}
         textColor={colors.white}
         title={'Already Joined 5 Days to go'}
