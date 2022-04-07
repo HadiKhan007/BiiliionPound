@@ -1,10 +1,12 @@
 import {
+  StyleSheet,
   Text,
   View,
   SafeAreaView,
   FlatList,
   ScrollView,
   Image,
+  Dimensions,
 } from 'react-native';
 import React from 'react';
 import styles from './styles';
@@ -13,23 +15,23 @@ import {
   Button,
   HomeCircle,
   OngoingEventDetailCard,
+  OngoingEventCard,
   OngoingItem,
+  PrimaryHeading,
   Title,
+  UpcomingEventCard,
 } from '../../../../components';
 import {
   appIcons,
   colors,
   HP,
   profile_uri,
+  spacing,
   WP,
 } from '../../../../shared/exporter';
 import {Divider} from 'react-native-elements';
-import {useSelector} from 'react-redux';
-import moment from 'moment';
 
 const OngoingEventDetail = ({navigation}) => {
-  const {ongoing_event_detail} = useSelector(state => state.event);
-
   const data = [
     {
       id: 0,
@@ -57,6 +59,10 @@ const OngoingEventDetail = ({navigation}) => {
     },
   ];
 
+  console.log(
+    'data length----------------------------------------',
+    data.length,
+  );
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -68,75 +74,58 @@ const OngoingEventDetail = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
           <View style={styles.itemView}>
             <HomeCircle
-              title={ongoing_event_detail?.goal_amount}
+              title={'5,722'}
               subtitle={'Total Pounds Lifted'}
               onPressAdd={() => {
                 navigation?.navigate('ExerciseStack');
               }}
             />
           </View>
-
           <OngoingEventDetailCard
             title={'Military Press'}
-            subTitle={'0 LBS'}
-            price={ongoing_event_detail?.price}
-            liftedAmount={ongoing_event_detail?.goal_amount}
+            subTitle={'150 LBS'}
+            price={'59.99'}
+            liftedAmount={'15000'}
             onPressCard={() => navigation.navigate('ActivityTab')}
-            date={moment(ongoing_event_detail?.start_date).format(
-              'ddd, Do MMMM  YYYY',
-            )}
-            sutitleDate={
-              moment(ongoing_event_detail?.start_date).format('LT') +
-              ' - ' +
-              moment(ongoing_event_detail?.end_date).format('LT')
-            }
-            teams={ongoing_event_detail?.teams}
           />
-          {ongoing_event_detail?.users.length > 1 ? (
-            <>
-              <OngoingItem
-                users_lists={ongoing_event_detail?.users}
-                title={`${ongoing_event_detail?.users.length} People enrolled`}
-                title_part={''}
-                titleStyle={styles.countStyle}
-                imageHeight={44}
-                imageWidth={44}
-                width={'46%'}
-              />
-              <Title title={'Participants'} isLeft />
+          <OngoingItem
+            // title={'People enrolled'}
+            titleStyle={styles.countStyle}
+            imageHeight={44}
+            imageWidth={44}
+            width={'46%'}
+          />
+          <Title title={'Participants'} isLeft />
 
-              <FlatList
-                data={ongoing_event_detail?.users}
-                renderItem={({item}) => {
-                  return (
-                    <View style={styles.cardContainer}>
-                      <View
-                        style={{flexDirection: 'row', marginBottom: HP('1')}}>
-                        <View style={styles.cardLeftContainer}>
-                          <Image
-                            source={{uri: item?.profile_image || profile_uri}}
-                            style={styles.icon44}
-                          />
-                        </View>
-                        <View style={styles.rightContainer}>
-                          <Text style={styles.titleStyle}>{item.name}</Text>
-                          <Text style={styles.subtitleStyle}>
-                            Lifted Amount :
-                            <Text style={[styles.subtitleBoldStyle]}>
-                              {item.liftedAmount || 0}
-                            </Text>
-                          </Text>
-                        </View>
-                      </View>
-                      {data.length - 1 > item.id && (
-                        <Divider style={styles.dividerStyle} />
-                      )}
+          <FlatList
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <View style={styles.cardContainer}>
+                  <View style={{flexDirection: 'row', marginBottom: HP('1')}}>
+                    <View style={styles.cardLeftContainer}>
+                      <Image
+                        source={{uri: item?.image}}
+                        style={styles.icon44}
+                      />
                     </View>
-                  );
-                }}
-              />
-            </>
-          ) : null}
+                    <View style={styles.rightContainer}>
+                      <Text style={styles.titleStyle}>{item.name}</Text>
+                      <Text style={styles.subtitleStyle}>
+                        Lifted Amount :
+                        <Text style={[styles.subtitleBoldStyle]}>
+                          {item.liftedAmount}
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                  {data.length - 1 > item.id && (
+                    <Divider style={styles.dividerStyle} />
+                  )}
+                </View>
+              );
+            }}
+          />
 
           <View style={{alignItems: 'center', marginVertical: WP('2')}}>
             <Button

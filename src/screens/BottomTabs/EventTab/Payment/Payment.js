@@ -394,7 +394,6 @@ const Payment = ({navigation, route}) => {
       applePay();
     }
   };
-
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>

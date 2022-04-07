@@ -216,7 +216,6 @@ const EventDetail = ({navigation}) => {
           onPressDone={onEndSelection}
         />
       )}
-
       {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
   );
