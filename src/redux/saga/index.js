@@ -16,6 +16,8 @@ import {
   getWeightLiftedRequest,
   selectfilteredBodyExerciseRequest,
   selectfilteredCategoryExerciseRequest,
+  setExerciseItemRequest,
+  setExerciseScreenRequest,
   setfilteredBodyExerciseRequest,
   setfilteredCategoryExerciseRequest,
 } from './exercise-sega/exercise-sega';
@@ -61,4 +63,6 @@ export function* rootSaga() {
   yield fork(setfilteredCategoryExerciseRequest);
   yield fork(selectfilteredCategoryExerciseRequest);
   yield fork(selectfilteredBodyExerciseRequest);
+  yield fork(setExerciseScreenRequest);
+  yield fork(setExerciseItemRequest);
 }

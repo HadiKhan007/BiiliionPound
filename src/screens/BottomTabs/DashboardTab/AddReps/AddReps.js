@@ -13,10 +13,12 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
   const [onSuccess, setonSuccess] = useState(false);
+
   const onPressDelItem = (item, index) => {
     inputList[index] = undefined;
     setInputList(inputList.filter(item => item != undefined));
   };
+
   const onFinish = () => {
     setonSuccess(true);
     console.log(inputList);

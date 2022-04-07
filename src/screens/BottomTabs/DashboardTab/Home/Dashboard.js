@@ -5,7 +5,10 @@ import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
 import {appIcons, capitalizeFirstLetter} from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
-import {get_lifted_weight_request} from '../../../../redux/actions';
+import {
+  get_lifted_weight_request,
+  set_exercise_screen_request,
+} from '../../../../redux/actions';
 
 const Dashboard = ({navigation}) => {
   const isFocus = useIsFocused(null);
@@ -58,7 +61,11 @@ const Dashboard = ({navigation}) => {
             isLoading={isLoading}
             subtitle={'Total Pounds Lifted'}
             onPressAdd={() => {
-              navigation?.navigate('ExerciseStack');
+              dispatch(
+                set_exercise_screen_request(true, () => {
+                  navigation?.navigate('ExerciseStack');
+                }),
+              );
             }}
           />
         </View>

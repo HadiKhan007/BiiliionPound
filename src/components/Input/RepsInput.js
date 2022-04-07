@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, View, Animated} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   appIcons,
   colors,
@@ -26,9 +26,13 @@ export const RepsInput = ({
   onItemAdded,
   index,
 }) => {
-  const [lbs, setLbs] = useState(item?.lbsValue);
-  const [reps, setReps] = useState(item?.repValue);
+  const [lbs, setLbs] = useState('');
+  const [reps, setReps] = useState('');
   const [enableCheck, setEnableCheck] = useState(false);
+  useEffect(() => {
+    setLbs(item?.lbsValue);
+    setReps(item?.repValue);
+  }, []);
 
   const renderRightActions = (progress, dragX) => {
     const scale = dragX.interpolate({
@@ -36,6 +40,7 @@ export const RepsInput = ({
       outputRange: [1, 0],
       extrapolate: 'clamp',
     });
+
     return (
       <TouchableOpacity
         activeOpacity={0.7}
@@ -131,8 +136,15 @@ export const RepsInput = ({
         <View style={[styles.addBtnContainer]}>
           {enableAddSet && (
             <TouchableOpacity
+              disabled={lbs == '' || reps == '' ? true : false}
               onPress={() => onPressAddSet(lbs, reps)}
-              style={[styles.addBtn]}>
+              style={[
+                styles.addBtn,
+                {
+                  backgroundColor:
+                    lbs == '' || reps == '' ? colors.g11 : colors.p1,
+                },
+              ]}>
               <Text style={styles.addBtntxt}>Add Set</Text>
             </TouchableOpacity>
           )}

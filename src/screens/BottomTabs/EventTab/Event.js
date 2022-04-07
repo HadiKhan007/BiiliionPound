@@ -28,7 +28,7 @@ const Event = ({navigation}) => {
   useEffect(() => {
     if (isFocus) {
       getUpcomingEvents();
-      // getOngoingEvents();
+      getOngoingEvents();
     }
   }, [isFocus]);
 
@@ -60,22 +60,19 @@ const Event = ({navigation}) => {
   //************Get Ongoing Events**************
   const getOngoingEvents = async () => {
     //On get Ongoing event success
-    setLoading(true);
     const checkInternet = await checkConnected();
-
-    const onOngoingSuccess = res => {
-      // console.log('Ongoing Events', res);
-      setLoading(false);
-    };
-    //On get Ongoing event failure
-    const onOngoingFailure = res => {
-      setLoading(false);
-    };
-    //Get Upcomig Events
     if (checkInternet) {
+      const onOngoingSuccess = res => {
+        // console.log('Ongoing Events', res);
+        console.log('Ongoing Event Success');
+      };
+      //On get Ongoing event failure
+      const onOngoingFailure = res => {
+        console.log('Ongoing Event Failed');
+      };
+      //Get Upcomig Events
       dispatch(get_ongoing_event_request(onOngoingSuccess, onOngoingFailure));
     } else {
-      setLoading(false);
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
@@ -113,23 +110,23 @@ const Event = ({navigation}) => {
 
   //***********On Press On Going Events***********
   const OnGoingEventPress = async item => {
-    //Set Ongoing Success
-    setLoading(true);
     const checkInternet = await checkConnected();
-
-    const onGoingPressSuccess = () => {
-      navigation.navigate('OngoingEventDetail');
-      // console.log('On Going Event Success');
-      setLoading(false);
-    };
-    //Set  onGoing event failure
-    const onGoingPressFailure = () => {
-      // console.log('On Going Event Failure');
-      Alert.alert('Error', 'Something went wrong!');
-      setLoading(false);
-    };
-
     if (checkInternet) {
+      //Set Ongoing Success
+      setLoading(true);
+
+      const onGoingPressSuccess = () => {
+        navigation.navigate('OngoingEventDetail');
+        // console.log('On Going Event Success');
+        setLoading(false);
+      };
+      //Set  onGoing event failure
+      const onGoingPressFailure = () => {
+        // console.log('On Going Event Failure');
+        Alert.alert('Error', 'Something went wrong!');
+        setLoading(false);
+      };
+
       dispatch(
         set_ongoing_event_request(
           item,
@@ -173,7 +170,7 @@ const Event = ({navigation}) => {
                         }}
                         users_lists={item?.users}
                         event_date={item?.start_date}
-                        event_status={item?.status}
+                        event_status={item?.status_event}
                         event_price={item?.price}
                       />
                     );

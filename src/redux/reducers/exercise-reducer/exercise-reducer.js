@@ -9,6 +9,9 @@ const initialState = {
   filtered_exercises: [],
   categoryFilteredArray: [],
   bodyFilteredArray: [],
+  all_exercise: [],
+  exercise_screen: false,
+  exercise_item: null,
 };
 const exerciseReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -50,6 +53,25 @@ const exerciseReducer = (state = initialState, actions) => {
         filtered_exercises: null,
       };
 
+    //************ Exercise Sates*************
+    case TYPES.GET_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        all_exercise: payload,
+      };
+
+    case TYPES.GET_EXERCISE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        all_exercise: null,
+      };
+
     //************Filtered Exercise Sates*************
     case TYPES.SET_CATEGORY_FILTERED_SUCCESS:
       return {
@@ -84,6 +106,17 @@ const exerciseReducer = (state = initialState, actions) => {
       return {
         ...state,
         exercise: payload,
+      };
+
+    case TYPES.SET_EXERCISE_SCREEN:
+      return {
+        ...state,
+        exercise_screen: payload,
+      };
+    case TYPES.SET_EXERCISE_ITEM_SUCCESS:
+      return {
+        ...state,
+        exercise_item: payload,
       };
     default:
       return state;

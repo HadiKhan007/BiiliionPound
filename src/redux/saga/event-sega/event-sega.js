@@ -9,6 +9,7 @@ import {
   payWithSocialCard,
   joinEvent,
   joinTeamEvents,
+  getEventDetail,
 } from '../../../shared/service/EventService';
 import * as types from '../../actions/types';
 
@@ -91,11 +92,12 @@ export function* setOngoingEventRequest() {
 }
 function* setOngoingEvent(params) {
   try {
+    // const res = yield getEventDetail(params?.params?.id);
+    // if (res?.data)
     yield put({
       type: types.SET_ONGOING_EVENT,
       payload: params?.params,
     });
-    console.log('====================================');
     params?.cbSuccess();
   } catch (error) {
     console.log(error);

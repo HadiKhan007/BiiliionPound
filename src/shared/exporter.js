@@ -55,5 +55,6 @@ export {
   responseValidator,
   checkBrand,
   calculateDateDiff,
+  checkExerciseItemOrder,
 } from './utilities/helper';
 export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';

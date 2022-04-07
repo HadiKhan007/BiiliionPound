@@ -2,7 +2,7 @@ import {takeLatest, put} from 'redux-saga/effects';
 import {responseValidator} from '../../../shared/exporter';
 import {
   creatingCustomExercise,
-  getFilterExer,
+  getAllExer,
   getWeightLifted,
 } from '../../../shared/service/ExerciseService';
 import * as types from '../../actions/types';
@@ -103,34 +103,64 @@ function* getFilteredExercise(params) {
 // ************* Get  Filter Sega**************
 
 export function* getExerciseRequest() {
-  yield takeLatest(types.GET_FILTERED_EXERCISE_REQUEST, getExercises);
+  yield takeLatest(types.GET_EXERCISE_REQUEST, getExercises);
 }
 
 function* getExercises(params) {
   try {
-    const res = yield getFilterExer(params?.params);
+    const res = yield getAllExer();
+
     if (res.data) {
       yield put({
-        type: types.GET_FILTERED_EXERCISE_SUCCESS,
+        type: types.GET_EXERCISE_SUCCESS,
         payload: res.data,
       });
       params?.cbSuccess(res.data);
     } else {
       yield put({
-        type: types.GET_FILTERED_EXERCISE_SUCCESS,
-        payload: res.data,
+        type: types.GET_EXERCISE_FAILURE,
+        payload: null,
       });
       params?.cbFailure(res?.data);
     }
   } catch (error) {
     console.log(error);
     yield put({
-      type: types.GET_FILTERED_EXERCISE_FAILURE,
+      type: types.GET_EXERCISE_FAILURE,
       payload: null,
     });
     let msg = responseValidator(error?.response?.status, error?.response?.data);
     params?.cbFailure(msg);
   }
+}
+
+export function* setExerciseScreenRequest() {
+  yield takeLatest(types.SET_EXERCISE_SCREEN_REQUEST, setExerciseScreen);
+}
+
+function* setExerciseScreen(params) {
+  try {
+    yield put({
+      type: types.SET_EXERCISE_SCREEN,
+      payload: params?.params,
+    });
+    params?.cbSuccess();
+  } catch (error) {}
+}
+
+//Set Exercise Item
+export function* setExerciseItemRequest() {
+  yield takeLatest(types.SET_EXERCISE_ITEM_REQUEST, setExerciseItem);
+}
+
+function* setExerciseItem(params) {
+  try {
+    yield put({
+      type: types.SET_EXERCISE_ITEM_SUCCESS,
+      payload: params?.params,
+    });
+    params?.cbSuccess();
+  } catch (error) {}
 }
 
 // ************* SET  Filter Sega**************

@@ -9,6 +9,6 @@ export const creatingCustomExercise = params => {
   return HTTP_CLIENT.post(ENDPOINTS.EXERCISES, params);
 };
 //Get Filtered Exercise
-export const getFilterExer = params => {
-  return HTTP_CLIENT.get(`${ENDPOINTS.EXERCISES}/filter_exercise`, params);
+export const getAllExer = () => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.EXERCISES}`);
 };

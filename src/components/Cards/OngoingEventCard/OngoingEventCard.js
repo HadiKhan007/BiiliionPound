@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
 
   imageStyle: {
     resizeMode: 'contain',
+    borderRadius: 5,
   },
   textStyle1: {
     color: colors.p1,

@@ -36,6 +36,14 @@ export const set_category_filtered_request = (params, cbSuccess) => {
   };
 };
 
+export const set_exercise_screen_request = (params, cbSuccess) => {
+  return {
+    type: TYPES.SET_EXERCISE_SCREEN_REQUEST,
+    params,
+    cbSuccess,
+  };
+};
+
 export const set_body_filtered_request = (params, cbSuccess) => {
   return {
     type: TYPES.SET_BODY_FILTERED_REQUEST,
@@ -62,6 +70,16 @@ export const select_body_filter_request = params => {
 export const get_exercise_request = (cbSuccess, cbFailure) => {
   return {
     type: TYPES.GET_EXERCISE_REQUEST,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Get Filter Date
+export const set_exercise_item_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.SET_EXERCISE_ITEM_REQUEST,
+    params,
     cbSuccess,
     cbFailure,
   };

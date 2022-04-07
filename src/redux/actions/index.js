@@ -23,6 +23,9 @@ export {
   set_category_filtered_request,
   select_body_filter_request,
   select_category_filter_request,
+  get_exercise_request,
+  set_exercise_screen_request,
+  set_exercise_item_request,
 } from './exercise-actions/exercise-actions';
 export {
   get_upcoming_event_request,
@@ -35,6 +38,7 @@ export {
   get_payment_cards_request,
   join_event_request,
   join_event_team_request,
+  get_event_detail_request,
 } from './event-actions/event-actions';
 
 export {

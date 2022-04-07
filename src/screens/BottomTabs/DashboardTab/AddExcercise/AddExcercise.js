@@ -1,5 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {SafeAreaView, FlatList, Text, View} from 'react-native';
+import {
+  SafeAreaView,
+  FlatList,
+  Text,
+  View,
+  Alert,
+  SectionList,
+} from 'react-native';
 import styles from './styles';
 import {
   AppHeader,
@@ -23,12 +30,15 @@ import AlphabetSectionList from 'react-native-alphabet-sectionlist';
 import FilterItem from '../../../../components/Cards/FilterItem/FilterItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  get_exercise_request,
   get_filter_exercise_request,
   select_body_filter_request,
   select_category_filter_request,
   set_body_filtered_request,
   set_category_filtered_request,
 } from '../../../../redux/actions';
+import {useIsFocused} from '@react-navigation/core';
+import {offset} from 'dom-helpers';
 const sectionListItem = {
   A: [
     {
@@ -89,17 +99,89 @@ const sectionListItem = {
     },
   ],
 };
+
+const DATA = [
+  {
+    title: 'A',
+    data: [
+      {
+        id: 0,
+        name: 'Arnold Press',
+        icon: appImages.sample_exercise,
+        type: 'Shoulder',
+        selected: false,
+        parent_category: 'A',
+      },
+      {
+        id: 1,
+        name: 'Brnold Press ',
+        icon: appImages.sample_exercise,
+        type: 'Shoulder',
+        selected: false,
+        parent_category: 'A',
+      },
+      {
+        id: 2,
+        name: 'Crnold Press ',
+        icon: appImages.sample_exercise,
+        type: 'Shoulder',
+        selected: false,
+        parent_category: 'A',
+      },
+    ],
+  },
+  {
+    title: 'B',
+    data: [
+      {
+        id: 3,
+        name: 'drnold Press',
+        icon: appImages.sample_exercise,
+        type: 'Shoulder',
+        selected: false,
+        parent_category: 'B',
+      },
+      {
+        id: 4,
+        name: 'Ernold Press ',
+        icon: appImages.sample_exercise,
+        type: 'Shoulder',
+        selected: false,
+        parent_category: 'B',
+      },
+      {
+        id: 5,
+        name: 'Frnold Press ',
+        icon: appImages.sample_exercise,
+        type: 'Shoulder',
+        selected: false,
+        parent_category: 'B',
+      },
+    ],
+  },
+];
+
 const AddExcercise = ({navigation}) => {
+  const [sectionListData, setSectionListData] = useState(DATA);
+  const [sectionListTempData, setSectionListTempData] = useState(DATA);
+
   const [filterExcersice, setFilterExcersice] = useState(false);
   const [selectedItem, setSelectedItem] = useState(0);
   const [recentSearch, setrecentSearch] = useState([1, 2]);
   const [filteredItems, setfilteredItems] = useState([1, 2]);
-  const {categoryFilteredArray, bodyFilteredArray} = useSelector(
+  const isFocus = useIsFocused(null);
+  const {categoryFilteredArray, bodyFilteredArray, all_exercise} = useSelector(
     state => state?.exercise,
   );
   const dispatch = useDispatch(null);
   //References
   const addExerciseSheetRef = useRef(null);
+
+  useEffect(() => {
+    if (isFocus) {
+      getExercises();
+    }
+  }, [isFocus]);
 
   //Filter Functions
   const onPressSelectedBody = index => {
@@ -134,6 +216,51 @@ const AddExcercise = ({navigation}) => {
     // dispatch(get_filter_exercise_request('', filterSuccess, filterFailed));
   };
 
+  const onChangeSearchText = text => {
+    if (text === '') {
+      setSectionListData(DATA);
+      return;
+    }
+    let matchedItemsArray = [];
+    sectionListTempData.map(item => {
+      let newDAta = [];
+      item.data.map(obj => {
+        if (obj.name.toUpperCase().includes(text.toUpperCase())) {
+          newDAta.push(obj);
+        }
+      });
+      if (newDAta.length > 0) {
+        matchedItemsArray.push({
+          ...item,
+          data: newDAta,
+        });
+      }
+    });
+
+    setSectionListData(matchedItemsArray);
+  };
+
+  const onSelectionChange = item => {
+    setSectionListData(
+      sectionListData.map(elem => {
+        let newData = elem.data.map(obj => {
+          obj.selected = false;
+          if (obj.parent_category === elem.title && item.id === obj.id) {
+            return {
+              ...obj,
+              selected: !obj.selected,
+            };
+          }
+          return obj;
+        });
+        return {
+          ...elem,
+          data: newData,
+        };
+      }),
+    );
+  };
+
   //Render Exercise Cards
   const renderItem = ({item, index}) => {
     return (
@@ -141,12 +268,11 @@ const AddExcercise = ({navigation}) => {
         <ExcerciseCard
           type={item?.type}
           icon={item?.icon}
+          selected={item.selected}
           name={item?.name}
           paddingHorizontal={WP('5')}
-          onPressCard={() => {
-            setSelectedItem(item?.id);
-          }}
-          isSelected={item?.id == selectedItem ? true : false}
+          onSelectionChange={onSelectionChange}
+          item={item}
         />
       </View>
     );
@@ -164,6 +290,16 @@ const AddExcercise = ({navigation}) => {
     );
   };
 
+  const getExercises = async () => {
+    const getExerciseSuccess = res => {
+      console.log('[Excercise Events]', res);
+    };
+    //On get upcoming event failure
+    const getExerciseFailure = res => {
+      Alert.alert('Error', res);
+    };
+    dispatch(get_exercise_request(getExerciseSuccess, getExerciseFailure));
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -178,6 +314,7 @@ const AddExcercise = ({navigation}) => {
             onPressFilter={() => {
               getFilteredItems();
             }}
+            onChangeText={text => onChangeSearchText(text)}
             onPressDots={() => {
               addExerciseSheetRef.current.show();
             }}
@@ -236,6 +373,8 @@ const AddExcercise = ({navigation}) => {
                       icon={appImages.sample_exercise}
                       name={'Arnold Press (Dumbbell)'}
                       paddingHorizontal={WP('5')}
+                      onSelectionChange={() => {}}
+                      item={item}
                     />
                   </View>
                 );
@@ -243,12 +382,18 @@ const AddExcercise = ({navigation}) => {
             />
           </View>
           <View style={styles.sectionlistStyle}>
-            <AlphabetSectionList
+            {/* <AlphabetSectionList
               showsVerticalScrollIndicator={false}
               data={sectionListItem}
               headerStyle={{paddingHorizontal: WP('5')}}
               renderItem={renderItem}
               hideRightSectionList={true}
+              renderSectionHeader={renderSectionHeader}
+            /> */}
+            <SectionList
+              sections={sectionListData}
+              keyExtractor={(item, index) => item + index}
+              renderItem={renderItem}
               renderSectionHeader={renderSectionHeader}
             />
           </View>
@@ -293,5 +438,11 @@ const AddExcercise = ({navigation}) => {
     </SafeAreaView>
   );
 };
+
+const Item = ({name}) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{name}</Text>
+  </View>
+);
 
 export default AddExcercise;

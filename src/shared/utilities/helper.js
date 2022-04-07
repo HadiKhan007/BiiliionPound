@@ -74,6 +74,10 @@ export const checkBrand = name => {
   }
 };
 
+export const checkExerciseItemOrder = item => {
+  console.log(item);
+};
+
 export const calculateDateDiff = date => {
   const diff_date = moment(date).diff(moment(new Date()), 'days');
   if (diff_date < 0) {

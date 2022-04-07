@@ -30,6 +30,7 @@ import {
   WP,
 } from '../../../../shared/exporter';
 import {Divider} from 'react-native-elements';
+import {useSelector} from 'react-redux';
 
 const OngoingEventDetail = ({navigation}) => {
   const data = [
@@ -58,11 +59,7 @@ const OngoingEventDetail = ({navigation}) => {
       image: profile_uri,
     },
   ];
-
-  console.log(
-    'data length----------------------------------------',
-    data.length,
-  );
+  const {ongoing_event_detail} = useSelector(state => state?.event);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
