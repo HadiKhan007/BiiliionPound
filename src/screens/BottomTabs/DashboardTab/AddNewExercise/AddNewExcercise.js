@@ -12,33 +12,72 @@ import {
   AppHeader,
   CategorySelection,
   Input,
+  Loader,
   SelectButton,
 } from '../../../../components';
 import {
   AddNewExerciseFormFields,
   AddNewExerciseVS,
   appIcons,
+  checkConnected,
   colors,
   filterBody,
   filterCategory,
 } from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Formik} from 'formik';
+import {useDispatch} from 'react-redux';
+import {createCustomExercise} from '../../../../redux/actions/exercise-actions/exercise-actions';
 
 const AddNewExcercise = ({navigation}) => {
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
   const [selectBodyItem, setselectBodyItem] = useState(null);
   const [selectItemType, setselectItemType] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch(null);
+
+  const createExercise = async values => {
+    setLoading(true);
+    const checkInternet = await checkConnected();
+
+    const data = {
+      name: values?.exercise_name,
+      category: values?.category?.key,
+      exercise_type: values?.bodyPart?.key,
+    };
+    console.log('===============form values=====================');
+    console.log(data);
+    console.log('====================================');
+
+    const cbSuccess = res => {
+      setLoading(false);
+      navigation?.navigate('AddExercise');
+    };
+
+    const cbFailure = message => {
+      setLoading(false);
+    };
+
+    if (checkInternet) {
+      dispatch(createCustomExercise(data, cbSuccess, cbFailure));
+    } else {
+      setLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
+        {loading ? <Loader loading={loading} /> : null}
         <AppHeader icon={appIcons.backArrow} title={'Add New Exercise'} />
         <Formik
           initialValues={AddNewExerciseFormFields}
           onSubmit={values => {
-            navigation?.navigate('AddExercise');
+            // navigation?.navigate('AddExercise');
+            createExercise(values);
           }}
           validationSchema={AddNewExerciseVS}>
           {({
@@ -55,9 +94,9 @@ const AddNewExcercise = ({navigation}) => {
             const onEndSelection = () => {
               setSelectionModal(false);
               if (selectItemType == 'Category') {
-                setFieldValue('category', selectCategoryItem?.title);
+                setFieldValue('category', selectCategoryItem);
               } else {
-                setFieldValue('bodyPart', selectBodyItem?.title);
+                setFieldValue('bodyPart', selectBodyItem);
               }
             };
             return (
@@ -96,7 +135,7 @@ const AddNewExcercise = ({navigation}) => {
                         onChangeText={handleChange('category')}
                         renderErrorMessage={true}
                         placeholder="Select Category"
-                        value={values.category}
+                        value={values.category?.title}
                         onBlur={() => setFieldTouched('category')}
                         blurOnSubmit={false}
                         disableFullscreenUI={true}
@@ -124,7 +163,7 @@ const AddNewExcercise = ({navigation}) => {
                         onChangeText={handleChange('bodyPart')}
                         renderErrorMessage={true}
                         placeholder="Select Body Part"
-                        value={values.bodyPart}
+                        value={values.bodyPart?.title}
                         onBlur={() => setFieldTouched('bodyPart')}
                         blurOnSubmit={false}
                         disableFullscreenUI={true}
@@ -145,8 +184,10 @@ const AddNewExcercise = ({navigation}) => {
                     }
                     setSelectItem={item => {
                       if (selectItemType == 'Category') {
+                        console.log('selected item for category', item);
                         setselectCategoryItem(item);
                       } else {
+                        console.log('selected item for body part', item);
                         setselectBodyItem(item);
                       }
                     }}

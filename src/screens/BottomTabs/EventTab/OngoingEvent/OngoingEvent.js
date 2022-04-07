@@ -5,11 +5,13 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
+  Alert,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
+  Loader,
   OngoingEventCard,
   OngoingItem,
   PrimaryHeading,
@@ -17,14 +19,49 @@ import {
 } from '../../../../components';
 import {
   appIcons,
+  checkConnected,
   colors,
   profile_uri,
   spacing,
 } from '../../../../shared/exporter';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {set_ongoing_event_request} from '../../../../redux/actions';
 
 const OngoingEvent = ({navigation}) => {
   const {ongoing_events} = useSelector(state => state?.event);
+  const [isLoading, setisLoading] = useState(false);
+  const dispatch = useDispatch(null);
+  //***********On Press On Going Events***********
+  const OnGoingEventPress = async item => {
+    //Set Ongoing Success
+    setisLoading(true);
+    const checkInternet = await checkConnected();
+
+    const onGoingPressSuccess = () => {
+      navigation.navigate('OngoingEventDetail');
+      // console.log('On Going Event Success');
+      setisLoading(false);
+    };
+    //Set  onGoing event failure
+    const onGoingPressFailure = () => {
+      // console.log('On Going Event Failure');
+      Alert.alert('Error', 'Something went wrong!');
+      setisLoading(false);
+    };
+
+    if (checkInternet) {
+      dispatch(
+        set_ongoing_event_request(
+          item,
+          onGoingPressSuccess,
+          onGoingPressFailure,
+        ),
+      );
+    } else {
+      setisLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.main}>
@@ -49,13 +86,14 @@ const OngoingEvent = ({navigation}) => {
                 event_image={item?.event_image_url}
                 allEvents={true}
                 onPressCard={() => {
-                  navigation.navigate('MilitaryPress');
+                  OnGoingEventPress(item);
                 }}
               />
             );
           }}
         />
       </View>
+      {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
   );
 };

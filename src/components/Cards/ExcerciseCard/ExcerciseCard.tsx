@@ -22,7 +22,7 @@ interface ExcerciseCardProps {
   isSelected: boolean;
   type: string;
   icon: any;
-  paddingHorizontal;
+  paddingHorizontal: number;
   onPressCard: () => {};
 }
 

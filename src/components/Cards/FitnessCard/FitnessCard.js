@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
-import {colors, WP} from '../../../shared/exporter';
+import {appImages, colors, WP} from '../../../shared/exporter';
 
 export const FitnessCard = ({icon}) => {
   return (

@@ -9,7 +9,7 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
@@ -18,19 +18,27 @@ import {
   Button,
   CategorySelection,
   AddNewExercise,
+  Loader,
+  EventStatusCard,
 } from '../../../../components';
-import {appIcons, colors, spacing, WP} from '../../../../shared/exporter';
+import {
+  appIcons,
+  calculateDateDiff,
+  checkConnected,
+  colors,
+  spacing,
+  WP,
+} from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
-import {useSelector} from 'react-redux';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {join_event_team_request} from '../../../../redux/actions';
 const EventDetail = ({navigation}) => {
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
-
+  const [isLoading, setisLoading] = useState(false);
   //References
-  const joinSheetRef = useRef(null);
   const {upcoming_event_detail} = useSelector(state => state?.event);
-
+  const dispatch = useDispatch(null);
   const _renderTruncatedFooter = handlePress => {
     return (
       <Text style={styles.readMoreStyle} onPress={handlePress}>
@@ -51,13 +59,36 @@ const EventDetail = ({navigation}) => {
     setSelectionModal(false);
   };
 
-  const joinEvent = () => {
-    if (selectCategoryItem) {
-      navigation?.navigate('Payment');
+  //Join Team Events
+  const joinEvent = async () => {
+    const isConnected = await checkConnected();
+    if (isConnected) {
+      if (selectCategoryItem) {
+        setisLoading(true);
+        const onSuccessJoin = res => {
+          navigation?.navigate('Payment');
+          setisLoading(false);
+        };
+        const onFailedJoin = res => {
+          // console.log('Event team Join Failed', res);
+          Alert.alert('Error', res);
+          setisLoading(false);
+        };
+        dispatch(
+          join_event_team_request(
+            selectCategoryItem,
+            onSuccessJoin,
+            onFailedJoin,
+          ),
+        );
+      } else {
+        Alert.alert('Message!', 'Please select team');
+      }
     } else {
-      Alert.alert('Message!', 'Please select team');
+      Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <AppHeader
@@ -68,6 +99,7 @@ const EventDetail = ({navigation}) => {
       />
 
       <ScrollView
+        showsVerticalScrollIndicator={false}
         style={styles.contentContainer}
         contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.firstConatiner}>
@@ -75,6 +107,7 @@ const EventDetail = ({navigation}) => {
             <View style={styles.headerContainer}>
               <OngoingItem
                 titleStyle={styles.countStyle}
+                title_part={'Going'}
                 imageHeight={35}
                 imageWidth={35}
                 width={'45%'}
@@ -91,9 +124,10 @@ const EventDetail = ({navigation}) => {
               events={upcoming_event_detail}
               title={upcoming_event_detail?.title}
               rightIcon={appIcons.user}
+              disabled={true}
             />
           </View>
-          {!upcoming_event_detail?.status?.match('Joined') ? (
+          {!upcoming_event_detail?.status_event?.match('joined') ? (
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
               <TouchableOpacity
@@ -115,20 +149,26 @@ const EventDetail = ({navigation}) => {
           {/* About Event Flow */}
           <View style={[styles.inputContainer, spacing.py3]}>
             <Text style={styles.titleStyle}>About The Event</Text>
-            <ReadMore
-              numberOfLines={3}
-              renderTruncatedFooter={_renderTruncatedFooter}
-              renderRevealedFooter={_renderRevealedFooter}
-              onReady={() => {
-                console.log('hello');
-              }}>
-              <Text style={styles.description}>
+            {upcoming_event_detail?.description?.length > 50 ? (
+              <ReadMore
+                numberOfLines={3}
+                renderTruncatedFooter={_renderTruncatedFooter}
+                renderRevealedFooter={_renderRevealedFooter}
+                onReady={() => {
+                  // console.log('hello');
+                }}>
+                <Text style={styles.description}>
+                  {upcoming_event_detail?.description}
+                </Text>
+              </ReadMore>
+            ) : (
+              <Text numberOfLines={3} style={styles.description}>
                 {upcoming_event_detail?.description}
               </Text>
-            </ReadMore>
+            )}
           </View>
           {/* Join NOW */}
-          {!upcoming_event_detail?.status?.match('Joined') ? (
+          {!upcoming_event_detail?.status_event?.match('joined') ? (
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
@@ -142,9 +182,28 @@ const EventDetail = ({navigation}) => {
           ) : null}
         </View>
       </ScrollView>
+      {upcoming_event_detail?.status_event?.match('joined') ? (
+        <EventStatusCard
+          bgColor={colors.gr1}
+          textColor={colors.white}
+          title={`Already Joined ${calculateDateDiff(
+            upcoming_event_detail?.start_date,
+          )} ${
+            calculateDateDiff(upcoming_event_detail?.start_date) <= 1
+              ? 'Day'
+              : 'Days'
+          } to go`}
+          nodeColor={colors.gr1}
+          borderRightRadius={20}
+          borderleftRadius={20}
+        />
+      ) : null}
       {selectionModal && (
         <CategorySelection
-          data={upcoming_event_detail?.teams}
+          data={[
+            ...upcoming_event_detail?.teams,
+            {name: 'None', id: upcoming_event_detail?.teams.length + 1},
+          ]}
           setSelectItem={item => {
             setselectCategoryItem(item);
           }}
@@ -157,23 +216,8 @@ const EventDetail = ({navigation}) => {
           onPressDone={onEndSelection}
         />
       )}
-      <AddNewExercise
-        show={joinSheetRef}
-        onPressHide={() => {
-          joinSheetRef?.current?.hide();
-          navigation?.navigate('Payment');
-        }}
-        onAddPress={() => {
-          joinSheetRef?.current?.hide();
-          navigation?.navigate('AddNewExercise');
-        }}
-        bgColor={colors.gr1}
-        textColor={colors.white}
-        title={'Already Joined 5 Days to go'}
-        nodeColor={colors.gr1}
-        borderRightRadius={20}
-        borderleftRadius={20}
-      />
+
+      {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
   );
 };

@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import activityReducer from './activity-reducer/activity-reducer';
 
 import authReducer from './auth-reducers/auth-reducer';
 import eventReducer from './event-reducer/event-reducer';
@@ -12,5 +13,6 @@ export default rootReducer = combineReducers(
     profile: profileReducer,
     exercise: exerciseReducer,
     event: eventReducer,
+    activity: activityReducer,
   }),
 );

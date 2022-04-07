@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   Dimensions,
 } from 'react-native';
 import {
@@ -19,7 +18,7 @@ import {
   capitalizeFirstLetter,
 } from '../../../shared/exporter';
 import PropTypes from 'prop-types';
-
+import {Image} from 'react-native-elements';
 export const ProfileImage = ({
   profileUri,
   onPressIcon,
@@ -33,6 +32,7 @@ export const ProfileImage = ({
     <>
       <View style={styles.container}>
         <Image
+          progressiveRenderingEnabled={true}
           source={{
             uri:
               profileUri != null
@@ -62,6 +62,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 100,
     width: 100,
+    borderRadius: 100,
+    backgroundColor: colors.g1,
   },
   imageStyle: {
     height: '100%',

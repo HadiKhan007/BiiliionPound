@@ -1,6 +1,8 @@
 import NetInfo from '@react-native-community/netinfo';
 import {createContext, useContext, useEffect} from 'react';
 import {appIcons} from '../exporter';
+import moment from 'moment';
+
 export const checkConnected = () => {
   return NetInfo.fetch().then(state => {
     return state.isConnected;
@@ -58,7 +60,7 @@ export const responseValidator = (response, errorMsg) => {
       const msg = errorMsg?.error[0];
       return msg;
     } else {
-      return 'Something went wrong!';
+      return 'Internal Server Error Please Try Again!';
     }
   } else {
   }
@@ -70,4 +72,12 @@ export const checkBrand = name => {
   } else if (name == 'Master') {
     return appIcons.orangeBg;
   }
+};
+
+export const calculateDateDiff = date => {
+  const diff_date = moment(date).diff(moment(new Date()), 'days');
+  if (diff_date < 0) {
+    return 0;
+  }
+  return diff_date;
 };

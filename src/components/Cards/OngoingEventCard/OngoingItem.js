@@ -27,12 +27,13 @@ export const OngoingItem = ({
   width = '40%',
   justifyContent,
   users_lists,
+  title_part,
 }) => {
   return (
     <View style={styles.itemsStyle}>
       <View style={[styles.flatStyle, {justifyContent: justifyContent}]}>
         <View style={{flexDirection: 'row'}}>
-          {users_lists?.map(item => {
+          {users_lists?.slice(0, 3).map(item => {
             return (
               <View
                 style={[
@@ -44,7 +45,7 @@ export const OngoingItem = ({
                   },
                 ]}>
                 <Image
-                  source={{uri: item?.profile_image}}
+                  source={{uri: item?.profile_image || profile_uri}}
                   style={[styles.smallImageStyle]}
                 />
               </View>
@@ -54,7 +55,7 @@ export const OngoingItem = ({
 
         {title && (
           <Text style={[titleStyle, {marginLeft: 15}]}>
-            {title != 0 && `+${title} Going`}
+            {title != 0 && `+${title} ${title_part}`}
           </Text>
         )}
       </View>

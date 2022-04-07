@@ -11,6 +11,8 @@ const initialState = {
   payment_card_list: [],
   pay_with_debit: null,
   pay_with_social: null,
+  join_event: null,
+  join_team_event: null,
 };
 const eventReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -52,6 +54,43 @@ const eventReducer = (state = initialState, actions) => {
         ongoing_events: null,
       };
 
+    //************JOIN EVENTS*************
+    case TYPES.JOIN_EVENTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        join_event: payload,
+      };
+
+    case TYPES.JOIN_EVENTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        join_event: null,
+      };
+
+    //************JOIN TEAM EVENTS*************
+    case TYPES.JOIN_TEAM_EVENTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        join_team_event: payload,
+      };
+
+    case TYPES.JOIN_TEAM_EVENTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        join_team_event: null,
+      };
     //************SET EVENTS*************
     case TYPES.SET_UPCOMING_EVENT:
       return {
@@ -68,7 +107,7 @@ const eventReducer = (state = initialState, actions) => {
         loading: false,
         isSuccess: true,
         isFailure: false,
-        ongoing_event_detail: null,
+        ongoing_event_detail: payload,
       };
 
     //************GET PAYMENT CARDS*************
@@ -92,12 +131,13 @@ const eventReducer = (state = initialState, actions) => {
 
     //************Add Debit Card*************
     case TYPES.ADD_CARD_SUCCESS:
+      // console.log('payload', payload);
       return {
         ...state,
         loading: false,
         isSuccess: true,
         isFailure: false,
-        payment_card_list: payload,
+        payment_card_list: [...state.payment_card_list, payload?.card],
       };
 
     case TYPES.ADD_CARD_FAILURE:
@@ -106,7 +146,7 @@ const eventReducer = (state = initialState, actions) => {
         loading: false,
         isSuccess: false,
         isFailure: true,
-        payment_card_list: null,
+        payment_card_list: state.payment_card_list,
       };
 
     //************Pay With Debit Card*************

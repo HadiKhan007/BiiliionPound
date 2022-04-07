@@ -8,8 +8,22 @@ export {
   logoutRequset,
   verifyOTPRequest,
 } from './auth-actions/auth-action';
-export {setProfileImage} from './profile-actions/profile-action';
-export {get_lifted_weight_request} from './exercise-actions/exercise-actions';
+export {
+  setProfileImage,
+  getProfile,
+  updateUserProfile,
+  getFAQRequest,
+  getPrivacyPolicy,
+  getTermsNConditions,
+} from './profile-actions/profile-action';
+export {
+  get_lifted_weight_request,
+  get_filter_exercise_request,
+  set_body_filtered_request,
+  set_category_filtered_request,
+  select_body_filter_request,
+  select_category_filter_request,
+} from './exercise-actions/exercise-actions';
 export {
   get_upcoming_event_request,
   get_ongoing_event_request,
@@ -19,4 +33,11 @@ export {
   pay_with_debit_request,
   pay_with_social_request,
   get_payment_cards_request,
+  join_event_request,
+  join_event_team_request,
 } from './event-actions/event-actions';
+
+export {
+  getActivity,
+  getFilteredActivity,
+} from './activity-actions/activity-actions';

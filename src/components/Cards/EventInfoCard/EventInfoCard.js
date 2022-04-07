@@ -16,7 +16,13 @@ import {
 } from '../../../shared/exporter';
 import {EventCard} from '../..';
 import moment from 'moment';
-export const EventInfoCard = ({title, subtitle, rightIcon, events}) => {
+export const EventInfoCard = ({
+  title,
+  subtitle,
+  rightIcon,
+  events,
+  disabled,
+}) => {
   return (
     <View>
       <View style={styles.container}>
@@ -24,29 +30,29 @@ export const EventInfoCard = ({title, subtitle, rightIcon, events}) => {
           {title} <Text style={styles.title2}>{subtitle}</Text>
         </Text>
         {rightIcon && (
-          <TouchableOpacity style={styles.rightIconStyle}>
+          <TouchableOpacity disabled={disabled} style={styles.rightIconStyle}>
             <Image style={styles.rightIcon} source={rightIcon} />
           </TouchableOpacity>
         )}
       </View>
       <EventCard
         icon={appIcons.calender}
-        title={moment(new Date()).format('ddd,MMM DD,YYYY')}
+        title={moment(events?.start_date).format('ddd,MMM DD, YYYY')}
         date={`${moment(events?.start_date).format('hh:mm A')} - ${moment(
           events?.end_date,
         ).format('hh:mm A')}`}
       />
       <EventCard icon={appIcons.badge} title={'Your Favorite Gym'} />
       <EventCard icon={appIcons.tag} title={`$${events?.price}`} />
-      {events?.status?.match('Joined') ? (
+      {events?.selected_team ? (
         <EventCard
           icon={appIcons.peoples}
-          title={'Team Red'}
-          date={'You are in team red'}
+          title={events?.selected_team ? events?.selected_team : ''}
+          date={`You are in team ${
+            events?.selected_team ? events?.selected_team : ''
+          } `}
         />
-      ) : (
-        false
-      )}
+      ) : null}
     </View>
   );
 };

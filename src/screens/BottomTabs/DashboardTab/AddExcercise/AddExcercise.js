@@ -21,6 +21,14 @@ import {
 } from '../../../../shared/exporter';
 import AlphabetSectionList from 'react-native-alphabet-sectionlist';
 import FilterItem from '../../../../components/Cards/FilterItem/FilterItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  get_filter_exercise_request,
+  select_body_filter_request,
+  select_category_filter_request,
+  set_body_filtered_request,
+  set_category_filtered_request,
+} from '../../../../redux/actions';
 const sectionListItem = {
   A: [
     {
@@ -86,16 +94,44 @@ const AddExcercise = ({navigation}) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [recentSearch, setrecentSearch] = useState([1, 2]);
   const [filteredItems, setfilteredItems] = useState([1, 2]);
-
+  const {categoryFilteredArray, bodyFilteredArray} = useSelector(
+    state => state?.exercise,
+  );
+  const dispatch = useDispatch(null);
   //References
   const addExerciseSheetRef = useRef(null);
 
   //Filter Functions
   const onPressSelectedBody = index => {
-    // filterBody[index].tick = !filterBody[index].tick;
+    dispatch(select_body_filter_request(index));
   };
+
   const onPressSelectedCategory = index => {
-    // filterCategory[index].tick = !filterBody[index].tick;
+    dispatch(select_category_filter_request(index));
+  };
+
+  //get Filtered Items
+  const getFilteredItems = () => {
+    dispatch(
+      set_category_filtered_request(filterCategory, () => {
+        console.log('category setted');
+        setFilterExcersice(true);
+      }),
+    );
+    dispatch(
+      set_body_filtered_request(filterBody, () => {
+        console.log('Body Part Settted');
+      }),
+    );
+
+    // const filterSuccess = res => {
+    //   console.log(res);
+    //   setFilterExcersice(true);
+    // };
+    // const filterFailed = res => {
+    //   console.log(res);
+    // };
+    // dispatch(get_filter_exercise_request('', filterSuccess, filterFailed));
   };
 
   //Render Exercise Cards
@@ -115,9 +151,11 @@ const AddExcercise = ({navigation}) => {
       </View>
     );
   };
+
   const onFilterSave = () => {
     setFilterExcersice(false);
   };
+
   const renderSectionHeader = ({section: {title}}) => {
     return (
       <View style={styles.sectionHeader}>
@@ -125,6 +163,7 @@ const AddExcercise = ({navigation}) => {
       </View>
     );
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -137,7 +176,7 @@ const AddExcercise = ({navigation}) => {
           <SearchBar
             placeholder={'Search...'}
             onPressFilter={() => {
-              setFilterExcersice(true);
+              getFilteredItems();
             }}
             onPressDots={() => {
               addExerciseSheetRef.current.show();
@@ -226,8 +265,8 @@ const AddExcercise = ({navigation}) => {
         <ExerciseFilter
           onPressBody={onPressSelectedBody}
           onPressCategory={onPressSelectedCategory}
-          filterCategory={filterCategory}
-          filterBody={filterBody}
+          filterCategory={categoryFilteredArray}
+          filterBody={bodyFilteredArray}
           show={filterExcersice}
           onPressHide={() => {
             setFilterExcersice(false);

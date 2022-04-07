@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingVertical: 20,
     borderRadius: 15,
-    height: scrHeight / 1.4,
+    maxHeight: scrHeight / 1.4,
   },
   separator: {
     borderWidth: 0.5,
