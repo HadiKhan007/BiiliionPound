@@ -75,3 +75,22 @@ export const pay_with_social_request = (params, cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+//Join Team Event
+export const join_event_team_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.JOIN_TEAM_EVENTS_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+//Join Event
+export const join_event_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.JOIN_EVENTS_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};

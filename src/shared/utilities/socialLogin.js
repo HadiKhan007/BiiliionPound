@@ -100,7 +100,7 @@ const onSocialLoginSuccess = (res, navigation, setloading) => {
   if (res) {
     navigation?.replace('App');
     setloading(false);
-    console.log('Social Login Success', res);
+    // console.log('Social Login Success', res);
   } else {
     Alert.alert('Error', res?.message);
   }

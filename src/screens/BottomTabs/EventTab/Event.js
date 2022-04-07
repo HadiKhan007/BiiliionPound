@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, FlatList, ScrollView} from 'react-native';
+import {View, SafeAreaView, FlatList, ScrollView, Alert} from 'react-native';
 import styles from './styles';
 import {
   AppHeader,
-  BlankField,
   Loader,
   OngoingEventCard,
   PrimaryHeading,
@@ -29,27 +28,26 @@ const Event = ({navigation}) => {
   useEffect(() => {
     if (isFocus) {
       getUpcomingEvents();
-      getOngoingEvents();
+      // getOngoingEvents();
     }
   }, [isFocus]);
 
   //**********Get Upcoming Events***********
   const getUpcomingEvents = async () => {
     //On get upcoming event success
-    setLoading(true);
     const checkInternet = await checkConnected();
-
-    const onUpcomingSuccess = res => {
-      console.log('Upcoming Events', res);
-      setLoading(false);
-    };
-    //On get upcoming event failure
-    const onUpcomingFailure = res => {
-      console.log(res);
-      setLoading(false);
-    };
-    //Get Upcomig Events
     if (checkInternet) {
+      setLoading(true);
+      const onUpcomingSuccess = res => {
+        // console.log('Upcoming Events', res);
+        setLoading(false);
+      };
+      //On get upcoming event failure
+      const onUpcomingFailure = res => {
+        setLoading(false);
+        Alert.alert('Error', res);
+      };
+      //Get Upcomig Events
       dispatch(
         get_upcoming_event_request(onUpcomingSuccess, onUpcomingFailure),
       );
@@ -66,12 +64,11 @@ const Event = ({navigation}) => {
     const checkInternet = await checkConnected();
 
     const onOngoingSuccess = res => {
-      console.log('Ongoing Events', res);
+      // console.log('Ongoing Events', res);
       setLoading(false);
     };
     //On get Ongoing event failure
     const onOngoingFailure = res => {
-      console.log(res);
       setLoading(false);
     };
     //Get Upcomig Events
@@ -122,12 +119,13 @@ const Event = ({navigation}) => {
 
     const onGoingPressSuccess = () => {
       navigation.navigate('OngoingEventDetail');
-      console.log('On Going Event Success');
+      // console.log('On Going Event Success');
       setLoading(false);
     };
     //Set  onGoing event failure
     const onGoingPressFailure = () => {
-      console.log('On Going Event Failure');
+      // console.log('On Going Event Failure');
+      Alert.alert('Error', 'Something went wrong!');
       setLoading(false);
     };
 
@@ -149,18 +147,17 @@ const Event = ({navigation}) => {
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader title={'Event'} />
-        {loading ? (
-          <Loader loading={loading} />
-        ) : (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={styles.itemConatiner}>
-            <PrimaryHeading
-              title={'Ongoing Events'}
-              TouchableText={'See All'}
-              onPress={() => navigation.navigate('OngoingEvent')}
-            />
-            {ongoing_events?.length > 0 ? (
+
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.itemConatiner}>
+          {ongoing_events?.length > 0 ? (
+            <>
+              <PrimaryHeading
+                title={'Ongoing Events'}
+                TouchableText={'See All'}
+                onPress={() => navigation.navigate('OngoingEvent')}
+              />
               <View style={spacing.py2}>
                 <FlatList
                   showsHorizontalScrollIndicator={false}
@@ -183,11 +180,11 @@ const Event = ({navigation}) => {
                   }}
                 />
               </View>
-            ) : (
-              <BlankField title={'No ongoing Events yet!'} />
-            )}
-            <PrimaryHeading title={'Upcoming Events'} />
-            {ongoing_events?.length > 0 ? (
+            </>
+          ) : null}
+          {upcoming_events?.length > 0 ? (
+            <>
+              <PrimaryHeading title={'Upcoming Events'} />
               <View style={{flex: 1}}>
                 <FlatList
                   showsVerticalScrollIndicator={false}
@@ -204,12 +201,11 @@ const Event = ({navigation}) => {
                   }}
                 />
               </View>
-            ) : (
-              <BlankField title={'No Upcoming Events yet!'} />
-            )}
-          </ScrollView>
-        )}
+            </>
+          ) : null}
+        </ScrollView>
       </View>
+      <Loader loading={loading} />
     </SafeAreaView>
   );
 };

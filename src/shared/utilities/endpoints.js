@@ -1,4 +1,5 @@
 const BASE_URL = 'https://billion-pound.herokuapp.com/api/v1/';
+// const BASE_URL = 'http://192.168.11.164:3000/api/v1/';
 
 const ENDPOINTS = {
   REGISTER: 'signup',
@@ -12,7 +13,9 @@ const ENDPOINTS = {
   VERIFY_OTP: 'password/check_otp',
   EXERCISES: 'exercises',
   EVENTS: 'events',
-  PROFILE: id => `users/${id}`,
+  USER_EVENTS: 'user_events',
+  USERS_TEAM: 'user_teams',
+  PROFILE: `users`,
   FAQ: 'faqs',
   TERMS_CONDITION: 'term_and_conditions',
   PRIVACY_POLICY: 'privacy_policies',

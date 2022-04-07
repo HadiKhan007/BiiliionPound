@@ -5,11 +5,7 @@ import {appImages, colors, WP} from '../../../shared/exporter';
 export const FitnessCard = ({icon}) => {
   return (
     <View style={styles.imageContainer}>
-      <Image
-        source={icon != null ? {uri: icon} : appImages.sample_exercise}
-        resizeMode={'contain'}
-        style={styles.image}
-      />
+      <Image source={icon} resizeMode={'contain'} style={styles.image} />
     </View>
   );
 };

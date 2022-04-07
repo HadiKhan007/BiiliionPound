@@ -21,7 +21,6 @@ export const updateUserProfile = (params, userId, cbSuccess, cbFailure) => {
   return {
     type: TYPES.UPDATE_PROFILE_REQUEST,
     params,
-    userId,
     cbSuccess,
     cbFailure,
   };
@@ -50,4 +49,3 @@ export const getPrivacyPolicy = (cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
-

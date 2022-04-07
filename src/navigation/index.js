@@ -15,7 +15,7 @@ import NotificationList from '../screens/BottomTabs/DashboardTab/NotificationLis
 import EventDetail from '../screens/BottomTabs/EventTab/EventDetail';
 import Payment from '../screens/BottomTabs/EventTab/Payment';
 import OngoingEventDetail from '../screens/BottomTabs/EventTab/OngoingEventDetail';
-import ActivityTab from '../screens/BottomTabs/ActivityTab';
+import ActivityTab from '../screens/BottomTabs/EventTab/ActivityTab';
 
 const AppStack = createStackNavigator();
 

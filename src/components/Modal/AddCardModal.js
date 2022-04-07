@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import ActionSheet from 'react-native-actions-sheet';
-import {Button, PaymentCardField} from '..';
+import {Button, Loader, PaymentCardField} from '..';
 import {
   scrHeight,
   colors,
@@ -28,6 +28,7 @@ export const AddCardModal = ({
   borderRightRadius,
   onChangeText,
   paymentField,
+  loading,
 }) => {
   return (
     <ActionSheet
@@ -56,8 +57,9 @@ export const AddCardModal = ({
         onChangeText={onChangeText}
       />
       <View style={styles.aiCenter}>
-        <Button onPress={onAddPress} title={'Add Card'} />
+        <Button disabled={loading} onPress={onAddPress} title={'Add Card'} />
       </View>
+      {loading && <Loader loading={loading} />}
     </ActionSheet>
   );
 };

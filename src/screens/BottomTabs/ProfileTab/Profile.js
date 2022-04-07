@@ -20,6 +20,7 @@ import {
   appIcons,
   checkConnected,
   colors,
+  profile_uri,
   spacing,
 } from '../../../shared/exporter';
 import {TouchableOpacity} from 'react-native';
@@ -60,9 +61,6 @@ const Profile = ({navigation}) => {
   //get user data
   const getUserData = async () => {
     setLoading(true);
-    console.log('====================================');
-    console.log('in get user data');
-    console.log('====================================');
 
     const checkInternet = await checkConnected();
 
@@ -135,7 +133,7 @@ const Profile = ({navigation}) => {
         />
         <View style={styles.itemContainer}>
           <ProfileImage
-            profileUri={profile_image}
+            profileUri={profile_image || profile_uri}
             title={userData?.full_name}
           />
         </View>

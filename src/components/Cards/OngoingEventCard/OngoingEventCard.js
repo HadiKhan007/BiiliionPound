@@ -54,8 +54,11 @@ export const OngoingEventCard = ({
             }
             imageStyle={styles.imageStyle}>
             <View style={styles.littleBox}>
-              <Text style={styles.textStyle}>
-                {moment(event_date).format('DD MMM')}
+              <Text style={styles.textStyle1}>
+                {moment(event_date).format('DD')}{' '}
+              </Text>
+              <Text style={styles.textStyle2}>
+                {moment(event_date).format('MMM')}
               </Text>
             </View>
           </ImageBackground>
@@ -65,6 +68,7 @@ export const OngoingEventCard = ({
             {capitalizeFirstLetter(title)}
           </Text>
           <OngoingItem
+            title_part={'Going'}
             users_lists={users_lists}
             title={`${users_lists?.length}`}
             titleStyle={[
@@ -140,11 +144,19 @@ const styles = StyleSheet.create({
   imageStyle: {
     resizeMode: 'contain',
   },
-  textStyle: {
+  textStyle1: {
     color: colors.p1,
     textAlign: 'center',
     fontSize: size.large,
     fontFamily: family.OpenSans_Regular,
+    width: '100%',
+  },
+  textStyle2: {
+    color: colors.p1,
+    textAlign: 'center',
+    fontSize: size.xsmall,
+    fontFamily: family.OpenSans_Regular,
+    width: '100%',
   },
   secondaryContainer: {
     marginVertical: 10,

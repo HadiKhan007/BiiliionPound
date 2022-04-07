@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {colors, family, size} from '../../shared/exporter';
+import {colors, family, scrWidth, size} from '../../shared/exporter';
 import {useNavigation} from '@react-navigation/core';
 
 export const AppHeader = ({
@@ -74,13 +74,12 @@ const styles = StyleSheet.create({
     height: '10%',
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'green',
   },
   titleStyle: {
     fontSize: size.normal,
     color: colors.b7,
     fontFamily: family.Poppins_Bold,
-    width: '50%',
+    width: scrWidth / 1.7,
     textAlign: 'center',
   },
   headerStyle: {
@@ -123,11 +122,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   leftContainer: {
-    width: '25%',
+    width: scrWidth / 7,
   },
   rightContainer: {
     alignItems: 'flex-end',
-    width: '25%',
+    width: scrWidth / 6,
     justifyContent: 'center',
   },
 });

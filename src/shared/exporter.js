@@ -54,5 +54,6 @@ export {
   capitalizeFirstLetter,
   responseValidator,
   checkBrand,
+  calculateDateDiff,
 } from './utilities/helper';
 export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';

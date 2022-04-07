@@ -5,7 +5,11 @@ import {colors, family, size} from '../../shared/exporter';
 export const NormHeading = ({title, subtitle, family}) => {
   return (
     <View style={styles.aiCenter}>
-      <Text style={[styles.h1, {fontFamily: family}]}>{title}</Text>
+      <Text
+        numberOfLines={2}
+        style={[styles.h1, {fontFamily: family, width: '80%'}]}>
+        {title}
+      </Text>
       <Text style={[styles.h1, {fontFamily: family}]}>{subtitle}</Text>
     </View>
   );

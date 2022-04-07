@@ -23,12 +23,15 @@ export const OngoingEventDetailCard = ({
   price,
   liftedAmount,
   onPressCard,
+  date,
+  sutitleDate,
+  joined_team,
 }) => {
   const data = [
     {
       id: 0,
-      title: 'Sat,May 25, 2022',
-      subtitle: '10:00 AM - 9:00 PM',
+      title: date,
+      subtitle: sutitleDate,
       leftIcon: appIcons.calender,
     },
     {
@@ -37,13 +40,16 @@ export const OngoingEventDetailCard = ({
       leftIcon: appIcons.badge,
       rightIcon: appIcons.arrow,
     },
-    {
-      id: 2,
-      title: 'Team Red',
-      subtitle: 'You are in team red',
-      leftIcon: appIcons.peoples,
-    },
   ];
+  {
+    joined_team &&
+      data?.push({
+        id: 2,
+        title: teams[0]?.name,
+        subtitle: `You are in ${joined_team.toLowerCase()}`,
+        leftIcon: appIcons.peoples,
+      });
+  }
   return (
     <View style={{width: '100%'}}>
       <View style={styles.container}>
@@ -53,7 +59,7 @@ export const OngoingEventDetailCard = ({
             Your Amount: <Text style={styles.coloredSubTitle}>{subTitle}</Text>
           </Text>
         </View>
-        <TouchableOpacity style={styles.rightIconStyle}>
+        <TouchableOpacity disabled={true} style={styles.rightIconStyle}>
           <Image style={styles.rightIcon} source={appIcons.user} />
         </TouchableOpacity>
       </View>

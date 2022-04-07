@@ -139,7 +139,11 @@ const Activity = ({navigation}) => {
                         item?.repetitions?.length + ' x ' + item?.exercise?.name
                       }
                       mode={item?.exercise?.name}
-                      cardIcon={item?.exercise?.exercise_image_url}
+                      cardIcon={
+                        item?.exercise?.exercise_image_url
+                          ? {uri: item?.exercise?.exercise_image_url}
+                          : appImages.sample_exercise
+                      }
                     />
                   </View>
                 );

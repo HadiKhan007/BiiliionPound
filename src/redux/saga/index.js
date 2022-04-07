@@ -11,12 +11,21 @@ import {
   OTPVerifyRequest,
 } from './auth-saga/auth-sega';
 import {setProfileImageRequest} from './profile-sega/profile-sega';
-import {getWeightLiftedRequest} from './exercise-sega/exercise-sega';
+import {
+  getFilterExerciseRequest,
+  getWeightLiftedRequest,
+  selectfilteredBodyExerciseRequest,
+  selectfilteredCategoryExerciseRequest,
+  setfilteredBodyExerciseRequest,
+  setfilteredCategoryExerciseRequest,
+} from './exercise-sega/exercise-sega';
 import {
   addcardRequest,
   getOngoingEventRequest,
   getPaymentCardRequest,
   getUpcomingEventRequest,
+  joinEventRequest,
+  joinTeamEventRequest,
   payWithDebitRequest,
   payWithSocialAccountRequest,
   setOngoingEventRequest,
@@ -45,4 +54,11 @@ export function* rootSaga() {
   yield fork(getPaymentCardRequest);
   yield fork(payWithDebitRequest);
   yield fork(payWithSocialAccountRequest);
+  yield fork(joinEventRequest);
+  yield fork(joinTeamEventRequest);
+  yield fork(getFilterExerciseRequest);
+  yield fork(setfilteredBodyExerciseRequest);
+  yield fork(setfilteredCategoryExerciseRequest);
+  yield fork(selectfilteredCategoryExerciseRequest);
+  yield fork(selectfilteredBodyExerciseRequest);
 }

@@ -11,9 +11,11 @@ import {
 } from '../../../../components';
 import {
   appIcons,
+  BASE_URL,
   checkConnected,
   colors,
   image_options,
+  responseValidator,
   updateFormFields,
   UpdateVS,
 } from '../../../../shared/exporter';
@@ -24,6 +26,7 @@ import {Formik} from 'formik';
 import {useIsFocused} from '@react-navigation/core';
 import {useDispatch, useSelector} from 'react-redux';
 import {setProfileImage, updateUserProfile} from '../../../../redux/actions';
+import axios from 'axios';
 
 const EditProfile = ({navigation}) => {
   const [show, setShow] = useState(false);
@@ -33,58 +36,56 @@ const EditProfile = ({navigation}) => {
   const dispatch = useDispatch(null);
   const isFocus = useIsFocused();
   const [loading, setLoading] = useState(false);
-  // useEffect(() => {
-  //   if (isFocus) {
-  //   }
-  // }, [isFocus]);
-
+  console.log(userInfo?.token);
   const updateProfile = async values => {
-    console.log('====================================');
-    console.log(image);
-    console.log('====================================');
-    // setLoading(true);
+    setLoading(true);
     const checkInternet = await checkConnected();
-
-    // const data = new FormData();
-    // data.append('first_name', values?.firstName);
-    // data.append('last_name', values?.lastName);
-    // data.append('email', values?.email);
-    // data.append(
-    //   'profile_image',
-    //   image,
-    //   // {
-    //   // uri: image.uri,
-    //   // type: image.type,
-    //   // name: image.fileName,
-    //   // }
-    // );
-
-    const data = {
-      first_name: values?.firstName,
-      last_name: values?.lastName,
-      email: values?.email,
-      profile_image: {
-        uri: image.uri,
-        type: image.type,
-        name: image.fileName,
-      },
-    };
-
-    console.log('====================================');
-    console.log('update profile hit', data);
-    console.log('====================================');
-
-    const cbSuccess = response => {
-      //  navigation?.goBack();
-      setLoading(false);
-    };
-
-    const cbFailure = message => {
-      setLoading(false);
+    const image_data = {
+      uri: image?.uri,
+      type: image?.type,
+      name: image?.fileName,
     };
 
     if (checkInternet) {
-      dispatch(updateUserProfile(data, userInfo, cbSuccess, cbFailure));
+      let fd = new FormData();
+      if (image_data?.uri) {
+        fd.append('profile_image', image_data);
+      }
+      fd.append('first_name', values.firstName || userData?.first_name);
+      fd.append('last_name', values.lastName || userData?.last_name);
+      fd.append('email', values.email || userData?.email);
+      console.log(fd);
+      fetch(`${BASE_URL}/users/${userInfo?.user?.id}`, {
+        method: 'PUT',
+        body: fd,
+        headers: {
+          'X-My-Custom-Header': 'value-v',
+          Authorization: `Bearer ${userInfo?.token}`,
+        },
+      })
+        .then(async res => {
+          const response = await res.json();
+          if (response) {
+            dispatch(
+              updateUserProfile(
+                response,
+                () => {
+                  navigation?.goBack();
+                  setLoading(false);
+                },
+                () => {
+                  navigation?.goBack();
+                  setLoading(false);
+                },
+              ),
+            );
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          Alert.alert('Error', 'Something went wrong!');
+          setLoading(false);
+        });
     } else {
       setLoading(false);
       Alert.alert('Error', 'Check your internet connectivity!');
@@ -108,9 +109,6 @@ const EditProfile = ({navigation}) => {
             console.log('User tapped custom button: ', response.customButton);
           } else {
             setImage(response?.assets[0]);
-            console.log('====================================');
-            console.log('Image', response?.assets[0]?.uri);
-            console.log('====================================');
             dispatch(setProfileImage(response?.assets[0]?.uri));
             // You can also display the image using data:
             // const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -121,6 +119,7 @@ const EditProfile = ({navigation}) => {
       }
     }, 400);
   };
+
   //Open Camera
   const showCamera = () => {
     setShow(false);
@@ -138,9 +137,6 @@ const EditProfile = ({navigation}) => {
           } else {
             if (response.assets) {
               setImage(response?.assets[0]);
-              console.log('====================================');
-              console.log('Image', response?.assets[0]);
-              console.log('====================================');
               dispatch(setProfileImage(response?.assets[0]?.uri));
             } else {
               alert('Unable to open Camera');
@@ -152,6 +148,7 @@ const EditProfile = ({navigation}) => {
       }
     }, 400);
   };
+
   return (
     <SafeAreaView style={styles.main}>
       {loading ? <Loader loading={loading} /> : null}
@@ -191,22 +188,6 @@ const EditProfile = ({navigation}) => {
             handleReset,
             setFieldValue,
           }) => {
-            useEffect(() => {
-              {
-                console.log('====================================');
-                console.log(userData?.last_name);
-                console.log('====================================');
-                if (userData?.first_name != '') {
-                  setFieldValue('firstName', userData?.first_name);
-                }
-                if (userData?.last_name != '') {
-                  setFieldValue('lastName', userData?.last_name);
-                }
-                if (userData?.email != '') {
-                  setFieldValue('email', userData?.email);
-                }
-              }
-            }, []);
             return (
               <KeyboardAwareScrollView
                 style={styles.itemContainer2}
@@ -297,6 +278,6 @@ const EditProfile = ({navigation}) => {
       </View>
     </SafeAreaView>
   );
-};;;;;;
+};
 
 export default EditProfile;

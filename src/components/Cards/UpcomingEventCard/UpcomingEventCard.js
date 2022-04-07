@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
   appIcons,
   appImages,
+  capitalizeFirstLetter,
   colors,
   family,
   profile_uri,
@@ -31,7 +32,14 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
                     }
                   : appImages.sample_exercise
               }
-              style={styles.imageStyle}
+              style={[
+                styles.imageStyle,
+                {
+                  resizeMode: upcoming_event_item?.event_image_url
+                    ? 'cover'
+                    : 'contain',
+                },
+              ]}
             />
           </View>
         </View>
@@ -54,15 +62,13 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
               <Image source={appIcons.location} style={styles.locationStyle} />
               <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
-            {upcoming_event_item?.status.match('Joined') ? (
+            {upcoming_event_item?.status_event?.match('joined') ? (
               <TouchableOpacity style={styles.btnContainer}>
                 <Text style={styles.btnText}>
-                  {upcoming_event_item?.status}
+                  {capitalizeFirstLetter(upcoming_event_item?.status_event)}
                 </Text>
               </TouchableOpacity>
-            ) : (
-              false
-            )}
+            ) : null}
           </View>
         </View>
       </TouchableOpacity>
@@ -109,7 +115,8 @@ const styles = StyleSheet.create({
   imageStyle: {
     height: '100%',
     width: '100%',
-    resizeMode: 'contain',
+    resizeMode: 'cover',
+    borderRadius: 5,
   },
   title: {
     fontSize: size.tiny,
