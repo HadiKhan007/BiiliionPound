@@ -1,37 +1,85 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, FlatList, Text, View} from 'react-native';
+import {SafeAreaView, FlatList, Text, View, Alert} from 'react-native';
 import styles from './styles';
 import {
   ActivitySuccess,
   AppHeader,
   FitnessCard,
+  Loader,
   RepsInput,
 } from '../../../../components';
-import {appIcons, appImages, colors} from '../../../../shared/exporter';
+import {
+  appIcons,
+  appImages,
+  checkConnected,
+  colors,
+} from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useDispatch, useSelector} from 'react-redux';
+import {create_exercise_workout_request} from '../../../../redux/actions';
 
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
   const [onSuccess, setonSuccess] = useState(false);
-
+  const dispatch = useDispatch(null);
+  const [isLoading, setisLoading] = useState(false);
+  const {exercise_item, create_exercise_workout, exercise_screen} = useSelector(
+    state => state?.exercise,
+  );
   const onPressDelItem = (item, index) => {
     inputList[index] = undefined;
     setInputList(inputList.filter(item => item != undefined));
   };
-
-  const onFinish = () => {
-    setonSuccess(true);
-    console.log(inputList);
-  };
-
-  const onAddConfirmed = (item, index, lbs, rep, enableCheck) => {
-    if (item?.id == inputList[index]?.id) {
-      inputList[index].lbsValue = lbs;
-      inputList[index].repValue = rep;
-      inputList[index].completeEditing = !enableCheck;
+  //ON FINISH
+  const onFinish = async () => {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setisLoading(true);
+      try {
+        const filterRepitions = inputList.filter(item => {
+          return {
+            set: item?.set,
+            lbs: item?.lbs,
+            repetition: item?.repetition,
+          };
+        });
+        const addExerciseSuccess = res => {
+          console.log(res);
+          setisLoading(false);
+          setonSuccess(true);
+        };
+        const addExerciseFailed = res => {
+          setisLoading(false);
+          Alert.alert('Error', res);
+        };
+        const requestBody = {
+          user_exercise: {
+            exercise_id: exercise_item?.id,
+            repetitions_attributes: filterRepitions,
+          },
+        };
+        dispatch(
+          create_exercise_workout_request(
+            requestBody,
+            addExerciseSuccess,
+            addExerciseFailed,
+          ),
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
 
+  const onAddConfirmed = (item, index, lbs, rep, enableCheck) => {
+    if (item?.set == inputList[index]?.set) {
+      inputList[index].lbs = lbs;
+      inputList[index].repetition = rep;
+      inputList[index].completeEditing = !enableCheck;
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -40,16 +88,27 @@ const AddRaps = ({navigation}) => {
           title={'Add Reps'}
           subtitle={'Finish'}
           onPressBtn={onFinish}
+          disabled={inputList.length > 0 ? false : true}
         />
         <KeyboardAwareScrollView
           showsVerticalScrollIndicator={false}
           style={styles.flatStyle}>
           <View style={styles.topItems}>
-            <FitnessCard icon={appImages.sample_exercise} />
-            <Text style={styles.title}>Front Raises</Text>
-            <Text style={styles.subtitle}>Shoulder</Text>
+            <FitnessCard
+              icon={
+                exercise_item?.exercise_image
+                  ? {uri: exercise_item?.exercise_image}
+                  : appImages.sample_exercise
+              }
+            />
+            <Text style={styles.title}>{exercise_item?.name || ''}</Text>
+            <Text style={styles.subtitle}>
+              {exercise_item?.exercise_type || ''}
+            </Text>
           </View>
-          <Text style={styles.header}>Front Raises (Dumbbell)</Text>
+          <Text style={styles.header}>
+            {`${exercise_item?.name || ''} (${exercise_item?.category || ''})`}{' '}
+          </Text>
           <FlatList
             data={inputList}
             showsVerticalScrollIndicator={false}
@@ -78,14 +137,14 @@ const AddRaps = ({navigation}) => {
                   enableAddSet={true}
                   enableSwipe={false}
                   onItemAdded={(lbs, rep) => {}}
-                  onPressAddSet={(lbs, reps) => {
+                  onPressAddSet={(lbs, reps, enableCheck) => {
                     setInputList([
                       ...inputList,
                       {
-                        id: inputList.length + 1,
-                        lbsValue: lbs,
-                        repValue: reps,
-                        completeEditing: false,
+                        set: inputList.length + 1,
+                        lbs: lbs,
+                        repetition: reps,
+                        completeEditing: enableCheck,
                       },
                     ]);
                   }}
@@ -97,19 +156,26 @@ const AddRaps = ({navigation}) => {
       </View>
       {onSuccess && (
         <ActivitySuccess
-          name={'John Doe'}
-          type={'Shoulder'}
-          weight={'150LBS'}
-          excercise={'2x Front Raises'}
-          mode={'Front Raises'}
-          show={onSuccess}
+          name={`${create_exercise_workout?.user?.first_name} ${create_exercise_workout?.user?.last_name}`}
+          type={create_exercise_workout?.exercise?.exercise_type}
+          weight={`${create_exercise_workout?.total_lbs} LBS`}
+          excercise={`${create_exercise_workout?.repetitions.length}x ${create_exercise_workout?.exercise?.name}`}
+          mode={`${create_exercise_workout?.exercise?.name} (${create_exercise_workout?.exercise?.category})`}
+          show={true}
           onPressHide={() => {
             setonSuccess(false);
             navigation?.replace('AddExercise');
           }}
-          cardIcon={appImages.sample_exercise}
+          cardIcon={
+            create_exercise_workout?.exercise?.exercise_image_url
+              ? {
+                  uri: create_exercise_workout?.exercise?.exercise_image_url,
+                }
+              : appImages.sample_exercise
+          }
         />
       )}
+      {isLoading && <Loader loading={isLoading} />}
     </SafeAreaView>
   );
 };

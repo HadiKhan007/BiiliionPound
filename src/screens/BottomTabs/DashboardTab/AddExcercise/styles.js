@@ -42,6 +42,11 @@ const styles = StyleSheet.create({
     bottom: 20,
     alignSelf: 'center',
   },
+  flatlistWrap: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+  },
 });
 
 export default styles;

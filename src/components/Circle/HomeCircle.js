@@ -10,7 +10,7 @@ export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
       <View style={styles.circleContainer}>
         {!isLoading ? (
           <>
-            <Text style={styles.title}>
+            <Text style={styles.title} numberOfLines={1}>
               {title?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             </Text>
             <Text style={styles.subtitle}>{subtitle}</Text>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.b1,
-    fontSize: WP('18'),
+    fontSize: WP('10'),
     fontFamily: family.OpenSans_Medium,
     textAlign: 'center',
   },

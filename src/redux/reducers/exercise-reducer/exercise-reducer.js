@@ -12,6 +12,8 @@ const initialState = {
   all_exercise: [],
   exercise_screen: false,
   exercise_item: null,
+  create_exercise_workout: null,
+  recent_searches: [],
 };
 const exerciseReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -35,22 +37,13 @@ const exerciseReducer = (state = initialState, actions) => {
         lifted_weight: null,
       };
     //************Filtered Exercise Sates*************
-    case TYPES.GET_FILTERED_EXERCISE_SUCCESS:
+    case TYPES.SET_FILTERED_EXERCISE_SUCCESS:
       return {
         ...state,
         loading: false,
         isSuccess: true,
         isFailure: false,
         filtered_exercises: payload,
-      };
-
-    case TYPES.GET_FILTERED_EXERCISE_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        isSuccess: false,
-        isFailure: true,
-        filtered_exercises: null,
       };
 
     //************ Exercise Sates*************
@@ -72,6 +65,44 @@ const exerciseReducer = (state = initialState, actions) => {
         all_exercise: null,
       };
 
+    //************ Exercise Sates*************
+    case TYPES.GET_FILTERED_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        all_exercise: payload,
+      };
+
+    case TYPES.GET_FILTERED_EXERCISE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        all_exercise: null,
+      };
+
+    //************Create Exercise Sates*************
+    case TYPES.CREATE_EXERCISE_WORKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        create_exercise_workout: payload,
+      };
+
+    case TYPES.CREATE_EXERCISE_WORKOUT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        create_exercise_workout: null,
+      };
+
     //************Filtered Exercise Sates*************
     case TYPES.SET_CATEGORY_FILTERED_SUCCESS:
       return {
@@ -88,18 +119,21 @@ const exerciseReducer = (state = initialState, actions) => {
       };
 
     case TYPES.SELECT_CATEGORY_FILTER_SUCCESS:
+      state.categoryFilteredArray[payload].tick =
+        !state.categoryFilteredArray[payload].tick;
       return {
         ...state,
         loading: false,
-        // categoryFilteredArray: payload,
+        categoryFilteredArray: state?.categoryFilteredArray,
       };
 
     case TYPES.SELECT_BODY_FILTER_SUCCESS:
-      console.log(payload);
+      state.bodyFilteredArray[payload].tick =
+        !state.bodyFilteredArray[payload].tick;
       return {
         ...state,
         loading: false,
-        // bodyFilteredArray: payload,
+        bodyFilteredArray: state?.bodyFilteredArray,
       };
     //************Custom Exercise*************
     case TYPES.CUSTOM_EXERCISE_SUCCESS:
@@ -117,6 +151,11 @@ const exerciseReducer = (state = initialState, actions) => {
       return {
         ...state,
         exercise_item: payload,
+      };
+    case TYPES.SET_RECENT_SEARCHES_SUCCESS:
+      return {
+        ...state,
+        recent_searches: payload,
       };
     default:
       return state;

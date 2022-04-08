@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
     color: colors.mediumGrey,
   },
   selectedContainer: {
-    width: 100,
     height: 40,
     borderRadius: 40,
     backgroundColor: colors.p5,
@@ -70,9 +69,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.p1,
     flexDirection: 'row',
+    paddingHorizontal: 10,
   },
   selectedText: {
     fontFamily: family.OpenSans_Regular,
     color: colors.p1,
+    marginRight: 5,
   },
 });

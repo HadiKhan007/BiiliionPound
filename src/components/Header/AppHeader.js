@@ -15,6 +15,7 @@ export const AppHeader = ({
   smSubtitle,
   titleColor,
   paddingHorizontal,
+  disabled,
 }) => {
   const navigation = useNavigation();
   return (
@@ -49,7 +50,10 @@ export const AppHeader = ({
           ]}>
           {title}
         </Text>
-        <TouchableOpacity style={styles.rightContainer} onPress={onPressBtn}>
+        <TouchableOpacity
+          style={styles.rightContainer}
+          disabled={disabled}
+          onPress={onPressBtn}>
           {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
           {smSubtitle && (
             <Text style={styles.smSubtitleStyle}>{smSubtitle}</Text>

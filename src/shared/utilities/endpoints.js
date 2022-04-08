@@ -12,6 +12,7 @@ const ENDPOINTS = {
   ACCESS_TOKEN: 'get_access_token',
   VERIFY_OTP: 'password/check_otp',
   EXERCISES: 'exercises',
+  USER_EXERCISES: 'user_exercises',
   EVENTS: 'events',
   USER_EVENTS: 'user_events',
   USERS_TEAM: 'user_teams',

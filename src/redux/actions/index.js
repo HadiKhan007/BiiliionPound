@@ -26,6 +26,10 @@ export {
   get_exercise_request,
   set_exercise_screen_request,
   set_exercise_item_request,
+  create_exercise_workout_request,
+  set_filtered_exercise_request,
+  get_filtered_exercise_request,
+  set_exercise_recent_search_request,
 } from './exercise-actions/exercise-actions';
 export {
   get_upcoming_event_request,
@@ -38,7 +42,6 @@ export {
   get_payment_cards_request,
   join_event_request,
   join_event_team_request,
-  get_event_detail_request,
 } from './event-actions/event-actions';
 
 export {

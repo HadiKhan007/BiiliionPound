@@ -1,6 +1,7 @@
 import {takeLatest, put} from 'redux-saga/effects';
 import {responseValidator} from '../../../shared/exporter';
 import {
+  createExerWorkout,
   creatingCustomExercise,
   getAllExer,
   getWeightLifted,
@@ -68,35 +69,19 @@ function* createCustomExerciseRequest(params) {
   }
 }
 
-// ************* Get  Filter Sega**************
-export function* getFilterExerciseRequest() {
-  yield takeLatest(types.GET_FILTERED_EXERCISE_REQUEST, getFilteredExercise);
+// ************* Set  Filter Sega**************
+export function* setFilterExerciseRequest() {
+  yield takeLatest(types.SET_FILTERED_EXERCISE_REQUEST, setFilteredExercise);
 }
 
-function* getFilteredExercise(params) {
+function* setFilteredExercise(params) {
   try {
-    const res = yield getFilterExer(params?.params);
-    if (res.data) {
-      yield put({
-        type: types.GET_FILTERED_EXERCISE_SUCCESS,
-        payload: res.data,
-      });
-      params?.cbSuccess(res.data);
-    } else {
-      yield put({
-        type: types.GET_FILTERED_EXERCISE_SUCCESS,
-        payload: res.data,
-      });
-      params?.cbFailure(res?.data);
-    }
+    yield put({
+      type: types.SET_FILTERED_EXERCISE_SUCCESS,
+      payload: params?.params,
+    });
   } catch (error) {
     console.log(error);
-    yield put({
-      type: types.GET_FILTERED_EXERCISE_FAILURE,
-      payload: null,
-    });
-    let msg = responseValidator(error?.response?.status, error?.response?.data);
-    params?.cbFailure(msg);
   }
 }
 
@@ -105,11 +90,9 @@ function* getFilteredExercise(params) {
 export function* getExerciseRequest() {
   yield takeLatest(types.GET_EXERCISE_REQUEST, getExercises);
 }
-
 function* getExercises(params) {
   try {
     const res = yield getAllExer();
-
     if (res.data) {
       yield put({
         type: types.GET_EXERCISE_SUCCESS,
@@ -127,6 +110,36 @@ function* getExercises(params) {
     console.log(error);
     yield put({
       type: types.GET_EXERCISE_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+export function* getFilteredExerciseRequest() {
+  yield takeLatest(types.GET_FILTERED_EXERCISE_REQUEST, getFilteredExercises);
+}
+function* getFilteredExercises(params) {
+  try {
+    const res = yield getAllFilterExer();
+    if (res.data) {
+      yield put({
+        type: types.GET_FILTERED_EXERCISE_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.GET_FILTERED_EXERCISE_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.GET_FILTERED_EXERCISE_FAILURE,
       payload: null,
     });
     let msg = responseValidator(error?.response?.status, error?.response?.data);
@@ -157,6 +170,21 @@ function* setExerciseItem(params) {
   try {
     yield put({
       type: types.SET_EXERCISE_ITEM_SUCCESS,
+      payload: params?.params,
+    });
+    params?.cbSuccess();
+  } catch (error) {}
+}
+
+//Set Recent Search Item
+export function* setRecentSearchRequest() {
+  yield takeLatest(types.SET_RECENT_SEARCHES_REQUEST, setRecentSearch);
+}
+
+function* setRecentSearch(params) {
+  try {
+    yield put({
+      type: types.SET_RECENT_SEARCHES_SUCCESS,
       payload: params?.params,
     });
     params?.cbSuccess();
@@ -229,5 +257,40 @@ function* selectFilteredBody(params) {
     });
   } catch (error) {
     console.log(error);
+  }
+}
+
+// *************Create Exercise Workout Sega**************
+
+export function* createExerciseWorkoutRequest() {
+  yield takeLatest(
+    types.CREATE_EXERCISE_WORKOUT_REQUEST,
+    createExerciseWorkout,
+  );
+}
+function* createExerciseWorkout(params) {
+  try {
+    const res = yield createExerWorkout(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.CREATE_EXERCISE_WORKOUT_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.CREATE_EXERCISE_WORKOUT_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.CREATE_EXERCISE_WORKOUT_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
   }
 }

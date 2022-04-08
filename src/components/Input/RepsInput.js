@@ -30,8 +30,8 @@ export const RepsInput = ({
   const [reps, setReps] = useState('');
   const [enableCheck, setEnableCheck] = useState(false);
   useEffect(() => {
-    setLbs(item?.lbsValue);
-    setReps(item?.repValue);
+    setLbs(item?.lbs);
+    setReps(item?.repetition);
   }, []);
 
   const renderRightActions = (progress, dragX) => {
@@ -136,13 +136,12 @@ export const RepsInput = ({
         <View style={[styles.addBtnContainer]}>
           {enableAddSet && (
             <TouchableOpacity
-              disabled={lbs == '' || reps == '' ? true : false}
-              onPress={() => onPressAddSet(lbs, reps)}
+              disabled={!lbs || !reps ? true : false}
+              onPress={() => onPressAddSet(lbs, reps, enableCheck)}
               style={[
                 styles.addBtn,
                 {
-                  backgroundColor:
-                    lbs == '' || reps == '' ? colors.g11 : colors.p1,
+                  backgroundColor: !lbs || !reps ? colors.g11 : colors.p1,
                 },
               ]}>
               <Text style={styles.addBtntxt}>Add Set</Text>

@@ -10,5 +10,11 @@ export const creatingCustomExercise = params => {
 };
 //Get Filtered Exercise
 export const getAllExer = () => {
-  return HTTP_CLIENT.get(`${ENDPOINTS.EXERCISES}`);
+  return HTTP_CLIENT.get(`${ENDPOINTS.EXERCISES}.json`);
+};
+
+//Create Exercise Workout
+export const createExerWorkout = params => {
+  console.log(params);
+  return HTTP_CLIENT.post(`${ENDPOINTS.USER_EXERCISES}`, params);
 };

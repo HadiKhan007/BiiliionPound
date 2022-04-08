@@ -16,17 +16,18 @@ import {
   PrimaryHeading,
   SelectButton,
   AddNewExercise,
+  Loader,
 } from '../../../../components';
 import {
   appIcons,
   appImages,
+  checkConnected,
   colors,
   filterBody,
   filterCategory,
   spacing,
   WP,
 } from '../../../../shared/exporter';
-import AlphabetSectionList from 'react-native-alphabet-sectionlist';
 import FilterItem from '../../../../components/Cards/FilterItem/FilterItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -36,144 +37,27 @@ import {
   select_category_filter_request,
   set_body_filtered_request,
   set_category_filtered_request,
+  set_exercise_item_request,
+  set_exercise_recent_search_request,
+  set_filtered_exercise_request,
 } from '../../../../redux/actions';
 import {useIsFocused} from '@react-navigation/core';
-import {offset} from 'dom-helpers';
-const sectionListItem = {
-  A: [
-    {
-      id: 0,
-      name: 'Arnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-    {
-      id: 1,
-
-      name: 'Arnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-    {
-      id: 2,
-
-      name: 'Arnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-  ],
-  B: [
-    {
-      id: 3,
-      name: 'Brnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-    {
-      id: 4,
-
-      name: 'Brnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-    {
-      id: 5,
-
-      name: 'Brnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-    {
-      id: 6,
-
-      name: 'Brnold Press (Dumbbell)',
-      icon: appImages.sample_exercise,
-      type: 'Shoulder',
-      selected: false,
-    },
-  ],
-};
-
-const DATA = [
-  {
-    title: 'A',
-    data: [
-      {
-        id: 0,
-        name: 'Arnold Press',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-        selected: false,
-        parent_category: 'A',
-      },
-      {
-        id: 1,
-        name: 'Brnold Press ',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-        selected: false,
-        parent_category: 'A',
-      },
-      {
-        id: 2,
-        name: 'Crnold Press ',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-        selected: false,
-        parent_category: 'A',
-      },
-    ],
-  },
-  {
-    title: 'B',
-    data: [
-      {
-        id: 3,
-        name: 'drnold Press',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-        selected: false,
-        parent_category: 'B',
-      },
-      {
-        id: 4,
-        name: 'Ernold Press ',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-        selected: false,
-        parent_category: 'B',
-      },
-      {
-        id: 5,
-        name: 'Frnold Press ',
-        icon: appImages.sample_exercise,
-        type: 'Shoulder',
-        selected: false,
-        parent_category: 'B',
-      },
-    ],
-  },
-];
 
 const AddExcercise = ({navigation}) => {
-  const [sectionListData, setSectionListData] = useState(DATA);
-  const [sectionListTempData, setSectionListTempData] = useState(DATA);
-
+  const [sectionListData, setSectionListData] = useState([]);
+  const [sectionListTempData, setSectionListTempData] = useState([]);
   const [filterExcersice, setFilterExcersice] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(0);
-  const [recentSearch, setrecentSearch] = useState([1, 2]);
-  const [filteredItems, setfilteredItems] = useState([1, 2]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isLoading, setisLoading] = useState(false);
   const isFocus = useIsFocused(null);
-  const {categoryFilteredArray, bodyFilteredArray, all_exercise} = useSelector(
-    state => state?.exercise,
-  );
+  const {
+    categoryFilteredArray,
+    bodyFilteredArray,
+    filtered_exercises,
+    recent_searches,
+  } = useSelector(state => state?.exercise);
   const dispatch = useDispatch(null);
+
   //References
   const addExerciseSheetRef = useRef(null);
 
@@ -181,6 +65,11 @@ const AddExcercise = ({navigation}) => {
     if (isFocus) {
       getExercises();
     }
+    return () => {
+      setSelectedItem(null);
+      setSectionListData([]);
+      setSectionListTempData([]);
+    };
   }, [isFocus]);
 
   //Filter Functions
@@ -218,7 +107,7 @@ const AddExcercise = ({navigation}) => {
 
   const onChangeSearchText = text => {
     if (text === '') {
-      setSectionListData(DATA);
+      setSectionListData(sectionListTempData);
       return;
     }
     let matchedItemsArray = [];
@@ -236,7 +125,6 @@ const AddExcercise = ({navigation}) => {
         });
       }
     });
-
     setSectionListData(matchedItemsArray);
   };
 
@@ -259,6 +147,12 @@ const AddExcercise = ({navigation}) => {
         };
       }),
     );
+    setSelectedItem(item);
+    dispatch(
+      set_exercise_item_request(item, () => {
+        console.log('Item Setted');
+      }),
+    );
   };
 
   //Render Exercise Cards
@@ -266,10 +160,14 @@ const AddExcercise = ({navigation}) => {
     return (
       <View style={[spacing.my2]}>
         <ExcerciseCard
-          type={item?.type}
-          icon={item?.icon}
+          type={item?.exercise_type}
+          icon={
+            item?.exercise_image
+              ? {uri: item?.exercise_image}
+              : appImages.sample_exercise
+          }
           selected={item.selected}
-          name={item?.name}
+          name={`${item?.name} (${item?.category})`}
           paddingHorizontal={WP('5')}
           onSelectionChange={onSelectionChange}
           item={item}
@@ -280,8 +178,19 @@ const AddExcercise = ({navigation}) => {
 
   const onFilterSave = () => {
     setFilterExcersice(false);
-  };
 
+    const filterCategoryArray = categoryFilteredArray.filter(
+      item => item?.tick,
+    );
+    const filterBodyArray = body.filter(item => item?.tick);
+
+    dispatch(
+      set_filtered_exercise_request([
+        ...filterCategoryArray,
+        ...bodyFilteredArray,
+      ]),
+    );
+  };
   const renderSectionHeader = ({section: {title}}) => {
     return (
       <View style={styles.sectionHeader}>
@@ -291,15 +200,61 @@ const AddExcercise = ({navigation}) => {
   };
 
   const getExercises = async () => {
-    const getExerciseSuccess = res => {
-      console.log('[Excercise Events]', res);
-    };
-    //On get upcoming event failure
-    const getExerciseFailure = res => {
-      Alert.alert('Error', res);
-    };
-    dispatch(get_exercise_request(getExerciseSuccess, getExerciseFailure));
+    try {
+      const checkInternet = await checkConnected();
+      if (checkInternet) {
+        setisLoading(true);
+        const getExerciseSuccess = res => {
+          console.log('[Excercise Events]');
+          const exerciseArray = res?.exercises;
+          if (exerciseArray.length > 0) {
+            const myExerciseArray = exerciseArray?.map((item, index) => {
+              item?.data?.map((data, i) => {
+                item.data[i]['selected'] = false;
+                item.data[i]['parent_category'] = item.title;
+              });
+              return item;
+            });
+            setSectionListData(myExerciseArray);
+            setSectionListTempData(myExerciseArray);
+            setisLoading(false);
+          }
+        };
+        //On get upcoming event failure
+        const getExerciseFailure = res => {
+          Alert.alert('Error', res);
+          setisLoading(false);
+        };
+        dispatch(get_exercise_request(getExerciseSuccess, getExerciseFailure));
+      } else {
+        Alert.alert('Error', 'Check your internet connectivity!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const onPressDone = () => {
+    if (selectedItem) {
+      const filteredItem = recent_searches.filter(item => {
+        if (item?.id != selectedItem?.id) {
+          return true;
+        }
+      });
+
+      dispatch(
+        set_exercise_recent_search_request(
+          filteredItem ? [...filteredItem, selectedItem] : recent_searches,
+          () => {
+            navigation?.navigate('AddReps');
+          },
+        ),
+      );
+    } else {
+      Alert.alert('Message!', 'Please select at least one exercise');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -319,18 +274,20 @@ const AddExcercise = ({navigation}) => {
               addExerciseSheetRef.current.show();
             }}
           />
-          {filteredItems != '' ? (
+          {filtered_exercises != '' ? (
             <View>
               <FlatList
-                data={[...new Set(filteredItems)]}
-                numColumns={3}
+                data={[
+                  ...new Set(filtered_exercises.filter(item => item?.tick)),
+                ]}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.flatlistWrap}
                 renderItem={({item}) => {
                   return (
                     <View style={[spacing.mr1, spacing.my1]}>
                       <FilterItem
                         clearButton={true}
-                        title={'Arms'}
+                        title={item?.title}
                         selected={true}
                       />
                     </View>
@@ -342,11 +299,15 @@ const AddExcercise = ({navigation}) => {
             false
           )}
 
-          {recentSearch != '' ? (
+          {recent_searches != '' ? (
             <View style={[spacing.my3]}>
               <PrimaryHeading
                 onPressSubtitle={() => {
-                  setrecentSearch([]);
+                  dispatch(
+                    set_exercise_recent_search_request([], () => {
+                      console.log('Search Reset');
+                    }),
+                  );
                 }}
                 title={'Recent Search'}
                 subtitle={'Remove'}
@@ -357,23 +318,34 @@ const AddExcercise = ({navigation}) => {
           <View
             style={[
               styles.sectionlistStyle,
-              {flex: recentSearch != '' ? 0.5 : 0},
+              {
+                flex:
+                  recent_searches != ''
+                    ? recent_searches.length > 1
+                      ? 0.5
+                      : 0.2
+                    : 0,
+              },
             ]}>
             <FlatList
-              data={recentSearch}
+              data={recent_searches}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
                   <View style={[spacing.py2]}>
                     <ExcerciseCard
-                      onPressCard={() => {
-                        // setonSuccess(!onSuccess);
-                      }}
-                      type={'Shoulder'}
-                      icon={appImages.sample_exercise}
-                      name={'Arnold Press (Dumbbell)'}
+                      type={item?.exercise_type}
+                      icon={
+                        item?.exercise_image
+                          ? {uri: item?.exercise_image}
+                          : appImages.sample_exercise
+                      }
+                      name={`${item?.name} (${item?.category})`}
                       paddingHorizontal={WP('5')}
-                      onSelectionChange={() => {}}
+                      onSelectionChange={d => {
+                        setSelectedItem(item);
+                      }}
+                      selected={item?.id == selectedItem?.id ? true : false}
                       item={item}
                     />
                   </View>
@@ -382,14 +354,6 @@ const AddExcercise = ({navigation}) => {
             />
           </View>
           <View style={styles.sectionlistStyle}>
-            {/* <AlphabetSectionList
-              showsVerticalScrollIndicator={false}
-              data={sectionListItem}
-              headerStyle={{paddingHorizontal: WP('5')}}
-              renderItem={renderItem}
-              hideRightSectionList={true}
-              renderSectionHeader={renderSectionHeader}
-            /> */}
             <SectionList
               sections={sectionListData}
               keyExtractor={(item, index) => item + index}
@@ -400,7 +364,7 @@ const AddExcercise = ({navigation}) => {
           <View style={styles.selectionBtn}>
             <SelectButton
               onPress={() => {
-                navigation?.navigate('AddReps');
+                onPressDone();
               }}
             />
           </View>
@@ -435,14 +399,9 @@ const AddExcercise = ({navigation}) => {
         borderleftRadius={15}
         borderRightRadius={15}
       />
+      {<Loader loading={isLoading} />}
     </SafeAreaView>
   );
 };
-
-const Item = ({name}) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{name}</Text>
-  </View>
-);
 
 export default AddExcercise;
