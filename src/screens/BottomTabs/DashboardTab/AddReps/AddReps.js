@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, FlatList, Text, View, Alert} from 'react-native';
+import {SafeAreaView, FlatList, Text, View, Alert, Share} from 'react-native';
 import styles from './styles';
 import {
   ActivitySuccess,
@@ -84,6 +84,21 @@ const AddRaps = ({navigation}) => {
     }
   };
 
+  const shareReceipt = async () => {
+    const result = await Share.share({
+      title: 'BillionPound',
+      message: `${create_exercise_workout?.user?.first_name} ${create_exercise_workout?.user?.last_name} join event ${create_exercise_workout?.exercise?.name} and total pounds lifted is ${create_exercise_workout?.total_lbs} LBS`,
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // shared with activity type of result.activityType
+      } else {
+        // shared
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // dismissed
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -170,6 +185,7 @@ const AddRaps = ({navigation}) => {
             setonSuccess(false);
             navigation?.replace('App');
           }}
+          onPressShare={shareReceipt}
           cardIcon={
             create_exercise_workout?.exercise?.exercise_image_url
               ? {

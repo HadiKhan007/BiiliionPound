@@ -21,10 +21,12 @@ import {
 import {
   appIcons,
   appImages,
+  BASE_URL,
   checkConnected,
   colors,
   filterBody,
   filterCategory,
+  responseValidator,
   spacing,
   WP,
 } from '../../../../shared/exporter';
@@ -51,6 +53,7 @@ const AddExcercise = ({navigation}) => {
   const [isLoading, setisLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedBody, setSelectedBody] = useState(null);
+  const {userInfo} = useSelector(state => state.auth);
 
   const isFocus = useIsFocused(null);
   const {
@@ -219,37 +222,53 @@ const AddExcercise = ({navigation}) => {
         };
         //On get upcoming event failure
         const getExerciseFailure = res => {
-          Alert.alert('Error', res);
+          let msg = responseValidator(
+            error?.response?.status,
+            error?.response?.data,
+          );
+          Alert.alert('Error', msg);
           setisLoading(false);
         };
-        const requestBody = {
-          'q[category_eq]': selectedCategory ? selectedCategory?.title : '',
-          'q[exercise_type_eq]': selectedBody ? selectedBody?.title : '',
-          'q[m]': 'or',
-        };
-        // const form = new FormData();
-        // form.append(
-        //   'q[category_eq]',
-        //   selectedCategory ? selectedCategory?.title : '',
-        // );
-        // form.append(
-        //   'q[exercise_type_eq]',
-        //   selectedBody ? selectedBody?.title : '',
-        // );
-        // form.append('q[m]', 'or');
-        dispatch(
-          get_exercise_request(
-            requestBody,
-            getExerciseSuccess,
-            getExerciseFailure,
-          ),
+
+        const form = new FormData();
+        form.append(
+          'q[category_eq]',
+          selectedCategory ? selectedCategory?.title : '',
         );
+        form.append(
+          'q[exercise_type_eq]',
+          selectedBody ? selectedBody?.title : '',
+        );
+        form.append('q[m]', 'or');
+        fetch(`${BASE_URL}/exercises/filter_exercise.json`, {
+          method: 'POST',
+          body: form,
+          headers: {
+            'X-My-Custom-Header': 'value-v',
+            Authorization: `Bearer ${userInfo?.token}`,
+          },
+        })
+          .then(async res => {
+            const response = await res.json();
+            dispatch(
+              get_exercise_request(
+                response,
+                getExerciseSuccess,
+                getExerciseFailure,
+              ),
+            );
+          })
+          .catch(error => {
+            let msg = responseValidator(
+              error?.response?.status,
+              error?.response?.data,
+            );
+            Alert.alert('Error', msg);
+          });
       } else {
         Alert.alert('Error', 'Check your internet connectivity!');
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const onPressDone = () => {
@@ -301,7 +320,7 @@ const AddExcercise = ({navigation}) => {
             }}
           />
           <View style={styles.flatlistWrap}>
-            {selectedCategory && (
+            {selectedCategory?.title && (
               <View style={[spacing.mr1, spacing.my1]}>
                 <FilterItem
                   clearButton={true}

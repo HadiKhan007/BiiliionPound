@@ -20,6 +20,7 @@ export const ActivitySuccess = ({
   weight,
   excercise,
   mode,
+  onPressShare,
 }) => {
   return (
     <Modal animationType="slide" style={styles.container} visible={show}>
@@ -28,6 +29,7 @@ export const ActivitySuccess = ({
           onPressBack={onPressHide}
           secondaryIcon={appIcons.cross}
           rightIcon={appIcons.share}
+          onPressBtn={onPressShare}
         />
         <View style={styles.content}>
           <LottieView source={appJSON.congratulation} autoPlay loop />

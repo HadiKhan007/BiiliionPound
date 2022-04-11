@@ -92,28 +92,14 @@ export function* getExerciseRequest() {
 }
 function* getExercises(params) {
   try {
-    const res = yield getAllExer(params?.params);
-    if (res.data) {
-      yield put({
-        type: types.GET_EXERCISE_SUCCESS,
-        payload: res.data,
-      });
-      params?.cbSuccess(res.data);
-    } else {
-      yield put({
-        type: types.GET_EXERCISE_FAILURE,
-        payload: null,
-      });
-      params?.cbFailure(res?.data);
-    }
+    yield put({
+      type: types.GET_EXERCISE_SUCCESS,
+      payload: params?.params,
+    });
+    params?.cbSuccess(params?.params);
   } catch (error) {
     console.log(error);
-    yield put({
-      type: types.GET_EXERCISE_FAILURE,
-      payload: null,
-    });
-    let msg = responseValidator(error?.response?.status, error?.response?.data);
-    params?.cbFailure(msg);
+    params?.cbSuccess('');
   }
 }
 

@@ -54,7 +54,6 @@ const EventDetail = ({navigation}) => {
       </Text>
     );
   };
-
   const onEndSelection = () => {
     setSelectionModal(false);
   };
@@ -127,7 +126,7 @@ const EventDetail = ({navigation}) => {
               disabled={true}
             />
           </View>
-          {!event_detail?.status_event?.match('joined') ? (
+          {!event_detail?.current_user?.event_status?.match('joined') ? (
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
               <TouchableOpacity
@@ -168,7 +167,7 @@ const EventDetail = ({navigation}) => {
             )}
           </View>
           {/* Join NOW */}
-          {!event_detail?.status_event?.match('joined') ? (
+          {!event_detail?.current_user?.event_status?.match('joined') ? (
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
@@ -182,7 +181,7 @@ const EventDetail = ({navigation}) => {
           ) : null}
         </View>
       </ScrollView>
-      {event_detail?.status_event?.match('joined') ? (
+      {event_detail?.current_user?.event_status?.match('joined') ? (
         <EventStatusCard
           bgColor={colors.gr1}
           textColor={colors.white}

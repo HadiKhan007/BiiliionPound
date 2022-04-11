@@ -106,6 +106,7 @@ const OngoingEventDetail = ({navigation}) => {
                           <Text style={styles.subtitleStyle}>
                             Lifted Amount :
                             <Text style={[styles.subtitleBoldStyle]}>
+                              {' '}
                               {item.event_weight_lifted}
                             </Text>
                           </Text>

@@ -54,7 +54,15 @@ export const AppHeader = ({
           style={styles.rightContainer}
           disabled={disabled}
           onPress={onPressBtn}>
-          {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
+          {subtitle && (
+            <Text
+              style={[
+                styles.subtitleStyle,
+                {color: disabled ? colors.p5 : colors.p1},
+              ]}>
+              {subtitle}
+            </Text>
+          )}
           {smSubtitle && (
             <Text style={styles.smSubtitleStyle}>{smSubtitle}</Text>
           )}
