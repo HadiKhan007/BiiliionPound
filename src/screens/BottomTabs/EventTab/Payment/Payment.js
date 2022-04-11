@@ -364,27 +364,6 @@ const Payment = ({navigation, route}) => {
     }
   };
 
-  //Join Evenet
-  // const joinEvent = () => {
-  //   const requestBody = {
-  //     user_event: {
-  //       event_id: event_detail?.id,
-  //       team_id: join_team_event?.name != 'None' ? join_team_event?.id : null,
-  //     },
-  //   };
-  //   const onSuccessJoin = res => {
-  //     // console.log('Event Join Success', res);
-  //     setShowSuccess(true);
-  //     setisLoading(false);
-  //   };
-  //   const onFailedJoin = res => {
-  //     console.log('Event Join Failed', res);
-  //     Alert.alert('Error', res);
-  //     setisLoading(false);
-  //   };
-
-  //   dispatch(join_event_request(requestBody, onSuccessJoin, onFailedJoin));
-  // };
   const socialLogin = item => {
     setCardSelection('Hide');
     setcardView(false);

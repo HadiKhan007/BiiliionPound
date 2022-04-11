@@ -122,6 +122,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginVertical: 5,
   },
+  btnBottom: {
+    alignItems: 'center',
+    marginVertical: WP('5'),
+  },
 });
 
 export default styles;

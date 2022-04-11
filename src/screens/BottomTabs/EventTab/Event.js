@@ -110,10 +110,12 @@ const Event = ({navigation}) => {
     if (checkInternet) {
       //Set Ongoing Success
       setLoading(true);
-
-      const onGoingPressSuccess = () => {
-        navigation.navigate('OngoingEventDetail');
-        // console.log('On Going Event Success');
+      const onGoingPressSuccess = res => {
+        if (res?.current_user?.event_status == 'joined') {
+          navigation.navigate('OngoingEventDetail');
+        } else {
+          navigation.navigate('EventDetail');
+        }
         setLoading(false);
       };
       //Set  onGoing event failure

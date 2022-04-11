@@ -222,12 +222,12 @@ const AddExcercise = ({navigation}) => {
         };
         //On get upcoming event failure
         const getExerciseFailure = res => {
+          setisLoading(false);
           let msg = responseValidator(
             error?.response?.status,
             error?.response?.data,
           );
           Alert.alert('Error', msg);
-          setisLoading(false);
         };
 
         const form = new FormData();
@@ -250,13 +250,16 @@ const AddExcercise = ({navigation}) => {
         })
           .then(async res => {
             const response = await res.json();
-            dispatch(
-              get_exercise_request(
-                response,
-                getExerciseSuccess,
-                getExerciseFailure,
-              ),
-            );
+            if (response) {
+              dispatch(
+                get_exercise_request(
+                  response,
+                  getExerciseSuccess,
+                  getExerciseFailure,
+                ),
+              );
+              setisLoading(false);
+            }
           })
           .catch(error => {
             let msg = responseValidator(
@@ -264,6 +267,7 @@ const AddExcercise = ({navigation}) => {
               error?.response?.data,
             );
             Alert.alert('Error', msg);
+            setisLoading(false);
           });
       } else {
         Alert.alert('Error', 'Check your internet connectivity!');
@@ -306,7 +310,7 @@ const AddExcercise = ({navigation}) => {
         <AppHeader
           icon={appIcons.backArrow}
           title={'Add Exercise'}
-          subtitle={'Save'}
+          // subtitle={'Save'}
         />
         <View style={styles.itemContainer}>
           <SearchBar

@@ -45,7 +45,7 @@ const OngoingEventDetail = ({navigation}) => {
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader
-          title={'Military Press'}
+          title={event_detail?.title}
           titleColor={colors.b7}
           icon={appIcons.backArrow}
         />
@@ -64,10 +64,10 @@ const OngoingEventDetail = ({navigation}) => {
             sutitleDate={`${moment(event_detail?.start_date).format(
               'hh:mm A',
             )} - ${moment(event_detail?.end_date).format('hh:mm A')}`}
-            title={'Military Press'}
-            subTitle={`${event_detail?.goal_amount} LBS`}
+            title={event_detail?.title}
+            subTitle={`${event_detail?.current_user?.event_weight_lifted} LBS`}
             price={event_detail?.price || 0}
-            liftedAmount={event_detail?.total_pounds_lifted || 0}
+            liftedAmount={event_detail?.goal_amount || 0}
             onPressCard={() => navigation.navigate('ActivityTab')}
             joined_team={event_detail?.current_user?.selected_team}
           />
@@ -107,7 +107,7 @@ const OngoingEventDetail = ({navigation}) => {
                             Lifted Amount :
                             <Text style={[styles.subtitleBoldStyle]}>
                               {' '}
-                              {item.event_weight_lifted}
+                              {item.event_weight_lifted} LBS
                             </Text>
                           </Text>
                         </View>
@@ -121,7 +121,7 @@ const OngoingEventDetail = ({navigation}) => {
               />
             </>
           ) : null}
-          <View style={{alignItems: 'center', marginVertical: WP('2')}}>
+          <View style={styles.btnBottom}>
             <Button
               title="Participate"
               withRightIcon

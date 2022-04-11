@@ -11,12 +11,16 @@ import {
 import {
   appIcons,
   appImages,
+  capitalizeFirstLetter,
   checkConnected,
   colors,
 } from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
-import {create_exercise_workout_request} from '../../../../redux/actions';
+import {
+  create_exercise_workout_request,
+  set_event_request,
+} from '../../../../redux/actions';
 
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
@@ -99,6 +103,38 @@ const AddRaps = ({navigation}) => {
       // dismissed
     }
   };
+
+  //***********On Press On Going Events***********
+  const OnEventComplete = async item => {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      //Set Ongoing Success
+      setisLoading(true);
+      const onGoingPressSuccess = () => {
+        navigation.navigate('OngoingEventDetail');
+        // console.log('On Going Event Success');
+        setisLoading(false);
+      };
+      //Set  onGoing event failure
+      const onGoingPressFailure = () => {
+        // console.log('On Going Event Failure');
+        Alert.alert('Error', 'Something went wrong!');
+        setisLoading(false);
+      };
+
+      dispatch(
+        set_event_request(
+          event_detail,
+          onGoingPressSuccess,
+          onGoingPressFailure,
+        ),
+      );
+    } else {
+      setisLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -179,11 +215,17 @@ const AddRaps = ({navigation}) => {
           type={create_exercise_workout?.exercise?.exercise_type}
           weight={`${create_exercise_workout?.total_lbs} LBS`}
           excercise={`${create_exercise_workout?.repetitions.length}x ${create_exercise_workout?.exercise?.name}`}
-          mode={`${create_exercise_workout?.exercise?.name} (${create_exercise_workout?.exercise?.category})`}
+          mode={`${capitalizeFirstLetter(
+            create_exercise_workout?.exercise?.name,
+          )} (${create_exercise_workout?.exercise?.category})`}
           show={true}
           onPressHide={() => {
             setonSuccess(false);
-            navigation?.replace('App');
+            if (exercise_screen) {
+              navigation?.replace('App');
+            } else {
+              OnEventComplete();
+            }
           }}
           onPressShare={shareReceipt}
           cardIcon={

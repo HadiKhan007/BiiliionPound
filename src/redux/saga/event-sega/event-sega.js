@@ -98,7 +98,7 @@ function* setEvent(params) {
         type: types.SET_EVENT_SUCCESS,
         payload: res?.data,
       });
-      params?.cbSuccess();
+      params?.cbSuccess(res?.data?.event);
     }
   } catch (error) {
     console.log(error);

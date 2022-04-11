@@ -84,17 +84,15 @@ export const OngoingEventCard = ({
               <Image source={appIcons.location} style={styles.locationStyle} />
               <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
-            {allEvents ? null : (
-              <>
-                {event_status === 'joined' ? (
-                  <TouchableOpacity style={styles.btnContainer}>
-                    <Text style={styles.btnText}>{event_status}</Text>
-                  </TouchableOpacity>
-                ) : (
-                  false
-                )}
-              </>
-            )}
+            <>
+              {event_status === 'joined' ? (
+                <TouchableOpacity style={styles.btnContainer}>
+                  <Text style={styles.btnText}>{event_status}</Text>
+                </TouchableOpacity>
+              ) : (
+                false
+              )}
+            </>
           </View>
         </View>
       </TouchableOpacity>
