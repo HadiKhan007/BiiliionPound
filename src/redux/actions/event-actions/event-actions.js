@@ -29,9 +29,9 @@ export const set_upcoming_event_request = (params, cbSuccess, cbFailure) => {
 };
 
 //Set Ongoing Evenets
-export const set_ongoing_event_request = (params, cbSuccess, cbFailure) => {
+export const set_event_request = (params, cbSuccess, cbFailure) => {
   return {
-    type: TYPES.SET_ONGOING_REQUEST,
+    type: TYPES.SET_EVENT_REQUEST,
     params,
     cbSuccess,
     cbFailure,

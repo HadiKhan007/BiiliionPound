@@ -34,7 +34,7 @@ export const TransactionSuccess = ({
   _renderTruncatedFooter,
   _renderRevealedFooter,
   onPress,
-  upcoming_event_detail,
+  event_detail,
   transactionID,
 }) => {
   return (
@@ -54,23 +54,21 @@ export const TransactionSuccess = ({
             <NormHeading
               family={family.Poppins_SemiBold}
               title={transactionID}
-              subtitle={`$${upcoming_event_detail?.price}`}
+              subtitle={`$${event_detail?.price}`}
             />
           </View>
           <View style={styles.headingStyle}>
             <PrimaryHeading title={'Event Details'} />
             <View style={styles.center}>
-              <Text style={styles.h1}>
-                {upcoming_event_detail?.goal_amount || 0}
-              </Text>
+              <Text style={styles.h1}>{event_detail?.goal_amount || 0}</Text>
               <Text style={styles.h2}>Total Pounds Goals</Text>
             </View>
           </View>
           <View style={spacing.my2}>
             <EventInfoCard
-              events={upcoming_event_detail}
-              title={upcoming_event_detail?.title}
-              subtitle={upcoming_event_detail?.subtitle || ''}
+              events={event_detail}
+              title={event_detail?.title}
+              subtitle={event_detail?.subtitle || ''}
             />
           </View>
 
@@ -82,7 +80,7 @@ export const TransactionSuccess = ({
               renderTruncatedFooter={_renderTruncatedFooter}
               renderRevealedFooter={_renderRevealedFooter}>
               <Text style={styles.description}>
-                {upcoming_event_detail?.description}
+                {event_detail?.description}
               </Text>
             </ReadMore>
           </View>

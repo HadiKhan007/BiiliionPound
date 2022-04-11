@@ -92,7 +92,7 @@ export function* getExerciseRequest() {
 }
 function* getExercises(params) {
   try {
-    const res = yield getAllExer();
+    const res = yield getAllExer(params?.params);
     if (res.data) {
       yield put({
         type: types.GET_EXERCISE_SUCCESS,

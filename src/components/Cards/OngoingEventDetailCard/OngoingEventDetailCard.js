@@ -45,7 +45,7 @@ export const OngoingEventDetailCard = ({
     joined_team &&
       data?.push({
         id: 2,
-        title: teams[0]?.name,
+        title: joined_team,
         subtitle: `You are in ${joined_team.toLowerCase()}`,
         leftIcon: appIcons.peoples,
       });

@@ -9,6 +9,9 @@ const initialState = {
   filtered_exercises: [],
   categoryFilteredArray: [],
   bodyFilteredArray: [],
+  selected_bodyPart: {},
+  selected_category: {},
+
   all_exercise: [],
   exercise_screen: false,
   exercise_item: null,
@@ -119,21 +122,21 @@ const exerciseReducer = (state = initialState, actions) => {
       };
 
     case TYPES.SELECT_CATEGORY_FILTER_SUCCESS:
-      state.categoryFilteredArray[payload].tick =
-        !state.categoryFilteredArray[payload].tick;
+      // state.categoryFilteredArray[payload].tick =
+      //   !state.categoryFilteredArray[payload].tick;
       return {
         ...state,
         loading: false,
-        categoryFilteredArray: state?.categoryFilteredArray,
+        selected_category: payload,
       };
 
     case TYPES.SELECT_BODY_FILTER_SUCCESS:
-      state.bodyFilteredArray[payload].tick =
-        !state.bodyFilteredArray[payload].tick;
+      // state.bodyFilteredArray[payload].tick =
+      //   !state.bodyFilteredArray[payload].tick;
       return {
         ...state,
         loading: false,
-        bodyFilteredArray: state?.bodyFilteredArray,
+        selected_bodyPart: payload,
       };
     //************Custom Exercise*************
     case TYPES.CUSTOM_EXERCISE_SUCCESS:

@@ -87,18 +87,19 @@ function* setUpcomingEvent(params) {
 }
 
 // *************SET ONGOING EVENTS SEGA**************
-export function* setOngoingEventRequest() {
-  yield takeLatest(types.SET_ONGOING_REQUEST, setOngoingEvent);
+export function* setEventRequest() {
+  yield takeLatest(types.SET_EVENT_REQUEST, setEvent);
 }
-function* setOngoingEvent(params) {
+function* setEvent(params) {
   try {
-    // const res = yield getEventDetail(params?.params?.id);
-    // if (res?.data)
-    yield put({
-      type: types.SET_ONGOING_EVENT,
-      payload: params?.params,
-    });
-    params?.cbSuccess();
+    const res = yield getEventDetail(params?.params?.id);
+    if (res?.data) {
+      yield put({
+        type: types.SET_EVENT_SUCCESS,
+        payload: res?.data,
+      });
+      params?.cbSuccess();
+    }
   } catch (error) {
     console.log(error);
     params?.cbFailure();

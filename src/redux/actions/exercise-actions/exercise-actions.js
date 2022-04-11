@@ -90,9 +90,10 @@ export const get_filtered_exercise_request = (params, cbSuccess, cbFailure) => {
 };
 
 //Get Filter Date
-export const get_exercise_request = (cbSuccess, cbFailure) => {
+export const get_exercise_request = (params, cbSuccess, cbFailure) => {
   return {
     type: TYPES.GET_EXERCISE_REQUEST,
+    params,
     cbSuccess,
     cbFailure,
   };

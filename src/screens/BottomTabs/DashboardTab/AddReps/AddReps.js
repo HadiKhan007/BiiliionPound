@@ -26,6 +26,8 @@ const AddRaps = ({navigation}) => {
   const {exercise_item, create_exercise_workout, exercise_screen} = useSelector(
     state => state?.exercise,
   );
+  const {event_detail} = useSelector(state => state?.event);
+
   const onPressDelItem = (item, index) => {
     inputList[index] = undefined;
     setInputList(inputList.filter(item => item != undefined));
@@ -56,6 +58,7 @@ const AddRaps = ({navigation}) => {
           user_exercise: {
             exercise_id: exercise_item?.id,
             repetitions_attributes: filterRepitions,
+            event_id: !exercise_screen ? event_detail?.id : null,
           },
         };
         dispatch(
@@ -80,6 +83,7 @@ const AddRaps = ({navigation}) => {
       inputList[index].completeEditing = !enableCheck;
     }
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -164,7 +168,7 @@ const AddRaps = ({navigation}) => {
           show={true}
           onPressHide={() => {
             setonSuccess(false);
-            navigation?.replace('AddExercise');
+            navigation?.replace('App');
           }}
           cardIcon={
             create_exercise_workout?.exercise?.exercise_image_url

@@ -37,7 +37,7 @@ const EventDetail = ({navigation}) => {
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   //References
-  const {upcoming_event_detail} = useSelector(state => state?.event);
+  const {event_detail} = useSelector(state => state?.event);
   const dispatch = useDispatch(null);
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -103,7 +103,7 @@ const EventDetail = ({navigation}) => {
         style={styles.contentContainer}
         contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.firstConatiner}>
-          {upcoming_event_detail?.users?.length != 0 ? (
+          {event_detail?.users?.length != 0 ? (
             <View style={styles.headerContainer}>
               <OngoingItem
                 titleStyle={styles.countStyle}
@@ -111,9 +111,9 @@ const EventDetail = ({navigation}) => {
                 imageHeight={35}
                 imageWidth={35}
                 width={'45%'}
-                title={upcoming_event_detail?.users?.length}
+                title={event_detail?.users?.length}
                 justifyContent={'center'}
-                users_lists={upcoming_event_detail?.users}
+                users_lists={event_detail?.users}
               />
             </View>
           ) : null}
@@ -121,13 +121,13 @@ const EventDetail = ({navigation}) => {
         <View style={styles.itemConatiner}>
           <View style={styles.eventInfo}>
             <EventInfoCard
-              events={upcoming_event_detail}
-              title={upcoming_event_detail?.title}
+              events={event_detail}
+              title={event_detail?.title}
               rightIcon={appIcons.user}
               disabled={true}
             />
           </View>
-          {!upcoming_event_detail?.status_event?.match('joined') ? (
+          {!event_detail?.status_event?.match('joined') ? (
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
               <TouchableOpacity
@@ -149,7 +149,7 @@ const EventDetail = ({navigation}) => {
           {/* About Event Flow */}
           <View style={[styles.inputContainer, spacing.py3]}>
             <Text style={styles.titleStyle}>About The Event</Text>
-            {upcoming_event_detail?.description?.length > 50 ? (
+            {event_detail?.description?.length > 50 ? (
               <ReadMore
                 numberOfLines={3}
                 renderTruncatedFooter={_renderTruncatedFooter}
@@ -158,17 +158,17 @@ const EventDetail = ({navigation}) => {
                   // console.log('hello');
                 }}>
                 <Text style={styles.description}>
-                  {upcoming_event_detail?.description}
+                  {event_detail?.description}
                 </Text>
               </ReadMore>
             ) : (
               <Text numberOfLines={3} style={styles.description}>
-                {upcoming_event_detail?.description}
+                {event_detail?.description}
               </Text>
             )}
           </View>
           {/* Join NOW */}
-          {!upcoming_event_detail?.status_event?.match('joined') ? (
+          {!event_detail?.status_event?.match('joined') ? (
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
@@ -182,16 +182,14 @@ const EventDetail = ({navigation}) => {
           ) : null}
         </View>
       </ScrollView>
-      {upcoming_event_detail?.status_event?.match('joined') ? (
+      {event_detail?.status_event?.match('joined') ? (
         <EventStatusCard
           bgColor={colors.gr1}
           textColor={colors.white}
           title={`Already Joined ${calculateDateDiff(
-            upcoming_event_detail?.start_date,
+            event_detail?.start_date,
           )} ${
-            calculateDateDiff(upcoming_event_detail?.start_date) <= 1
-              ? 'Day'
-              : 'Days'
+            calculateDateDiff(event_detail?.start_date) <= 1 ? 'Day' : 'Days'
           } to go`}
           nodeColor={colors.gr1}
           borderRightRadius={20}
@@ -201,8 +199,8 @@ const EventDetail = ({navigation}) => {
       {selectionModal && (
         <CategorySelection
           data={[
-            ...upcoming_event_detail?.teams,
-            {name: 'None', id: upcoming_event_detail?.teams.length + 1},
+            ...event_detail?.teams,
+            {name: 'None', id: event_detail?.teams.length + 1},
           ]}
           setSelectItem={item => {
             setselectCategoryItem(item);

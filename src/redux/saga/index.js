@@ -34,6 +34,7 @@ import {
   joinTeamEventRequest,
   payWithDebitRequest,
   payWithSocialAccountRequest,
+  setEventRequest,
   setOngoingEventRequest,
   setUpcomingEventRequest,
 } from './event-sega/event-sega';
@@ -54,7 +55,6 @@ export function* rootSaga() {
   yield fork(getUpcomingEventRequest);
   yield fork(getOngoingEventRequest);
   yield fork(setUpcomingEventRequest);
-  yield fork(setOngoingEventRequest);
   yield fork(getActivitiesRequest);
   yield fork(addcardRequest);
   yield fork(getPaymentCardRequest);
@@ -73,4 +73,5 @@ export function* rootSaga() {
   yield fork(createExerciseWorkoutRequest);
   yield fork(getFilteredExerciseRequest);
   yield fork(setRecentSearchRequest);
+  yield fork(setEventRequest);
 }

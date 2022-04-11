@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
-  Image,
   Dimensions,
 } from 'react-native';
 import React from 'react';
@@ -31,35 +30,17 @@ import {
 } from '../../../../shared/exporter';
 import {Divider} from 'react-native-elements';
 import {useSelector} from 'react-redux';
-
+import moment from 'moment';
+import {Image} from 'react-native-elements';
 const OngoingEventDetail = ({navigation}) => {
-  const data = [
-    {
-      id: 0,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: profile_uri,
-    },
-    {
-      id: 1,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: profile_uri,
-    },
-    {
-      id: 2,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: profile_uri,
-    },
-    {
-      id: 3,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: profile_uri,
-    },
-  ];
-  const {ongoing_event_detail} = useSelector(state => state?.event);
+  const {event_detail} = useSelector(state => state?.event);
+  const onPressParticipate = async () => {
+    if (event_detail?.current_user?.event_status == 'joined') {
+      navigation?.navigate('ExerciseStack');
+    } else {
+      navigation?.navigate('EventDetail');
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -71,7 +52,7 @@ const OngoingEventDetail = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
           <View style={styles.itemView}>
             <HomeCircle
-              title={'5,722'}
+              title={event_detail?.total_pounds_lifted || 0}
               subtitle={'Total Pounds Lifted'}
               onPressAdd={() => {
                 navigation?.navigate('ExerciseStack');
@@ -79,57 +60,72 @@ const OngoingEventDetail = ({navigation}) => {
             />
           </View>
           <OngoingEventDetailCard
+            date={moment(event_detail?.start_date).format('ddd,MMM DD, YYYY')}
+            sutitleDate={`${moment(event_detail?.start_date).format(
+              'hh:mm A',
+            )} - ${moment(event_detail?.end_date).format('hh:mm A')}`}
             title={'Military Press'}
-            subTitle={'150 LBS'}
-            price={'59.99'}
-            liftedAmount={'15000'}
+            subTitle={`${event_detail?.goal_amount} LBS`}
+            price={event_detail?.price || 0}
+            liftedAmount={event_detail?.total_pounds_lifted || 0}
             onPressCard={() => navigation.navigate('ActivityTab')}
+            joined_team={event_detail?.current_user?.selected_team}
           />
-          <OngoingItem
-            // title={'People enrolled'}
-            titleStyle={styles.countStyle}
-            imageHeight={44}
-            imageWidth={44}
-            width={'46%'}
-          />
-          <Title title={'Participants'} isLeft />
+          {event_detail?.users?.length > 0 ? (
+            <>
+              <OngoingItem
+                title={`${event_detail?.users.length} People enrolled`}
+                title_part={''}
+                titleStyle={styles.countStyle}
+                imageHeight={44}
+                imageWidth={44}
+                width={'46%'}
+                users_lists={event_detail?.users}
+              />
+              <Title title={'Participants'} isLeft />
 
-          <FlatList
-            data={data}
-            renderItem={({item}) => {
-              return (
-                <View style={styles.cardContainer}>
-                  <View style={{flexDirection: 'row', marginBottom: HP('1')}}>
-                    <View style={styles.cardLeftContainer}>
-                      <Image
-                        source={{uri: item?.image}}
-                        style={styles.icon44}
-                      />
+              <FlatList
+                data={event_detail?.users}
+                renderItem={({item}) => {
+                  return (
+                    <View style={styles.cardContainer}>
+                      <View
+                        style={{flexDirection: 'row', marginBottom: HP('1')}}>
+                        <View style={styles.cardLeftContainer}>
+                          <Image
+                            source={{uri: item?.profile_image || profile_uri}}
+                            style={styles.icon44}
+                            progressiveRenderingEnabled={true}
+                            resizeMode={'cover'}
+                          />
+                        </View>
+                        <View style={styles.rightContainer}>
+                          <Text style={styles.titleStyle}>
+                            {item.first_name} {item.last_name}{' '}
+                          </Text>
+                          <Text style={styles.subtitleStyle}>
+                            Lifted Amount :
+                            <Text style={[styles.subtitleBoldStyle]}>
+                              {item.event_weight_lifted}
+                            </Text>
+                          </Text>
+                        </View>
+                      </View>
+                      {event_detail?.users.length - 1 > item.id && (
+                        <Divider style={styles.dividerStyle} />
+                      )}
                     </View>
-                    <View style={styles.rightContainer}>
-                      <Text style={styles.titleStyle}>{item.name}</Text>
-                      <Text style={styles.subtitleStyle}>
-                        Lifted Amount :
-                        <Text style={[styles.subtitleBoldStyle]}>
-                          {item.liftedAmount}
-                        </Text>
-                      </Text>
-                    </View>
-                  </View>
-                  {data.length - 1 > item.id && (
-                    <Divider style={styles.dividerStyle} />
-                  )}
-                </View>
-              );
-            }}
-          />
-
+                  );
+                }}
+              />
+            </>
+          ) : null}
           <View style={{alignItems: 'center', marginVertical: WP('2')}}>
             <Button
               title="Participate"
               withRightIcon
               onPress={() => {
-                navigation?.navigate('ExerciseStack');
+                onPressParticipate();
               }}
             />
           </View>

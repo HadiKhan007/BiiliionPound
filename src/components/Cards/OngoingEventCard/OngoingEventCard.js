@@ -86,7 +86,7 @@ export const OngoingEventCard = ({
             </View>
             {allEvents ? null : (
               <>
-                {event_status?.match('Joined') ? (
+                {event_status === 'joined' ? (
                   <TouchableOpacity style={styles.btnContainer}>
                     <Text style={styles.btnText}>{event_status}</Text>
                   </TouchableOpacity>

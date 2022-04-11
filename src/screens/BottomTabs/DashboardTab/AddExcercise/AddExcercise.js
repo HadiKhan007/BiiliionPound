@@ -49,12 +49,17 @@ const AddExcercise = ({navigation}) => {
   const [filterExcersice, setFilterExcersice] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isLoading, setisLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedBody, setSelectedBody] = useState(null);
+
   const isFocus = useIsFocused(null);
   const {
     categoryFilteredArray,
     bodyFilteredArray,
     filtered_exercises,
     recent_searches,
+    selected_category,
+    selected_bodyPart,
   } = useSelector(state => state?.exercise);
   const dispatch = useDispatch(null);
 
@@ -70,15 +75,15 @@ const AddExcercise = ({navigation}) => {
       setSectionListData([]);
       setSectionListTempData([]);
     };
-  }, [isFocus]);
+  }, [isFocus, selectedCategory, selectedBody]);
 
   //Filter Functions
-  const onPressSelectedBody = index => {
-    dispatch(select_body_filter_request(index));
+  const onPressSelectedBody = item => {
+    dispatch(select_body_filter_request(item));
   };
 
-  const onPressSelectedCategory = index => {
-    dispatch(select_category_filter_request(index));
+  const onPressSelectedCategory = item => {
+    dispatch(select_category_filter_request(item));
   };
 
   //get Filtered Items
@@ -178,18 +183,10 @@ const AddExcercise = ({navigation}) => {
 
   const onFilterSave = () => {
     setFilterExcersice(false);
+    setSelectedCategory(selected_category);
+    setSelectedBody(selected_bodyPart);
 
-    const filterCategoryArray = categoryFilteredArray.filter(
-      item => item?.tick,
-    );
-    const filterBodyArray = body.filter(item => item?.tick);
-
-    dispatch(
-      set_filtered_exercise_request([
-        ...filterCategoryArray,
-        ...bodyFilteredArray,
-      ]),
-    );
+    // dispatch(set_filtered_exercise_request(filtered_exercises));
   };
   const renderSectionHeader = ({section: {title}}) => {
     return (
@@ -205,7 +202,7 @@ const AddExcercise = ({navigation}) => {
       if (checkInternet) {
         setisLoading(true);
         const getExerciseSuccess = res => {
-          console.log('[Excercise Events]');
+          console.log('[Excercise Events]', res);
           const exerciseArray = res?.exercises;
           if (exerciseArray.length > 0) {
             const myExerciseArray = exerciseArray?.map((item, index) => {
@@ -225,7 +222,28 @@ const AddExcercise = ({navigation}) => {
           Alert.alert('Error', res);
           setisLoading(false);
         };
-        dispatch(get_exercise_request(getExerciseSuccess, getExerciseFailure));
+        const requestBody = {
+          'q[category_eq]': selectedCategory ? selectedCategory?.title : '',
+          'q[exercise_type_eq]': selectedBody ? selectedBody?.title : '',
+          'q[m]': 'or',
+        };
+        // const form = new FormData();
+        // form.append(
+        //   'q[category_eq]',
+        //   selectedCategory ? selectedCategory?.title : '',
+        // );
+        // form.append(
+        //   'q[exercise_type_eq]',
+        //   selectedBody ? selectedBody?.title : '',
+        // );
+        // form.append('q[m]', 'or');
+        dispatch(
+          get_exercise_request(
+            requestBody,
+            getExerciseSuccess,
+            getExerciseFailure,
+          ),
+        );
       } else {
         Alert.alert('Error', 'Check your internet connectivity!');
       }
@@ -254,6 +272,14 @@ const AddExcercise = ({navigation}) => {
       Alert.alert('Message!', 'Please select at least one exercise');
     }
   };
+  const onPressCategoryClear = () => {
+    setSelectedCategory(null);
+    dispatch(select_category_filter_request({}));
+  };
+  const onPressBodyClear = () => {
+    setSelectedBody(null);
+    dispatch(select_body_filter_request({}));
+  };
 
   return (
     <SafeAreaView style={styles.main}>
@@ -274,31 +300,28 @@ const AddExcercise = ({navigation}) => {
               addExerciseSheetRef.current.show();
             }}
           />
-          {filtered_exercises != '' ? (
-            <View>
-              <FlatList
-                data={[
-                  ...new Set(filtered_exercises.filter(item => item?.tick)),
-                ]}
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={styles.flatlistWrap}
-                renderItem={({item}) => {
-                  return (
-                    <View style={[spacing.mr1, spacing.my1]}>
-                      <FilterItem
-                        clearButton={true}
-                        title={item?.title}
-                        selected={true}
-                      />
-                    </View>
-                  );
-                }}
-              />
-            </View>
-          ) : (
-            false
-          )}
-
+          <View style={styles.flatlistWrap}>
+            {selectedCategory && (
+              <View style={[spacing.mr1, spacing.my1]}>
+                <FilterItem
+                  clearButton={true}
+                  title={selectedCategory?.title}
+                  selected={true}
+                  onPress={onPressCategoryClear}
+                />
+              </View>
+            )}
+            {selectedBody?.title != undefined && (
+              <View style={[spacing.mr1, spacing.my1]}>
+                <FilterItem
+                  clearButton={true}
+                  title={selectedBody?.title}
+                  selected={true}
+                  onPress={onPressBodyClear}
+                />
+              </View>
+            )}
+          </View>
           {recent_searches != '' ? (
             <View style={[spacing.my3]}>
               <PrimaryHeading
@@ -314,7 +337,6 @@ const AddExcercise = ({navigation}) => {
               />
             </View>
           ) : null}
-
           <View
             style={[
               styles.sectionlistStyle,
@@ -381,6 +403,8 @@ const AddExcercise = ({navigation}) => {
             setFilterExcersice(false);
           }}
           onPressSave={onFilterSave}
+          selected_Category={selected_category}
+          selected_bodyPart={selected_bodyPart}
         />
       )}
       <AddNewExercise

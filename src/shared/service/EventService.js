@@ -20,7 +20,7 @@ export const getOngoingEvent = () => {
 };
 //Get Event Detail
 export const getEventDetail = params => {
-  return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/${params}`);
+  return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/${params}.json`);
 };
 
 //GET ALL PAYMENT CARDS

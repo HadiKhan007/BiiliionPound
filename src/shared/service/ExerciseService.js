@@ -9,8 +9,16 @@ export const creatingCustomExercise = params => {
   return HTTP_CLIENT.post(ENDPOINTS.EXERCISES, params);
 };
 //Get Filtered Exercise
-export const getAllExer = () => {
-  return HTTP_CLIENT.get(`${ENDPOINTS.EXERCISES}.json`);
+export const getAllFilterExer = () => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.EXERCISES}filter_exercise`);
+};
+
+export const getAllExer = params => {
+  console.log('data', params);
+  return HTTP_CLIENT.post(
+    `${ENDPOINTS.EXERCISES}/filter_exercise.json`,
+    params,
+  );
 };
 
 //Create Exercise Workout

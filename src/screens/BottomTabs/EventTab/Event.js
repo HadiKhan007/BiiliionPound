@@ -14,7 +14,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   get_ongoing_event_request,
   get_upcoming_event_request,
-  set_ongoing_event_request,
+  set_event_request,
+  set_exercise_screen_request,
   set_upcoming_event_request,
 } from '../../../redux/actions';
 
@@ -82,7 +83,6 @@ const Event = ({navigation}) => {
     //set  upcoming event success
     setLoading(true);
     const checkInternet = await checkConnected();
-
     const onUpcomingPressSuccess = () => {
       navigation.navigate('EventDetail');
       console.log('On Upcoming Event Success');
@@ -96,11 +96,7 @@ const Event = ({navigation}) => {
 
     if (checkInternet) {
       dispatch(
-        set_upcoming_event_request(
-          item,
-          onUpcomingPressSuccess,
-          onUpcomingPressFailure,
-        ),
+        set_event_request(item, onUpcomingPressSuccess, onUpcomingPressFailure),
       );
     } else {
       setLoading(false);
@@ -128,11 +124,12 @@ const Event = ({navigation}) => {
       };
 
       dispatch(
-        set_ongoing_event_request(
-          item,
-          onGoingPressSuccess,
-          onGoingPressFailure,
-        ),
+        set_event_request(item, onGoingPressSuccess, onGoingPressFailure),
+      );
+      dispatch(
+        set_exercise_screen_request(false, () => {
+          console.log('Event Screens');
+        }),
       );
     } else {
       setLoading(false);
@@ -170,7 +167,9 @@ const Event = ({navigation}) => {
                         }}
                         users_lists={item?.users}
                         event_date={item?.start_date}
-                        event_status={item?.status_event}
+                        event_status={
+                          item?.current_user?.status_event || item?.status_event
+                        }
                         event_price={item?.price}
                       />
                     );

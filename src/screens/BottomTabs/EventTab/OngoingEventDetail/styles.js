@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
     width: 50,
   },
   icon44: {
-    height: '100%',
-    width: '100%',
-    resizeMode: 'contain',
+    height: 50,
+    width: 50,
+    resizeMode: 'cover',
     borderRadius: 100,
   },
   rightContainer: {

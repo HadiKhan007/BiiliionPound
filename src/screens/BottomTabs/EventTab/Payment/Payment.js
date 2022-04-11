@@ -83,7 +83,7 @@ const Payment = ({navigation, route}) => {
   const addCardRef = useRef(null);
   const stripeField = useRef(null);
   const {
-    upcoming_event_detail,
+    event_detail,
     payment_card_list,
     pay_with_social,
     pay_with_debit,
@@ -226,7 +226,7 @@ const Payment = ({navigation, route}) => {
         if (data?.token?.id) {
           const requestBody = {
             stripe_token: data?.token?.id,
-            event_id: upcoming_event_detail?.id,
+            event_id: event_detail?.id,
             team_id:
               join_team_event?.name != 'None' ? join_team_event?.id : null,
           };
@@ -262,7 +262,7 @@ const Payment = ({navigation, route}) => {
     setisLoading(true);
     const requestBody = {
       card_id: cardSelection?.id,
-      event_id: upcoming_event_detail?.id,
+      event_id: event_detail?.id,
       team_id: join_team_event?.name != 'None' ? join_team_event?.id : null,
     };
     const payWithSelectedCardSuccees = res => {
@@ -292,8 +292,8 @@ const Payment = ({navigation, route}) => {
       const {error, paymentMethod} = await presentApplePay({
         cartItems: [
           {
-            label: upcoming_event_detail?.title,
-            amount: JSON.stringify(upcoming_event_detail?.price),
+            label: event_detail?.title,
+            amount: JSON.stringify(event_detail?.price),
           },
         ],
         country: 'US',
@@ -326,7 +326,7 @@ const Payment = ({navigation, route}) => {
 
           //Apple Pay Request Sending
           const requestBody = {
-            event_id: upcoming_event_detail?.id,
+            event_id: event_detail?.id,
             team_id:
               join_team_event?.name != 'None' ? join_team_event?.id : null,
           };
@@ -368,7 +368,7 @@ const Payment = ({navigation, route}) => {
   // const joinEvent = () => {
   //   const requestBody = {
   //     user_event: {
-  //       event_id: upcoming_event_detail?.id,
+  //       event_id: event_detail?.id,
   //       team_id: join_team_event?.name != 'None' ? join_team_event?.id : null,
   //     },
   //   };
@@ -530,7 +530,7 @@ const Payment = ({navigation, route}) => {
       </View>
 
       <TransactionSuccess
-        upcoming_event_detail={upcoming_event_detail}
+        event_detail={event_detail}
         _renderTruncatedFooter={_renderTruncatedFooter}
         _renderRevealedFooter={_renderRevealedFooter}
         show={showSuccess}

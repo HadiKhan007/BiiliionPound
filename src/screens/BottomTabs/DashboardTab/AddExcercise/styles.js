@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   flatlistWrap: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'center',
     marginTop: 10,
   },
 });
