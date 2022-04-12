@@ -11,6 +11,7 @@ import {
   appIcons,
   appImages,
   appRadius,
+  calculateDateDiff,
   capitalizeFirstLetter,
   colors,
   family,
@@ -31,6 +32,7 @@ export const OngoingEventCard = ({
   event_date,
   event_status,
   event_price,
+  event_user_status,
 }) => {
   return (
     <View style={spacing.mx1}>
@@ -85,12 +87,35 @@ export const OngoingEventCard = ({
               <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
             <>
-              {event_status === 'joined' ? (
-                <TouchableOpacity style={styles.btnContainer}>
-                  <Text style={styles.btnText}>{event_status}</Text>
+              {event_user_status === 'joined' ? (
+                <TouchableOpacity
+                  style={[
+                    styles.btnContainer,
+                    {
+                      backgroundColor:
+                        event_status == 'open' ? colors.gr1 : colors.y1,
+                    },
+                  ]}>
+                  <Text style={styles.btnText}>
+                    {event_status == 'open'
+                      ? capitalizeFirstLetter(event_user_status)
+                      : 'Completed'}
+                  </Text>
                 </TouchableOpacity>
               ) : (
-                false
+                <>
+                  {event_status == 'closed' && (
+                    <TouchableOpacity
+                      style={[
+                        styles.btnContainer,
+                        {
+                          backgroundColor: colors.y1,
+                        },
+                      ]}>
+                      <Text style={styles.btnText}>Completed</Text>
+                    </TouchableOpacity>
+                  )}
+                </>
               )}
             </>
           </View>
@@ -210,10 +235,10 @@ const styles = StyleSheet.create({
   btnContainer: {
     backgroundColor: colors.gr1,
     height: 22,
-    width: 60,
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 8,
   },
   btnText: {
     color: colors.white,
@@ -223,6 +248,6 @@ const styles = StyleSheet.create({
   textAlignment: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '70%',
+    width: '60%',
   },
 });

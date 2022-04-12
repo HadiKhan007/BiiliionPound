@@ -21,6 +21,7 @@ import {
   checkConnected,
   colors,
   profile_uri,
+  scrWidth,
   spacing,
 } from '../../../shared/exporter';
 import {TouchableOpacity} from 'react-native';
@@ -130,6 +131,8 @@ const Profile = ({navigation}) => {
           onPressBtn={() => {
             navigation?.navigate('EditProfile');
           }}
+          centerContainerWidth={scrWidth / 2}
+          rightContainerWidth={scrWidth / 5.6}
         />
         <View style={styles.itemContainer}>
           <ProfileImage

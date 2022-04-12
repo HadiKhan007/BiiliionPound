@@ -3,7 +3,9 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
   appIcons,
   appImages,
+  calculateDateDiff,
   capitalizeFirstLetter,
+  checkEventDate,
   colors,
   family,
   profile_uri,
@@ -13,8 +15,8 @@ import {
 } from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
 import moment from 'moment';
-import {SmallLoader} from '../..';
 export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
+  console.log(upcoming_event_item?.event_image_url);
   return (
     <View style={spacing.mx1}>
       <TouchableOpacity
@@ -63,12 +65,37 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
               <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
             {upcoming_event_item?.status_event?.match('joined') ? (
-              <TouchableOpacity style={styles.btnContainer}>
+              <TouchableOpacity
+                style={[
+                  styles.btnContainer,
+                  {
+                    backgroundColor:
+                      upcoming_event_item?.status == 'open'
+                        ? colors.gr1
+                        : colors.y1,
+                  },
+                ]}>
                 <Text style={styles.btnText}>
-                  {capitalizeFirstLetter(upcoming_event_item?.status_event)}
+                  {upcoming_event_item?.status == 'open'
+                    ? capitalizeFirstLetter(upcoming_event_item?.status_event)
+                    : 'Completed'}
                 </Text>
               </TouchableOpacity>
-            ) : null}
+            ) : (
+              <>
+                {upcoming_event_item?.status == 'closed' && (
+                  <TouchableOpacity
+                    style={[
+                      styles.btnContainer,
+                      {
+                        backgroundColor: colors.y1,
+                      },
+                    ]}>
+                    <Text style={styles.btnText}>Completed</Text>
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
           </View>
         </View>
       </TouchableOpacity>
@@ -151,10 +178,10 @@ const styles = StyleSheet.create({
   btnContainer: {
     backgroundColor: colors.gr1,
     height: 22,
-    width: 60,
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 8,
   },
   btnText: {
     color: colors.white,
@@ -164,10 +191,12 @@ const styles = StyleSheet.create({
   textAlignment: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '70%',
+    width: '60%',
   },
   itemStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: 10,
   },
 });

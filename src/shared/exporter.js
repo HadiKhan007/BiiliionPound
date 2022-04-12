@@ -56,5 +56,7 @@ export {
   checkBrand,
   calculateDateDiff,
   checkExerciseItemOrder,
+  convertNumberSystem,
+  calculateCurrentDateDiff,
 } from './utilities/helper';
 export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';

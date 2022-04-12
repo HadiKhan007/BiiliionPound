@@ -22,7 +22,9 @@ import {
 } from '../../../../components';
 import {
   appIcons,
+  capitalizeFirstLetter,
   colors,
+  convertNumberSystem,
   HP,
   profile_uri,
   spacing,
@@ -52,7 +54,9 @@ const OngoingEventDetail = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
           <View style={styles.itemView}>
             <HomeCircle
-              title={event_detail?.total_pounds_lifted || 0}
+              title={
+                convertNumberSystem(event_detail?.total_pounds_lifted) || 0
+              }
               subtitle={'Total Pounds Lifted'}
               onPressAdd={() => {
                 navigation?.navigate('ExerciseStack');
@@ -86,6 +90,7 @@ const OngoingEventDetail = ({navigation}) => {
 
               <FlatList
                 data={event_detail?.users}
+                contentContainerStyle={spacing.mb12}
                 renderItem={({item}) => {
                   return (
                     <View style={styles.cardContainer}>
@@ -101,7 +106,8 @@ const OngoingEventDetail = ({navigation}) => {
                         </View>
                         <View style={styles.rightContainer}>
                           <Text style={styles.titleStyle}>
-                            {item.first_name} {item.last_name}{' '}
+                            {capitalizeFirstLetter(item.first_name)}{' '}
+                            {capitalizeFirstLetter(item.last_name)}{' '}
                           </Text>
                           <Text style={styles.subtitleStyle}>
                             Lifted Amount :
@@ -121,16 +127,23 @@ const OngoingEventDetail = ({navigation}) => {
               />
             </>
           ) : null}
-          <View style={styles.btnBottom}>
-            <Button
-              title="Participate"
-              withRightIcon
+          {/* <View style={styles.selectionBtn}>
+            <SelectButton
               onPress={() => {
-                onPressParticipate();
+                onPressDone();
               }}
             />
-          </View>
+          </View> */}
         </ScrollView>
+        <View style={styles.btnBottom}>
+          <Button
+            title="Participate"
+            withRightIcon
+            onPress={() => {
+              onPressParticipate();
+            }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );

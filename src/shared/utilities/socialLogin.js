@@ -23,7 +23,6 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
       const requestBody = {
         token: idToken,
       };
-
       dispatch(
         socialLoginRequest(
           'google',

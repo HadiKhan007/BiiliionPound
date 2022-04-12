@@ -16,6 +16,7 @@ import {
   family,
   period_list,
   appIcons,
+  WP,
 } from '../../shared/exporter';
 
 export const PeriodModal = ({show, onPressHide, setPeriod, selectedPeriod}) => {
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: scrHeight / 4,
+    height: WP('55'),
   },
   icon16: {
     height: 16,

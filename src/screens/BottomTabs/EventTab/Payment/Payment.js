@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  AppState,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import styles from './styles';
@@ -108,6 +109,10 @@ const Payment = ({navigation, route}) => {
   //Get All Cards
   useEffect(() => {
     getPaymentCards();
+    const subscription = AppState.addEventListener('change', () => {});
+    return () => {
+      subscription.remove();
+    };
   }, [isFocus]);
 
   //Init Google Pay

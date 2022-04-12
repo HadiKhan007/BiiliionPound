@@ -16,6 +16,8 @@ export const AppHeader = ({
   titleColor,
   paddingHorizontal,
   disabled,
+  rightContainerWidth,
+  centerContainerWidth,
 }) => {
   const navigation = useNavigation();
   return (
@@ -46,12 +48,22 @@ export const AppHeader = ({
         <Text
           style={[
             styles.titleStyle,
-            {color: titleColor ? titleColor : colors.b7},
+            {
+              color: titleColor ? titleColor : colors.b7,
+              width: centerContainerWidth
+                ? centerContainerWidth
+                : scrWidth / 1.7,
+            },
           ]}>
           {title}
         </Text>
         <TouchableOpacity
-          style={styles.rightContainer}
+          style={[
+            styles.rightContainer,
+            {
+              width: rightContainerWidth ? rightContainerWidth : scrWidth / 6,
+            },
+          ]}
           disabled={disabled}
           onPress={onPressBtn}>
           {subtitle && (
@@ -91,7 +103,6 @@ const styles = StyleSheet.create({
     fontSize: size.normal,
     color: colors.b7,
     fontFamily: family.Poppins_Bold,
-    width: scrWidth / 1.7,
     textAlign: 'center',
   },
   headerStyle: {
@@ -138,7 +149,6 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     alignItems: 'flex-end',
-    width: scrWidth / 6,
     justifyContent: 'center',
   },
 });

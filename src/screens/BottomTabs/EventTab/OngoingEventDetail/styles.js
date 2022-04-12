@@ -124,7 +124,9 @@ const styles = StyleSheet.create({
   },
   btnBottom: {
     alignItems: 'center',
-    marginVertical: WP('5'),
+    position: 'absolute',
+    bottom: 20,
+    alignSelf: 'center',
   },
 });
 

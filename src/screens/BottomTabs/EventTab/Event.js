@@ -169,10 +169,11 @@ const Event = ({navigation}) => {
                         }}
                         users_lists={item?.users}
                         event_date={item?.start_date}
-                        event_status={
+                        event_status={item?.status}
+                        event_price={item?.price}
+                        event_user_status={
                           item?.current_user?.status_event || item?.status_event
                         }
-                        event_price={item?.price}
                       />
                     );
                   }}

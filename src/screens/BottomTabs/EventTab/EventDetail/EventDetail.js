@@ -23,6 +23,7 @@ import {
 } from '../../../../components';
 import {
   appIcons,
+  calculateCurrentDateDiff,
   calculateDateDiff,
   checkConnected,
   colors,
@@ -87,7 +88,7 @@ const EventDetail = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
-
+  console.log(event_detail);
   return (
     <SafeAreaView style={styles.main}>
       <AppHeader
@@ -126,7 +127,8 @@ const EventDetail = ({navigation}) => {
               disabled={true}
             />
           </View>
-          {!event_detail?.current_user?.event_status?.match('joined') ? (
+          {!event_detail?.current_user?.event_status?.match('joined') &&
+          event_detail?.status != 'closed' ? (
             <View style={styles.inputContainer}>
               <Text style={styles.titleStyle}>Select Team</Text>
               <TouchableOpacity
@@ -167,7 +169,8 @@ const EventDetail = ({navigation}) => {
             )}
           </View>
           {/* Join NOW */}
-          {!event_detail?.current_user?.event_status?.match('joined') ? (
+          {!event_detail?.current_user?.event_status?.match('joined') &&
+          event_detail?.status != 'closed' ? (
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
@@ -181,20 +184,35 @@ const EventDetail = ({navigation}) => {
           ) : null}
         </View>
       </ScrollView>
-      {event_detail?.current_user?.event_status?.match('joined') ? (
+      {event_detail?.current_user?.event_status === 'joined' ? (
         <EventStatusCard
-          bgColor={colors.gr1}
+          bgColor={event_detail?.status == 'open' ? colors.gr1 : colors.y1}
           textColor={colors.white}
-          title={`Already Joined ${calculateDateDiff(
-            event_detail?.start_date,
-          )} ${
-            calculateDateDiff(event_detail?.start_date) <= 1 ? 'Day' : 'Days'
-          } to go`}
+          title={
+            event_detail?.status == 'open'
+              ? `Already Joined ${calculateCurrentDateDiff(
+                  event_detail?.start_date,
+                )} to go`
+              : `Event Finished!`
+          }
           nodeColor={colors.gr1}
           borderRightRadius={20}
           borderleftRadius={20}
         />
-      ) : null}
+      ) : (
+        <>
+          {event_detail?.status == 'closed' && (
+            <EventStatusCard
+              bgColor={colors.y1}
+              textColor={colors.white}
+              title={`Event Finished!`}
+              nodeColor={colors.y1}
+              borderRightRadius={20}
+              borderleftRadius={20}
+            />
+          )}
+        </>
+      )}
       {selectionModal && (
         <CategorySelection
           data={[

@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.b1,
-    fontSize: WP('10'),
+    fontSize: WP('18'),
     fontFamily: family.OpenSans_Medium,
     textAlign: 'center',
   },

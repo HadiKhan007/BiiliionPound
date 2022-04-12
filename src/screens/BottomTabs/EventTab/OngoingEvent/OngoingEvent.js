@@ -30,7 +30,7 @@ import {
   set_event_request,
   set_exercise_screen_request,
 } from '../../../../redux/actions';
-import {useIsFocused} from '@react-navigation/core';
+import {useIsFocused} from '@react-navigation/native';
 
 const OngoingEvent = ({navigation}) => {
   const {ongoing_events} = useSelector(state => state?.event);
@@ -126,9 +126,10 @@ const OngoingEvent = ({navigation}) => {
                 event_date={item?.start_date}
                 event_image={item?.event_image_url}
                 allEvents={true}
-                event_status={
+                event_user_status={
                   item?.current_user?.status_event || item?.status_event
                 }
+                event_status={item?.status}
                 onPressCard={() => {
                   OnGoingEventPress(item);
                 }}

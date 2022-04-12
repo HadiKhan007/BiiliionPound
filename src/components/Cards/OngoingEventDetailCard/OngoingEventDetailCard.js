@@ -70,7 +70,7 @@ export const OngoingEventDetailCard = ({
             {liftedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
             <Text style={styles.coloredViewSimple}>lbs</Text>
           </Text>
-          <Text style={styles.coloredViewSubtitle}>Total Lifted Amount</Text>
+          <Text style={styles.coloredViewSubtitle}>Total Lifted Goals</Text>
         </View>
 
         <View

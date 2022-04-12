@@ -152,6 +152,9 @@ export const spacing = StyleSheet.create({
   mb10: {
     marginBottom: RF(40),
   },
+  mb12: {
+    marginBottom: RF(60),
+  },
   mt10: {
     marginTop: RF(40),
   },

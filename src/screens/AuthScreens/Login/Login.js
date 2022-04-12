@@ -52,6 +52,7 @@ const Login = ({navigation}) => {
     Alert.alert('Failed', res?.message || 'Logged In Failed');
     setloading(false);
   };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
