@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     backgroundColor: colors.white,
-    paddingVertical: 8,
+    // paddingVertical: 5,
     paddingHorizontal: WP('5.5'),
   },
   sectionHeaderText: {
-    fontSize: size.large,
+    fontSize: size.medium,
     fontFamily: family.OpenSans_SemiBold,
     color: colors.b7,
   },

@@ -25,37 +25,12 @@ import {useSelector} from 'react-redux';
 const ActivityTab = ({navigation}) => {
   const [index, setIndex] = React.useState(0);
   const {event_detail} = useSelector(state => state?.event);
-  const data = [
-    {
-      id: 0,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-    {
-      id: 1,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-    {
-      id: 2,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-    {
-      id: 3,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-  ];
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader
-          title={'Military Press'}
+          title={'Event Activities'}
           titleColor={colors.b7}
           icon={appIcons.backArrow}
         />

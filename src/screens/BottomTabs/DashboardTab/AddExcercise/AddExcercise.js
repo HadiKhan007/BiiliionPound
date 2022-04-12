@@ -78,7 +78,7 @@ const AddExcercise = ({navigation}) => {
       setSectionListData([]);
       setSectionListTempData([]);
     };
-  }, [isFocus, selectedCategory, selectedBody]);
+  }, [isFocus, selectedBody, selectedCategory]);
 
   //Filter Functions
   const onPressSelectedBody = item => {
@@ -166,21 +166,19 @@ const AddExcercise = ({navigation}) => {
   //Render Exercise Cards
   const renderItem = ({item, index}) => {
     return (
-      <View style={[spacing.my2]}>
-        <ExcerciseCard
-          type={item?.exercise_type}
-          icon={
-            item?.exercise_image
-              ? {uri: item?.exercise_image}
-              : appImages.sample_exercise
-          }
-          selected={item.selected}
-          name={`${item?.name} (${item?.category})`}
-          paddingHorizontal={WP('5')}
-          onSelectionChange={onSelectionChange}
-          item={item}
-        />
-      </View>
+      <ExcerciseCard
+        type={item?.exercise_type}
+        icon={
+          item?.exercise_image
+            ? {uri: item?.exercise_image}
+            : appImages.sample_exercise
+        }
+        selected={item.selected}
+        name={`${item?.name} (${item?.category})`}
+        paddingHorizontal={WP('5')}
+        onSelectionChange={onSelectionChange}
+        item={item}
+      />
     );
   };
 
@@ -231,14 +229,8 @@ const AddExcercise = ({navigation}) => {
         };
 
         const form = new FormData();
-        form.append(
-          'q[category_eq]',
-          selectedCategory ? selectedCategory?.title : '',
-        );
-        form.append(
-          'q[exercise_type_eq]',
-          selectedBody ? selectedBody?.title : '',
-        );
+        form.append('q[category_eq]', selectedCategory?.title || '');
+        form.append('q[exercise_type_eq]', selectedBody?.title || '');
         form.append('q[m]', 'or');
         fetch(`${BASE_URL}/exercises/filter_exercise.json`, {
           method: 'POST',
@@ -309,7 +301,7 @@ const AddExcercise = ({navigation}) => {
       <View style={styles.contentContainer}>
         <AppHeader
           icon={appIcons.backArrow}
-          title={'Add Exercise'}
+          title={'Add Workout'}
           // subtitle={'Save'}
         />
         <View style={styles.itemContainer}>

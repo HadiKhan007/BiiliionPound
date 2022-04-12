@@ -223,7 +223,7 @@ const EventDetail = ({navigation}) => {
             setselectCategoryItem(item);
           }}
           selectItem={selectCategoryItem}
-          title={'Category'}
+          title={'Select Team'}
           show={selectionModal}
           onPressHide={() => {
             setSelectionModal(false);

@@ -65,7 +65,7 @@ const exerciseReducer = (state = initialState, actions) => {
         loading: false,
         isSuccess: false,
         isFailure: true,
-        all_exercise: null,
+        all_exercise: state?.all_exercise,
       };
 
     //************ Exercise Sates*************
