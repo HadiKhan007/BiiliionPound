@@ -369,23 +369,21 @@ const AddExcercise = ({navigation}) => {
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
-                  <View style={[spacing.py2]}>
-                    <ExcerciseCard
-                      type={item?.exercise_type}
-                      icon={
-                        item?.exercise_image
-                          ? {uri: item?.exercise_image}
-                          : appImages.sample_exercise
-                      }
-                      name={`${item?.name} (${item?.category})`}
-                      paddingHorizontal={WP('5')}
-                      onSelectionChange={d => {
-                        setSelectedItem(item);
-                      }}
-                      selected={item?.id == selectedItem?.id ? true : false}
-                      item={item}
-                    />
-                  </View>
+                  <ExcerciseCard
+                    type={item?.exercise_type}
+                    icon={
+                      item?.exercise_image
+                        ? {uri: item?.exercise_image}
+                        : appImages.sample_exercise
+                    }
+                    name={`${item?.name} (${item?.category})`}
+                    paddingHorizontal={WP('5')}
+                    onSelectionChange={d => {
+                      setSelectedItem(item);
+                    }}
+                    selected={item?.id == selectedItem?.id ? true : false}
+                    item={item}
+                  />
                 );
               }}
             />

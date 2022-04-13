@@ -16,7 +16,6 @@ import {
 import {Image} from 'react-native-elements';
 import moment from 'moment';
 export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
-  console.log(upcoming_event_item?.event_image_url);
   return (
     <View style={spacing.mx1}>
       <TouchableOpacity

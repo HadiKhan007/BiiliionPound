@@ -18,6 +18,7 @@ export const AppHeader = ({
   disabled,
   rightContainerWidth,
   centerContainerWidth,
+  marginTop,
 }) => {
   const navigation = useNavigation();
   return (
@@ -26,6 +27,7 @@ export const AppHeader = ({
         styles.container,
         {
           paddingHorizontal: paddingHorizontal ? paddingHorizontal : 0,
+          marginTop: marginTop ? marginTop : 0,
         },
       ]}>
       <View style={styles.headerStyle}>

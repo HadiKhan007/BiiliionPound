@@ -97,15 +97,27 @@ export const calculateCurrentDateDiff = date => {
   return 0;
 };
 
-export function convertNumberSystem(value) {
-  // Nine Zeroes for Billions
-  return Math.abs(value) >= 1.0e9
-    ? Math.abs(value) / 1.0e9 + 'B'
-    : // Six Zeroes for Millions
-    Math.abs(value) >= 1.0e6
-    ? Math.abs(value) / 1.0e6 + 'M'
-    : // Three Zeroes for Thousands
-    Math.abs(value) >= 1.0e3
-    ? Math.abs(value) / 1.0e3 + 'K'
-    : Math.abs(value);
+export function convertNumberSystem(num) {
+  let isNegative = false;
+  let formattedNumber;
+  if (num < 0) {
+    isNegative = true;
+  }
+  num = Math.abs(num);
+  if (num >= 1000000000000) {
+    formattedNumber =
+      (num / 1000000000000).toFixed(0).replace(/\.0$/, '') + 'T';
+  } else if (num >= 1000000000) {
+    formattedNumber = (num / 1000000000).toFixed(0).replace(/\.0$/, '') + 'B';
+  } else if (num >= 1000000) {
+    formattedNumber = (num / 1000000).toFixed(0).replace(/\.0$/, '') + 'M';
+  } else if (num >= 1000) {
+    formattedNumber = (num / 1000).toFixed(0).replace(/\.0$/, '') + 'K';
+  } else {
+    formattedNumber = num;
+  }
+  if (isNegative) {
+    formattedNumber = '-' + formattedNumber;
+  }
+  return formattedNumber;
 }

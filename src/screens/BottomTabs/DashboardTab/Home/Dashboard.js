@@ -46,6 +46,7 @@ const Dashboard = ({navigation}) => {
     };
     dispatch(get_lifted_weight_request(getWeightSuccess, getWeightFailure));
   };
+  console.log(lifted_weight);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
