@@ -88,7 +88,6 @@ const EventDetail = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
-  console.log(event_detail);
   return (
     <SafeAreaView style={styles.main}>
       <AppHeader

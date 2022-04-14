@@ -23,6 +23,7 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
       const requestBody = {
         token: idToken,
       };
+      console.log(idToken);
       dispatch(
         socialLoginRequest(
           'google',
@@ -108,4 +109,5 @@ const onSocialLoginSuccess = (res, navigation, setloading) => {
 const onSocialLoginFailed = (res, setloading) => {
   setloading(false);
   console.log('Social Login Failed');
+  Alert.alert('Error', res);
 };

@@ -21,6 +21,7 @@ import {
   appIcons,
   appImages,
   checkConnected,
+  convertNumberSystem,
   spacing,
 } from '../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
@@ -45,9 +46,6 @@ const Activity = ({navigation}) => {
   );
 
   useEffect(() => {
-    console.log('====================================');
-    console.log('selected ', selectPeriod);
-    console.log('====================================');
     if (selectPeriod != null) {
       setLoading(true);
       getFilteredData();
@@ -134,7 +132,7 @@ const Activity = ({navigation}) => {
                     <ActivityCard
                       name={item?.user?.full_name}
                       type={item?.exercise?.exercise_type}
-                      weight={item?.total_lbs + ' LBS'}
+                      weight={convertNumberSystem(item?.total_lbs) + ' LBS'}
                       excercise={
                         item?.repetitions?.length + ' x ' + item?.exercise?.name
                       }

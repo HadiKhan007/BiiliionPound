@@ -19,6 +19,7 @@ import {
   PrimaryHeading,
   Title,
   UpcomingEventCard,
+  Loader,
 } from '../../../../components';
 import {
   appIcons,
@@ -69,7 +70,9 @@ const OngoingEventDetail = ({navigation}) => {
               'hh:mm A',
             )} - ${moment(event_detail?.end_date).format('hh:mm A')}`}
             title={event_detail?.title}
-            subTitle={`${event_detail?.current_user?.event_weight_lifted} LBS`}
+            subTitle={`${convertNumberSystem(
+              event_detail?.current_user?.event_weight_lifted,
+            )} LBS`}
             price={event_detail?.price || 0}
             liftedAmount={convertNumberSystem(event_detail?.goal_amount) || 0}
             onPressCard={() => navigation.navigate('ActivityTab')}
@@ -149,6 +152,7 @@ const OngoingEventDetail = ({navigation}) => {
           />
         </View>
       </View>
+      <Loader loading={false} />
     </SafeAreaView>
   );
 };

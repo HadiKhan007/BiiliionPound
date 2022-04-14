@@ -14,6 +14,7 @@ import {
   capitalizeFirstLetter,
   checkConnected,
   colors,
+  convertNumberSystem,
 } from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
@@ -50,7 +51,6 @@ const AddRaps = ({navigation}) => {
           };
         });
         const addExerciseSuccess = res => {
-          // console.log(res);
           setisLoading(false);
           setonSuccess(true);
         };
@@ -213,7 +213,9 @@ const AddRaps = ({navigation}) => {
         <ActivitySuccess
           name={`${create_exercise_workout?.user?.first_name} ${create_exercise_workout?.user?.last_name}`}
           type={create_exercise_workout?.exercise?.exercise_type}
-          weight={`${create_exercise_workout?.total_lbs} LBS`}
+          weight={`${convertNumberSystem(
+            create_exercise_workout?.total_lbs,
+          )} LBS`}
           excercise={`${create_exercise_workout?.repetitions.length}x ${create_exercise_workout?.exercise?.name}`}
           mode={`${capitalizeFirstLetter(
             create_exercise_workout?.exercise?.name,

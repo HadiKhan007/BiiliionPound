@@ -16,6 +16,7 @@ import {
   appIcons,
   appImages,
   colors,
+  convertNumberSystem,
   HP,
   spacing,
   WP,
@@ -93,7 +94,7 @@ const ActivityTab = ({navigation}) => {
                     <ActivityCard
                       name={`${item?.user?.first_name} ${item?.user?.last_name}`}
                       type={item?.exercise?.exercise_type}
-                      weight={`${item?.total_lbs} LBS`}
+                      weight={`${convertNumberSystem(item?.total_lbs)} LBS`}
                       excercise={`${item?.repetitions?.length}x ${item?.exercise?.name}`}
                       mode={item?.exercise?.name}
                       cardIcon={
@@ -118,7 +119,7 @@ const ActivityTab = ({navigation}) => {
                     <ActivityCard
                       name={`${item?.user?.first_name} ${item?.user?.last_name}`}
                       type={item?.exercise?.exercise_type}
-                      weight={`${item?.total_lbs} LBS`}
+                      weight={`${convertNumberSystem(item?.total_lbs)} LBS`}
                       excercise={`${item?.repetitions?.length}x ${item?.exercise?.name}`}
                       mode={item?.exercise?.name}
                       cardIcon={

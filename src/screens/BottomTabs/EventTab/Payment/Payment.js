@@ -254,7 +254,7 @@ const Payment = ({navigation, route}) => {
           );
         } else {
           setisLoading(false);
-          Alert.alert('Failed', 'Unable to proceed payment!');
+          Alert.alert('Failed', 'Unable to proceed payment Try Again Later!');
         }
       }, 500);
     } else {
