@@ -52,6 +52,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>For Billion Pound camera</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<string>no</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>For Billion Pound</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -117,6 +119,11 @@
 		<string>Poppins-SemiBoldItalic.ttf</string>
 		<string>Poppins-Thin.ttf</string>
 		<string>Poppins-ThinItalic.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

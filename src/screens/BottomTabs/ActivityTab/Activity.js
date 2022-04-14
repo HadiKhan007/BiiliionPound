@@ -88,7 +88,7 @@ const Activity = ({navigation}) => {
 
     const cbSuccess = res => {
       console.log('===============FilteredActivity=====================');
-      console.log(res);
+      // console.log(res);
       console.log('====================================');
       setLoading(false);
     };
@@ -158,7 +158,7 @@ const Activity = ({navigation}) => {
           periodSheetRef?.current?.hide();
         }}
         setPeriod={item => {
-          console.log('item selected', item?.title);
+          // console.log('item selected', item?.title);
           setselectPeriod(item);
           periodSheetRef?.current?.hide();
           getFilteredData();

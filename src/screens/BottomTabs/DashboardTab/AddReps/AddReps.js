@@ -50,7 +50,7 @@ const AddRaps = ({navigation}) => {
           };
         });
         const addExerciseSuccess = res => {
-          console.log(res);
+          // console.log(res);
           setisLoading(false);
           setonSuccess(true);
         };

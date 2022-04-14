@@ -99,6 +99,7 @@ const EventDetail = ({navigation}) => {
       />
 
       <ScrollView
+        bounces={false}
         showsVerticalScrollIndicator={false}
         style={styles.contentContainer}
         contentContainerStyle={styles.scrollViewContent}>

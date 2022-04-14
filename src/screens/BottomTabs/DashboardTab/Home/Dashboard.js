@@ -42,7 +42,7 @@ const Dashboard = ({navigation}) => {
     //Get Lifted Weight Failure
     const getWeightFailure = res => {
       setisLoading(false);
-      console.log(res);
+      // console.log(res);
     };
     dispatch(get_lifted_weight_request(getWeightSuccess, getWeightFailure));
   };

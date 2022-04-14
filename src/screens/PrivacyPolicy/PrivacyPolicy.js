@@ -30,7 +30,7 @@ const PrivacyPolicy = ({navigation}) => {
 
     const cbSuccess = res => {
       console.log('===============Privacy Policy=====================');
-      console.log(res);
+      // console.log(res);
       console.log('====================================');
       setLoading(false);
     };

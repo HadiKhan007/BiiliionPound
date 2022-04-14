@@ -60,3 +60,9 @@ export {
   calculateCurrentDateDiff,
 } from './utilities/helper';
 export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';
+export {
+  registerAppWithFCM,
+  requestPermission,
+  LocalNotification,
+  Notification_Listner,
+} from './utilities/NotificationHandler';

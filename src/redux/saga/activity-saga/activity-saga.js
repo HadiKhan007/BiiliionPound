@@ -43,7 +43,7 @@ function* getActivityRequest(params) {
 
 function* getFilteredActivityRequest(params) {
   console.log('============params========================');
-  console.log(params?.params);
+  // console.log(params?.params);
   console.log('====================================');
   try {
     const res = yield getFilteredActivity(params?.params?.key);

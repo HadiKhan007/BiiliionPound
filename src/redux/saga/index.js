@@ -24,6 +24,8 @@ import {
   setfilteredCategoryExerciseRequest,
   getFilteredExerciseRequest,
   setRecentSearchRequest,
+  getNotificationListRequest,
+  deleteNotificationRequest,
 } from './exercise-sega/exercise-sega';
 import {
   addcardRequest,
@@ -74,4 +76,6 @@ export function* rootSaga() {
   yield fork(getFilteredExerciseRequest);
   yield fork(setRecentSearchRequest);
   yield fork(setEventRequest);
+  yield fork(getNotificationListRequest);
+  yield fork(deleteNotificationRequest);
 }

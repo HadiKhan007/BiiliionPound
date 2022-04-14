@@ -280,3 +280,52 @@ function* createExerciseWorkout(params) {
     params?.cbFailure(msg);
   }
 }
+//Get Notification list
+
+export function* getNotificationListRequest() {
+  yield takeLatest(types.GET_NOTIFICATION_LIST_REQUEST, getNotificationList);
+}
+function* getNotificationList(params) {
+  try {
+    // const res = yield createExerWorkout(params?.params);
+    // if (res.data) {
+    yield put({
+      type: types.GET_NOTIFICATION_LIST_SUCCESS,
+      payload: params?.params,
+    });
+    params?.cbSuccess();
+    // }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.GET_NOTIFICATION_LIST_FAILURE,
+      payload: null,
+    });
+    // let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure();
+  }
+}
+
+export function* deleteNotificationRequest() {
+  yield takeLatest(types.DELETE_NOTIFICATION_REQUEST, deleteNotification);
+}
+function* deleteNotification(params) {
+  try {
+    // const res = yield createExerWorkout(params?.params);
+    // if (res.data) {
+    yield put({
+      type: types.DELETE_NOTIFICATION_SUCCESS,
+      payload: params?.params,
+    });
+    params?.cbSuccess();
+    // }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.DELETE_NOTIFICATION_FAILURE,
+      payload: null,
+    });
+    // let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure();
+  }
+}

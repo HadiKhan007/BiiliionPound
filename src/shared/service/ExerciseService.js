@@ -14,7 +14,7 @@ export const getAllFilterExer = () => {
 };
 
 export const getAllExer = params => {
-  console.log('data', params);
+  // console.log('data', params);
   return HTTP_CLIENT.post(
     `${ENDPOINTS.EXERCISES}/filter_exercise.json`,
     params,
@@ -23,6 +23,6 @@ export const getAllExer = params => {
 
 //Create Exercise Workout
 export const createExerWorkout = params => {
-  console.log(params);
+  // console.log(params);
   return HTTP_CLIENT.post(`${ENDPOINTS.USER_EXERCISES}`, params);
 };

@@ -17,6 +17,7 @@ const initialState = {
   exercise_item: null,
   create_exercise_workout: null,
   recent_searches: [],
+  all_notifications: [],
 };
 const exerciseReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -86,7 +87,46 @@ const exerciseReducer = (state = initialState, actions) => {
         isFailure: true,
         all_exercise: null,
       };
+    //************ GET NOTIFICATION Sates*************
+    case TYPES.GET_NOTIFICATION_LIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        all_notifications: payload,
+      };
 
+    case TYPES.GET_NOTIFICATION_LIST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        all_notifications: null,
+      };
+    case TYPES.DELETE_NOTIFICATION_SUCCESS:
+      const {all_notifications} = state;
+      const filteredItems = all_notifications.filter(notify => {
+        return notify.id !== payload;
+      });
+
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        all_notifications: [...filteredItems],
+      };
+
+    case TYPES.DELETE_NOTIFICATION_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        all_notifications: state?.all_notifications,
+      };
     //************Create Exercise Sates*************
     case TYPES.CREATE_EXERCISE_WORKOUT_SUCCESS:
       return {
