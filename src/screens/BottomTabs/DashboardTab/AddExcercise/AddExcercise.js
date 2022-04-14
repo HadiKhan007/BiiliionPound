@@ -368,7 +368,6 @@ const AddExcercise = ({navigation}) => {
             ]}>
             <FlatList
               data={recent_searches}
-              contentContainerStyle={{maxHeight: 30}}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
