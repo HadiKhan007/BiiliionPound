@@ -126,7 +126,7 @@ const Payment = ({navigation, route}) => {
   const initializeGooglePay = async () => {
     const {error} = await initGooglePay({
       testEnv: true,
-      merchantName: 'Example Merchant',
+      merchantName: '70000-APITEST-AP',
       countryCode: 'US',
       existingPaymentMethodRequired: true,
     });

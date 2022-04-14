@@ -174,7 +174,9 @@ const AddExcercise = ({navigation}) => {
             : appImages.sample_exercise
         }
         selected={item.selected}
-        name={`${item?.name} (${item?.category})`}
+        name={`${item?.name || ''} ${
+          item?.category ? `(${item?.category})` : ''
+        }`}
         paddingHorizontal={WP('5')}
         onSelectionChange={onSelectionChange}
         item={item}
@@ -366,26 +368,27 @@ const AddExcercise = ({navigation}) => {
             ]}>
             <FlatList
               data={recent_searches}
+              contentContainerStyle={{maxHeight: 30}}
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
-                  <View style={[spacing.py2]}>
-                    <ExcerciseCard
-                      type={item?.exercise_type}
-                      icon={
-                        item?.exercise_image
-                          ? {uri: item?.exercise_image}
-                          : appImages.sample_exercise
-                      }
-                      name={`${item?.name} (${item?.category})`}
-                      paddingHorizontal={WP('5')}
-                      onSelectionChange={d => {
-                        setSelectedItem(item);
-                      }}
-                      selected={item?.id == selectedItem?.id ? true : false}
-                      item={item}
-                    />
-                  </View>
+                  // <View style={[spacing.py2]}>
+                  <ExcerciseCard
+                    type={item?.exercise_type}
+                    icon={
+                      item?.exercise_image
+                        ? {uri: item?.exercise_image}
+                        : appImages.sample_exercise
+                    }
+                    name={`${item?.name || ''} (${item?.category || ''})`}
+                    paddingHorizontal={WP('5')}
+                    onSelectionChange={d => {
+                      setSelectedItem(item);
+                    }}
+                    selected={item?.id == selectedItem?.id ? true : false}
+                    item={item}
+                  />
+                  // </View>
                 );
               }}
             />

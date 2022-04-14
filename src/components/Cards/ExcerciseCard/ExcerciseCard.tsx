@@ -88,14 +88,14 @@ const styles = StyleSheet.create({
     // paddingHorizontal: WP('3'),
     width: Dimensions.get('window').width,
     paddingVertical: HP('1'),
-    marginVertical: HP('2'),
+    // marginVertical: HP('2'),
   },
   selectedContainer: {
     flexDirection: 'row',
     // paddingHorizontal: WP('3'),
     backgroundColor: colors.p7,
     paddingVertical: HP('1'),
-    marginVertical: HP('2'),
+    // marginVertical: HP('2'),
 
     justifyContent: 'space-between',
   },

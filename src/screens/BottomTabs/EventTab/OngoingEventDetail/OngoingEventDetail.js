@@ -71,7 +71,7 @@ const OngoingEventDetail = ({navigation}) => {
             title={event_detail?.title}
             subTitle={`${event_detail?.current_user?.event_weight_lifted} LBS`}
             price={event_detail?.price || 0}
-            liftedAmount={event_detail?.goal_amount || 0}
+            liftedAmount={convertNumberSystem(event_detail?.goal_amount) || 0}
             onPressCard={() => navigation.navigate('ActivityTab')}
             joined_team={event_detail?.current_user?.selected_team}
           />
@@ -114,7 +114,10 @@ const OngoingEventDetail = ({navigation}) => {
                             Lifted Amount :
                             <Text style={[styles.subtitleBoldStyle]}>
                               {' '}
-                              {item.event_weight_lifted} LBS
+                              {convertNumberSystem(
+                                item?.event_weight_lifted,
+                              )}{' '}
+                              LBS
                             </Text>
                           </Text>
                         </View>
