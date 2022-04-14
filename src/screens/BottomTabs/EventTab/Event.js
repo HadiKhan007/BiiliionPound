@@ -14,7 +14,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   get_ongoing_event_request,
   get_upcoming_event_request,
-  set_ongoing_event_request,
+  set_event_request,
+  set_exercise_screen_request,
   set_upcoming_event_request,
 } from '../../../redux/actions';
 
@@ -28,7 +29,7 @@ const Event = ({navigation}) => {
   useEffect(() => {
     if (isFocus) {
       getUpcomingEvents();
-      // getOngoingEvents();
+      getOngoingEvents();
     }
   }, [isFocus]);
 
@@ -60,22 +61,19 @@ const Event = ({navigation}) => {
   //************Get Ongoing Events**************
   const getOngoingEvents = async () => {
     //On get Ongoing event success
-    setLoading(true);
     const checkInternet = await checkConnected();
-
-    const onOngoingSuccess = res => {
-      // console.log('Ongoing Events', res);
-      setLoading(false);
-    };
-    //On get Ongoing event failure
-    const onOngoingFailure = res => {
-      setLoading(false);
-    };
-    //Get Upcomig Events
     if (checkInternet) {
+      const onOngoingSuccess = res => {
+        // console.log('Ongoing Events', res);
+        console.log('Ongoing Event Success');
+      };
+      //On get Ongoing event failure
+      const onOngoingFailure = res => {
+        console.log('Ongoing Event Failed');
+      };
+      //Get Upcomig Events
       dispatch(get_ongoing_event_request(onOngoingSuccess, onOngoingFailure));
     } else {
-      setLoading(false);
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
@@ -85,7 +83,6 @@ const Event = ({navigation}) => {
     //set  upcoming event success
     setLoading(true);
     const checkInternet = await checkConnected();
-
     const onUpcomingPressSuccess = () => {
       navigation.navigate('EventDetail');
       console.log('On Upcoming Event Success');
@@ -99,11 +96,7 @@ const Event = ({navigation}) => {
 
     if (checkInternet) {
       dispatch(
-        set_upcoming_event_request(
-          item,
-          onUpcomingPressSuccess,
-          onUpcomingPressFailure,
-        ),
+        set_event_request(item, onUpcomingPressSuccess, onUpcomingPressFailure),
       );
     } else {
       setLoading(false);
@@ -113,29 +106,32 @@ const Event = ({navigation}) => {
 
   //***********On Press On Going Events***********
   const OnGoingEventPress = async item => {
-    //Set Ongoing Success
-    setLoading(true);
     const checkInternet = await checkConnected();
-
-    const onGoingPressSuccess = () => {
-      navigation.navigate('OngoingEventDetail');
-      // console.log('On Going Event Success');
-      setLoading(false);
-    };
-    //Set  onGoing event failure
-    const onGoingPressFailure = () => {
-      // console.log('On Going Event Failure');
-      Alert.alert('Error', 'Something went wrong!');
-      setLoading(false);
-    };
-
     if (checkInternet) {
+      //Set Ongoing Success
+      setLoading(true);
+      const onGoingPressSuccess = res => {
+        if (res?.current_user?.event_status == 'joined') {
+          navigation.navigate('OngoingEventDetail');
+        } else {
+          navigation.navigate('EventDetail');
+        }
+        setLoading(false);
+      };
+      //Set  onGoing event failure
+      const onGoingPressFailure = () => {
+        // console.log('On Going Event Failure');
+        Alert.alert('Error', 'Something went wrong!');
+        setLoading(false);
+      };
+
       dispatch(
-        set_ongoing_event_request(
-          item,
-          onGoingPressSuccess,
-          onGoingPressFailure,
-        ),
+        set_event_request(item, onGoingPressSuccess, onGoingPressFailure),
+      );
+      dispatch(
+        set_exercise_screen_request(false, () => {
+          console.log('Event Screens');
+        }),
       );
     } else {
       setLoading(false);
@@ -175,6 +171,9 @@ const Event = ({navigation}) => {
                         event_date={item?.start_date}
                         event_status={item?.status}
                         event_price={item?.price}
+                        event_user_status={
+                          item?.current_user?.status_event || item?.status_event
+                        }
                       />
                     );
                   }}

@@ -44,12 +44,18 @@ export const EventInfoCard = ({
       />
       <EventCard icon={appIcons.badge} title={'Your Favorite Gym'} />
       <EventCard icon={appIcons.tag} title={`$${events?.price}`} />
-      {events?.selected_team ? (
+      {events?.current_user?.selected_team ? (
         <EventCard
           icon={appIcons.peoples}
-          title={events?.selected_team ? events?.selected_team : ''}
+          title={
+            events?.current_user?.selected_team
+              ? events?.current_user?.selected_team
+              : ''
+          }
           date={`You are in team ${
-            events?.selected_team ? events?.selected_team : ''
+            events?.current_user?.selected_team
+              ? events?.current_user?.selected_team
+              : ''
           } `}
         />
       ) : null}

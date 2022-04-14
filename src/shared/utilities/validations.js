@@ -92,6 +92,6 @@ export const UpdateVS = yup.object().shape({
 
 export const AddNewExerciseVS = yup.object().shape({
   exercise_name: yup.string().required('Exercise Name Required'),
-  category: yup.object().required('Exercise Category Required'),
-  bodyPart: yup.object().required('Exercise Body Part  Required'),
+  category: yup.object().shape().required('Exercise Category Required'),
+  bodyPart: yup.object().shape().required('Exercise Body Part  Required'),
 });

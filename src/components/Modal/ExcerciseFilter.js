@@ -19,6 +19,8 @@ export const ExerciseFilter = ({
   onPressCategory,
   onPressSave,
   filterBody,
+  selected_Category,
+  selected_bodyPart,
 }) => {
   const onSelectBody = item => {
     onPressBody(item);
@@ -46,13 +48,19 @@ export const ExerciseFilter = ({
               return (
                 <FilterBox
                   onPressItem={() => {
-                    onSelectBody(index);
+                    onSelectBody(item);
                   }}
                   title={item?.title}
-                  backgroundColor={item?.tick ? colors.p7 : colors.g10}
-                  titleColor={item?.tick ? colors.p1 : colors.g1}
-                  borderColor={item?.tick ? colors.p1 : colors.g1}
-                  borderWidth={item?.tick ? 1 : 0}
+                  backgroundColor={
+                    selected_bodyPart?.id == item?.id ? colors.p7 : colors.g10
+                  }
+                  titleColor={
+                    selected_bodyPart?.id == item?.id ? colors.p1 : colors.g1
+                  }
+                  borderColor={
+                    selected_bodyPart?.id == item?.id ? colors.p1 : colors.g1
+                  }
+                  borderWidth={selected_bodyPart?.id == item?.id ? 1 : 0}
                 />
               );
             }}
@@ -66,13 +74,19 @@ export const ExerciseFilter = ({
               return (
                 <FilterBox
                   onPressItem={() => {
-                    onSelectCategory(index);
+                    onSelectCategory(item);
                   }}
                   title={item?.title}
-                  backgroundColor={item?.tick ? colors.p7 : colors.g10}
-                  titleColor={item?.tick ? colors.p1 : colors.g1}
-                  borderColor={item?.tick ? colors.p1 : colors.g1}
-                  borderWidth={item?.tick ? 1 : 0}
+                  backgroundColor={
+                    selected_Category?.id == item?.id ? colors.p7 : colors.g10
+                  }
+                  titleColor={
+                    selected_Category?.id == item?.id ? colors.p1 : colors.g1
+                  }
+                  borderColor={
+                    selected_Category?.id == item?.id ? colors.p1 : colors.g1
+                  }
+                  borderWidth={selected_Category?.id == item?.id ? 1 : 0}
                 />
               );
             }}

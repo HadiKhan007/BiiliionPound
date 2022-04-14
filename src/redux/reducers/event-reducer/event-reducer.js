@@ -6,8 +6,7 @@ const initialState = {
   isFailure: false,
   upcoming_events: [],
   ongoing_events: [],
-  upcoming_event_detail: null,
-  ongoing_event_detail: null,
+  event_detail: null,
   payment_card_list: [],
   pay_with_debit: null,
   pay_with_social: null,
@@ -101,13 +100,13 @@ const eventReducer = (state = initialState, actions) => {
         upcoming_event_detail: payload,
       };
 
-    case TYPES.SET_ONGOING_EVENT:
+    case TYPES.SET_EVENT_SUCCESS:
       return {
         ...state,
         loading: false,
         isSuccess: true,
         isFailure: false,
-        ongoing_event_detail: payload,
+        event_detail: payload?.event,
       };
 
     //************GET PAYMENT CARDS*************

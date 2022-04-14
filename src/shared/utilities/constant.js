@@ -6,7 +6,7 @@ const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const web_client_id =
   '396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com';
 const filterBody = [
-  {id: 1, title: 'Core', tick: true, key: 'core'},
+  {id: 1, title: 'Core', tick: false, key: 'core'},
   {id: 2, title: 'Back', tick: false, key: 'back'},
   {id: 3, title: 'Arms', tick: false, key: 'arms'},
   {id: 4, title: 'Shoulders', tick: false, key: 'shoulders'},
@@ -18,7 +18,7 @@ const filterBody = [
   {id: 10, title: 'Other', tick: false, key: 'other'},
 ];
 const filterCategory = [
-  {id: 1, title: 'Barbell', tick: true, key: 'barbell'},
+  {id: 1, title: 'Barbell', tick: false, key: 'barbell'},
   {id: 2, title: 'Dumbbell', tick: false, key: 'dumbbell'},
   {id: 3, title: 'Machine/Other', tick: false, key: 'machine'},
   {id: 4, title: 'Weighted bodyweight', tick: false, key: 'weight_bodyweight'},
@@ -93,7 +93,8 @@ let image_options = {
 };
 const stripe_publishableKey =
   'pk_test_51Jc5CWG5H9PTsJWTIZhYvdTTYfou0YKpZcDRJemqk83fnHQfRJoJJiHLK8AioyjhRa1XYAW9Q0NggRgAIumEaUgj00g64wGpS3';
-const profile_uri = 'https://unsplash.it/400/400?image=1';
+const profile_uri =
+  'https://www.shareicon.net/data/512x512/2017/01/06/868320_people_512x512.png';
 export {
   ANDROID,
   IOS,

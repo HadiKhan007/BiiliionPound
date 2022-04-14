@@ -74,10 +74,50 @@ export const checkBrand = name => {
   }
 };
 
+export const checkExerciseItemOrder = item => {
+  console.log(item);
+};
+
 export const calculateDateDiff = date => {
   const diff_date = moment(date).diff(moment(new Date()), 'days');
-  if (diff_date < 0) {
-    return 0;
-  }
   return diff_date;
 };
+export const calculateCurrentDateDiff = date => {
+  const diff_date = moment(date).diff(moment(new Date()), 'minutes');
+  if (diff_date > 1440) {
+    return calculateDateDiff(date) > 1
+      ? `${calculateDateDiff(date)} Days`
+      : `${calculateDateDiff(date)} Day`;
+  } else if (diff_date > 60 && diff_date <= 1440) {
+    const diff_hours = moment(date).diff(moment(new Date()), 'hours');
+    return `${diff_hours} hours`;
+  } else if (diff_date <= 60 && diff_date >= 0) {
+    return diff_date > 1 ? `${diff_date} minutes` : 'few seconds left';
+  }
+  return 0;
+};
+
+export function convertNumberSystem(num) {
+  let isNegative = false;
+  let formattedNumber;
+  if (num < 0) {
+    isNegative = true;
+  }
+  num = Math.abs(num);
+  if (num >= 1000000000000) {
+    formattedNumber =
+      (num / 1000000000000).toFixed(0).replace(/\.0$/, '') + 'T';
+  } else if (num >= 1000000000) {
+    formattedNumber = (num / 1000000000).toFixed(0).replace(/\.0$/, '') + 'B';
+  } else if (num >= 1000000) {
+    formattedNumber = (num / 1000000).toFixed(0).replace(/\.0$/, '') + 'M';
+  } else if (num >= 1000) {
+    formattedNumber = (num / 1000).toFixed(0).replace(/\.0$/, '') + 'K';
+  } else {
+    formattedNumber = num;
+  }
+  if (isNegative) {
+    formattedNumber = '-' + formattedNumber;
+  }
+  return formattedNumber;
+}

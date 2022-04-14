@@ -36,6 +36,14 @@ export const set_category_filtered_request = (params, cbSuccess) => {
   };
 };
 
+export const set_exercise_screen_request = (params, cbSuccess) => {
+  return {
+    type: TYPES.SET_EXERCISE_SCREEN_REQUEST,
+    params,
+    cbSuccess,
+  };
+};
+
 export const set_body_filtered_request = (params, cbSuccess) => {
   return {
     type: TYPES.SET_BODY_FILTERED_REQUEST,
@@ -58,10 +66,58 @@ export const select_body_filter_request = params => {
   };
 };
 
+export const set_filtered_exercise_request = params => {
+  return {
+    type: TYPES.SET_FILTERED_EXERCISE_REQUEST,
+    params,
+  };
+};
+export const set_exercise_recent_search_request = (params, cbSuccess) => {
+  return {
+    type: TYPES.SET_RECENT_SEARCHES_REQUEST,
+    params,
+    cbSuccess,
+  };
+};
+
+export const get_filtered_exercise_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.GET_FILTERED_EXERCISE_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
 //Get Filter Date
-export const get_exercise_request = (cbSuccess, cbFailure) => {
+export const get_exercise_request = (params, cbSuccess, cbFailure) => {
   return {
     type: TYPES.GET_EXERCISE_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Get Filter Date
+export const set_exercise_item_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.SET_EXERCISE_ITEM_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Create Exercise Workout
+export const create_exercise_workout_request = (
+  params,
+  cbSuccess,
+  cbFailure,
+) => {
+  return {
+    type: TYPES.CREATE_EXERCISE_WORKOUT_REQUEST,
+    params,
     cbSuccess,
     cbFailure,
   };

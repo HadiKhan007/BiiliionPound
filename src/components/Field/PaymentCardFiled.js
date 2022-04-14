@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   cardStyle: {
+    textColor: colors.b1,
     backgroundColor: colors.white,
     color: colors.b1,
     fontSize: size.xsmall,

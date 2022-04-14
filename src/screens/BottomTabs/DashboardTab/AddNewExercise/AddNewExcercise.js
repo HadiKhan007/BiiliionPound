@@ -72,7 +72,7 @@ const AddNewExcercise = ({navigation}) => {
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         {loading ? <Loader loading={loading} /> : null}
-        <AppHeader icon={appIcons.backArrow} title={'Add New Exercise'} />
+        <AppHeader icon={appIcons.backArrow} title={'Add New Workout'} />
         <Formik
           initialValues={AddNewExerciseFormFields}
           onSubmit={values => {

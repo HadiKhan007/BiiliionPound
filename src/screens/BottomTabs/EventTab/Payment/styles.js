@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     color: colors.b1,
     fontSize: size.xsmall,
+    textColor: colors.b1,
   },
   fieldContainer: {
     borderBottomWidth: 1,

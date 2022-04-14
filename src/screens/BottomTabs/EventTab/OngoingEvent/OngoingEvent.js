@@ -7,7 +7,7 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
@@ -25,37 +25,78 @@ import {
   spacing,
 } from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
-import {set_ongoing_event_request} from '../../../../redux/actions';
+import {
+  get_ongoing_event_request,
+  set_event_request,
+  set_exercise_screen_request,
+} from '../../../../redux/actions';
+import {useIsFocused} from '@react-navigation/native';
 
 const OngoingEvent = ({navigation}) => {
   const {ongoing_events} = useSelector(state => state?.event);
   const [isLoading, setisLoading] = useState(false);
   const dispatch = useDispatch(null);
+  const isFocus = useIsFocused(null);
+
+  useEffect(() => {
+    if (isFocus) {
+      getOngoingEvents();
+    }
+  }, [isFocus]);
+
+  //************Get Ongoing Events**************
+  const getOngoingEvents = async () => {
+    //On get Ongoing event success
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setisLoading(true);
+      const onOngoingSuccess = res => {
+        // console.log('Ongoing Events', res);
+        console.log('Ongoing Event Success');
+        setisLoading(false);
+      };
+      //On get Ongoing event failure
+      const onOngoingFailure = res => {
+        console.log('Ongoing Event Failed');
+        setisLoading(false);
+      };
+      //Get Upcomig Events
+      dispatch(get_ongoing_event_request(onOngoingSuccess, onOngoingFailure));
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+
   //***********On Press On Going Events***********
   const OnGoingEventPress = async item => {
-    //Set Ongoing Success
-    setisLoading(true);
     const checkInternet = await checkConnected();
-
-    const onGoingPressSuccess = () => {
-      navigation.navigate('OngoingEventDetail');
-      // console.log('On Going Event Success');
-      setisLoading(false);
-    };
-    //Set  onGoing event failure
-    const onGoingPressFailure = () => {
-      // console.log('On Going Event Failure');
-      Alert.alert('Error', 'Something went wrong!');
-      setisLoading(false);
-    };
-
     if (checkInternet) {
+      //Set Ongoing Success
+      setisLoading(true);
+
+      const onGoingPressSuccess = res => {
+        if (res?.current_user?.event_status == 'joined') {
+          navigation.navigate('OngoingEventDetail');
+        } else {
+          navigation.navigate('EventDetail');
+        }
+        // console.log('On Going Event Success');
+        setisLoading(false);
+      };
+      //Set  onGoing event failure
+      const onGoingPressFailure = () => {
+        // console.log('On Going Event Failure');
+        Alert.alert('Error', 'Something went wrong!');
+        setisLoading(false);
+      };
+
       dispatch(
-        set_ongoing_event_request(
-          item,
-          onGoingPressSuccess,
-          onGoingPressFailure,
-        ),
+        set_event_request(item, onGoingPressSuccess, onGoingPressFailure),
+      );
+      dispatch(
+        set_exercise_screen_request(false, () => {
+          console.log('Event Screens');
+        }),
       );
     } else {
       setisLoading(false);
@@ -85,6 +126,10 @@ const OngoingEvent = ({navigation}) => {
                 event_date={item?.start_date}
                 event_image={item?.event_image_url}
                 allEvents={true}
+                event_user_status={
+                  item?.current_user?.status_event || item?.status_event
+                }
+                event_status={item?.status}
                 onPressCard={() => {
                   OnGoingEventPress(item);
                 }}

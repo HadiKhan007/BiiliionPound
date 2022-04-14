@@ -12,12 +12,18 @@ import {
 } from './auth-saga/auth-sega';
 import {setProfileImageRequest} from './profile-sega/profile-sega';
 import {
-  getFilterExerciseRequest,
+  createExerciseWorkoutRequest,
+  getExerciseRequest,
+  setFilterExerciseRequest,
   getWeightLiftedRequest,
   selectfilteredBodyExerciseRequest,
   selectfilteredCategoryExerciseRequest,
+  setExerciseItemRequest,
+  setExerciseScreenRequest,
   setfilteredBodyExerciseRequest,
   setfilteredCategoryExerciseRequest,
+  getFilteredExerciseRequest,
+  setRecentSearchRequest,
 } from './exercise-sega/exercise-sega';
 import {
   addcardRequest,
@@ -28,6 +34,7 @@ import {
   joinTeamEventRequest,
   payWithDebitRequest,
   payWithSocialAccountRequest,
+  setEventRequest,
   setOngoingEventRequest,
   setUpcomingEventRequest,
 } from './event-sega/event-sega';
@@ -48,7 +55,6 @@ export function* rootSaga() {
   yield fork(getUpcomingEventRequest);
   yield fork(getOngoingEventRequest);
   yield fork(setUpcomingEventRequest);
-  yield fork(setOngoingEventRequest);
   yield fork(getActivitiesRequest);
   yield fork(addcardRequest);
   yield fork(getPaymentCardRequest);
@@ -56,9 +62,16 @@ export function* rootSaga() {
   yield fork(payWithSocialAccountRequest);
   yield fork(joinEventRequest);
   yield fork(joinTeamEventRequest);
-  yield fork(getFilterExerciseRequest);
+  yield fork(setFilterExerciseRequest);
+  yield fork(getExerciseRequest);
   yield fork(setfilteredBodyExerciseRequest);
   yield fork(setfilteredCategoryExerciseRequest);
   yield fork(selectfilteredCategoryExerciseRequest);
   yield fork(selectfilteredBodyExerciseRequest);
+  yield fork(setExerciseScreenRequest);
+  yield fork(setExerciseItemRequest);
+  yield fork(createExerciseWorkoutRequest);
+  yield fork(getFilteredExerciseRequest);
+  yield fork(setRecentSearchRequest);
+  yield fork(setEventRequest);
 }

@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     backgroundColor: colors.white,
-    paddingVertical: 8,
+    // paddingVertical: 5,
     paddingHorizontal: WP('5.5'),
   },
   sectionHeaderText: {
-    fontSize: size.large,
+    fontSize: size.medium,
     fontFamily: family.OpenSans_SemiBold,
     color: colors.b7,
   },
@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     alignSelf: 'center',
+  },
+  flatlistWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
   },
 });
 

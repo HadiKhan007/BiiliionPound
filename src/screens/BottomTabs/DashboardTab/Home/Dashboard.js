@@ -2,10 +2,17 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
-import {appIcons, capitalizeFirstLetter} from '../../../../shared/exporter';
+import {
+  appIcons,
+  capitalizeFirstLetter,
+  convertNumberSystem,
+} from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
-import {get_lifted_weight_request} from '../../../../redux/actions';
+import {
+  get_lifted_weight_request,
+  set_exercise_screen_request,
+} from '../../../../redux/actions';
 
 const Dashboard = ({navigation}) => {
   const isFocus = useIsFocused(null);
@@ -39,13 +46,19 @@ const Dashboard = ({navigation}) => {
     };
     dispatch(get_lifted_weight_request(getWeightSuccess, getWeightFailure));
   };
-
+  console.log(lifted_weight);
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <HomeHeader
           title={'Welcome Back'}
-          subtitle={userData?.first_name + ' ' + userData?.last_name}
+          subtitle={`${
+            capitalizeFirstLetter(userData?.first_name) ||
+            capitalizeFirstLetter(userInfo?.user?.first_name)
+          } ${
+            capitalizeFirstLetter(userData?.last_name) ||
+            capitalizeFirstLetter(userInfo?.user?.last_name)
+          }`}
           icon={appIcons.notification}
           onPressBtn={() => {
             navigation?.navigate('NotificationList');
@@ -54,11 +67,15 @@ const Dashboard = ({navigation}) => {
         <View style={styles.itemView}>
           <HomeCircle
             icon={appIcons.plus}
-            title={lifted_weight || 0}
+            title={convertNumberSystem(lifted_weight) || 0}
             isLoading={isLoading}
             subtitle={'Total Pounds Lifted'}
             onPressAdd={() => {
-              navigation?.navigate('ExerciseStack');
+              dispatch(
+                set_exercise_screen_request(true, () => {
+                  navigation?.navigate('ExerciseStack');
+                }),
+              );
             }}
           />
         </View>

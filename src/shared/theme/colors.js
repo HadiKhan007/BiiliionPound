@@ -44,6 +44,9 @@ export const colors = {
   g12: '#F7F8F8',
   g13: '#DA840D',
 
+  // Yellow
+  y1: '#F2AD50',
+
   //Green Color
   gr1: '#24D18F',
   //White colors

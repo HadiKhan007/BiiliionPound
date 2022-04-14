@@ -45,7 +45,7 @@ export const OngoingEventDetailCard = ({
     joined_team &&
       data?.push({
         id: 2,
-        title: teams[0]?.name,
+        title: joined_team,
         subtitle: `You are in ${joined_team.toLowerCase()}`,
         leftIcon: appIcons.peoples,
       });
@@ -70,7 +70,7 @@ export const OngoingEventDetailCard = ({
             {liftedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
             <Text style={styles.coloredViewSimple}>lbs</Text>
           </Text>
-          <Text style={styles.coloredViewSubtitle}>Total Lifted Amount</Text>
+          <Text style={styles.coloredViewSubtitle}>Total Lifted Goal</Text>
         </View>
 
         <View

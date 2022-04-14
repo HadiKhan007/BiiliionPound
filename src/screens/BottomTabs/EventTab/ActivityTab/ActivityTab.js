@@ -20,41 +20,17 @@ import {
   spacing,
   WP,
 } from '../../../../shared/exporter';
+import {useSelector} from 'react-redux';
 
 const ActivityTab = ({navigation}) => {
   const [index, setIndex] = React.useState(0);
-  const data = [
-    {
-      id: 0,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-    {
-      id: 1,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-    {
-      id: 2,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-    {
-      id: 3,
-      name: 'Elexa Andrew',
-      liftedAmount: '150 LBS',
-      image: appIcons.user,
-    },
-  ];
+  const {event_detail} = useSelector(state => state?.event);
 
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader
-          title={'Military Press'}
+          title={'Event Activities'}
           titleColor={colors.b7}
           icon={appIcons.backArrow}
         />
@@ -106,34 +82,58 @@ const ActivityTab = ({navigation}) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{flex: 1}}>
-          <FlatList
-            data={[1, 2, 3, 4]}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => {
-              return (
-                <View style={spacing.py2}>
-                  <ActivityCard
-                    name={'John Doe'}
-                    type={'Shoulder'}
-                    weight={'150LBS'}
-                    excercise={'2x Front Raises'}
-                    mode={'Front Raises'}
-                    cardIcon={appImages.sample_exercise}
-                  />
-                </View>
-              );
-            }}
-          />
-        </View>
+        {index == 0 ? (
+          <View style={{flex: 1}}>
+            <FlatList
+              data={event_detail?.all_activites}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => {
+                return (
+                  <View style={spacing.py2}>
+                    <ActivityCard
+                      name={`${item?.user?.first_name} ${item?.user?.last_name}`}
+                      type={item?.exercise?.exercise_type}
+                      weight={`${item?.total_lbs} LBS`}
+                      excercise={`${item?.repetitions?.length}x ${item?.exercise?.name}`}
+                      mode={item?.exercise?.name}
+                      cardIcon={
+                        item?.exercise?.exercise_image_url
+                          ? {uri: item?.exercise?.exercise_image_url}
+                          : appImages.sample_exercise
+                      }
+                    />
+                  </View>
+                );
+              }}
+            />
+          </View>
+        ) : (
+          <View style={{flex: 1}}>
+            <FlatList
+              data={event_detail?.your_activites}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => {
+                return (
+                  <View style={spacing.py2}>
+                    <ActivityCard
+                      name={`${item?.user?.first_name} ${item?.user?.last_name}`}
+                      type={item?.exercise?.exercise_type}
+                      weight={`${item?.total_lbs} LBS`}
+                      excercise={`${item?.repetitions?.length}x ${item?.exercise?.name}`}
+                      mode={item?.exercise?.name}
+                      cardIcon={
+                        item?.exercise?.exercise_image_url
+                          ? {uri: item?.exercise?.exercise_image_url}
+                          : appImages.sample_exercise
+                      }
+                    />
+                  </View>
+                );
+              }}
+            />
+          </View>
+        )}
       </View>
-
-      {/* <TabView.Item style={{backgroundColor: 'red'}}>
-          <Text>Recent</Text>
-        </TabView.Item>
-        <TabView.Item style={{backgroundColor: 'blue'}}>
-          <Text>Favorite</Text>
-        </TabView.Item> */}
     </SafeAreaView>
   );
 };

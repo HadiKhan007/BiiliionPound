@@ -18,6 +18,11 @@ export const joinTeamEvents = params => {
 export const getOngoingEvent = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/ongoing_events`);
 };
+//Get Event Detail
+export const getEventDetail = params => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.EVENTS}/${params}.json`);
+};
+
 //GET ALL PAYMENT CARDS
 export const getPaymentCards = () => {
   return HTTP_CLIENT.get(`${ENDPOINTS.CHECKOUT}`);

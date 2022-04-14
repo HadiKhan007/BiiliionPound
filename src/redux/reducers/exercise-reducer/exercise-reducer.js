@@ -9,6 +9,14 @@ const initialState = {
   filtered_exercises: [],
   categoryFilteredArray: [],
   bodyFilteredArray: [],
+  selected_bodyPart: {},
+  selected_category: {},
+
+  all_exercise: [],
+  exercise_screen: false,
+  exercise_item: null,
+  create_exercise_workout: null,
+  recent_searches: [],
 };
 const exerciseReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -32,7 +40,7 @@ const exerciseReducer = (state = initialState, actions) => {
         lifted_weight: null,
       };
     //************Filtered Exercise Sates*************
-    case TYPES.GET_FILTERED_EXERCISE_SUCCESS:
+    case TYPES.SET_FILTERED_EXERCISE_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -41,13 +49,61 @@ const exerciseReducer = (state = initialState, actions) => {
         filtered_exercises: payload,
       };
 
+    //************ Exercise Sates*************
+    case TYPES.GET_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        all_exercise: payload,
+      };
+
+    case TYPES.GET_EXERCISE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        all_exercise: state?.all_exercise,
+      };
+
+    //************ Exercise Sates*************
+    case TYPES.GET_FILTERED_EXERCISE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        all_exercise: payload,
+      };
+
     case TYPES.GET_FILTERED_EXERCISE_FAILURE:
       return {
         ...state,
         loading: false,
         isSuccess: false,
         isFailure: true,
-        filtered_exercises: null,
+        all_exercise: null,
+      };
+
+    //************Create Exercise Sates*************
+    case TYPES.CREATE_EXERCISE_WORKOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        create_exercise_workout: payload,
+      };
+
+    case TYPES.CREATE_EXERCISE_WORKOUT_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        create_exercise_workout: null,
       };
 
     //************Filtered Exercise Sates*************
@@ -66,24 +122,43 @@ const exerciseReducer = (state = initialState, actions) => {
       };
 
     case TYPES.SELECT_CATEGORY_FILTER_SUCCESS:
+      // state.categoryFilteredArray[payload].tick =
+      //   !state.categoryFilteredArray[payload].tick;
       return {
         ...state,
         loading: false,
-        // categoryFilteredArray: payload,
+        selected_category: payload,
       };
 
     case TYPES.SELECT_BODY_FILTER_SUCCESS:
-      console.log(payload);
+      // state.bodyFilteredArray[payload].tick =
+      //   !state.bodyFilteredArray[payload].tick;
       return {
         ...state,
         loading: false,
-        // bodyFilteredArray: payload,
+        selected_bodyPart: payload,
       };
     //************Custom Exercise*************
     case TYPES.CUSTOM_EXERCISE_SUCCESS:
       return {
         ...state,
         exercise: payload,
+      };
+
+    case TYPES.SET_EXERCISE_SCREEN:
+      return {
+        ...state,
+        exercise_screen: payload,
+      };
+    case TYPES.SET_EXERCISE_ITEM_SUCCESS:
+      return {
+        ...state,
+        exercise_item: payload,
+      };
+    case TYPES.SET_RECENT_SEARCHES_SUCCESS:
+      return {
+        ...state,
+        recent_searches: payload,
       };
     default:
       return state;

@@ -15,6 +15,10 @@ export const AppHeader = ({
   smSubtitle,
   titleColor,
   paddingHorizontal,
+  disabled,
+  rightContainerWidth,
+  centerContainerWidth,
+  marginTop,
 }) => {
   const navigation = useNavigation();
   return (
@@ -23,6 +27,7 @@ export const AppHeader = ({
         styles.container,
         {
           paddingHorizontal: paddingHorizontal ? paddingHorizontal : 0,
+          marginTop: marginTop ? marginTop : 0,
         },
       ]}>
       <View style={styles.headerStyle}>
@@ -45,12 +50,33 @@ export const AppHeader = ({
         <Text
           style={[
             styles.titleStyle,
-            {color: titleColor ? titleColor : colors.b7},
+            {
+              color: titleColor ? titleColor : colors.b7,
+              width: centerContainerWidth
+                ? centerContainerWidth
+                : scrWidth / 1.7,
+            },
           ]}>
           {title}
         </Text>
-        <TouchableOpacity style={styles.rightContainer} onPress={onPressBtn}>
-          {subtitle && <Text style={styles.subtitleStyle}>{subtitle}</Text>}
+        <TouchableOpacity
+          style={[
+            styles.rightContainer,
+            {
+              width: rightContainerWidth ? rightContainerWidth : scrWidth / 6,
+            },
+          ]}
+          disabled={disabled}
+          onPress={onPressBtn}>
+          {subtitle && (
+            <Text
+              style={[
+                styles.subtitleStyle,
+                {color: disabled ? colors.p5 : colors.p1},
+              ]}>
+              {subtitle}
+            </Text>
+          )}
           {smSubtitle && (
             <Text style={styles.smSubtitleStyle}>{smSubtitle}</Text>
           )}
@@ -79,7 +105,6 @@ const styles = StyleSheet.create({
     fontSize: size.normal,
     color: colors.b7,
     fontFamily: family.Poppins_Bold,
-    width: scrWidth / 1.7,
     textAlign: 'center',
   },
   headerStyle: {
@@ -126,7 +151,6 @@ const styles = StyleSheet.create({
   },
   rightContainer: {
     alignItems: 'flex-end',
-    width: scrWidth / 6,
     justifyContent: 'center',
   },
 });

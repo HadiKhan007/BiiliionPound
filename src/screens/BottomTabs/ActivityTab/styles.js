@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom: 10,
   },
   btnContainer: {
     width: 76,
