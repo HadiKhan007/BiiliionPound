@@ -18,6 +18,7 @@ const initialState = {
   create_exercise_workout: null,
   recent_searches: [],
   all_notifications: [],
+  fcm_token: null,
 };
 const exerciseReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -159,6 +160,21 @@ const exerciseReducer = (state = initialState, actions) => {
         ...state,
         loading: false,
         bodyFilteredArray: payload,
+      };
+
+    //************Save Device Token Sates*************
+    case TYPES.SAVE_DEVICE_TOKEN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        fcm_token: payload,
+      };
+    //Selected Filtered
+    case TYPES.SAVE_DEVICE_TOKEN_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        fcm_token: null,
       };
 
     case TYPES.SELECT_CATEGORY_FILTER_SUCCESS:

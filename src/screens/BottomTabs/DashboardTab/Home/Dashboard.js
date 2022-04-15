@@ -1,18 +1,22 @@
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
 import {
   appIcons,
   capitalizeFirstLetter,
+  checkConnected,
   convertNumberSystem,
+  requestPermission,
 } from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import {
   get_lifted_weight_request,
+  save_device_token,
   set_exercise_screen_request,
 } from '../../../../redux/actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Dashboard = ({navigation}) => {
   const isFocus = useIsFocused(null);
@@ -27,10 +31,18 @@ const Dashboard = ({navigation}) => {
   //Get Wieght Lifted
   useEffect(() => {
     if (isFocus) {
-      gettotalWeight();
+      getAllRequest();
     }
   }, [isFocus]);
-
+  const getAllRequest = async () => {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      gettotalWeight();
+      // sendFCMToken();
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
   //Get Lifted Weight
   const gettotalWeight = () => {
     setisLoading(true);
@@ -46,7 +58,17 @@ const Dashboard = ({navigation}) => {
     };
     dispatch(get_lifted_weight_request(getWeightSuccess, getWeightFailure));
   };
-  console.log(lifted_weight);
+  // send fcm token to backend
+  const sendFCMToken = async () => {
+    const cbSuccess = () => {};
+    const cbFailure = () => {};
+    AsyncStorage.getItem('fcmToken').then(token => {
+      if (requestPermission() != null) {
+        dispatch(save_device_token(token, cbSuccess, cbFailure));
+      }
+    });
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>

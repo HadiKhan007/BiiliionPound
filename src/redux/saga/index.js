@@ -26,6 +26,7 @@ import {
   setRecentSearchRequest,
   getNotificationListRequest,
   deleteNotificationRequest,
+  saveDeviceTokenRequest,
 } from './exercise-sega/exercise-sega';
 import {
   addcardRequest,
@@ -78,4 +79,5 @@ export function* rootSaga() {
   yield fork(setEventRequest);
   yield fork(getNotificationListRequest);
   yield fork(deleteNotificationRequest);
+  yield fork(saveDeviceTokenRequest);
 }

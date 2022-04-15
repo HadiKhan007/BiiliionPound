@@ -142,3 +142,13 @@ export const delete_notification_request = (params, cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+//Save Device Token
+export const save_device_token = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.SAVE_DEVICE_TOKEN_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};

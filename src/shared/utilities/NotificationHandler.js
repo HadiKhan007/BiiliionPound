@@ -1,6 +1,7 @@
 import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 // import {
 
 export const registerAppWithFCM = async () => {
@@ -60,7 +61,7 @@ export const Notification_Listner = (dispatch, props) => {
     console.log(remoteMessage);
   });
   messaging().onMessage(async remoteMessage => {
-    console.log(remoteMessage);
+    LocalNotification(remoteMessage);
   });
   messaging().getInitialNotification(async remoteMessage => {
     if (remoteMessage) {
@@ -69,13 +70,36 @@ export const Notification_Listner = (dispatch, props) => {
   });
 };
 
-export const LocalNotification = () => {
+export const LocalNotification = notification => {
   PushNotification.configure({
-    // (required) Called when a remote or local notification is opened or received
-    onNotification: notification => {
-      console.log(notification);
+    // (optional) Called when Token is generated (iOS and Android)
+    onRegister: function (token) {
+      // console.log('TOKEN:', token);
+    },
+
+    onNotification: function (notification) {
+      console.log('NOTIFICATION:', notification);
+      notification.finish(PushNotificationIOS.FetchResult.NoData);
+      PushNotification.localNotification({
+        channelId: 'fcm_fallback_notification_channel',
+        title: notification?.title,
+        smallIcon: 'ic_notification',
+        largeIcon: 'ic_launcher',
+        message: notification?.message,
+        vibrate: true, // (optional) default: true
+        vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
+        playSound: true, // (optional) default: true
+        soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+        invokeApp: true, // (optional) This enable click on actions to bring back the application to foreground or stay in background, default: true
+      });
     },
     popInitialNotification: true,
-    requestPermissions: true,
+    requestPermissions: Platform.OS === 'ios' ? true : false,
+    // IOS ONLY (optional): default: all - Permissions to register.
+    permissions: {
+      alert: true,
+      badge: true,
+      sound: true,
+    },
   });
 };

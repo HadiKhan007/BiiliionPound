@@ -280,6 +280,32 @@ function* createExerciseWorkout(params) {
     params?.cbFailure(msg);
   }
 }
+
+export function* saveDeviceTokenRequest() {
+  yield takeLatest(types.SAVE_DEVICE_TOKEN_REQUEST, saveDeviceToken);
+}
+
+function* saveDeviceToken(params) {
+  try {
+    // const res = yield createExerWorkout(params?.params);
+    // if (res.data) {
+    yield put({
+      type: types.SAVE_DEVICE_TOKEN_SUCCESS,
+      payload: params?.params,
+    });
+    params?.cbSuccess();
+    // }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.SAVE_DEVICE_TOKEN_FAILURE,
+      payload: null,
+    });
+    // let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure();
+  }
+}
+
 //Get Notification list
 
 export function* getNotificationListRequest() {
