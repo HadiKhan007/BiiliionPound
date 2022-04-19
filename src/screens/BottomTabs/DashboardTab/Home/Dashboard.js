@@ -38,7 +38,7 @@ const Dashboard = ({navigation}) => {
     const checkInternet = await checkConnected();
     if (checkInternet) {
       gettotalWeight();
-      // sendFCMToken();
+      sendFCMToken();
     } else {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
@@ -60,11 +60,19 @@ const Dashboard = ({navigation}) => {
   };
   // send fcm token to backend
   const sendFCMToken = async () => {
-    const cbSuccess = () => {};
-    const cbFailure = () => {};
+    const cbSuccess = () => {
+      // console.log('FCM TOKEN SAVED');
+    };
+    const cbFailure = msg => {
+      Alert.alert('Failed', msg);
+      console.log('FCM TOKEN FAILED TO SAVE');
+    };
     AsyncStorage.getItem('fcmToken').then(token => {
       if (requestPermission() != null) {
-        dispatch(save_device_token(token, cbSuccess, cbFailure));
+        const body = {
+          token: token,
+        };
+        dispatch(save_device_token(body, cbSuccess, cbFailure));
       }
     });
   };

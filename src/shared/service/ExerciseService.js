@@ -29,18 +29,17 @@ export const createExerWorkout = params => {
 
 //Notifications
 export const savefcmToken = params => {
-  // console.log(params);
-  return HTTP_CLIENT.post(`${ENDPOINTS.USER_EXERCISES}`, params);
+  return HTTP_CLIENT.post(`notification_mobile_token`, params);
 };
 
 //Notifications
-export const getNotifications = params => {
+export const getNotifications = () => {
   // console.log(params);
-  return HTTP_CLIENT.post(`${ENDPOINTS.USER_EXERCISES}`, params);
+  return HTTP_CLIENT.get(`notification`);
 };
 
 //Notifications
 export const delNotification = params => {
   // console.log(params);
-  return HTTP_CLIENT.post(`${ENDPOINTS.USER_EXERCISES}`, params);
+  return HTTP_CLIENT.delete(`notification/${params}`);
 };

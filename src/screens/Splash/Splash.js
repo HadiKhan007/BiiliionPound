@@ -30,8 +30,6 @@ const Splash = ({navigation}) => {
     requestPermission();
     //Notification Listner
     Notification_Listner(dispatch, navigation);
-    //On  local Notification
-    // LocalNotification();
   };
   const handleAppEntry = () => {
     setTimeout(() => {

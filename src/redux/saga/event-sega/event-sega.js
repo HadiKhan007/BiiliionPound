@@ -92,7 +92,7 @@ export function* setEventRequest() {
 }
 function* setEvent(params) {
   try {
-    const res = yield getEventDetail(params?.params?.id);
+    const res = yield getEventDetail(params?.params);
     if (res?.data) {
       yield put({
         type: types.SET_EVENT_SUCCESS,

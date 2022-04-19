@@ -124,7 +124,7 @@ const AddRaps = ({navigation}) => {
 
       dispatch(
         set_event_request(
-          event_detail,
+          event_detail?.id,
           onGoingPressSuccess,
           onGoingPressFailure,
         ),

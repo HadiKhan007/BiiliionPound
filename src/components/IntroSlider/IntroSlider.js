@@ -7,7 +7,14 @@ import {
   Dimensions,
   ImageBackground,
 } from 'react-native';
-import {appImages, colors, family, HP, size} from '../../shared/exporter';
+import {
+  appImages,
+  colors,
+  family,
+  HP,
+  size,
+  video_url,
+} from '../../shared/exporter';
 import Video from 'react-native-video';
 
 const IntroSlider = ({item, isVideo = false, index}) => {
@@ -17,7 +24,7 @@ const IntroSlider = ({item, isVideo = false, index}) => {
       <View style={{flex: 1}}>
         <Video
           repeat
-          source={require('../../assets/video/gym_video.mp4')}
+          source={{uri: video_url}}
           resizeMode="cover"
           style={{
             width: '100%',

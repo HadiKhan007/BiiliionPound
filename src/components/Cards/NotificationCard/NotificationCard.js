@@ -1,23 +1,34 @@
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {appIcons, colors, family, size} from '../../../shared/exporter';
-
+import {
+  appIcons,
+  colors,
+  family,
+  profile_uri,
+  size,
+} from '../../../shared/exporter';
+import {Image} from 'react-native-elements';
 export const NotificationCard = ({
   profileImage,
   title,
   subtitle,
   onPressThreeDots,
+  event_name,
 }) => {
   return (
     <View style={styles.conatiner}>
       <View style={styles.leftContainer}>
         <View style={styles.profileImage}>
-          <Image style={styles.imageStyle} source={{uri: profileImage}} />
+          <Image
+            progressiveRenderingEnabled={true}
+            style={styles.imageStyle}
+            source={{uri: profileImage || profile_uri}}
+          />
         </View>
       </View>
       <View style={styles.rightContainer}>
         <View>
-          <Text style={styles.titleStyle}>{title}</Text>
+          <Text style={styles.titleStyle}>{`${title} (${event_name})`}</Text>
           <Text style={styles.subtitleStyle}>{subtitle}</Text>
         </View>
         <TouchableOpacity onPress={onPressThreeDots} hitSlop={styles.hitSlop}>
@@ -71,7 +82,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     borderRadius: 100,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
   },
   hitSlop: {
     top: 30,

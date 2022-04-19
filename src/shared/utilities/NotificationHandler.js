@@ -2,7 +2,7 @@ import messaging from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-// import {
+import {set_event_request} from '../../redux/actions';
 
 export const registerAppWithFCM = async () => {
   await messaging().registerDeviceForRemoteMessages();
@@ -15,7 +15,6 @@ export async function requestPermission() {
       authStatus == messaging.AuthorizationStatus.PROVISIONAL;
     if (enabled) {
       let token = await getFcmToken();
-      console.log('TOKEN', token);
       return token;
     }
   } catch (error) {
@@ -56,12 +55,21 @@ const getFcmToken = async () => {
   }
 };
 
-export const Notification_Listner = (dispatch, props) => {
+export const Notification_Listner = (dispatch, navigation) => {
   messaging().onNotificationOpenedApp(async remoteMessage => {
-    console.log(remoteMessage);
+    let notificationObj = remoteMessage.data?.event_id;
+    if (notificationObj) {
+      notificationObj = JSON.parse(notificationObj);
+      onClickNotification(notificationObj, dispatch, navigation);
+    }
   });
   messaging().onMessage(async remoteMessage => {
-    LocalNotification(remoteMessage);
+    let notificationObj = remoteMessage.data?.event_id;
+    if (notificationObj) {
+      notificationObj = JSON.parse(notificationObj);
+      LocalNotification(remoteMessage, notificationObj, dispatch, navigation);
+      console.log('Remote Notitifcation', remoteMessage);
+    }
   });
   messaging().getInitialNotification(async remoteMessage => {
     if (remoteMessage) {
@@ -70,29 +78,33 @@ export const Notification_Listner = (dispatch, props) => {
   });
 };
 
-export const LocalNotification = notification => {
+export const LocalNotification = (notify, id, dispatch, navigation) => {
+  PushNotification.localNotification({
+    channelId: 'fcm_fallback_notification_channel',
+    title: notify?.notification?.title,
+    smallIcon: 'ic_notification',
+    largeIcon: 'ic_launcher',
+    message: notify?.notification?.body,
+    vibrate: true, // (optional) default: true
+    vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
+    playSound: true, // (optional) default: true
+    soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
+    invokeApp: true, // (optional) This enable click on actions to bring back the application to foreground or stay in background, default: true
+  });
   PushNotification.configure({
     // (optional) Called when Token is generated (iOS and Android)
     onRegister: function (token) {
       // console.log('TOKEN:', token);
     },
-
     onNotification: function (notification) {
-      console.log('NOTIFICATION:', notification);
+      if (notification.userInteraction) {
+        onClickNotification(id, dispatch, navigation);
+      } else {
+        console.log('User received notification');
+      }
       notification.finish(PushNotificationIOS.FetchResult.NoData);
-      PushNotification.localNotification({
-        channelId: 'fcm_fallback_notification_channel',
-        title: notification?.title,
-        smallIcon: 'ic_notification',
-        largeIcon: 'ic_launcher',
-        message: notification?.message,
-        vibrate: true, // (optional) default: true
-        vibration: 300, // vibration length in milliseconds, ignored if vibrate=false, default: 1000
-        playSound: true, // (optional) default: true
-        soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-        invokeApp: true, // (optional) This enable click on actions to bring back the application to foreground or stay in background, default: true
-      });
     },
+
     popInitialNotification: true,
     requestPermissions: Platform.OS === 'ios' ? true : false,
     // IOS ONLY (optional): default: all - Permissions to register.
@@ -102,4 +114,15 @@ export const LocalNotification = notification => {
       sound: true,
     },
   });
+};
+const onClickNotification = (id, dispatch, navigation) => {
+  const onEventPressSuccess = () => {
+    navigation.navigate('EventDetail');
+    console.log('On Event Event Success');
+  };
+  //set Event event failure
+  const onEventPressFailure = () => {
+    console.log('On Event Event Failure');
+  };
+  dispatch(set_event_request(id, onEventPressSuccess, onEventPressFailure));
 };
