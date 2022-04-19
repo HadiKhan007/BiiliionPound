@@ -14,9 +14,10 @@ export const NotificationCard = ({
   subtitle,
   onPressThreeDots,
   event_name,
+  onPressCard,
 }) => {
   return (
-    <View style={styles.conatiner}>
+    <TouchableOpacity onPress={onPressCard} style={styles.conatiner}>
       <View style={styles.leftContainer}>
         <View style={styles.profileImage}>
           <Image
@@ -35,7 +36,7 @@ export const NotificationCard = ({
           <Image style={styles.DotStyle} source={appIcons.threeDots} />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

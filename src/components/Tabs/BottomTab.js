@@ -45,6 +45,7 @@ export const BottomTab = ({state, descriptors, navigation}) => {
       style: styles.profileImageStyle,
     },
   ];
+
   return (
     <View style={styles.container}>
       <FlatList

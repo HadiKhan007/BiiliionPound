@@ -14,9 +14,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   delete_notification_request,
   get_notification_list_request,
+  set_event_request,
 } from '../../../../redux/actions';
 import moment from 'moment';
-const NotificationList = () => {
+const NotificationList = ({navigation}) => {
   const deleteModalRef = useRef(null);
   const dispatch = useDispatch(null);
   const [currentItem, setcurrentItem] = useState(null);
@@ -68,6 +69,31 @@ const NotificationList = () => {
     }
   };
 
+  const onPressCard = async item => {
+    //set   event success
+    setisLoading(true);
+    const checkInternet = await checkConnected();
+    const onPressSuccess = () => {
+      navigation.navigate('EventDetail');
+      console.log('On Event Success');
+      setisLoading(false);
+    };
+    //set  event failure
+    const onPressFailure = () => {
+      console.log('On  Event Failure');
+      setisLoading(false);
+    };
+
+    if (checkInternet) {
+      dispatch(
+        set_event_request(item?.event?.id, onPressSuccess, onPressFailure),
+      );
+    } else {
+      setisLoading(false);
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -75,6 +101,7 @@ const NotificationList = () => {
         <View style={styles.itemContainer}>
           <FlatList
             data={all_notifications}
+            showsVerticalScrollIndicator={false}
             renderItem={({item}) => {
               return (
                 <NotificationCard
@@ -85,6 +112,9 @@ const NotificationList = () => {
                   onPressThreeDots={() => {
                     setcurrentItem(item);
                     deleteModalRef?.current?.show();
+                  }}
+                  onPressCard={() => {
+                    onPressCard(item);
                   }}
                 />
               );
