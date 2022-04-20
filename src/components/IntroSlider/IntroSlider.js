@@ -32,7 +32,6 @@ const IntroSlider = ({
     return (
       <View style={{flex: 1}}>
         <Video
-          paused={paused}
           repeat
           source={{uri: video_url}}
           resizeMode="cover"
