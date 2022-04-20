@@ -34,15 +34,15 @@ const Splash = ({navigation}) => {
 
   const handleAppEntry = () => {
     setTimeout(() => {
-      // if (userInfo?.user == null) {
-      //   if (walkthrough?.skip) {
-      //     navigation.replace('Auth');
-      // } else {
-      navigation.replace('GettingStarted');
-      //   }
-      // } else {
-      //   navigation.replace('App');
-      // }
+      if (userInfo?.user == null) {
+        if (walkthrough?.skip) {
+          navigation.replace('Auth');
+        } else {
+          navigation.replace('GettingStarted');
+        }
+      } else {
+        navigation.replace('App');
+      }
     }, 2500);
   };
 

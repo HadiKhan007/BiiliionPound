@@ -18,60 +18,9 @@ import {
 } from '../../shared/exporter';
 import Video from 'react-native-video';
 
-const IntroSlider = ({
-  item,
-  isVideo = false,
-  index,
-  opacity,
-  onLoad,
-  onBuffer,
-  onLoadStart,
-}) => {
-  //Video
-  if (item.key === 1) {
-    return (
-      <View style={{flex: 1}}>
-        <Video
-          repeat
-          source={{uri: video_url}}
-          resizeMode="cover"
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          onBuffer={onBuffer}
-          onLoadStart={onLoadStart}
-          onLoad={onLoad}
-          onVideoBuffer={onBuffer}
-          automaticallyWaitsToMinimizeStalling={true}
-          ignoreSilentSwitch={'obey'}
-        />
-        <ActivityIndicator
-          animating
-          size="large"
-          color={colors.p1}
-          style={[styles.activityIndicator, {opacity: opacity}]}
-        />
-        <View
-          style={[
-            styles.textContainer,
-            {
-              flex: 1,
-              //  marginTop: HP('30'),
-              zIndex: 1,
-              position: 'absolute',
-              justifyContent: 'center',
-              bottom: HP('25'),
-            },
-          ]}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.desc}>{item.text}</Text>
-        </View>
-      </View>
-    );
-  }
+const IntroSlider = ({item, index}) => {
   //Company bio
-  if (item.key === 5) {
+  if (item.key === 4) {
     return (
       <ImageBackground style={styles.pic} source={item.image}>
         <View style={{backgroundColor: 'rgba(0,0,0,0.4)', height: '100%'}}>
