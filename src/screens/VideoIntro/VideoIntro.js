@@ -89,8 +89,8 @@ const VideoIntro = ({navigation}) => {
               bottom: HP('25'),
             },
           ]}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.desc}>{text}</Text>
+          {/* <Text style={styles.title}>{title}</Text>
+          <Text style={styles.desc}>{text}</Text> */}
         </View>
         <TouchableOpacity
           onPress={() => {
