@@ -64,11 +64,11 @@ export const Notification_Listner = (dispatch, navigation) => {
     }
   });
   messaging().onMessage(async remoteMessage => {
+    console.log('Remote Notitifcation', remoteMessage);
     let notificationObj = remoteMessage.data?.event_id;
     if (notificationObj) {
       notificationObj = JSON.parse(notificationObj);
       LocalNotification(remoteMessage, notificationObj, dispatch, navigation);
-      console.log('Remote Notitifcation', remoteMessage);
     }
   });
   messaging().getInitialNotification(async remoteMessage => {

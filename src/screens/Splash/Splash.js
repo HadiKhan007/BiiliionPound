@@ -31,19 +31,21 @@ const Splash = ({navigation}) => {
     //Notification Listner
     Notification_Listner(dispatch, navigation);
   };
+
   const handleAppEntry = () => {
     setTimeout(() => {
-      if (userInfo?.user == null) {
-        if (walkthrough?.skip) {
-          navigation.replace('Auth');
-        } else {
-          navigation.replace('GettingStarted');
-        }
-      } else {
-        navigation.replace('App');
-      }
+      // if (userInfo?.user == null) {
+      //   if (walkthrough?.skip) {
+      //     navigation.replace('Auth');
+      // } else {
+      navigation.replace('GettingStarted');
+      //   }
+      // } else {
+      //   navigation.replace('App');
+      // }
     }, 2500);
   };
+
   return (
     <>
       <SafeAreaView style={styles.rootContainer}>

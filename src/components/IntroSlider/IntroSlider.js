@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import {
   appImages,
@@ -17,12 +18,21 @@ import {
 } from '../../shared/exporter';
 import Video from 'react-native-video';
 
-const IntroSlider = ({item, isVideo = false, index}) => {
+const IntroSlider = ({
+  item,
+  isVideo = false,
+  index,
+  opacity,
+  onLoad,
+  onBuffer,
+  onLoadStart,
+}) => {
   //Video
   if (item.key === 1) {
     return (
       <View style={{flex: 1}}>
         <Video
+          paused={paused}
           repeat
           source={{uri: video_url}}
           resizeMode="cover"
@@ -30,6 +40,18 @@ const IntroSlider = ({item, isVideo = false, index}) => {
             width: '100%',
             height: '100%',
           }}
+          onBuffer={onBuffer}
+          onLoadStart={onLoadStart}
+          onLoad={onLoad}
+          onVideoBuffer={onBuffer}
+          automaticallyWaitsToMinimizeStalling={true}
+          ignoreSilentSwitch={'obey'}
+        />
+        <ActivityIndicator
+          animating
+          size="large"
+          color={colors.p1}
+          style={[styles.activityIndicator, {opacity: opacity}]}
         />
         <View
           style={[
@@ -105,6 +127,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignSelf: 'center',
+  },
+  activityIndicator: {
+    position: 'absolute',
+    top: 200,
+    left: 0,
+    right: 0,
+    height: 200,
   },
 });
 

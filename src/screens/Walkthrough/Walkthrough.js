@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useRef, useState} from 'react';
 import {StyleSheet, View, Text, Image, StatusBar} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -50,13 +50,33 @@ const slides = [
 
 const Walkthrough = ({navigation}) => {
   const [progressValue, setProgressValue] = useState(0);
+  const [opacity, setOpacity] = useState(0);
   const dispatch = useDispatch();
+
   useEffect(() => {
     setProgressValue(30);
   }, []);
-
+  const onLoad = () => {
+    setOpacity(0);
+  };
+  const onBuffer = ({isBuffering}) => {
+    const isbuffer = isBuffering ? 1 : 0;
+    setOpacity(isbuffer);
+  };
+  const onLoadStart = () => {
+    setOpacity(1);
+  };
   const renderItem = ({item, index}) => {
-    return <IntroSlider item={item} index={index} />;
+    return (
+      <IntroSlider
+        item={item}
+        index={index}
+        opacity={opacity}
+        onLoad={onLoad}
+        onBuffer={onBuffer}
+        onLoadStart={onLoadStart}
+      />
+    );
   };
 
   const renderNextButton = props => {
