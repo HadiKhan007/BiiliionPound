@@ -4,8 +4,7 @@ import {colors, family, HP, size} from '../../shared/exporter';
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.7)',
   },
   textStyle: {
     fontSize: 20,
@@ -72,10 +71,10 @@ const styles = StyleSheet.create({
   },
   activityIndicator: {
     position: 'absolute',
-    top: 200,
+    top: 0,
     left: 0,
     right: 0,
-    height: 200,
+    bottom: 0,
   },
   textContainer: {
     flex: 0.5,

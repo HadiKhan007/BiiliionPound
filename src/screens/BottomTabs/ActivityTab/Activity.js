@@ -20,6 +20,7 @@ import {
 import {
   appIcons,
   appImages,
+  best_set,
   checkConnected,
   convertNumberSystem,
   spacing,
@@ -142,6 +143,7 @@ const Activity = ({navigation}) => {
                           ? {uri: item?.exercise?.exercise_image_url}
                           : appImages.sample_exercise
                       }
+                      bestSet={best_set(item?.repetitions)}
                     />
                   </View>
                 );

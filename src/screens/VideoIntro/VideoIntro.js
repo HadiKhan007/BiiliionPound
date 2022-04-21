@@ -23,14 +23,11 @@ const title = 'Track Your Goal';
 const text = `Don't worry if you have trouble determining your goals, We can help you determine your goals and track your goals`;
 
 const VideoIntro = ({navigation}) => {
-  const [progressValue, setProgressValue] = useState(0);
   const [opacity, setOpacity] = useState(0);
   const video = useRef(null);
   const [pause, setPause] = useState(false);
   const isFocus = useIsFocused();
-  useEffect(() => {
-    setProgressValue(30);
-  }, []);
+
   const onLoad = () => {
     setOpacity(0);
   };
@@ -49,7 +46,7 @@ const VideoIntro = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <View style={{flex: 1}}>
+      <View style={styles.rootContainer}>
         <Video
           ref={video}
           repeat={true}
@@ -59,16 +56,12 @@ const VideoIntro = ({navigation}) => {
             width: '100%',
             height: '100%',
           }}
+          useTextureView={false}
           paused={pause}
           playInBackground={false}
           onBuffer={onBuffer}
           onLoadStart={onLoadStart}
           onLoad={onLoad}
-          onReadyForDisplay={() => {
-            setOpacity(1);
-          }}
-          onVideoBuffer={onBuffer}
-          automaticallyWaitsToMinimizeStalling={true}
           ignoreSilentSwitch={'obey'}
         />
         <ActivityIndicator
@@ -94,7 +87,7 @@ const VideoIntro = ({navigation}) => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            navigation?.navigate('Walkthrough');
+            navigation?.replace('Walkthrough');
           }}
           style={styles.buttonCircle}>
           <Icon

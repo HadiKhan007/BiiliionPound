@@ -5,9 +5,11 @@ import {
   appRadius,
   capitalizeFirstLetter,
   colors,
+  convertNumberSystem,
   family,
   size,
   spacing,
+  WP,
 } from '../../../shared/exporter';
 import {FitnessCard} from '../FitnessCard/FitnessCard';
 
@@ -18,6 +20,7 @@ export const ActivityCard = ({
   type,
   weight,
   excercise,
+  bestSet,
 }) => {
   return (
     <View style={styles.cardContainer}>
@@ -33,10 +36,14 @@ export const ActivityCard = ({
         <Text style={styles.subtitle}>{capitalizeFirstLetter(excercise)}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <View style={spacing.pt3}>
+        <View style={spacing.py3}>
           <FitnessCard icon={cardIcon} />
         </View>
-        <Text style={styles.subtitle}>(+2LBS) x 10</Text>
+        <Text style={styles.type}>Best Set</Text>
+        <Text style={styles.subtitle}>
+          ({`+${convertNumberSystem(bestSet?.lbs)} LBS`}) x{' '}
+          {convertNumberSystem(bestSet?.repetition)}
+        </Text>
       </View>
     </View>
   );
@@ -44,16 +51,15 @@ export const ActivityCard = ({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: 170,
     paddingHorizontal: 20,
     width: '100%',
     flexDirection: 'row',
     borderWidth: 0.5,
-    paddingVertical: 10,
     borderColor: colors.light_shadow,
     backgroundColor: colors.white,
     borderRadius: appRadius.boxRadius,
     shadowColor: colors.light_shadow,
+    paddingVertical: 10,
     shadowOffset: {
       width: 0,
       height: 4,

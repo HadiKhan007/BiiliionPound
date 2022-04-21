@@ -39,6 +39,10 @@ export const payWithDebitCard = params => {
 };
 
 //Pay With Social Card Requests
-export const payWithSocialCard = params => {
-  return HTTP_CLIENT.post(`${ENDPOINTS.CHECKOUT}/apple_pay`, params);
+export const payWithSocialCard = (type, params) => {
+  console.log('Payment Type', type);
+  return HTTP_CLIENT.post(
+    `${ENDPOINTS.CHECKOUT}/${type == 'apple' ? 'apple_pay' : 'google_pay'}`,
+    params,
+  );
 };

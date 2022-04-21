@@ -106,13 +106,13 @@ export function convertNumberSystem(num) {
   num = Math.abs(num);
   if (num >= 1000000000000) {
     formattedNumber =
-      (num / 1000000000000).toFixed(0).replace(/\.0$/, '') + 'T';
+      (num / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'T';
   } else if (num >= 1000000000) {
-    formattedNumber = (num / 1000000000).toFixed(0).replace(/\.0$/, '') + 'B';
+    formattedNumber = (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
   } else if (num >= 1000000) {
-    formattedNumber = (num / 1000000).toFixed(0).replace(/\.0$/, '') + 'M';
+    formattedNumber = (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
   } else if (num >= 1000) {
-    formattedNumber = (num / 1000).toFixed(0).replace(/\.0$/, '') + 'K';
+    formattedNumber = (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
   } else {
     formattedNumber = num;
   }
@@ -121,3 +121,12 @@ export function convertNumberSystem(num) {
   }
   return formattedNumber;
 }
+export const best_set = sets => {
+  for (let i = 0; i < sets?.length; i++) {
+    sets[i]['maxValue'] = sets[i].set * sets[i].lbs;
+  }
+  const max = sets?.reduce(function (prev, current) {
+    return prev?.maxValue > current?.maxValue ? prev : current;
+  });
+  return max;
+};

@@ -11,6 +11,7 @@ import {
 import {
   appIcons,
   appImages,
+  best_set,
   capitalizeFirstLetter,
   checkConnected,
   colors,
@@ -216,6 +217,7 @@ const AddRaps = ({navigation}) => {
           weight={`${convertNumberSystem(
             create_exercise_workout?.total_lbs,
           )} LBS`}
+          bestSet={best_set(create_exercise_workout?.repetitions)}
           excercise={`${create_exercise_workout?.repetitions.length}x ${create_exercise_workout?.exercise?.name}`}
           mode={`${capitalizeFirstLetter(
             create_exercise_workout?.exercise?.name,

@@ -21,6 +21,7 @@ export const ActivitySuccess = ({
   excercise,
   mode,
   onPressShare,
+  bestSet,
 }) => {
   return (
     <Modal animationType="slide" style={styles.container} visible={show}>
@@ -43,6 +44,7 @@ export const ActivitySuccess = ({
             excercise={excercise}
             mode={mode}
             cardIcon={cardIcon}
+            bestSet={bestSet}
           />
         </View>
       </SafeAreaView>

@@ -237,7 +237,7 @@ export function* payWithSocialAccountRequest() {
 }
 function* payWithSocial(params) {
   try {
-    const res = yield payWithSocialCard(params?.params);
+    const res = yield payWithSocialCard(params?.payment_type, params?.params);
     if (res.data) {
       yield put({
         type: types.PAY_WITH_SOCIAL_SUCCESS,

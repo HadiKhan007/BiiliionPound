@@ -338,6 +338,7 @@ const Payment = ({navigation, route}) => {
 
           dispatch(
             pay_with_social_request(
+              'apple',
               requestBody,
               onSuccessApplePay,
               onFailedApplePay,
@@ -354,7 +355,7 @@ const Payment = ({navigation, route}) => {
   const googlePay = async () => {
     console.log('Google Pay');
     const {error, paymentMethod} = await createGooglePayPaymentMethod({
-      amount: 12,
+      amount: event_detail?.price,
       currencyCode: 'USD',
     });
 
@@ -362,9 +363,30 @@ const Payment = ({navigation, route}) => {
       Alert.alert(error.code, error.message);
       return;
     } else if (paymentMethod) {
-      Alert.alert(
-        'Success',
-        `The payment method was created successfully. paymentMethodId: ${paymentMethod.id}`,
+      const onSuccessGooglePay = async res => {
+        // console.log('Google Pay Success', res);
+        setShowSuccess(true);
+        setisLoading(false);
+      };
+      const onFailedGooglePay = res => {
+        console.log(res);
+        console.log('Apple Pay Failed');
+        setisLoading(false);
+      };
+
+      //Apple Pay Request Sending
+      const requestBody = {
+        event_id: event_detail?.id,
+        team_id: join_team_event?.name != 'None' ? join_team_event?.id : null,
+      };
+
+      dispatch(
+        pay_with_social_request(
+          'google',
+          requestBody,
+          onSuccessGooglePay,
+          onFailedGooglePay,
+        ),
       );
     }
   };

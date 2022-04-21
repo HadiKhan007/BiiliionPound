@@ -15,6 +15,7 @@ import {ActivityCard, AppHeader} from '../../../../components';
 import {
   appIcons,
   appImages,
+  best_set,
   colors,
   convertNumberSystem,
   HP,
@@ -102,6 +103,7 @@ const ActivityTab = ({navigation}) => {
                           ? {uri: item?.exercise?.exercise_image_url}
                           : appImages.sample_exercise
                       }
+                      bestSet={best_set(item?.repetitions)}
                     />
                   </View>
                 );
@@ -127,6 +129,7 @@ const ActivityTab = ({navigation}) => {
                           ? {uri: item?.exercise?.exercise_image_url}
                           : appImages.sample_exercise
                       }
+                      bestSet={best_set(item?.repetitions)}
                     />
                   </View>
                 );

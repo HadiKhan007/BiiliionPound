@@ -7,6 +7,7 @@ import {
   Dimensions,
   ImageBackground,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import {
   appImages,
@@ -16,9 +17,9 @@ import {
   size,
   video_url,
 } from '../../shared/exporter';
-import Video from 'react-native-video';
+import {Icon} from 'react-native-elements/dist/icons/Icon';
 
-const IntroSlider = ({item, index}) => {
+const IntroSlider = ({item, index, onPressBack}) => {
   //Company bio
   if (item.key === 4) {
     return (
@@ -34,6 +35,19 @@ const IntroSlider = ({item, index}) => {
   }
   return (
     <View style={styles.main}>
+      {item?.key == 1 && (
+        <TouchableOpacity
+          onPress={onPressBack}
+          style={styles.backBtn}
+          hitSlop={{top: 50, bottom: 50, left: 50, right: 50}}>
+          <Icon
+            name="chevron-back-outline"
+            type={'ionicon'}
+            color="white"
+            size={24}
+          />
+        </TouchableOpacity>
+      )}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.desc}>{item.text}</Text>
@@ -82,6 +96,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 200,
+  },
+  backBtn: {
+    position: 'absolute',
+    top: 80,
+    left: 10,
+    zIndex: 99999,
   },
 });
 

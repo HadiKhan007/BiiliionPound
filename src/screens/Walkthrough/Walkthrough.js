@@ -8,6 +8,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 import {useDispatch} from 'react-redux';
 import {setWalkthrough} from '../../redux/actions';
+import {CommonActions} from '@react-navigation/native';
+
 // import CircularProgress from 'react-native-circular-progress-indicator';
 
 const slides = [
@@ -28,7 +30,7 @@ const slides = [
   {
     key: 3,
     title: 'Get Your Billion Pound Medallion',
-    text: ' At the end of every event you complete you will receive a collectible medallion. ',
+    text: 'Once you register for a fund- raising event OR register to use the app as your daily fitness journal... you receive our beautiful TEAM medallion!',
     image: appImages.slider3,
     backgroundColor: '#22bcb5',
   },
@@ -44,7 +46,15 @@ const slides = [
 const Walkthrough = ({navigation}) => {
   const dispatch = useDispatch(null);
   const renderItem = ({item, index}) => {
-    return <IntroSlider item={item} index={index} />;
+    return (
+      <IntroSlider
+        onPressBack={() => {
+          navigation?.replace('VideoIntro');
+        }}
+        item={item}
+        index={index}
+      />
+    );
   };
 
   const renderNextButton = props => {
