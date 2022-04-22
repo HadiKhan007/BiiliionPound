@@ -37,12 +37,6 @@ const Profile = ({navigation}) => {
   const {userInfo} = useSelector(state => state.auth);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log('====================================');
-    console.log(userInfo);
-    console.log('====================================');
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       getUserData();
@@ -137,7 +131,7 @@ const Profile = ({navigation}) => {
         <View style={styles.itemContainer}>
           <ProfileImage
             profileUri={profile_image || profile_uri}
-            title={userData?.full_name}
+            title={userData?.full_name || ''}
           />
         </View>
         <View style={spacing.py3}>

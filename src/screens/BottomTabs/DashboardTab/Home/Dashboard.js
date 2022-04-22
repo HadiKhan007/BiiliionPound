@@ -136,11 +136,11 @@ const Dashboard = ({navigation}) => {
         <HomeHeader
           title={'Welcome Back'}
           subtitle={`${
-            capitalizeFirstLetter(userData?.first_name) ||
-            capitalizeFirstLetter(userInfo?.user?.first_name)
+            capitalizeFirstLetter(userData?.first_name || '') ||
+            capitalizeFirstLetter(userInfo?.user?.first_name || '')
           } ${
-            capitalizeFirstLetter(userData?.last_name) ||
-            capitalizeFirstLetter(userInfo?.user?.last_name)
+            capitalizeFirstLetter(userData?.last_name || '') ||
+            capitalizeFirstLetter(userInfo?.user?.last_name || '')
           }`}
           icon={appIcons.notification}
           onPressBtn={() => {
