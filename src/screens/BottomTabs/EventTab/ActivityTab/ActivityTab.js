@@ -93,14 +93,18 @@ const ActivityTab = ({navigation}) => {
                 return (
                   <View style={spacing.py2}>
                     <ActivityCard
-                      name={`${item?.user?.first_name} ${item?.user?.last_name}`}
-                      type={item?.exercise?.exercise_type}
+                      name={`${item?.user?.first_name || ''} ${
+                        item?.user?.last_name || ''
+                      }`}
+                      type={item?.exercise?.exercise_type || ''}
                       weight={`${convertNumberSystem(item?.total_lbs)} LBS`}
-                      excercise={`${item?.repetitions?.length}x ${item?.exercise?.name}`}
-                      mode={item?.exercise?.name}
+                      excercise={`${item?.repetitions?.length || ''}x ${
+                        item?.exercise?.name || ''
+                      }`}
+                      mode={item?.exercise?.name || ''}
                       cardIcon={
                         item?.exercise?.exercise_image_url
-                          ? {uri: item?.exercise?.exercise_image_url}
+                          ? {uri: item?.exercise?.exercise_image_url || ''}
                           : appImages.sample_exercise
                       }
                       bestSet={best_set(item?.repetitions)}
@@ -119,11 +123,15 @@ const ActivityTab = ({navigation}) => {
                 return (
                   <View style={spacing.py2}>
                     <ActivityCard
-                      name={`${item?.user?.first_name} ${item?.user?.last_name}`}
-                      type={item?.exercise?.exercise_type}
+                      name={`${item?.user?.first_name || ''} ${
+                        item?.user?.last_name || ''
+                      }`}
+                      type={item?.exercise?.exercise_type || ''}
                       weight={`${convertNumberSystem(item?.total_lbs)} LBS`}
-                      excercise={`${item?.repetitions?.length}x ${item?.exercise?.name}`}
-                      mode={item?.exercise?.name}
+                      excercise={`${item?.repetitions?.length || ''}x ${
+                        item?.exercise?.name || ''
+                      }`}
+                      mode={item?.exercise?.name || ''}
                       cardIcon={
                         item?.exercise?.exercise_image_url
                           ? {uri: item?.exercise?.exercise_image_url}

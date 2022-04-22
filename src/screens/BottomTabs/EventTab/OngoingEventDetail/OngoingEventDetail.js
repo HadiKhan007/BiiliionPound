@@ -55,9 +55,7 @@ const OngoingEventDetail = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
           <View style={styles.itemView}>
             <HomeCircle
-              title={
-                convertNumberSystem(event_detail?.total_pounds_lifted) || 0
-              }
+              title={event_detail?.total_pounds_lifted || 0}
               subtitle={'Total Pounds Lifted'}
               onPressAdd={() => {
                 navigation?.navigate('ExerciseStack');

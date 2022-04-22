@@ -1,6 +1,6 @@
 import NetInfo from '@react-native-community/netinfo';
 import {createContext, useContext, useEffect} from 'react';
-import {appIcons} from '../exporter';
+import {appIcons, WP} from '../exporter';
 import moment from 'moment';
 
 export const checkConnected = () => {
@@ -130,3 +130,25 @@ export const best_set = sets => {
   });
   return max;
 };
+
+export function setDigitSize(num) {
+  if (num >= 1000000000000) {
+    return WP('5');
+  } else if (num >= 10000000000) {
+    return WP('7');
+  } else if (num >= 100000000) {
+    return WP('9');
+  } else if (num >= 10000000) {
+    return WP('11');
+  } else if (num >= 1000000) {
+    return WP('13');
+  } else if (num >= 100000) {
+    return WP('15');
+  } else if (num >= 10000) {
+    return WP('18');
+  } else if (num >= 1000) {
+    return WP('18');
+  } else {
+    return WP('18');
+  }
+}

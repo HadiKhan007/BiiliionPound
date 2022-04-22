@@ -131,13 +131,15 @@ const Activity = ({navigation}) => {
                 return (
                   <View style={spacing.py2}>
                     <ActivityCard
-                      name={item?.user?.full_name}
-                      type={item?.exercise?.exercise_type}
+                      name={item?.user?.full_name || ''}
+                      type={item?.exercise?.exercise_type || ''}
                       weight={convertNumberSystem(item?.total_lbs) + ' LBS'}
                       excercise={
-                        item?.repetitions?.length + ' x ' + item?.exercise?.name
+                        item?.repetitions?.length ||
+                        '' + ' x ' + item?.exercise?.name ||
+                        ''
                       }
-                      mode={item?.exercise?.name}
+                      mode={item?.exercise?.name || ''}
                       cardIcon={
                         item?.exercise?.exercise_image_url
                           ? {uri: item?.exercise?.exercise_image_url}

@@ -64,7 +64,9 @@ const Dashboard = ({navigation}) => {
     //Get Lifted Weight Failure
     const getWeightFailure = res => {
       setisLoading(false);
-      // console.log(res);
+      if (res) {
+        Alert.alert('Error', res);
+      }
     };
     dispatch(get_lifted_weight_request(getWeightSuccess, getWeightFailure));
   };
@@ -129,7 +131,6 @@ const Dashboard = ({navigation}) => {
       },
     });
   }, []);
-
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -150,7 +151,7 @@ const Dashboard = ({navigation}) => {
         <View style={styles.itemView}>
           <HomeCircle
             icon={appIcons.plus}
-            title={convertNumberSystem(lifted_weight) || 0}
+            title={lifted_weight || 0}
             isLoading={isLoading}
             subtitle={'Total Pounds Lifted'}
             onPressAdd={() => {

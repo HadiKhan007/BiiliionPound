@@ -131,7 +131,7 @@ const Profile = ({navigation}) => {
         <View style={styles.itemContainer}>
           <ProfileImage
             profileUri={profile_image || profile_uri}
-            title={userData?.full_name || ''}
+            title={userData?.full_name}
           />
         </View>
         <View style={spacing.py3}>

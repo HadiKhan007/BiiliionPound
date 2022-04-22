@@ -1,6 +1,13 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {colors, family, HP, size, WP} from '../../shared/exporter';
+import {
+  colors,
+  family,
+  HP,
+  setDigitSize,
+  size,
+  WP,
+} from '../../shared/exporter';
 import LinearGradient from 'react-native-linear-gradient';
 import {SmallLoader} from '..';
 
@@ -10,7 +17,14 @@ export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
       <View style={styles.circleContainer}>
         {!isLoading ? (
           <>
-            <Text style={styles.title} numberOfLines={1}>
+            <Text
+              style={[
+                styles.title,
+                {
+                  fontSize: setDigitSize(title),
+                },
+              ]}
+              numberOfLines={1}>
               {title?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             </Text>
             <Text style={styles.subtitle}>{subtitle}</Text>

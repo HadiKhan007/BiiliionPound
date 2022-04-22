@@ -212,16 +212,20 @@ const AddRaps = ({navigation}) => {
       </View>
       {onSuccess && (
         <ActivitySuccess
-          name={`${create_exercise_workout?.user?.first_name} ${create_exercise_workout?.user?.last_name}`}
-          type={create_exercise_workout?.exercise?.exercise_type}
+          name={`${create_exercise_workout?.user?.first_name || ''} ${
+            create_exercise_workout?.user?.last_name || ''
+          }`}
+          type={create_exercise_workout?.exercise?.exercise_type || ''}
           weight={`${convertNumberSystem(
             create_exercise_workout?.total_lbs,
           )} LBS`}
           bestSet={best_set(create_exercise_workout?.repetitions)}
-          excercise={`${create_exercise_workout?.repetitions.length}x ${create_exercise_workout?.exercise?.name}`}
+          excercise={`${create_exercise_workout?.repetitions.length || ''}x ${
+            create_exercise_workout?.exercise?.name || ''
+          }`}
           mode={`${capitalizeFirstLetter(
-            create_exercise_workout?.exercise?.name,
-          )} (${create_exercise_workout?.exercise?.category})`}
+            create_exercise_workout?.exercise?.name || '',
+          )} (${create_exercise_workout?.exercise?.category || ''})`}
           show={true}
           onPressHide={() => {
             setonSuccess(false);

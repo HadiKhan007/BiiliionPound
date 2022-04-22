@@ -25,17 +25,15 @@ export const ActivityCard = ({
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftContainer}>
-        <Text style={styles.name}>{capitalizeFirstLetter(name || '')}</Text>
-        <Text style={styles.title}>{capitalizeFirstLetter(mode || '')}</Text>
-        <Text style={styles.subtitle}>{capitalizeFirstLetter(type || '')}</Text>
+        <Text style={styles.name}>{capitalizeFirstLetter(name)}</Text>
+        <Text style={styles.title}>{capitalizeFirstLetter(mode)}</Text>
+        <Text style={styles.subtitle}>{capitalizeFirstLetter(type)}</Text>
         <View style={styles.textConatiner}>
           <Image source={appIcons.weight} style={styles.icon24} />
           <Text style={styles.subtitle}>{weight || ''}</Text>
         </View>
         <Text style={styles.type}>Exercise</Text>
-        <Text style={styles.subtitle}>
-          {capitalizeFirstLetter(excercise || '')}
-        </Text>
+        <Text style={styles.subtitle}>{capitalizeFirstLetter(excercise)}</Text>
       </View>
       <View style={styles.rightContainer}>
         <View style={spacing.py3}>
@@ -43,8 +41,8 @@ export const ActivityCard = ({
         </View>
         <Text style={styles.type}>Best Set</Text>
         <Text style={styles.subtitle}>
-          ({`+${convertNumberSystem(bestSet?.lbs || '')} LBS`}) x{' '}
-          {convertNumberSystem(bestSet?.repetition || '')}
+          ({`+${convertNumberSystem(bestSet?.lbs)} LBS`}) x{' '}
+          {convertNumberSystem(bestSet?.repetition)}
         </Text>
       </View>
     </View>

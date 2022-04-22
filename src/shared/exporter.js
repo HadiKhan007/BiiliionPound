@@ -60,6 +60,7 @@ export {
   convertNumberSystem,
   calculateCurrentDateDiff,
   best_set,
+  setDigitSize,
 } from './utilities/helper';
 export {onGoogleLogin, onAppleLogin} from './utilities/socialLogin';
 export {
