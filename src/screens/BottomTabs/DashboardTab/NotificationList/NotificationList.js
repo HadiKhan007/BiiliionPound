@@ -24,6 +24,7 @@ const NotificationList = ({navigation}) => {
   const {all_notifications} = useSelector(state => state?.exercise);
   const [isLoading, setisLoading] = useState(false);
 
+  //Get Notifications
   useEffect(() => {
     getNotifications();
   }, []);
@@ -74,7 +75,14 @@ const NotificationList = ({navigation}) => {
     setisLoading(true);
     const checkInternet = await checkConnected();
     const onPressSuccess = () => {
-      navigation.navigate('EventDetail');
+      if (
+        item?.event?.event_type == 'on_going' &&
+        item?.event?.status_event == 'joined'
+      ) {
+        navigation.navigate('OngoingEventDetail');
+      } else {
+        navigation.navigate('EventDetail');
+      }
       console.log('On Event Success');
       setisLoading(false);
     };

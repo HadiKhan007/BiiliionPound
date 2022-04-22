@@ -78,7 +78,6 @@ const Dashboard = ({navigation}) => {
       console.log('FCM TOKEN FAILED TO SAVE');
     };
     AsyncStorage.getItem('fcmToken').then(token => {
-      console.log(token);
       if (requestPermission() != null) {
         const body = {
           token: token,
