@@ -23,21 +23,10 @@ const title = 'Track Your Goal';
 const text = `Don't worry if you have trouble determining your goals, We can help you determine your goals and track your goals`;
 
 const VideoIntro = ({navigation}) => {
-  const [opacity, setOpacity] = useState(0);
   const video = useRef(null);
   const [pause, setPause] = useState(false);
   const isFocus = useIsFocused();
 
-  const onLoad = () => {
-    setOpacity(0);
-  };
-  const onBuffer = ({isBuffering}) => {
-    const isbuffer = isBuffering ? 1 : 0;
-    setOpacity(isbuffer);
-  };
-  const onLoadStart = () => {
-    setOpacity(1);
-  };
   useEffect(() => {
     if (!isFocus) {
       setPause(true);
@@ -50,7 +39,7 @@ const VideoIntro = ({navigation}) => {
         <Video
           ref={video}
           repeat={true}
-          source={{uri: video_url}}
+          source={appImages.appVideo}
           resizeMode="cover"
           style={{
             width: '100%',
@@ -59,16 +48,7 @@ const VideoIntro = ({navigation}) => {
           useTextureView={false}
           paused={pause}
           playInBackground={false}
-          onBuffer={onBuffer}
-          onLoadStart={onLoadStart}
-          onLoad={onLoad}
           ignoreSilentSwitch={'obey'}
-        />
-        <ActivityIndicator
-          animating
-          size="large"
-          color={colors.p1}
-          style={[styles.activityIndicator, {opacity: opacity}]}
         />
         <View
           style={[

@@ -9,63 +9,10 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import {
-  appImages,
-  colors,
-  family,
-  HP,
-  size,
-  video_url,
-  ref,
-} from '../../shared/exporter';
+import {appImages, colors, family, HP, size} from '../../shared/exporter';
 import {Icon} from 'react-native-elements/dist/icons/Icon';
-import Video from 'react-native-video';
 
 const IntroSlider = ({item, index, onPressBack}) => {
-  // if (item?.key == 1) {
-  //   return (
-  //     <View style={{flex: 1}}>
-  //       <Video
-  //         ref={ref}
-  //         repeat={true}
-  //         source={{uri: video_url}}
-  //         resizeMode="cover"
-  //         style={{
-  //           width: '100%',
-  //           height: '100%',
-  //         }}
-  //         useTextureView={false}
-  //         paused={pause}
-  //         playInBackground={false}
-  //         onBuffer={onBuffer}
-  //         onLoadStart={onLoadStart}
-  //         onLoad={onLoad}
-  //         ignoreSilentSwitch={'obey'}
-  //       />
-  //       <ActivityIndicator
-  //         animating
-  //         size="large"
-  //         color={colors.p1}
-  //         style={[styles.activityIndicator]}
-  //       />
-  //       <View
-  //         style={[
-  //           styles.textContainer,
-  //           {
-  //             flex: 1,
-  //             //  marginTop: HP('30'),
-  //             zIndex: 1,
-  //             position: 'absolute',
-  //             justifyContent: 'center',
-  //             bottom: HP('25'),
-  //           },
-  //         ]}>
-  //         {/* <Text style={styles.title}>{title}</Text>
-  //         <Text style={styles.desc}>{text}</Text> */}
-  //       </View>
-  //     </View>
-  //   );
-  // }
   //Company bio
   if (item.key === 4) {
     return (
@@ -81,6 +28,19 @@ const IntroSlider = ({item, index, onPressBack}) => {
   }
   return (
     <View style={styles.main}>
+      {item?.key == 1 && (
+        <TouchableOpacity
+          onPress={onPressBack}
+          style={styles.backBtn}
+          hitSlop={{top: 50, bottom: 50, left: 50, right: 50}}>
+          <Icon
+            name="chevron-back-outline"
+            type={'ionicon'}
+            color="white"
+            size={24}
+          />
+        </TouchableOpacity>
+      )}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.desc}>{item.text}</Text>
