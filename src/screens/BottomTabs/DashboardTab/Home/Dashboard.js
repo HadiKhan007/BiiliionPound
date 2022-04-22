@@ -1,4 +1,11 @@
-import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
@@ -14,9 +21,12 @@ import {useIsFocused} from '@react-navigation/native';
 import {
   get_lifted_weight_request,
   save_device_token,
+  set_event_request,
   set_exercise_screen_request,
 } from '../../../../redux/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotification from 'react-native-push-notification';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 
 const Dashboard = ({navigation}) => {
   const isFocus = useIsFocused(null);
@@ -68,6 +78,7 @@ const Dashboard = ({navigation}) => {
       console.log('FCM TOKEN FAILED TO SAVE');
     };
     AsyncStorage.getItem('fcmToken').then(token => {
+      console.log(token);
       if (requestPermission() != null) {
         const body = {
           token: token,
@@ -76,6 +87,49 @@ const Dashboard = ({navigation}) => {
       }
     });
   };
+
+  useEffect(() => {
+    PushNotification.configure({
+      // (optional) Called when Token is generated (iOS and Android)
+      onRegister: function (token) {
+        // console.log('TOKEN:', token);
+      },
+      onNotification: function (notification) {
+        let notificationObj = notification.data?.event_id;
+        if (notificationObj) {
+          notificationObj = JSON.parse(notificationObj);
+          if (notification?.userInteraction) {
+            const onEventPressSuccess = () => {
+              navigation.navigate('EventDetail');
+              console.log('On Event Event Success');
+            };
+            //set Event event failure
+            const onEventPressFailure = () => {
+              console.log('On Event Event Failure');
+            };
+            dispatch(
+              set_event_request(
+                notificationObj,
+                onEventPressSuccess,
+                onEventPressFailure,
+              ),
+            );
+          }
+        }
+
+        notification.finish(PushNotificationIOS.FetchResult.NoData);
+      },
+
+      popInitialNotification: true,
+      requestPermissions: Platform.OS === 'ios' ? true : false,
+      // IOS ONLY (optional): default: all - Permissions to register.
+      permissions: {
+        alert: true,
+        badge: true,
+        sound: true,
+      },
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.main}>
