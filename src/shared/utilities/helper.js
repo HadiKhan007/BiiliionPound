@@ -30,7 +30,7 @@ export const useOnlineStatus = () => {
   return store;
 };
 export const capitalizeFirstLetter = string => {
-  return string?.charAt(0).toUpperCase() + string?.slice(1);
+  return string?.charAt(0)?.toUpperCase() + string?.slice(1);
 };
 export const responseValidator = (response, errorMsg) => {
   let errorCode = response;
@@ -139,13 +139,13 @@ export function setDigitSize(num) {
   } else if (num >= 100000000) {
     return WP('9');
   } else if (num >= 10000000) {
-    return WP('11');
+    return WP('10');
   } else if (num >= 1000000) {
-    return WP('13');
+    return WP('11');
   } else if (num >= 100000) {
-    return WP('15');
+    return WP('13');
   } else if (num >= 10000) {
-    return WP('18');
+    return WP('15');
   } else if (num >= 1000) {
     return WP('18');
   } else {

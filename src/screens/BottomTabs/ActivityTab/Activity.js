@@ -134,11 +134,9 @@ const Activity = ({navigation}) => {
                       name={item?.user?.full_name || ''}
                       type={item?.exercise?.exercise_type || ''}
                       weight={convertNumberSystem(item?.total_lbs) + ' LBS'}
-                      excercise={
-                        item?.repetitions?.length ||
-                        '' + ' x ' + item?.exercise?.name ||
-                        ''
-                      }
+                      excercise={`${item?.repetitions?.length || ''}x ${
+                        item?.exercise?.name || ''
+                      }`}
                       mode={item?.exercise?.name || ''}
                       cardIcon={
                         item?.exercise?.exercise_image_url

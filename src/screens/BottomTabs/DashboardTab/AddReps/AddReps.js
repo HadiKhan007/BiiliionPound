@@ -226,7 +226,7 @@ const AddRaps = ({navigation}) => {
           mode={`${capitalizeFirstLetter(
             create_exercise_workout?.exercise?.name || '',
           )} (${create_exercise_workout?.exercise?.category || ''})`}
-          show={true}
+          show={onSuccess}
           onPressHide={() => {
             setonSuccess(false);
             if (exercise_screen) {

@@ -4,7 +4,7 @@ import {colors, family, HP, size} from '../../shared/exporter';
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: colors.white,
   },
   textStyle: {
     fontSize: 20,

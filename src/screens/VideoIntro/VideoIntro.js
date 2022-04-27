@@ -34,23 +34,22 @@ const VideoIntro = ({navigation}) => {
   }, [!isFocus]);
 
   return (
-    <View style={{flex: 1}}>
-      <View style={styles.rootContainer}>
-        <Video
-          ref={video}
-          repeat={true}
-          source={appImages.appVideo}
-          resizeMode="cover"
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          useTextureView={false}
-          paused={pause}
-          playInBackground={false}
-          ignoreSilentSwitch={'obey'}
-        />
-        <View
+    <View style={styles.rootContainer}>
+      <Video
+        ref={video}
+        repeat={true}
+        source={appImages.appVideo}
+        resizeMode="cover"
+        style={{
+          width: '100%',
+          height: '100%',
+          backgroundColor: colors.white,
+        }}
+        paused={pause}
+        playInBackground={false}
+        ignoreSilentSwitch={'obey'}
+      />
+      {/* <View
           style={[
             styles.textContainer,
             {
@@ -61,23 +60,22 @@ const VideoIntro = ({navigation}) => {
               justifyContent: 'center',
               bottom: HP('25'),
             },
-          ]}>
-          {/* <Text style={styles.title}>{title}</Text>
+          ]}> */}
+      {/* <Text style={styles.title}>{title}</Text>
           <Text style={styles.desc}>{text}</Text> */}
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation?.replace('Walkthrough');
-          }}
-          style={styles.buttonCircle}>
-          <Icon
-            name="chevron-forward-outline"
-            type={'ionicon'}
-            color="white"
-            size={24}
-          />
-        </TouchableOpacity>
-      </View>
+      {/* </View> */}
+      <TouchableOpacity
+        onPress={() => {
+          navigation?.replace('Walkthrough');
+        }}
+        style={styles.buttonCircle}>
+        <Icon
+          name="chevron-forward-outline"
+          type={'ionicon'}
+          color="white"
+          size={24}
+        />
+      </TouchableOpacity>
     </View>
   );
 };

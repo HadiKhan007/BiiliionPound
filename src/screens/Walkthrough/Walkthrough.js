@@ -37,7 +37,7 @@ const slides = [
   {
     key: 4,
     title: 'About Company',
-    text: 'Save other peoples during natural disaster and help them',
+    text: 'The rescue team foundation is an organisation committed to change lives through fun fitness fundraisers!',
     image: appImages.slider4,
     backgroundColor: '#22bcb5',
   },

@@ -33,7 +33,7 @@ export const ActivityCard = ({
           <Text style={styles.subtitle}>{weight || ''}</Text>
         </View>
         <Text style={styles.type}>Exercise</Text>
-        <Text style={styles.subtitle}>{capitalizeFirstLetter(excercise)}</Text>
+        <Text style={styles.subtitle}>{excercise}</Text>
       </View>
       <View style={styles.rightContainer}>
         <View style={spacing.py3}>
