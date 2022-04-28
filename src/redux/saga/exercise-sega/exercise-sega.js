@@ -23,9 +23,9 @@ function* getTotalWightLifted(params) {
     if (res.data) {
       yield put({
         type: types.GET_LIFTED_WEIGHT_SUCCESS,
-        payload: res.data,
+        payload: res.data?.weight_lifted,
       });
-      params?.cbSuccess(res.data);
+      params?.cbSuccess(res.data?.weight_lifted);
     } else {
       yield put({
         type: types.GET_LIFTED_WEIGHT_FAILURE,

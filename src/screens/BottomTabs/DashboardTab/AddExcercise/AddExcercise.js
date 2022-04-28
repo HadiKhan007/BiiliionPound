@@ -156,11 +156,6 @@ const AddExcercise = ({navigation}) => {
       }),
     );
     setSelectedItem(item);
-    dispatch(
-      set_exercise_item_request(item, () => {
-        console.log('Item Setted');
-      }),
-    );
   };
 
   //Render Exercise Cards
@@ -281,7 +276,11 @@ const AddExcercise = ({navigation}) => {
         set_exercise_recent_search_request(
           filteredItem ? [...filteredItem, selectedItem] : recent_searches,
           () => {
-            navigation?.navigate('AddReps');
+            dispatch(
+              set_exercise_item_request(selectedItem, () => {
+                navigation?.navigate('AddReps');
+              }),
+            );
           },
         ),
       );
@@ -382,7 +381,7 @@ const AddExcercise = ({navigation}) => {
                     name={`${item?.name || ''} (${item?.category || ''})`}
                     paddingHorizontal={WP('5')}
                     onSelectionChange={d => {
-                      setSelectedItem(item);
+                      onSelectionChange(d);
                     }}
                     selected={item?.id == selectedItem?.id ? true : false}
                     item={item}

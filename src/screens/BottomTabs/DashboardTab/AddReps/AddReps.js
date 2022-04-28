@@ -23,11 +23,13 @@ import {
   create_exercise_workout_request,
   set_event_request,
 } from '../../../../redux/actions';
+import {useIsFocused} from '@react-navigation/native';
 
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
   const [onSuccess, setonSuccess] = useState(false);
   const dispatch = useDispatch(null);
+  const isFocus = useIsFocused();
   const [isLoading, setisLoading] = useState(false);
   const {exercise_item, create_exercise_workout, exercise_screen} = useSelector(
     state => state?.exercise,
@@ -135,6 +137,11 @@ const AddRaps = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+  useEffect(() => {
+    if (!isFocus) {
+      setisLoading(false);
+    }
+  }, [!isFocus]);
 
   return (
     <SafeAreaView style={styles.main}>

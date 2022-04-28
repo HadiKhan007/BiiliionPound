@@ -19,8 +19,8 @@ const IntroSlider = ({item, index, onPressBack}) => {
       <ImageBackground style={styles.pic} source={item.image}>
         <View style={{backgroundColor: 'rgba(0,0,0,0.4)', height: '100%'}}>
           <View style={[styles.textContainer, {flex: 1, marginTop: HP('30')}]}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.desc}>{item.text}</Text>
+            {/* <Text style={styles.title}>{item.title}</Text> */}
+            <Text style={[styles.desc, {fontSize: size.h5}]}>{item.text}</Text>
           </View>
         </View>
       </ImageBackground>
