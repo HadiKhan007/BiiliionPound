@@ -150,7 +150,6 @@ const OngoingEventDetail = ({navigation}) => {
           />
         </View>
       </View>
-      <Loader loading={false} />
     </SafeAreaView>
   );
 };

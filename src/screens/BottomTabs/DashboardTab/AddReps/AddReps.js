@@ -112,17 +112,13 @@ const AddRaps = ({navigation}) => {
     const checkInternet = await checkConnected();
     if (checkInternet) {
       //Set Ongoing Success
-      setisLoading(true);
       const onGoingPressSuccess = () => {
         navigation.navigate('OngoingEventDetail');
-        // console.log('On Going Event Success');
-        setisLoading(false);
       };
       //Set  onGoing event failure
       const onGoingPressFailure = () => {
         // console.log('On Going Event Failure');
         Alert.alert('Error', 'Something went wrong!');
-        setisLoading(false);
       };
 
       dispatch(
