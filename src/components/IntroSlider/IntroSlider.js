@@ -92,8 +92,9 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     position: 'absolute',
-    top: 80,
+    top: 60,
     left: 10,
+    bottom: 20,
     zIndex: 99999,
   },
 });
