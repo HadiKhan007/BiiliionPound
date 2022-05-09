@@ -133,19 +133,19 @@ export const best_set = sets => {
 
 export function setDigitSize(num) {
   if (num >= 1000000000000) {
-    return WP('5');
+    return WP('4');
   } else if (num >= 10000000000) {
-    return WP('7');
+    return WP('5');
   } else if (num >= 100000000) {
-    return WP('9');
+    return WP('7');
   } else if (num >= 10000000) {
-    return WP('10');
+    return WP('9');
   } else if (num >= 1000000) {
     return WP('11');
   } else if (num >= 100000) {
     return WP('13');
   } else if (num >= 10000) {
-    return WP('15');
+    return WP('14');
   } else if (num >= 1000) {
     return WP('18');
   } else {

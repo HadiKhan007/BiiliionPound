@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
   circleContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: WP('65'),
-    width: WP('65'),
-    borderRadius: WP('65'),
+    height: WP('70'),
+    width: WP('70'),
+    borderRadius: WP('70'),
     borderWidth: 2,
     borderColor: colors.p1,
     marginBottom: WP('5'),
