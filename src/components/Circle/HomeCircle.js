@@ -36,7 +36,8 @@ export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
       {icon && (
         <LinearGradient colors={colors.t_gradient} style={styles.btnContainer}>
           <TouchableOpacity style={styles.btnContainer} onPress={onPressAdd}>
-            <Image source={icon} style={styles.btnImage} />
+            <Text style={styles.buttonTxtStyle}>Exercise Library</Text>
+            {/* <Image source={icon} style={styles.btnImage} /> */}
           </TouchableOpacity>
         </LinearGradient>
       )}
@@ -73,9 +74,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.p1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 54,
-    width: 54,
-    borderRadius: 50,
+    height: 50,
+    width: WP('60'),
+    borderRadius: 5,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -93,5 +94,10 @@ const styles = StyleSheet.create({
   aiCenter: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonTxtStyle: {
+    color: colors.white,
+    fontSize: size.large,
+    fontFamily: family.Poppins_Medium,
   },
 });

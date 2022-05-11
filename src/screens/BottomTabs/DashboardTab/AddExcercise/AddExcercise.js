@@ -305,6 +305,10 @@ const AddExcercise = ({navigation}) => {
           title={'Add Workout'}
           // subtitle={'Save'}
         />
+        <Text style={styles.infoTxtStyle}>
+          If you can't find your exercise in our library, enter your exercise
+          and weight here.
+        </Text>
         <View style={styles.itemContainer}>
           <SearchBar
             placeholder={'Search...'}

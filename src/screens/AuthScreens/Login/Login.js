@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import {AuthFooter, Input, WelcomeBox} from '../../../components';
 import {
@@ -20,6 +21,7 @@ import {loginRequest} from '../../../redux/actions';
 
 const Login = ({navigation}) => {
   const [loading, setloading] = useState(false);
+  const [isRemember, setIsRemember] = useState(false);
 
   //Redux States
   const dispatch = useDispatch(null);
@@ -39,7 +41,8 @@ const Login = ({navigation}) => {
     }
   };
   //onLogin Success
-  const onLoginSuccess = res => {
+  const onLoginSuccess = async res => {
+    await AsyncStorage.setItem('isRemember', isRemember.toString());
     setloading(false);
     if (res?.user != undefined) {
       navigation?.replace('App');
@@ -120,14 +123,36 @@ const Login = ({navigation}) => {
                 />
 
                 {/* App Privacy Checkbox */}
-                <Text
-                  onPress={() => {
-                    handleReset();
-                    navigation?.navigate('ForgotPassword');
-                  }}
-                  style={styles.forgotTxtStyle}>
-                  Forgot your password?{' '}
-                </Text>
+                <View style={styles.rowContainer}>
+                  <View style={styles.innerRowContainer}>
+                    <Icon
+                      type={'MaterialIcons'}
+                      name={
+                        isRemember ? 'check-box' : 'check-box-outline-blank'
+                      }
+                      size={20}
+                      color={isRemember ? colors.p1 : colors.g1}
+                      style={{marginTop: 5}}
+                      onPress={() => setIsRemember(!isRemember)}
+                    />
+                    <Text
+                      onPress={() => {
+                        handleReset();
+                        navigation?.navigate('ForgotPassword');
+                      }}
+                      style={styles.rememberTxtStyle}>
+                      Remember me
+                    </Text>
+                  </View>
+                  <Text
+                    onPress={() => {
+                      handleReset();
+                      navigation?.navigate('ForgotPassword');
+                    }}
+                    style={styles.forgotTxtStyle}>
+                    Forgot your password?{' '}
+                  </Text>
+                </View>
               </View>
 
               {/* Login Footer Part */}

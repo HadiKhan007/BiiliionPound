@@ -16,14 +16,14 @@ const slides = [
   {
     key: 1,
     title: 'Your Personal Journal',
-    text: 'Keep growing your total! Every time you input a new workout, your total goes up!',
+    text: 'Not only can you use our app during The Billion Pound Challenge, you can use our app every day of the year to keep your weight lifting information available.',
     image: appImages.slider1,
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Join Events',
-    text: 'Grab your favorite event and set your total lifted amount on that event.',
+    text: 'Join your favorite team and help them reach their goals for charity!',
     image: appImages.slider2,
     backgroundColor: '#febe29',
   },
@@ -37,7 +37,7 @@ const slides = [
   {
     key: 4,
     title: 'About Company',
-    text: 'The rescue team foundation is an organisation committed to change lives through fun fitness fundraisers!',
+    text: 'Join your favorite team and help them reach their goals for charity!',
     image: appImages.slider4,
     backgroundColor: '#22bcb5',
   },

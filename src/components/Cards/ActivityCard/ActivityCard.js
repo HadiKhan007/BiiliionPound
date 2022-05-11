@@ -11,6 +11,7 @@ import {
   spacing,
   WP,
 } from '../../../shared/exporter';
+import moment from 'moment';
 import {FitnessCard} from '../FitnessCard/FitnessCard';
 
 export const ActivityCard = ({
@@ -21,6 +22,7 @@ export const ActivityCard = ({
   weight,
   excercise,
   bestSet,
+  createdAt,
 }) => {
   return (
     <View style={styles.cardContainer}>
@@ -36,7 +38,10 @@ export const ActivityCard = ({
         <Text style={styles.subtitle}>{excercise}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <View style={spacing.py3}>
+        <Text numberOfLines={1} style={styles.date}>
+          {moment(createdAt).format('LL')}
+        </Text>
+        <View style={[spacing.pb3, {top: 7}]}>
           <FitnessCard icon={cardIcon} />
         </View>
         <Text style={styles.type}>Best Set</Text>
@@ -110,5 +115,10 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_SemiBold,
     color: colors.b7,
     marginVertical: 3,
+  },
+  date: {
+    fontSize: size.tiny,
+    fontFamily: family.OpenSans_Regular,
+    color: colors.g1,
   },
 });

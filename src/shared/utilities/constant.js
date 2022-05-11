@@ -25,7 +25,7 @@ const filterCategory = [
   {id: 2, title: 'Dumbbell', tick: false, key: 'dumbbell'},
   {id: 3, title: 'Machine/Other', tick: false, key: 'machine'},
   {id: 4, title: 'Body Weight', tick: false, key: 'bodyweight'},
-  {id: 5, title: 'Raps only', tick: false, key: 'reps_only'},
+  {id: 5, title: 'Reps only', tick: false, key: 'reps_only'},
   {id: 6, title: 'Cardio exercise', tick: false, key: 'cardio_exercise'},
   // {id: 9, title: 'None', tick: false},
 ];

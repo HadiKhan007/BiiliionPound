@@ -137,6 +137,7 @@ const Activity = ({navigation}) => {
                       excercise={`${item?.repetitions?.length || ''}x ${
                         item?.exercise?.name || ''
                       }`}
+                      createdAt={item?.created_at || ''}
                       mode={item?.exercise?.name || ''}
                       cardIcon={
                         item?.exercise?.exercise_image_url

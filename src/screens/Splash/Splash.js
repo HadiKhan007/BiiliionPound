@@ -4,6 +4,7 @@ import styles from './styles';
 import {appLogos} from '../../shared/theme/assets';
 import {useDispatch, useSelector} from 'react-redux';
 import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   LocalNotification,
   Notification_Listner,
@@ -32,16 +33,17 @@ const Splash = ({navigation}) => {
     Notification_Listner(dispatch, navigation);
   };
 
-  const handleAppEntry = () => {
+  const handleAppEntry = async () => {
+    const isRemember = await AsyncStorage.getItem('isRemember');
     setTimeout(() => {
-      if (userInfo?.user == null) {
+      if (isRemember === 'true') {
+        navigation.replace('App');
+      } else {
         if (walkthrough?.skip) {
           navigation.replace('Auth');
         } else {
           navigation.replace('GettingStarted');
         }
-      } else {
-        navigation.replace('App');
       }
     }, 2500);
   };
