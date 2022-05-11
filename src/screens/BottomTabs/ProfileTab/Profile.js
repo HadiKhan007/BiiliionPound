@@ -29,6 +29,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getProfile, logoutRequset} from '../../../redux/actions';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useFocusEffect} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation}) => {
   //Redux States
@@ -36,12 +37,6 @@ const Profile = ({navigation}) => {
   const {profile_image, userData} = useSelector(state => state?.profile);
   const {userInfo} = useSelector(state => state.auth);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    console.log('====================================');
-    console.log(userInfo);
-    console.log('====================================');
-  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -54,6 +49,7 @@ const Profile = ({navigation}) => {
   );
   //On Logout Hanlder
   const onLogout = async () => {
+    await AsyncStorage.setItem('isRemember', 'false');
     dispatch(logoutRequset(null));
     GoogleSignin.signOut();
     navigation?.replace('Auth');

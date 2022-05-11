@@ -5,10 +5,13 @@ import {
   appRadius,
   capitalizeFirstLetter,
   colors,
+  convertNumberSystem,
   family,
   size,
   spacing,
+  WP,
 } from '../../../shared/exporter';
+import moment from 'moment';
 import {FitnessCard} from '../FitnessCard/FitnessCard';
 
 export const ActivityCard = ({
@@ -18,25 +21,34 @@ export const ActivityCard = ({
   type,
   weight,
   excercise,
+  bestSet,
+  createdAt,
 }) => {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftContainer}>
         <Text style={styles.name}>{capitalizeFirstLetter(name)}</Text>
-        <Text style={styles.title}>{mode}</Text>
-        <Text style={styles.subtitle}>{type}</Text>
+        <Text style={styles.title}>{capitalizeFirstLetter(mode)}</Text>
+        <Text style={styles.subtitle}>{capitalizeFirstLetter(type)}</Text>
         <View style={styles.textConatiner}>
           <Image source={appIcons.weight} style={styles.icon24} />
-          <Text style={styles.subtitle}>{weight}</Text>
+          <Text style={styles.subtitle}>{weight || ''}</Text>
         </View>
         <Text style={styles.type}>Exercise</Text>
         <Text style={styles.subtitle}>{excercise}</Text>
       </View>
       <View style={styles.rightContainer}>
-        <View style={spacing.pt3}>
+        <Text numberOfLines={1} style={styles.date}>
+          {moment(createdAt).format('LL')}
+        </Text>
+        <View style={[spacing.pb3, {top: 7}]}>
           <FitnessCard icon={cardIcon} />
         </View>
-        <Text style={styles.subtitle}>(+2LBS) x 10</Text>
+        <Text style={styles.type}>Best Set</Text>
+        <Text style={styles.subtitle}>
+          ({`+${convertNumberSystem(bestSet?.lbs)} LBS`}) x{' '}
+          {convertNumberSystem(bestSet?.repetition)}
+        </Text>
       </View>
     </View>
   );
@@ -44,7 +56,6 @@ export const ActivityCard = ({
 
 const styles = StyleSheet.create({
   cardContainer: {
-    height: 170,
     paddingHorizontal: 20,
     width: '100%',
     flexDirection: 'row',
@@ -53,6 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: appRadius.boxRadius,
     shadowColor: colors.light_shadow,
+    paddingVertical: 10,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -103,5 +115,10 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_SemiBold,
     color: colors.b7,
     marginVertical: 3,
+  },
+  date: {
+    fontSize: size.tiny,
+    fontFamily: family.OpenSans_Regular,
+    color: colors.g1,
   },
 });

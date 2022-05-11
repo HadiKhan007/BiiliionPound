@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {createRef, useEffect, useRef, useState} from 'react';
 import {StyleSheet, View, Text, Image, StatusBar} from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -8,55 +8,53 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import styles from './styles';
 import {useDispatch} from 'react-redux';
 import {setWalkthrough} from '../../redux/actions';
+import {CommonActions} from '@react-navigation/native';
+
 // import CircularProgress from 'react-native-circular-progress-indicator';
 
 const slides = [
   {
     key: 1,
-    title: 'Track Your Goal',
-    text: `Don't worry if you have trouble determining your goals, We can help you determine your goals and track your goals`,
+    title: 'Your Personal Journal',
+    text: 'Not only can you use our app during The Billion Pound Challenge, you can use our app every day of the year to keep your weight lifting information available.',
     image: appImages.slider1,
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
-    title: 'Your Personal Journal',
-    text: 'Keep growing your total! Every time you input a new workout, your total goes up!',
-    image: appImages.slider1,
-    backgroundColor: '#59b2ab',
-  },
-  {
-    key: 3,
     title: 'Join Events',
-    text: 'Grab your favorite event and set your total lifted amount on that event.',
+    text: 'Join your favorite team and help them reach their goals for charity!',
     image: appImages.slider2,
     backgroundColor: '#febe29',
   },
   {
-    key: 4,
+    key: 3,
     title: 'Get Your Billion Pound Medallion',
-    text: ' At the end of every event you complete you will receive a collectible medallion. ',
+    text: 'Once you register for a fund- raising event OR register to use the app as your daily fitness journal... you receive our beautiful TEAM medallion!',
     image: appImages.slider3,
     backgroundColor: '#22bcb5',
   },
   {
-    key: 5,
+    key: 4,
     title: 'About Company',
-    text: 'Save other peoples during natural disaster and help them',
+    text: 'Join your favorite team and help them reach their goals for charity!',
     image: appImages.slider4,
     backgroundColor: '#22bcb5',
   },
 ];
 
 const Walkthrough = ({navigation}) => {
-  const [progressValue, setProgressValue] = useState(0);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    setProgressValue(30);
-  }, []);
-
+  const dispatch = useDispatch(null);
   const renderItem = ({item, index}) => {
-    return <IntroSlider item={item} index={index} />;
+    return (
+      <IntroSlider
+        onPressBack={() => {
+          navigation?.replace('VideoIntro');
+        }}
+        item={item}
+        index={index}
+      />
+    );
   };
 
   const renderNextButton = props => {

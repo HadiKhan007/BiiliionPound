@@ -21,52 +21,90 @@ export const BottomTab = ({state, descriptors, navigation}) => {
 
   const data = [
     {
-      id: 1,
-      title: 'Home',
       icon: appIcons.home,
       style: styles.homeImageStyle,
     },
     {
-      id: 1,
-      title: 'Activity',
       icon: appIcons.event,
       style: styles.activityImageStyle,
     },
     {
-      id: 1,
-      title: 'Event',
       icon: appIcons.board,
       style: styles.eventImageStyle,
     },
     {
-      id: 1,
-      title: 'Profile',
       icon: appIcons.profile,
       style: styles.profileImageStyle,
     },
   ];
+
   return (
     <View style={styles.container}>
       <FlatList
         numColumns={4}
-        data={data}
+        data={state?.routes}
         renderItem={({item, index}) => {
+          const {options} = descriptors[item?.key];
+          const label =
+            options.tabBarLabel !== undefined
+              ? options.tabBarLabel
+              : options.title !== undefined
+              ? options.title
+              : item.name;
+
+          const isFocused = state.index === index;
+
+          const onPress = () => {
+            const event = navigation.emit({
+              type: 'tabPress',
+              target: item.key,
+              canPreventDefault: true,
+            });
+
+            if (!isFocused && !event.defaultPrevented) {
+              // The `merge: true` option makes sure that the params inside the tab screen are preserved
+              navigation.navigate({name: item.name, merge: true});
+            }
+          };
+
+          const onLongPress = () => {
+            navigation.emit({
+              type: 'tabLongPress',
+              target: item.key,
+            });
+          };
           return (
             <View style={styles.tabContainer}>
               <View
                 style={[
                   styles.borderStyle,
-                  {borderTopWidth: item?.title == tab ? 4 : 0},
+                  {borderTopWidth: isFocused ? 4 : 0},
                 ]}>
-                <TouchableOpacity
-                  onPress={() => setSelectedTab(item?.title, index)}
-                  style={styles.aicenter}>
+                <TouchableOpacity onPress={onPress} style={styles.aicenter}>
                   <Image
-                    source={item.icon}
+                    source={
+                      index == 0
+                        ? appIcons.home
+                        : index == 1
+                        ? appIcons.event
+                        : index == 2
+                        ? appIcons.board
+                        : index == 3
+                        ? appIcons.profile
+                        : null
+                    }
                     style={[
-                      item?.style,
+                      index == 0
+                        ? styles.homeImageStyle
+                        : index == 1
+                        ? styles.activityImageStyle
+                        : index == 2
+                        ? styles.eventImageStyle
+                        : index == 3
+                        ? styles.profileImageStyle
+                        : null,
                       {
-                        tintColor: item?.title === tab ? colors.p1 : colors.g1,
+                        tintColor: isFocused ? colors.p1 : colors.g1,
                       },
                     ]}
                   />
@@ -74,10 +112,10 @@ export const BottomTab = ({state, descriptors, navigation}) => {
                     style={[
                       styles.textStyle,
                       {
-                        color: item?.title === tab ? colors.p1 : colors.g1,
+                        color: isFocused ? colors.p1 : colors.g1,
                       },
                     ]}>
-                    {item?.title}
+                    {label}
                   </Text>
                 </TouchableOpacity>
               </View>

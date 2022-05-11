@@ -34,6 +34,27 @@ const styles = StyleSheet.create({
   barStyle: {
     borderTopWidth: 5,
   },
+  homeImageStyle: {
+    height: 16,
+    width: 18,
+    resizeMode: 'contain',
+  },
+
+  activityImageStyle: {
+    height: 18,
+    width: 18,
+    resizeMode: 'contain',
+  },
+  eventImageStyle: {
+    height: 20,
+    width: 16,
+    resizeMode: 'contain',
+  },
+  profileImageStyle: {
+    height: 16,
+    width: 16,
+    resizeMode: 'contain',
+  },
 });
 
 export default styles;

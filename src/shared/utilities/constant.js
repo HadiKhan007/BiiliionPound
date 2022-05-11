@@ -5,27 +5,28 @@ const IOS = Platform.OS === 'ios';
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const web_client_id =
   '396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com';
+export const video_url =
+  'https://billionpound.s3.us-west-2.amazonaws.com/Public/walk_through.mp4';
 const filterBody = [
   {id: 1, title: 'Core', tick: false, key: 'core'},
   {id: 2, title: 'Back', tick: false, key: 'back'},
-  {id: 3, title: 'Arms', tick: false, key: 'arms'},
+  {id: 3, title: 'Triceps', tick: false, key: 'triceps'},
   {id: 4, title: 'Shoulders', tick: false, key: 'shoulders'},
   {id: 5, title: 'Chest', tick: false, key: 'chest'},
   {id: 6, title: 'Legs', tick: false, key: 'legs'},
-  {id: 7, title: 'Full Body', tick: false, key: 'full_body'},
-  {id: 8, title: 'Olympic', tick: false, key: 'olympic'},
+  {id: 7, title: 'Biceps', tick: false, key: 'biceps'},
+  {id: 8, title: 'Forearms', tick: false, key: 'forearms'},
   {id: 9, title: 'Cardio', tick: false, key: 'cardio'},
-  {id: 10, title: 'Other', tick: false, key: 'other'},
+  {id: 10, title: 'Calves', tick: false, key: 'calves'},
+  {id: 11, title: 'Other', tick: false, key: 'other'},
 ];
 const filterCategory = [
   {id: 1, title: 'Barbell', tick: false, key: 'barbell'},
   {id: 2, title: 'Dumbbell', tick: false, key: 'dumbbell'},
   {id: 3, title: 'Machine/Other', tick: false, key: 'machine'},
-  {id: 4, title: 'Weighted bodyweight', tick: false, key: 'weight_bodyweight'},
-  {id: 5, title: 'Assisted body', tick: false, key: 'assisted_body'},
-  {id: 6, title: 'Raps only', tick: false, key: 'reps_only'},
-  {id: 7, title: 'Cardio exercise', tick: false, key: 'cardio_exercise'},
-  {id: 8, title: 'Duration', tick: false, key: 'duration'},
+  {id: 4, title: 'Body Weight', tick: false, key: 'bodyweight'},
+  {id: 5, title: 'Reps only', tick: false, key: 'reps_only'},
+  {id: 6, title: 'Cardio exercise', tick: false, key: 'cardio_exercise'},
   // {id: 9, title: 'None', tick: false},
 ];
 const filterTeam = [

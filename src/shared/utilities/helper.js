@@ -1,6 +1,6 @@
 import NetInfo from '@react-native-community/netinfo';
 import {createContext, useContext, useEffect} from 'react';
-import {appIcons} from '../exporter';
+import {appIcons, WP} from '../exporter';
 import moment from 'moment';
 
 export const checkConnected = () => {
@@ -30,7 +30,7 @@ export const useOnlineStatus = () => {
   return store;
 };
 export const capitalizeFirstLetter = string => {
-  return string?.charAt(0).toUpperCase() + string?.slice(1);
+  return string?.charAt(0)?.toUpperCase() + string?.slice(1);
 };
 export const responseValidator = (response, errorMsg) => {
   let errorCode = response;
@@ -106,13 +106,13 @@ export function convertNumberSystem(num) {
   num = Math.abs(num);
   if (num >= 1000000000000) {
     formattedNumber =
-      (num / 1000000000000).toFixed(0).replace(/\.0$/, '') + 'T';
+      (num / 1000000000000).toFixed(1).replace(/\.0$/, '') + 'T';
   } else if (num >= 1000000000) {
-    formattedNumber = (num / 1000000000).toFixed(0).replace(/\.0$/, '') + 'B';
+    formattedNumber = (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
   } else if (num >= 1000000) {
-    formattedNumber = (num / 1000000).toFixed(0).replace(/\.0$/, '') + 'M';
+    formattedNumber = (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
   } else if (num >= 1000) {
-    formattedNumber = (num / 1000).toFixed(0).replace(/\.0$/, '') + 'K';
+    formattedNumber = (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
   } else {
     formattedNumber = num;
   }
@@ -120,4 +120,35 @@ export function convertNumberSystem(num) {
     formattedNumber = '-' + formattedNumber;
   }
   return formattedNumber;
+}
+export const best_set = sets => {
+  for (let i = 0; i < sets?.length; i++) {
+    sets[i]['maxValue'] = sets[i].set * sets[i].lbs;
+  }
+  const max = sets?.reduce(function (prev, current) {
+    return prev?.maxValue > current?.maxValue ? prev : current;
+  });
+  return max;
+};
+
+export function setDigitSize(num) {
+  if (num >= 1000000000000) {
+    return WP('4');
+  } else if (num >= 10000000000) {
+    return WP('5');
+  } else if (num >= 100000000) {
+    return WP('7');
+  } else if (num >= 10000000) {
+    return WP('9');
+  } else if (num >= 1000000) {
+    return WP('11');
+  } else if (num >= 100000) {
+    return WP('13');
+  } else if (num >= 10000) {
+    return WP('14');
+  } else if (num >= 1000) {
+    return WP('18');
+  } else {
+    return WP('18');
+  }
 }

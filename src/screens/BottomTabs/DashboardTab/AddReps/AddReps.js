@@ -11,9 +11,11 @@ import {
 import {
   appIcons,
   appImages,
+  best_set,
   capitalizeFirstLetter,
   checkConnected,
   colors,
+  convertNumberSystem,
 } from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useDispatch, useSelector} from 'react-redux';
@@ -21,11 +23,13 @@ import {
   create_exercise_workout_request,
   set_event_request,
 } from '../../../../redux/actions';
+import {useIsFocused} from '@react-navigation/native';
 
 const AddRaps = ({navigation}) => {
   const [inputList, setInputList] = useState([]);
   const [onSuccess, setonSuccess] = useState(false);
   const dispatch = useDispatch(null);
+  const isFocus = useIsFocused();
   const [isLoading, setisLoading] = useState(false);
   const {exercise_item, create_exercise_workout, exercise_screen} = useSelector(
     state => state?.exercise,
@@ -50,7 +54,6 @@ const AddRaps = ({navigation}) => {
           };
         });
         const addExerciseSuccess = res => {
-          console.log(res);
           setisLoading(false);
           setonSuccess(true);
         };
@@ -109,22 +112,18 @@ const AddRaps = ({navigation}) => {
     const checkInternet = await checkConnected();
     if (checkInternet) {
       //Set Ongoing Success
-      setisLoading(true);
       const onGoingPressSuccess = () => {
         navigation.navigate('OngoingEventDetail');
-        // console.log('On Going Event Success');
-        setisLoading(false);
       };
       //Set  onGoing event failure
       const onGoingPressFailure = () => {
         // console.log('On Going Event Failure');
         Alert.alert('Error', 'Something went wrong!');
-        setisLoading(false);
       };
 
       dispatch(
         set_event_request(
-          event_detail,
+          event_detail?.id,
           onGoingPressSuccess,
           onGoingPressFailure,
         ),
@@ -134,6 +133,11 @@ const AddRaps = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+  useEffect(() => {
+    if (!isFocus) {
+      setisLoading(false);
+    }
+  }, [!isFocus]);
 
   return (
     <SafeAreaView style={styles.main}>
@@ -211,14 +215,21 @@ const AddRaps = ({navigation}) => {
       </View>
       {onSuccess && (
         <ActivitySuccess
-          name={`${create_exercise_workout?.user?.first_name} ${create_exercise_workout?.user?.last_name}`}
-          type={create_exercise_workout?.exercise?.exercise_type}
-          weight={`${create_exercise_workout?.total_lbs} LBS`}
-          excercise={`${create_exercise_workout?.repetitions.length}x ${create_exercise_workout?.exercise?.name}`}
+          name={`${create_exercise_workout?.user?.first_name || ''} ${
+            create_exercise_workout?.user?.last_name || ''
+          }`}
+          type={create_exercise_workout?.exercise?.exercise_type || ''}
+          weight={`${convertNumberSystem(
+            create_exercise_workout?.total_lbs,
+          )} LBS`}
+          bestSet={best_set(create_exercise_workout?.repetitions)}
+          excercise={`${create_exercise_workout?.repetitions.length || ''}x ${
+            create_exercise_workout?.exercise?.name || ''
+          }`}
           mode={`${capitalizeFirstLetter(
-            create_exercise_workout?.exercise?.name,
-          )} (${create_exercise_workout?.exercise?.category})`}
-          show={true}
+            create_exercise_workout?.exercise?.name || '',
+          )} (${create_exercise_workout?.exercise?.category || ''})`}
+          show={onSuccess}
           onPressHide={() => {
             setonSuccess(false);
             if (exercise_screen) {

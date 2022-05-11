@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('5'),
     flex: 1,
   },
+  infoTxtStyle: {
+    marginBottom: 2,
+    color: colors.g3,
+    fontSize: size.xsmall,
+    fontFamily: family.OpenSans_SemiBold,
+  },
   itemContainer: {
     flex: 1,
   },

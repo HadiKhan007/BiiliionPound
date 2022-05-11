@@ -75,14 +75,23 @@ export const TransactionSuccess = ({
           {/* About Event Flow */}
           <View style={[spacing.py3]}>
             <Text style={styles.titleStyle}>About The Event</Text>
-            <ReadMore
-              numberOfLines={3}
-              renderTruncatedFooter={_renderTruncatedFooter}
-              renderRevealedFooter={_renderRevealedFooter}>
-              <Text style={styles.description}>
+            {event_detail?.description?.length > 50 ? (
+              <ReadMore
+                numberOfLines={3}
+                renderTruncatedFooter={_renderTruncatedFooter}
+                renderRevealedFooter={_renderRevealedFooter}
+                onReady={() => {
+                  // console.log('hello');
+                }}>
+                <Text style={styles.description}>
+                  {event_detail?.description}
+                </Text>
+              </ReadMore>
+            ) : (
+              <Text numberOfLines={3} style={styles.description}>
                 {event_detail?.description}
               </Text>
-            </ReadMore>
+            )}
           </View>
           {/* About Event Flow  Read More only working in main container*/}
           <View style={styles.aiCenetr}>

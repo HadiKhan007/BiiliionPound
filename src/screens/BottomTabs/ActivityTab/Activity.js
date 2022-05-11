@@ -20,7 +20,9 @@ import {
 import {
   appIcons,
   appImages,
+  best_set,
   checkConnected,
+  convertNumberSystem,
   spacing,
 } from '../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
@@ -45,9 +47,6 @@ const Activity = ({navigation}) => {
   );
 
   useEffect(() => {
-    console.log('====================================');
-    console.log('selected ', selectPeriod);
-    console.log('====================================');
     if (selectPeriod != null) {
       setLoading(true);
       getFilteredData();
@@ -88,7 +87,7 @@ const Activity = ({navigation}) => {
 
     const cbSuccess = res => {
       console.log('===============FilteredActivity=====================');
-      console.log(res);
+      // console.log(res);
       console.log('====================================');
       setLoading(false);
     };
@@ -132,18 +131,20 @@ const Activity = ({navigation}) => {
                 return (
                   <View style={spacing.py2}>
                     <ActivityCard
-                      name={item?.user?.full_name}
-                      type={item?.exercise?.exercise_type}
-                      weight={item?.total_lbs + ' LBS'}
-                      excercise={
-                        item?.repetitions?.length + ' x ' + item?.exercise?.name
-                      }
-                      mode={item?.exercise?.name}
+                      name={item?.user?.full_name || ''}
+                      type={item?.exercise?.exercise_type || ''}
+                      weight={convertNumberSystem(item?.total_lbs) + ' LBS'}
+                      excercise={`${item?.repetitions?.length || ''}x ${
+                        item?.exercise?.name || ''
+                      }`}
+                      createdAt={item?.created_at || ''}
+                      mode={item?.exercise?.name || ''}
                       cardIcon={
                         item?.exercise?.exercise_image_url
                           ? {uri: item?.exercise?.exercise_image_url}
                           : appImages.sample_exercise
                       }
+                      bestSet={best_set(item?.repetitions)}
                     />
                   </View>
                 );
@@ -158,7 +159,7 @@ const Activity = ({navigation}) => {
           periodSheetRef?.current?.hide();
         }}
         setPeriod={item => {
-          console.log('item selected', item?.title);
+          // console.log('item selected', item?.title);
           setselectPeriod(item);
           periodSheetRef?.current?.hide();
           getFilteredData();

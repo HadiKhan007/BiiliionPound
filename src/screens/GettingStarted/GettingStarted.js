@@ -19,7 +19,7 @@ const GettingStarted = ({navigation}) => {
         <Button
           title="Getting Started"
           onPress={() => {
-            navigation.replace('Walkthrough');
+            navigation.replace('VideoIntro');
           }}
         />
       </View>

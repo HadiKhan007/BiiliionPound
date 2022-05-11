@@ -91,7 +91,7 @@ const OngoingEvent = ({navigation}) => {
       };
 
       dispatch(
-        set_event_request(item, onGoingPressSuccess, onGoingPressFailure),
+        set_event_request(item?.id, onGoingPressSuccess, onGoingPressFailure),
       );
       dispatch(
         set_exercise_screen_request(false, () => {

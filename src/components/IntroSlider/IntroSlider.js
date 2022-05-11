@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
@@ -6,50 +6,21 @@ import {
   Image,
   Dimensions,
   ImageBackground,
+  ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import {appImages, colors, family, HP, size} from '../../shared/exporter';
-import Video from 'react-native-video';
+import {Icon} from 'react-native-elements/dist/icons/Icon';
 
-const IntroSlider = ({item, isVideo = false, index}) => {
-  //Video
-  if (item.key === 1) {
-    return (
-      <View style={{flex: 1}}>
-        <Video
-          repeat
-          source={require('../../assets/video/gym_video.mp4')}
-          resizeMode="cover"
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-        />
-        <View
-          style={[
-            styles.textContainer,
-            {
-              flex: 1,
-              //  marginTop: HP('30'),
-              zIndex: 1,
-              position: 'absolute',
-              justifyContent: 'center',
-              bottom: HP('25'),
-            },
-          ]}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.desc}>{item.text}</Text>
-        </View>
-      </View>
-    );
-  }
+const IntroSlider = ({item, index, onPressBack}) => {
   //Company bio
-  if (item.key === 5) {
+  if (item.key === 4) {
     return (
       <ImageBackground style={styles.pic} source={item.image}>
         <View style={{backgroundColor: 'rgba(0,0,0,0.4)', height: '100%'}}>
           <View style={[styles.textContainer, {flex: 1, marginTop: HP('30')}]}>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.desc}>{item.text}</Text>
+            {/* <Text style={styles.title}>{item.title}</Text> */}
+            <Text style={[styles.desc, {fontSize: size.h5}]}>{item.text}</Text>
           </View>
         </View>
       </ImageBackground>
@@ -57,6 +28,19 @@ const IntroSlider = ({item, isVideo = false, index}) => {
   }
   return (
     <View style={styles.main}>
+      {item?.key == 1 && (
+        <TouchableOpacity
+          onPress={onPressBack}
+          style={styles.backBtn}
+          hitSlop={{top: 50, bottom: 50, left: 50, right: 50}}>
+          <Icon
+            name="chevron-back-outline"
+            type={'ionicon'}
+            color="white"
+            size={24}
+          />
+        </TouchableOpacity>
+      )}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.desc}>{item.text}</Text>
@@ -98,6 +82,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignSelf: 'center',
+  },
+  activityIndicator: {
+    position: 'absolute',
+    top: 200,
+    left: 0,
+    right: 0,
+    height: 200,
+  },
+  backBtn: {
+    position: 'absolute',
+    top: 60,
+    left: 10,
+    bottom: 20,
+    zIndex: 99999,
   },
 });
 

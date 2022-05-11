@@ -94,9 +94,9 @@ const AddNewExcercise = ({navigation}) => {
             const onEndSelection = () => {
               setSelectionModal(false);
               if (selectItemType == 'Category') {
-                setFieldValue('category', selectCategoryItem);
+                setFieldValue('category', selectCategoryItem || '');
               } else {
-                setFieldValue('bodyPart', selectBodyItem);
+                setFieldValue('bodyPart', selectBodyItem || '');
               }
             };
             return (

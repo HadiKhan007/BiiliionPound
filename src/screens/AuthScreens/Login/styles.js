@@ -22,13 +22,34 @@ const styles = StyleSheet.create({
   inputContainer: {
     height: scrHeight / 2,
   },
-  forgotTxtStyle: {
+  rowContainer: {
+    width: '90%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  innerRowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  rememberTxtStyle: {
     fontSize: size.tiny,
-    top: 5,
+    top: 2.5,
+    marginHorizontal: WP('2'),
     fontFamily: family.OpenSans_Regular,
     color: colors.g2,
     textAlign: 'right',
-    marginHorizontal: WP('5'),
+    textDecorationLine: 'underline',
+  },
+  forgotTxtStyle: {
+    fontSize: size.tiny,
+    top: 2.5,
+    fontFamily: family.OpenSans_Regular,
+    color: colors.g2,
+    textAlign: 'right',
+    marginHorizontal: WP('1'),
     textDecorationLine: 'underline',
   },
 });

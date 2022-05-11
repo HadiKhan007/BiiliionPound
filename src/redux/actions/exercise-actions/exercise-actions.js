@@ -122,3 +122,33 @@ export const create_exercise_workout_request = (
     cbFailure,
   };
 };
+
+//Create Exercise Workout
+export const get_notification_list_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.GET_NOTIFICATION_LIST_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Create Exercise Workout
+export const delete_notification_request = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.DELETE_NOTIFICATION_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+//Save Device Token
+export const save_device_token = (params, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.SAVE_DEVICE_TOKEN_REQUEST,
+    params,
+    cbSuccess,
+    cbFailure,
+  };
+};

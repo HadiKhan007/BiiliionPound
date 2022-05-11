@@ -67,9 +67,15 @@ export const pay_with_debit_request = (params, cbSuccess, cbFailure) => {
 };
 
 //Pay with Google
-export const pay_with_social_request = (params, cbSuccess, cbFailure) => {
+export const pay_with_social_request = (
+  payment_type,
+  params,
+  cbSuccess,
+  cbFailure,
+) => {
   return {
     type: TYPES.PAY_WITH_SOCIAL_REQUEST,
+    payment_type,
     params,
     cbSuccess,
     cbFailure,

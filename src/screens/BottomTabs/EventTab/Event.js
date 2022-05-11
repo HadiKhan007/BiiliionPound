@@ -96,7 +96,11 @@ const Event = ({navigation}) => {
 
     if (checkInternet) {
       dispatch(
-        set_event_request(item, onUpcomingPressSuccess, onUpcomingPressFailure),
+        set_event_request(
+          item?.id,
+          onUpcomingPressSuccess,
+          onUpcomingPressFailure,
+        ),
       );
     } else {
       setLoading(false);
@@ -126,7 +130,7 @@ const Event = ({navigation}) => {
       };
 
       dispatch(
-        set_event_request(item, onGoingPressSuccess, onGoingPressFailure),
+        set_event_request(item?.id, onGoingPressSuccess, onGoingPressFailure),
       );
       dispatch(
         set_exercise_screen_request(false, () => {

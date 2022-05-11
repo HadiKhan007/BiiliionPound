@@ -54,7 +54,12 @@ export const OngoingEventCard = ({
                   }
                 : appImages.sample_exercise
             }
-            imageStyle={styles.imageStyle}>
+            imageStyle={[
+              styles.imageStyle,
+              {
+                resizeMode: event_image ? 'cover' : 'contain',
+              },
+            ]}>
             <View style={styles.littleBox}>
               <Text style={styles.textStyle1}>
                 {moment(event_date).format('DD')}{' '}
@@ -162,6 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
+    margin: 5,
   },
 
   imageStyle: {

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     marginHorizontal: WP('3'),
+    flex: 1,
   },
 });
 

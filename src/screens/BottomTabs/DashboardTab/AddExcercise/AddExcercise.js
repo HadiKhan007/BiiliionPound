@@ -156,11 +156,6 @@ const AddExcercise = ({navigation}) => {
       }),
     );
     setSelectedItem(item);
-    dispatch(
-      set_exercise_item_request(item, () => {
-        console.log('Item Setted');
-      }),
-    );
   };
 
   //Render Exercise Cards
@@ -174,7 +169,9 @@ const AddExcercise = ({navigation}) => {
             : appImages.sample_exercise
         }
         selected={item.selected}
-        name={`${item?.name} (${item?.category})`}
+        name={`${item?.name || ''} ${
+          item?.category ? `(${item?.category})` : ''
+        }`}
         paddingHorizontal={WP('5')}
         onSelectionChange={onSelectionChange}
         item={item}
@@ -279,7 +276,11 @@ const AddExcercise = ({navigation}) => {
         set_exercise_recent_search_request(
           filteredItem ? [...filteredItem, selectedItem] : recent_searches,
           () => {
-            navigation?.navigate('AddReps');
+            dispatch(
+              set_exercise_item_request(selectedItem, () => {
+                navigation?.navigate('AddReps');
+              }),
+            );
           },
         ),
       );
@@ -304,6 +305,10 @@ const AddExcercise = ({navigation}) => {
           title={'Add Workout'}
           // subtitle={'Save'}
         />
+        <Text style={styles.infoTxtStyle}>
+          If you can't find your exercise in our library, enter your exercise
+          and weight here.
+        </Text>
         <View style={styles.itemContainer}>
           <SearchBar
             placeholder={'Search...'}
@@ -369,6 +374,7 @@ const AddExcercise = ({navigation}) => {
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
+                  // <View style={[spacing.py2]}>
                   <ExcerciseCard
                     type={item?.exercise_type}
                     icon={
@@ -376,14 +382,15 @@ const AddExcercise = ({navigation}) => {
                         ? {uri: item?.exercise_image}
                         : appImages.sample_exercise
                     }
-                    name={`${item?.name} (${item?.category})`}
+                    name={`${item?.name || ''} (${item?.category || ''})`}
                     paddingHorizontal={WP('5')}
                     onSelectionChange={d => {
-                      setSelectedItem(item);
+                      onSelectionChange(d);
                     }}
                     selected={item?.id == selectedItem?.id ? true : false}
                     item={item}
                   />
+                  // </View>
                 );
               }}
             />

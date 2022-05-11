@@ -1,6 +1,13 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {colors, family, HP, size, WP} from '../../shared/exporter';
+import {
+  colors,
+  family,
+  HP,
+  setDigitSize,
+  size,
+  WP,
+} from '../../shared/exporter';
 import LinearGradient from 'react-native-linear-gradient';
 import {SmallLoader} from '..';
 
@@ -10,7 +17,14 @@ export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
       <View style={styles.circleContainer}>
         {!isLoading ? (
           <>
-            <Text style={styles.title} numberOfLines={1}>
+            <Text
+              style={[
+                styles.title,
+                {
+                  fontSize: setDigitSize(title),
+                },
+              ]}
+              numberOfLines={1}>
               {title?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             </Text>
             <Text style={styles.subtitle}>{subtitle}</Text>
@@ -22,7 +36,8 @@ export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
       {icon && (
         <LinearGradient colors={colors.t_gradient} style={styles.btnContainer}>
           <TouchableOpacity style={styles.btnContainer} onPress={onPressAdd}>
-            <Image source={icon} style={styles.btnImage} />
+            <Text style={styles.buttonTxtStyle}>Exercise Library</Text>
+            {/* <Image source={icon} style={styles.btnImage} /> */}
           </TouchableOpacity>
         </LinearGradient>
       )}
@@ -34,16 +49,16 @@ const styles = StyleSheet.create({
   circleContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: WP('65'),
-    width: WP('65'),
-    borderRadius: WP('65'),
+    height: WP('70'),
+    width: WP('70'),
+    borderRadius: WP('70'),
     borderWidth: 2,
     borderColor: colors.p1,
     marginBottom: WP('5'),
   },
   title: {
     color: colors.b1,
-    fontSize: WP('18'),
+    fontSize: WP('14'),
     fontFamily: family.OpenSans_Medium,
     textAlign: 'center',
   },
@@ -59,9 +74,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.p1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 54,
-    width: 54,
-    borderRadius: 50,
+    height: 50,
+    width: WP('60'),
+    borderRadius: 5,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -79,5 +94,10 @@ const styles = StyleSheet.create({
   aiCenter: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  buttonTxtStyle: {
+    color: colors.white,
+    fontSize: size.large,
+    fontFamily: family.Poppins_Medium,
   },
 });

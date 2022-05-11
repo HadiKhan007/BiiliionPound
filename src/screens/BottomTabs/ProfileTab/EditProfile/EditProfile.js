@@ -51,9 +51,9 @@ const EditProfile = ({navigation}) => {
       if (image_data?.uri) {
         fd.append('profile_image', image_data);
       }
-      fd.append('first_name', values.firstName || userData?.first_name);
-      fd.append('last_name', values.lastName || userData?.last_name);
-      fd.append('email', values.email || userData?.email);
+      fd.append('first_name', values.firstName || userData?.first_name || '');
+      fd.append('last_name', values.lastName || userData?.last_name || '');
+      fd.append('email', values.email || userData?.email || '');
       console.log(fd);
       fetch(`${BASE_URL}/users/${userInfo?.user?.id}`, {
         method: 'PUT',
@@ -148,7 +148,6 @@ const EditProfile = ({navigation}) => {
       }
     }, 400);
   };
-
   return (
     <SafeAreaView style={styles.main}>
       {loading ? <Loader loading={loading} /> : null}
@@ -169,9 +168,9 @@ const EditProfile = ({navigation}) => {
         </View>
         <Formik
           initialValues={{
-            firstName: userData?.first_name,
-            lastName: userData?.last_name,
-            email: userData?.email,
+            firstName: userData?.first_name || '',
+            lastName: userData?.last_name || '',
+            email: userData?.email || '',
           }}
           onSubmit={(values, {resetForm}) => {
             updateProfile(values);

@@ -19,6 +19,7 @@ import {
   PrimaryHeading,
   Title,
   UpcomingEventCard,
+  Loader,
 } from '../../../../components';
 import {
   appIcons,
@@ -54,9 +55,7 @@ const OngoingEventDetail = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
           <View style={styles.itemView}>
             <HomeCircle
-              title={
-                convertNumberSystem(event_detail?.total_pounds_lifted) || 0
-              }
+              title={event_detail?.total_pounds_lifted || 0}
               subtitle={'Total Pounds Lifted'}
               onPressAdd={() => {
                 navigation?.navigate('ExerciseStack');
@@ -69,9 +68,11 @@ const OngoingEventDetail = ({navigation}) => {
               'hh:mm A',
             )} - ${moment(event_detail?.end_date).format('hh:mm A')}`}
             title={event_detail?.title}
-            subTitle={`${event_detail?.current_user?.event_weight_lifted} LBS`}
+            subTitle={`${convertNumberSystem(
+              event_detail?.current_user?.event_weight_lifted,
+            )} LBS`}
             price={event_detail?.price || 0}
-            liftedAmount={event_detail?.goal_amount || 0}
+            liftedAmount={convertNumberSystem(event_detail?.goal_amount) || 0}
             onPressCard={() => navigation.navigate('ActivityTab')}
             joined_team={event_detail?.current_user?.selected_team}
           />
@@ -114,7 +115,10 @@ const OngoingEventDetail = ({navigation}) => {
                             Lifted Amount :
                             <Text style={[styles.subtitleBoldStyle]}>
                               {' '}
-                              {item.event_weight_lifted} LBS
+                              {convertNumberSystem(
+                                item?.event_weight_lifted,
+                              )}{' '}
+                              LBS
                             </Text>
                           </Text>
                         </View>

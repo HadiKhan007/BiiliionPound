@@ -52,6 +52,8 @@ buck-out/
 */fastlane/report.xml
 */fastlane/Preview.html
 */fastlane/screenshots
+# Video File ignore
+src/assets/video/gym_video.mp4
 
 # Bundle artifact
 *.jsbundle

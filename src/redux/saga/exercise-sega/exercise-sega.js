@@ -4,7 +4,10 @@ import {
   createExerWorkout,
   creatingCustomExercise,
   getAllExer,
+  savefcmToken,
   getWeightLifted,
+  getNotifications,
+  delNotification,
 } from '../../../shared/service/ExerciseService';
 import * as types from '../../actions/types';
 
@@ -20,9 +23,9 @@ function* getTotalWightLifted(params) {
     if (res.data) {
       yield put({
         type: types.GET_LIFTED_WEIGHT_SUCCESS,
-        payload: res.data,
+        payload: res.data?.weight_lifted,
       });
-      params?.cbSuccess(res.data);
+      params?.cbSuccess(res.data?.weight_lifted);
     } else {
       yield put({
         type: types.GET_LIFTED_WEIGHT_FAILURE,
@@ -274,6 +277,83 @@ function* createExerciseWorkout(params) {
     console.log(error);
     yield put({
       type: types.CREATE_EXERCISE_WORKOUT_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+export function* saveDeviceTokenRequest() {
+  yield takeLatest(types.SAVE_DEVICE_TOKEN_REQUEST, saveDeviceToken);
+}
+
+function* saveDeviceToken(params) {
+  try {
+    const res = yield savefcmToken(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.SAVE_DEVICE_TOKEN_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess();
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.SAVE_DEVICE_TOKEN_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+//Get Notification list
+
+export function* getNotificationListRequest() {
+  yield takeLatest(types.GET_NOTIFICATION_LIST_REQUEST, getNotificationList);
+}
+function* getNotificationList(params) {
+  try {
+    const res = yield getNotifications();
+    if (res.data) {
+      // for (let i = 0; i < res?.data.length; i++) {
+      //   res.data[i]['is_read'] = false;
+      // }
+      yield put({
+        type: types.GET_NOTIFICATION_LIST_SUCCESS,
+        payload: res?.data,
+      });
+      params?.cbSuccess();
+    }
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: types.GET_NOTIFICATION_LIST_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+export function* deleteNotificationRequest() {
+  yield takeLatest(types.DELETE_NOTIFICATION_REQUEST, deleteNotification);
+}
+function* deleteNotification(params) {
+  try {
+    const res = yield delNotification(params?.params);
+    if (res.data) {
+      yield put({
+        type: types.DELETE_NOTIFICATION_SUCCESS,
+        payload: params?.params,
+      });
+      params?.cbSuccess();
+    }
+  } catch (error) {
+    yield put({
+      type: types.DELETE_NOTIFICATION_FAILURE,
       payload: null,
     });
     let msg = responseValidator(error?.response?.status, error?.response?.data);

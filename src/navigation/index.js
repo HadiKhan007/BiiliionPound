@@ -16,6 +16,7 @@ import EventDetail from '../screens/BottomTabs/EventTab/EventDetail';
 import Payment from '../screens/BottomTabs/EventTab/Payment';
 import OngoingEventDetail from '../screens/BottomTabs/EventTab/OngoingEventDetail';
 import ActivityTab from '../screens/BottomTabs/EventTab/ActivityTab';
+import VideoIntro from '../screens/VideoIntro/VideoIntro';
 
 const AppStack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const MainAppNav = () => {
         screenOptions={{headerShown: false}}>
         <AppStack.Screen name={'Splash'} component={Splash} />
         <AppStack.Screen name={'Walkthrough'} component={Walkthrough} />
+        <AppStack.Screen name={'VideoIntro'} component={VideoIntro} />
         <AppStack.Screen name={'GettingStarted'} component={GettingStarted} />
         <AppStack.Screen name="Terms" component={Terms} />
         <AppStack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
