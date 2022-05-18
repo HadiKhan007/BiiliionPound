@@ -6,9 +6,15 @@ import {Alert} from 'react-native';
 import {socialLoginRequest} from '../../redux/actions';
 import {checkConnected} from './helper';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Google Login
-export const onGoogleLogin = async (navigation, dispatch, setloading) => {
+export const onGoogleLogin = async (
+  navigation,
+  dispatch,
+  setloading,
+  isRemember,
+) => {
   const checkInternet = await checkConnected();
   if (checkInternet) {
     setloading(true);
@@ -27,7 +33,7 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
         socialLoginRequest(
           'google',
           requestBody,
-          res => onSocialLoginSuccess(res, navigation, setloading),
+          res => onSocialLoginSuccess(res, navigation, setloading, isRemember),
           res => onSocialLoginFailed(res, setloading),
         ),
       );
@@ -48,7 +54,12 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
 };
 
 //On Apple SignIn
-export const onAppleLogin = async (navigation, dispatch, setloading) => {
+export const onAppleLogin = async (
+  navigation,
+  dispatch,
+  setloading,
+  isRemember,
+) => {
   const checkInternet = await checkConnected();
   if (checkInternet) {
     try {
@@ -68,7 +79,9 @@ export const onAppleLogin = async (navigation, dispatch, setloading) => {
           socialLoginRequest(
             'apple',
             requestBody,
-            res => onSocialLoginSuccess(res, navigation, setloading),
+            res => {
+              onSocialLoginSuccess(res, navigation, setloading, isRemember);
+            },
             res => onSocialLoginFailed(res, setloading),
           ),
         );
@@ -95,8 +108,14 @@ export const onAppleLogin = async (navigation, dispatch, setloading) => {
   }
 };
 //On Social Login Success
-const onSocialLoginSuccess = (res, navigation, setloading) => {
+const onSocialLoginSuccess = async (
+  res,
+  navigation,
+  setloading,
+  isRemember,
+) => {
   if (res) {
+    await AsyncStorage.setItem('isRemember', isRemember?.toString());
     navigation?.replace('App');
     setloading(false);
     // console.log('Social Login Success', res);

@@ -307,7 +307,20 @@ const AddExcercise = ({navigation}) => {
         />
         <Text style={styles.infoTxtStyle}>
           If you can't find your exercise in our library, enter your exercise
-          and weight here.
+          and weight{' '}
+          <Text
+            onPress={() => {
+              navigation?.navigate('AddNewExercise');
+            }}
+            style={[
+              styles.infoTxtStyle,
+              {
+                color: colors.p1,
+                textDecorationLine: 'underline',
+              },
+            ]}>
+            here.
+          </Text>
         </Text>
         <View style={styles.itemContainer}>
           <SearchBar

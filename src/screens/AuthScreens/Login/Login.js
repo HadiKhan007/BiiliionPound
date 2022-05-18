@@ -168,10 +168,10 @@ const Login = ({navigation}) => {
                 buttonTxt={'Login'}
                 onPressBtn={handleSubmit}
                 onApplePress={() => {
-                  onAppleLogin(navigation, dispatch, setloading);
+                  onAppleLogin(navigation, dispatch, setloading, isRemember);
                 }}
                 onGooglePress={() =>
-                  onGoogleLogin(navigation, dispatch, setloading)
+                  onGoogleLogin(navigation, dispatch, setloading, isRemember)
                 }
               />
             </KeyboardAwareScrollView>
