@@ -9,12 +9,7 @@ import {appleAuth} from '@invertase/react-native-apple-authentication';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Google Login
-export const onGoogleLogin = async (
-  navigation,
-  dispatch,
-  setloading,
-  isRemember,
-) => {
+export const onGoogleLogin = async (navigation, dispatch, setloading) => {
   const checkInternet = await checkConnected();
   if (checkInternet) {
     setloading(true);
@@ -33,7 +28,7 @@ export const onGoogleLogin = async (
         socialLoginRequest(
           'google',
           requestBody,
-          res => onSocialLoginSuccess(res, navigation, setloading, isRemember),
+          res => onSocialLoginSuccess(res, navigation, setloading),
           res => onSocialLoginFailed(res, setloading),
         ),
       );
@@ -54,12 +49,7 @@ export const onGoogleLogin = async (
 };
 
 //On Apple SignIn
-export const onAppleLogin = async (
-  navigation,
-  dispatch,
-  setloading,
-  isRemember,
-) => {
+export const onAppleLogin = async (navigation, dispatch, setloading) => {
   const checkInternet = await checkConnected();
   if (checkInternet) {
     try {
@@ -80,7 +70,7 @@ export const onAppleLogin = async (
             'apple',
             requestBody,
             res => {
-              onSocialLoginSuccess(res, navigation, setloading, isRemember);
+              onSocialLoginSuccess(res, navigation, setloading);
             },
             res => onSocialLoginFailed(res, setloading),
           ),
@@ -108,14 +98,9 @@ export const onAppleLogin = async (
   }
 };
 //On Social Login Success
-const onSocialLoginSuccess = async (
-  res,
-  navigation,
-  setloading,
-  isRemember,
-) => {
+const onSocialLoginSuccess = async (res, navigation, setloading) => {
   if (res) {
-    await AsyncStorage.setItem('isRemember', isRemember?.toString());
+    await AsyncStorage.setItem('isRemember', 'true');
     navigation?.replace('App');
     setloading(false);
     // console.log('Social Login Success', res);

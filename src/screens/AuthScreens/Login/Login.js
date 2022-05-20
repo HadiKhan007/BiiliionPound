@@ -132,7 +132,6 @@ const Login = ({navigation}) => {
                       }
                       size={20}
                       color={isRemember ? colors.p1 : colors.g1}
-                      style={{marginTop: 5}}
                       onPress={() => setIsRemember(!isRemember)}
                     />
                     <Text
@@ -168,10 +167,10 @@ const Login = ({navigation}) => {
                 buttonTxt={'Login'}
                 onPressBtn={handleSubmit}
                 onApplePress={() => {
-                  onAppleLogin(navigation, dispatch, setloading, isRemember);
+                  onAppleLogin(navigation, dispatch, setloading);
                 }}
                 onGooglePress={() =>
-                  onGoogleLogin(navigation, dispatch, setloading, isRemember)
+                  onGoogleLogin(navigation, dispatch, setloading)
                 }
               />
             </KeyboardAwareScrollView>
