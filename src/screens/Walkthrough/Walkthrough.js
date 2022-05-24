@@ -9,6 +9,7 @@ import styles from './styles';
 import {useDispatch} from 'react-redux';
 import {setWalkthrough} from '../../redux/actions';
 import {CommonActions} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import CircularProgress from 'react-native-circular-progress-indicator';
 
@@ -77,7 +78,8 @@ const Walkthrough = ({navigation}) => {
           const body = {
             skip: true,
           };
-          dispatch(setWalkthrough(body));
+          AsyncStorage.setItem('walkthrough', 'true');
+          // dispatch(setWalkthrough(body));
           navigation.replace('Auth', {
             screen: 'SignUp',
           });

@@ -35,11 +35,12 @@ const Splash = ({navigation}) => {
 
   const handleAppEntry = async () => {
     const isRemember = await AsyncStorage.getItem('isRemember');
+    const skip = await AsyncStorage.getItem('walkthrough');
     setTimeout(() => {
       if (isRemember === 'true') {
         navigation.replace('App');
       } else {
-        if (walkthrough?.skip) {
+        if (skip == 'true') {
           navigation.replace('Auth');
         } else {
           navigation.replace('GettingStarted');
