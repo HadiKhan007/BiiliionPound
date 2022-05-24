@@ -125,6 +125,10 @@ const AddNewExcercise = ({navigation}) => {
                         setselectItemType('Category');
                       }}>
                       <Input
+                        onPress={() => {
+                          setSelectionModal(true);
+                          setselectItemType('Category');
+                        }}
                         rightIcon={
                           <Image
                             source={appIcons.rightIcon}
@@ -153,6 +157,10 @@ const AddNewExcercise = ({navigation}) => {
                         setselectItemType('BodyPart');
                       }}>
                       <Input
+                        onPress={() => {
+                          setSelectionModal(true);
+                          setselectItemType('BodyPart');
+                        }}
                         rightIcon={
                           <Image
                             source={appIcons.rightIcon}

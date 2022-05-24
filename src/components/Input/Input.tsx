@@ -20,6 +20,7 @@ interface InputProps {
   value: any;
   onSubmitEditing: any;
   editable: boolean;
+  onPress: any;
 }
 
 const Input = ({
@@ -38,11 +39,13 @@ const Input = ({
   value,
   onSubmitEditing,
   editable,
+  onPress,
 }: InputProps) => {
   const [showPass, setShowPass] = React.useState(secureTextEntry);
 
   return (
     <RNInput
+      onPressIn={onPress}
       placeholder={placeholder}
       secureTextEntry={showPass}
       inputContainerStyle={styles.inputContainerStyle}
