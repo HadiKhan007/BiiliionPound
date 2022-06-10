@@ -147,8 +147,8 @@ export function setDigitSize(num) {
   } else if (num >= 10000) {
     return WP('14');
   } else if (num >= 1000) {
-    return WP('18');
+    return WP('16');
   } else {
-    return WP('18');
+    return WP('16');
   }
 }

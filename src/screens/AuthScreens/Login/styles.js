@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   },
   rememberTxtStyle: {
     fontSize: size.tiny,
-    top: 2.5,
     marginHorizontal: WP('2'),
     fontFamily: family.OpenSans_Regular,
     color: colors.g2,

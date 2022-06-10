@@ -9,6 +9,7 @@ import styles from './styles';
 import {useDispatch} from 'react-redux';
 import {setWalkthrough} from '../../redux/actions';
 import {CommonActions} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import CircularProgress from 'react-native-circular-progress-indicator';
 
@@ -27,13 +28,13 @@ const slides = [
     image: appImages.slider2,
     backgroundColor: '#febe29',
   },
-  {
-    key: 3,
-    title: 'Get Your Billion Pound Medallion',
-    text: 'Once you register for a fund- raising event OR register to use the app as your daily fitness journal... you receive our beautiful TEAM medallion!',
-    image: appImages.slider3,
-    backgroundColor: '#22bcb5',
-  },
+  // {
+  //   key: 3,
+  //   title: 'Get Your Billion Pound Medallion',
+  //   text: 'Once you register for a fund- raising event OR register to use the app as your daily fitness journal... you receive our beautiful TEAM medallion!',
+  //   image: appImages.slider3,
+  //   backgroundColor: '#22bcb5',
+  // },
   {
     key: 4,
     title: 'About Company',
@@ -77,7 +78,8 @@ const Walkthrough = ({navigation}) => {
           const body = {
             skip: true,
           };
-          dispatch(setWalkthrough(body));
+          AsyncStorage.setItem('walkthrough', 'true');
+          // dispatch(setWalkthrough(body));
           navigation.replace('Auth', {
             screen: 'SignUp',
           });

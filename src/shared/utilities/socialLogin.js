@@ -6,6 +6,7 @@ import {Alert} from 'react-native';
 import {socialLoginRequest} from '../../redux/actions';
 import {checkConnected} from './helper';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //Google Login
 export const onGoogleLogin = async (navigation, dispatch, setloading) => {
@@ -68,7 +69,9 @@ export const onAppleLogin = async (navigation, dispatch, setloading) => {
           socialLoginRequest(
             'apple',
             requestBody,
-            res => onSocialLoginSuccess(res, navigation, setloading),
+            res => {
+              onSocialLoginSuccess(res, navigation, setloading);
+            },
             res => onSocialLoginFailed(res, setloading),
           ),
         );
@@ -95,8 +98,9 @@ export const onAppleLogin = async (navigation, dispatch, setloading) => {
   }
 };
 //On Social Login Success
-const onSocialLoginSuccess = (res, navigation, setloading) => {
+const onSocialLoginSuccess = async (res, navigation, setloading) => {
   if (res) {
+    await AsyncStorage.setItem('isRemember', 'true');
     navigation?.replace('App');
     setloading(false);
     // console.log('Social Login Success', res);

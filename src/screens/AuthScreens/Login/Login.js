@@ -132,7 +132,6 @@ const Login = ({navigation}) => {
                       }
                       size={20}
                       color={isRemember ? colors.p1 : colors.g1}
-                      style={{marginTop: 5}}
                       onPress={() => setIsRemember(!isRemember)}
                     />
                     <Text
