@@ -20,8 +20,8 @@
 		34669E80445F4AE18676C079 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2BC23530CB74202BC199E25 /* Poppins-ExtraLightItalic.ttf */; };
 		38D53FC5C3B94A809B61DA5B /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C25C505CD3C64B31A974F172 /* Poppins-ExtraLight.ttf */; };
 		473CA8F393894B6C9B5CE730 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27C6C2D5F7834B4CACF36C8F /* Poppins-SemiBold.ttf */; };
+		4E6FCE02288E9784002BB278 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E6FCE01288E9784002BB278 /* GoogleService-Info.plist */; };
 		4ED37D21828E44F3B24DF8EE /* OpenSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A4AAFA45D714640BBCC8A6F /* OpenSans-MediumItalic.ttf */; };
-		52D0371827E0AFBB0003253E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 52D0371727E0AFBB0003253E /* GoogleService-Info.plist */; };
 		539DC3804EDE40B188D86519 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B05642DFE5AC482E9B7C10FF /* OpenSans-BoldItalic.ttf */; };
 		558B4D0F622A48B4A0F7BB6B /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 158D870D05E946059FD7107E /* Poppins-ThinItalic.ttf */; };
 		61F8EFF1AF7A43D58B6EDA08 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D17045D3E0B4AF98093F961 /* Poppins-BlackItalic.ttf */; };
@@ -87,8 +87,8 @@
 		417359E62CE54E0596500531 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		41C378806FDBB03A91F4CDA5 /* libPods-BillionPound-BillionPoundTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BillionPound-BillionPoundTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44CF1B76339440408D24F14E /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		4E6FCE01288E9784002BB278 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		52D0371227E093560003253E /* BillionPound.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BillionPound.entitlements; path = BillionPound/BillionPound.entitlements; sourceTree = "<group>"; };
-		52D0371727E0AFBB0003253E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "BillionPound/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		54F5B6B4CD80E4B023D7CBB0 /* libPods-BillionPound.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BillionPound.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F4D843F817D4D7EB4D168B1 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../src/assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		5F63D3E7E4D94D50873D94DE /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 		13B07FAE1A68108700A75B9A /* BillionPound */ = {
 			isa = PBXGroup;
 			children = (
-				52D0371727E0AFBB0003253E /* GoogleService-Info.plist */,
+				4E6FCE01288E9784002BB278 /* GoogleService-Info.plist */,
 				52D0371227E093560003253E /* BillionPound.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -392,7 +392,7 @@
 				1799BB709AC241C4BEB8F86D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				EC8791CEBD6C400A9EE12BEE /* OpenSans-Italic.ttf in Resources */,
 				784AA2B80756496AA7F2BFC0 /* OpenSans-Light.ttf in Resources */,
-				52D0371827E0AFBB0003253E /* GoogleService-Info.plist in Resources */,
+				4E6FCE02288E9784002BB278 /* GoogleService-Info.plist in Resources */,
 				7AE7C5ED0DBF4B84967F7FAB /* OpenSans-LightItalic.ttf in Resources */,
 				B36D412FC98C4FD7AAD153D9 /* OpenSans-Medium.ttf in Resources */,
 				4ED37D21828E44F3B24DF8EE /* OpenSans-MediumItalic.ttf in Resources */,
@@ -617,7 +617,8 @@
 			baseConfigurationReference = 29FF37DD1DC5A1691981BC16 /* Pods-BillionPound-BillionPoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = HJZ6T56V6D;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				DEVELOPMENT_TEAM = 8YC4UH3949;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -645,8 +646,9 @@
 			baseConfigurationReference = 0CC907E26A5170E160BEA9FE /* Pods-BillionPound-BillionPoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = HJZ6T56V6D;
+				DEVELOPMENT_TEAM = 8YC4UH3949;
 				INFOPLIST_FILE = BillionPoundTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -674,21 +676,21 @@
 				CODE_SIGN_ENTITLEMENTS = BillionPound/BillionPound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = HJZ6T56V6D;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8YC4UH3949;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BillionPound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.billionpound.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.billionpoundapp.app;
 				PRODUCT_NAME = BillionPound;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -706,20 +708,20 @@
 				CODE_SIGN_ENTITLEMENTS = BillionPound/BillionPound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_TEAM = HJZ6T56V6D;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8YC4UH3949;
 				INFOPLIST_FILE = BillionPound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.2.1;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.billionpound.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.billionpoundapp.app;
 				PRODUCT_NAME = BillionPound;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     color: colors.b7,
     fontFamily: family.OpenSans_SemiBold,
     marginBottom: 5,
+    width: '80%',
   },
   rightIconStyle: {
     backgroundColor: colors.gr1,

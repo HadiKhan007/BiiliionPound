@@ -35,13 +35,13 @@ const slides = [
   //   image: appImages.slider3,
   //   backgroundColor: '#22bcb5',
   // },
-  {
-    key: 4,
-    title: 'About Company',
-    text: 'Join your favorite team and help them reach their goals for charity!',
-    image: appImages.slider4,
-    backgroundColor: '#22bcb5',
-  },
+  // {
+  //   key: 4,
+  //   title: 'About Company',
+  //   text: 'Join your favorite team and help them reach their goals for charity!',
+  //   image: appImages.slider4,
+  //   backgroundColor: '#22bcb5',
+  // },
 ];
 
 const Walkthrough = ({navigation}) => {
