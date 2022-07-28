@@ -152,6 +152,15 @@ const authReducer = (state = initialState, actions) => {
         loading: false,
         walkthrough: payload,
       };
+
+    //************delete account Sates*************
+    case TYPES.DELETE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        userInfo: null,
+      };
+
     default:
       return state;
   }

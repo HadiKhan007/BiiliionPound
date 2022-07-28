@@ -23,6 +23,7 @@ const ENDPOINTS = {
   PRIVACY_POLICY: 'privacy_policies',
   ACTIVITY: 'exercises',
   CHECKOUT: 'checkout',
+  DELETE_USER: 'delete_user',
 };
 
 export {BASE_URL, ENDPOINTS};

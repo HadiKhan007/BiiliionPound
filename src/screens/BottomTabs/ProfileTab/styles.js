@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
     width: 16,
     resizeMode: 'contain',
   },
+  deleteImageStyle: {
+    height: 25,
+    width: 20,
+    resizeMode: 'contain',
+    tintColor: colors.g1,
+  },
 });
 
 export default styles;

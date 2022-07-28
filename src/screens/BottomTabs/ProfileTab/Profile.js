@@ -26,7 +26,11 @@ import {
 } from '../../../shared/exporter';
 import {TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getProfile, logoutRequset} from '../../../redux/actions';
+import {
+  deleteAccountRequest,
+  getProfile,
+  logoutRequset,
+} from '../../../redux/actions';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -62,16 +66,10 @@ const Profile = ({navigation}) => {
     const checkInternet = await checkConnected();
 
     const cbSuccess = res => {
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
       setLoading(false);
     };
 
     const cbFailure = message => {
-      console.log('====================================');
-      console.log(message);
-      console.log('====================================');
       setLoading(false);
     };
 
@@ -82,6 +80,38 @@ const Profile = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+
+  const deleteUser = () => {
+    Alert.alert('Are you sure you want to delete the account?', '', [
+      {
+        text: 'Ok',
+        onPress: () => deleteAccount(),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => {},
+      },
+    ]);
+  };
+
+  const deleteAccount = () => {
+    setLoading(true);
+    console.log('in delete account');
+
+    const cbSuccess = res => {
+      console.log('res of delete', res);
+      setLoading(false);
+      navigation?.replace('Auth');
+    };
+
+    const cbFailure = mes => {
+      console.log('mes in delete', res);
+      setLoading(false);
+    };
+
+    dispatch(deleteAccountRequest(cbSuccess, cbFailure));
+  };
+
   //Profile Card List
   const data = [
     {
@@ -106,6 +136,14 @@ const Profile = ({navigation}) => {
       style: styles.faqsImageStyle,
       onPress: () => {
         navigation?.navigate('Faqs');
+      },
+    },
+    {
+      title: 'Delete Account',
+      icon: appIcons.deleteAccount,
+      style: styles.deleteImageStyle,
+      onPress: () => {
+        deleteUser();
       },
     },
     {

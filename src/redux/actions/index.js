@@ -7,6 +7,7 @@ export {
   socialLoginRequest,
   logoutRequset,
   verifyOTPRequest,
+  deleteAccountRequest,
 } from './auth-actions/auth-action';
 export {
   setProfileImage,

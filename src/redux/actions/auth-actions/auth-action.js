@@ -77,3 +77,11 @@ export const logoutRequset = params => {
     params,
   };
 };
+
+export const deleteAccountRequest = (cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.DELETE_ACCOUNT_REQUEST,
+    cbSuccess,
+    cbFailure,
+  };
+};
