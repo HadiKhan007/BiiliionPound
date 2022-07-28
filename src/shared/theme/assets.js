@@ -63,6 +63,7 @@ export const appIcons = {
   badge: require('../../assets/icons/badge.png'),
   peoples: require('../../assets/icons/peoples.png'),
   tag: require('../../assets/icons/tag.png'),
+  deleteAccount: require('../../assets/icons/deleteAccount.png'),
 };
 
 export const appSvgs = {

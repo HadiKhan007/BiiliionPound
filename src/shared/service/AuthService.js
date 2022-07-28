@@ -28,3 +28,7 @@ export const resetPassword = params => {
 export const logoutUser = () => {
   return HTTP_CLIENT.post(ENDPOINTS.LOGOUT);
 };
+
+export const deleteUser = () => {
+  return HTTP_CLIENT.delete(ENDPOINTS.DELETE_USER);
+};

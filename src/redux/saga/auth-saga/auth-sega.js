@@ -7,6 +7,7 @@ import {
   resetPassword,
   socialLogin,
   OTPVerify,
+  deleteUser,
 } from '../../../shared/service/AuthService';
 import * as types from '../../actions/types';
 
@@ -26,7 +27,7 @@ function* login(params) {
         type: types.GET_PROFILE_SUCCESS,
         payload: res.data?.user,
       });
-      
+
       params?.cbSuccess(res.data);
     } else {
       yield put({
@@ -218,5 +219,25 @@ function* logout(params) {
     });
   } catch (error) {
     console.log(error);
+  }
+}
+
+//************* DELETE API **************
+export function* deleteRequestSaga() {
+  yield takeLatest(types.DELETE_ACCOUNT_REQUEST, deleteAccount);
+}
+function* deleteAccount(params) {
+  try {
+    const res = yield deleteUser();
+    if (res?.data) {
+      yield put({
+        type: types.DELETE_ACCOUNT_SUCCESS,
+        payload: params,
+      });
+      params?.cbSuccess(res?.data);
+    }
+  } catch (error) {
+    console.log(error);
+    params?.cbFailure(res?.data);
   }
 }
