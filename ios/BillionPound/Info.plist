@@ -59,21 +59,21 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>For Billion Pound camera</string>
+	<string>Billion Pound Requires to access camera for taking profile picture</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>For Billion Pound</string>
+	<string>Billion Pound Requires to location access for getting your current location and better user experience</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Billion Pound always use</string>
+	<string>Billion Pound Requires to location access for getting your current location</string>
 	<key>NSLocationDefaultAccuracyReduced</key>
-	<string>Location in Billion Pound use</string>
+	<string>Billion Pound Requires to location access for getting your current location and better user experience</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Location Usage</string>
+	<string>Billion Pound Requires to location access for getting your current location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location In Use</string>
+	<string>Billion Pound Requires to location access for getting your current location and better user experience</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>For Billion Pound additional Gallery</string>
+	<string>Billion Pound Requires to access camera for taking profile picture and app related images</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For Billion Pound Gallery</string>
+	<string>Billion Pound use access to photo library with write only responsibly</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Comfortaa-Bold.ttf</string>

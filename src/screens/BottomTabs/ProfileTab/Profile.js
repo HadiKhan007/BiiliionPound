@@ -139,19 +139,19 @@ const Profile = ({navigation}) => {
       },
     },
     {
-      title: 'Delete Account',
-      icon: appIcons.deleteAccount,
-      style: styles.deleteImageStyle,
-      onPress: () => {
-        deleteUser();
-      },
-    },
-    {
       title: 'Logout',
       icon: appIcons.logout,
       style: styles.logoutImageStyle,
       onPress: () => {
         onLogout();
+      },
+    },
+    {
+      title: 'Delete Account',
+      icon: appIcons.deleteAccount,
+      style: styles.deleteImageStyle,
+      onPress: () => {
+        deleteUser();
       },
     },
   ];
