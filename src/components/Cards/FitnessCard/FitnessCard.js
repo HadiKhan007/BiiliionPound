@@ -1,15 +1,28 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import React,{memo} from 'react';
+import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import {appImages, colors, WP} from '../../../shared/exporter';
+import {Image} from 'react-native-elements';
 
-export const FitnessCard = ({icon}) => {
+const FitnessCardComponent = ({icon}) => {
   return (
     <View style={styles.imageContainer}>
       <Image
         source={icon}
         resizeMode={icon?.uri ? 'cover' : 'contain'}
         style={styles.image}
+        PlaceholderContent={
+          <ActivityIndicator
+            style={{backgroundColor: 'transparent'}}
+            color={colors.p}
+          />
+        }
       />
+
+      {/* <Image
+        source={icon}
+        resizeMode={icon?.uri ? 'cover' : 'contain'}
+        style={styles.image}
+      /> */}
     </View>
   );
 };
@@ -38,3 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
+
+const FitnessCard = memo(FitnessCardComponent)
+
+export {FitnessCard}

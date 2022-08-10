@@ -292,59 +292,59 @@ const Payment = ({navigation, route}) => {
   const applePay = async () => {
     const checkInternet = await checkConnected();
     if (checkInternet) {
-      setisLoading(true);
-      if (!isApplePaySupported) return;
-      const {error, paymentMethod} = await presentApplePay({
-        cartItems: [
-          {
-            label: event_detail?.title,
-            amount: JSON.stringify(event_detail?.price),
-          },
-        ],
-        country: 'US',
-        currency: 'USD',
-        requiredBillingContactFields: ['phoneNumber', 'name'],
-      });
-      if (error) {
-        setisLoading(false);
-        // handle error
-      } else {
-        if (paymentMethod) {
-          const onSuccessApplePay = async res => {
-            // console.log('Apple Pay Success', res);
-            const {error} = await confirmApplePayPayment(
-              res?.Apple?.client_secret,
+      try {
+        if (!isApplePaySupported) return;
+        const {error, paymentMethod} = await presentApplePay({
+          cartItems: [
+            {
+              label: event_detail?.title,
+              amount: JSON.stringify(event_detail?.price),
+            },
+          ],
+          country: 'US',
+          currency: 'USD',
+          requiredBillingContactFields: ['phoneNumber', 'name'],
+        });
+        if (error) {
+          console.log('Error', error);
+          // handle error
+        } else {
+          if (paymentMethod) {
+            const onSuccessApplePay = async res => {
+              // console.log('Apple Pay Success', res);
+              const {error} = await confirmApplePayPayment(
+                res?.Apple?.client_secret,
+              );
+              if (error) {
+                Alert.alert('Error', 'Unable to proceed payment');
+              } else {
+                setShowSuccess(true);
+              }
+            };
+            const onFailedApplePay = res => {
+              console.log(res);
+              console.log('Apple Pay Failed');
+            };
+
+            //Apple Pay Request Sending
+            const requestBody = {
+              event_id: event_detail?.id,
+              team_id:
+                join_team_event?.name != 'None' ? join_team_event?.id : null,
+            };
+
+            dispatch(
+              pay_with_social_request(
+                'apple',
+                requestBody,
+                onSuccessApplePay,
+                onFailedApplePay,
+              ),
             );
-            if (error) {
-              Alert.alert('Error', 'Unable to proceed payment');
-              setisLoading(false);
-            } else {
-              setShowSuccess(true);
-              setisLoading(false);
-            }
-          };
-          const onFailedApplePay = res => {
-            console.log(res);
-            console.log('Apple Pay Failed');
-            setisLoading(false);
-          };
-
-          //Apple Pay Request Sending
-          const requestBody = {
-            event_id: event_detail?.id,
-            team_id:
-              join_team_event?.name != 'None' ? join_team_event?.id : null,
-          };
-
-          dispatch(
-            pay_with_social_request(
-              'apple',
-              requestBody,
-              onSuccessApplePay,
-              onFailedApplePay,
-            ),
-          );
+          }
         }
+      } catch (error) {
+        console.log(error);
       }
     } else {
       Alert.alert('Error', 'Check your internet connectivity!');

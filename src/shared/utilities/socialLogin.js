@@ -16,6 +16,7 @@ export const onGoogleLogin = async (navigation, dispatch, setloading) => {
     try {
       await GoogleSignin.hasPlayServices();
       const {idToken} = await GoogleSignin.signIn();
+      console.log('Identity Token:--', idToken);
       // ***********use for authentication*************
       // const googleCredential =
       //   firebase?.auth.GoogleAuthProvider.credential(idToken);

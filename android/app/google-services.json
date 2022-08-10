@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "396667718237-0ndnhjjbhhu4n6dh6nic5d2r97vabhhm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.billionpound",
+            "certificate_hash": "50b592e3bf783538780807d7d643331b32779256"
+          }
+        },
+        {
+          "client_id": "396667718237-3mtkncbnhf3atvtmrnssjer5bquonr22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.billionpound",
+            "certificate_hash": "fddc1789521939b9e96841dce5b02115622758b0"
+          }
+        },
+        {
           "client_id": "396667718237-90crj3fop7lu2ndm6at4uhnltma08li8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -39,10 +55,10 @@
               "client_type": 3
             },
             {
-              "client_id": "396667718237-h5bclbn14pbilgdmrodqtjrnetvske73.apps.googleusercontent.com",
+              "client_id": "396667718237-3mfpg5rsblm5l1pask805c1g4u4tqcgv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.billionpound.app"
+                "bundle_id": "com.billionpoundapp.app"
               }
             }
           ]

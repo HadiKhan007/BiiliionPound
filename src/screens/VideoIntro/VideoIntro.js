@@ -35,7 +35,7 @@ const VideoIntro = ({navigation}) => {
 
   return (
     <View style={styles.rootContainer}>
-      <Video
+      {/* <Video
         ref={video}
         repeat={true}
         source={appImages.appVideo}
@@ -48,7 +48,7 @@ const VideoIntro = ({navigation}) => {
         paused={pause}
         playInBackground={false}
         ignoreSilentSwitch={'obey'}
-      />
+      /> */}
       {/* <View
           style={[
             styles.textContainer,

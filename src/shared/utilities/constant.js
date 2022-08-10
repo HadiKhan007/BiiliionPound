@@ -1,10 +1,17 @@
+import {Platform} from 'react-native';
 import {appIcons} from '../exporter';
 
 const ANDROID = Platform.OS === 'android';
 const IOS = Platform.OS === 'ios';
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+// const web_client_id =
+//   '396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com';
+
 const web_client_id =
-  '396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com';
+  Platform.OS === 'ios'
+    ? '36026202159-rbi1obnsp031vvde98su82i2tckgeks5.apps.googleusercontent.com'
+    : '396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com';
+
 export const video_url =
   'https://billionpound.s3.us-west-2.amazonaws.com/Public/walk_through.mp4';
 const filterBody = [

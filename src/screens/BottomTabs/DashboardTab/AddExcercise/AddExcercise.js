@@ -413,6 +413,7 @@ const AddExcercise = ({navigation}) => {
               sections={sectionListData}
               keyExtractor={(item, index) => item + index}
               renderItem={renderItem}
+              extraData={sectionListData}
               renderSectionHeader={renderSectionHeader}
             />
           </View>
