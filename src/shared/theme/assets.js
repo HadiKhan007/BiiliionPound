@@ -14,7 +14,7 @@ export const appImages = {
 
   gettingStarted: require('../../assets/images/getting_started.png'),
   slider4: require('../../assets/images/company_pic.png'),
-  appVideo: require('../../assets/video/gym_video.mp4'),
+  //  appVideo: require('../../assets/video/gym_video.mp4'),
 };
 
 export const appIcons = {

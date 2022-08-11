@@ -28,7 +28,7 @@ const IntroSlider = ({item, index, onPressBack}) => {
   }
   return (
     <View style={styles.main}>
-      {item?.key == 1 && (
+      {/* {item?.key == 1 && (
         <TouchableOpacity
           onPress={onPressBack}
           style={styles.backBtn}
@@ -40,7 +40,7 @@ const IntroSlider = ({item, index, onPressBack}) => {
             size={24}
           />
         </TouchableOpacity>
-      )}
+      )} */}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.desc}>{item.text}</Text>

@@ -82,16 +82,21 @@ const Profile = ({navigation}) => {
   };
 
   const deleteUser = () => {
-    Alert.alert('Are you sure you want to delete the account?', '', [
-      {
-        text: 'Ok',
-        onPress: () => deleteAccount(),
-      },
-      {
-        text: 'Cancel',
-        onPress: () => {},
-      },
-    ]);
+    Alert.alert(
+      'Delete Your Account',
+      'Are you sure you want to delete your account on Billion Pound ?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => deleteAccount(),
+        },
+      ],
+    );
   };
 
   const deleteAccount = () => {
@@ -186,7 +191,12 @@ const Profile = ({navigation}) => {
                 style={styles.imageConatiner}>
                 <Image style={item?.style} source={item?.icon} />
                 <View style={[spacing.my2, spacing.ml5]}>
-                  <Title color={colors.b1} title={item?.title} />
+                  <Title
+                    color={
+                      item.title === 'Delete Account' ? colors.red : colors.b1
+                    }
+                    title={item?.title}
+                  />
                 </View>
               </TouchableOpacity>
             );
