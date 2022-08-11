@@ -1,4 +1,4 @@
-import React,{memo} from 'react';
+import React, {memo} from 'react';
 import {StyleSheet, Text, View, ActivityIndicator} from 'react-native';
 import {appImages, colors, WP} from '../../../shared/exporter';
 import {Image} from 'react-native-elements';
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const FitnessCard = memo(FitnessCardComponent)
+const FitnessCard = memo(FitnessCardComponent);
 
-export {FitnessCard}
+export {FitnessCard};

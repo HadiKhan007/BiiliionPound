@@ -28,6 +28,7 @@ export const AppHeader = ({
         {
           paddingHorizontal: paddingHorizontal ? paddingHorizontal : 0,
           marginTop: marginTop ? marginTop : 0,
+          // backgroundColor: 'red',
         },
       ]}>
       <View style={styles.headerStyle}>

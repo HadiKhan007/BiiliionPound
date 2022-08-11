@@ -40,14 +40,7 @@ export const ExcerciseCard = ({
   onSelectionChange,
   item,
 }: ExcerciseCardProps) => {
-
-
-  React.useEffect(() => {
-   
-  }, [icon])
-  
-
-
+  React.useEffect(() => {}, [icon]);
 
   if (selected) {
     return (

@@ -116,7 +116,7 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
-  - GoogleDataTransport (9.1.4):
+  - GoogleDataTransport (9.2.0):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
@@ -146,9 +146,9 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.5)
   - GTMSessionFetcher/Core (1.7.2)
   - libevent (2.1.12)
-  - lottie-ios (3.2.3)
-  - lottie-react-native (5.1.3):
-    - lottie-ios (~> 3.2.3)
+  - lottie-ios (3.4.1)
+  - lottie-react-native (5.1.4):
+    - lottie-ios (~> 3.4.0)
     - React-Core
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -355,7 +355,7 @@ PODS:
   - React-jsinspector (0.67.3)
   - React-logger (0.67.3):
     - glog
-  - react-native-image-picker (4.8.4):
+  - react-native-image-picker (4.8.5):
     - React-Core
   - react-native-netinfo (8.3.1):
     - React-Core
@@ -439,7 +439,7 @@ PODS:
     - React-perflogger (= 0.67.3)
   - RNAppleAuthentication (2.2.2):
     - React-Core
-  - RNCAsyncStorage (1.17.7):
+  - RNCAsyncStorage (1.17.8):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -491,7 +491,7 @@ PODS:
   - RNScreens (3.15.0):
     - React-Core
     - React-RCTImage
-  - RNSVG (12.4.3):
+  - RNSVG (12.4.4):
     - React-Core
   - RNVectorIcons (9.2.0):
     - React-Core
@@ -753,14 +753,14 @@ SPEC CHECKSUMS:
   FlipperKit: d8d346844eca5d9120c17d441a2f38596e8ed2b9
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
-  GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
+  GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMAppAuth: 4d8f864896f3646f0c33baf38a28362f4c601e15
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
-  lottie-ios: c058aeafa76daa4cf64d773554bccc8385d0150e
-  lottie-react-native: a501112fa980529ccb80b9f3ee117a7f98c6af3a
+  lottie-ios: 016449b5d8be0c3dcbcfa0a9988469999cd04c5d
+  lottie-react-native: b702fab740cdb952a8e2354713d3beda63ff97b0
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
@@ -776,11 +776,11 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 15ea57ead631a11fad57634ff69f78e797113a39
   React-jsinspector: 1e1e03345cf6d47779e2061d679d0a87d9ae73d8
   React-logger: 1e10789cb84f99288479ba5f20822ce43ced6ffe
-  react-native-image-picker: 9f9eb160a4f4fc0702f9d0a60fa453b413258ef8
-  react-native-netinfo: 0981b7054d93cf88d3ce1e279c34423ae3db1182
-  react-native-pager-view: fc311e95f8ba2b710deae6cb0a21f2102fb49d99
-  react-native-safe-area-context: d768fdafd416b4c0bdc7bef4240c9ee53909baf3
-  react-native-video: 77ce22be7abff9e373527ca10106a99dea3ba56c
+  react-native-image-picker: cd420f97f6ed6ff74fc4686d27dbcfdbd051db91
+  react-native-netinfo: 1a6035d3b9780221d407c277ebfb5722ace00658
+  react-native-pager-view: da490aa1f902c9a5aeecf0909cc975ad0e92e53e
+  react-native-safe-area-context: 6c12e3859b6f27b25de4fee8201cfb858432d8de
+  react-native-video: a4c2635d0802f983594b7057e1bce8f442f0ad28
   React-perflogger: 93d3f142d6d9a46e635f09ba0518027215a41098
   React-RCTActionSheet: 87327c3722203cc79cf79d02fb83e7332aeedd18
   React-RCTAnimation: 009c87c018d50e0b38692699405ebe631ff4872d
@@ -794,20 +794,20 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: af1946623656f9c5fd64ca6f36f3863516193446
   ReactCommon: 650e33cde4fb7d36781cd3143f5276da0abb2f96
   RNAppleAuthentication: 0571c08da8c327ae2afc0261b48b4a515b0286a6
-  RNCAsyncStorage: 19af8f3e136504e0450e7f85cfb46fc38da87ec9
-  RNCMaskedView: f127cd9652acfa31b91dcff613e07ba18b774db6
-  RNCPushNotificationIOS: 089da3b657e1e3d464f38195fd2e3069608ef5af
+  RNCAsyncStorage: 7cbd0d823dbb0e415d40a7e77fea2292483c8bdb
+  RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
+  RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
   RNFBApp: 9646e09d041ea159b84584865212e4cf33acd179
   RNFBAuth: af943e3ba071b5f4d18896c31e6cba3a77b1fa08
   RNFBMessaging: 3e2682ea5e15fe86da24d16d16019395a881f33c
   RNGestureHandler: bad495418bcbd3ab47017a38d93d290ebd406f50
-  RNGoogleSignin: 7580e6618798be9d090524bb31538378f92ce746
+  RNGoogleSignin: d7f8368b82d94f1dec964785d496387ca7f19092
   RNReanimated: b5b17149593e7c05e4ec5c0efea1f21e05829510
   RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
-  RNSVG: f3b60aeeaa81960e2e0536c3a9eef50b667ef3a9
+  RNSVG: ecd661f380a07ba690c9c5929c475a44f432d674
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   Stripe: 22c1b8da5ee20a1aaf40fd198160efa72e71644a
-  stripe-react-native: fc0175ddb50104409197ff336db7d9eca9002bf8
+  stripe-react-native: 980f3d19f52a7dc4b373c6c20d30ebd760bc39e5
   StripeCore: 91ea038ac0abbb72f11014044dfd1e5d39089714
   StripeUICore: 7edf64b24c9c178bfd97e988f2cffdbb7a7628b0
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a

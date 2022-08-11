@@ -50,7 +50,8 @@ const Walkthrough = ({navigation}) => {
     return (
       <IntroSlider
         onPressBack={() => {
-          navigation?.replace('VideoIntro');
+          navigation.goBack();
+          // navigation?.replace('VideoIntro');
         }}
         item={item}
         index={index}
