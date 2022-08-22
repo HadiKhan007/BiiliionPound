@@ -162,6 +162,7 @@ const AddExcercise = ({navigation}) => {
   const renderItem = ({item, index}) => {
     return (
       <ExcerciseCard
+        uniqueKey={index}
         type={item?.exercise_type}
         icon={
           item?.exercise_image
@@ -384,6 +385,7 @@ const AddExcercise = ({navigation}) => {
             ]}>
             <FlatList
               data={recent_searches}
+              removeClippedSubviews
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => {
                 return (
@@ -411,8 +413,9 @@ const AddExcercise = ({navigation}) => {
           <View style={styles.sectionlistStyle}>
             <SectionList
               sections={sectionListData}
-              keyExtractor={(item, index) => item + index}
+              keyExtractor={(item, index) => item + index.toString()}
               renderItem={renderItem}
+              removeClippedSubviews
               extraData={sectionListData}
               renderSectionHeader={renderSectionHeader}
             />

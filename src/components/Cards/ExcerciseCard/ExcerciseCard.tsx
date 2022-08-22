@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {
   appImages,
@@ -16,6 +17,7 @@ import {
   HP,
 } from '../../../shared/exporter';
 import {FitnessCard} from '../FitnessCard/FitnessCard';
+import {Image as RNImage} from 'react-native-elements';
 
 interface ExcerciseCardProps {
   name: string;
@@ -27,9 +29,10 @@ interface ExcerciseCardProps {
   onSelectionChange: (item) => {};
   selected: boolean;
   item: any;
+  uniqueKey: any;
 }
 
-export const ExcerciseCard = ({
+const ExcerciseCardComp = ({
   name,
   isSelected,
   type,
@@ -39,12 +42,14 @@ export const ExcerciseCard = ({
   selected,
   onSelectionChange,
   item,
+  uniqueKey,
 }: ExcerciseCardProps) => {
   React.useEffect(() => {}, [icon]);
 
   if (selected) {
     return (
       <TouchableOpacity
+        key={key}
         activeOpacity={0.8}
         onPress={() => {
           onSelectionChange(item);
@@ -53,7 +58,12 @@ export const ExcerciseCard = ({
           styles.selectedContainer,
           {paddingHorizontal: paddingHorizontal},
         ]}>
-        <FitnessCard icon={icon} />
+        {/* <FitnessCard icon={icon} /> */}
+        <Image
+          source={icon}
+          resizeMode={icon?.uri ? 'cover' : 'contain'}
+          style={styles.image}
+        />
 
         <View style={styles.titleContainer}>
           <Text style={styles.name}>{name}</Text>
@@ -69,12 +79,19 @@ export const ExcerciseCard = ({
   }
   return (
     <TouchableOpacity
+      key={uniqueKey}
       activeOpacity={0.8}
       onPress={() => {
         onSelectionChange(item);
       }}
       style={[styles.container, {paddingHorizontal: paddingHorizontal}]}>
-      <FitnessCard icon={icon} />
+      {/* <FitnessCard icon={icon} /> */}
+      <Image
+        source={icon}
+        key={uniqueKey}
+        resizeMode={icon?.uri ? 'cover' : 'contain'}
+        style={styles.image}
+      />
 
       <View style={styles.titleContainer}>
         <Text style={styles.name}>{name}</Text>
@@ -83,6 +100,8 @@ export const ExcerciseCard = ({
     </TouchableOpacity>
   );
 };
+
+export const ExcerciseCard = React.memo(ExcerciseCardComp);
 
 const styles = StyleSheet.create({
   container: {
@@ -123,5 +142,11 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     alignSelf: 'center',
+  },
+  image: {
+    width: 56,
+    height: 56,
+    padding: WP('5'),
+    borderRadius: 10,
   },
 });
