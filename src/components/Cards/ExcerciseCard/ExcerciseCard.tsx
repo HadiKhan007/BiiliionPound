@@ -49,7 +49,7 @@ const ExcerciseCardComp = ({
   if (selected) {
     return (
       <TouchableOpacity
-        key={key}
+        key={uniqueKey}
         activeOpacity={0.8}
         onPress={() => {
           onSelectionChange(item);
