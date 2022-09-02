@@ -137,7 +137,7 @@ const Login = ({navigation}) => {
                     <Text
                       onPress={() => {
                         handleReset();
-                        navigation?.navigate('ForgotPassword');
+                        //  navigation?.navigate('ForgotPassword');
                       }}
                       style={styles.rememberTxtStyle}>
                       Remember me
