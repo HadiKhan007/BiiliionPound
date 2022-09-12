@@ -132,6 +132,7 @@ export const best_set = sets => {
 };
 
 export function setDigitSize(num) {
+  console.log(num);
   if (num >= 1000000000000) {
     return WP('4');
   } else if (num >= 10000000000) {

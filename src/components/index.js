@@ -30,9 +30,11 @@ export * from './Box/FilterBox';
 
 //Tabs
 export * from './Tabs/BottomTab';
+export * from './Tabs/StepsBottomTab';
 
 //Circle
 export * from './Circle/HomeCircle';
+export * from './Circle/StepsCircle';
 
 // Bar
 export * from './Bar/SearchBar';
