@@ -92,9 +92,7 @@ const Dashboard = ({navigation}) => {
   useEffect(() => {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
-      onRegister: function (token) {
-        // console.log('TOKEN:', token);
-      },
+      onRegister: function (token) {},
       onNotification: function (notification) {
         let notificationObj = notification.data?.event_id;
         if (notificationObj) {

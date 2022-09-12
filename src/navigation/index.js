@@ -18,6 +18,9 @@ import OngoingEventDetail from '../screens/BottomTabs/EventTab/OngoingEventDetai
 import ActivityTab from '../screens/BottomTabs/EventTab/ActivityTab';
 import VideoIntro from '../screens/VideoIntro/VideoIntro';
 
+// V2 stack
+import StepsMainFlow from './StepsBottomTabs/index';
+
 const AppStack = createStackNavigator();
 
 const MainAppNav = () => {
@@ -45,6 +48,8 @@ const MainAppNav = () => {
           component={OngoingEventDetail}
         />
         <AppStack.Screen name="ActivityTab" component={ActivityTab} />
+        {/* V2 Steps Counter Stack */}
+        <AppStack.Screen name="StepsMainFlow" component={StepsMainFlow} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

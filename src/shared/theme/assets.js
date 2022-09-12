@@ -64,6 +64,13 @@ export const appIcons = {
   peoples: require('../../assets/icons/peoples.png'),
   tag: require('../../assets/icons/tag.png'),
   deleteAccount: require('../../assets/icons/deleteAccount.png'),
+  exercise: require('../../assets/icons/heart.png'),
+  settings: require('../../assets/icons/setting.png'),
+  play: require('../../assets/icons/playIcon.png'),
+  pause: require('../../assets/icons/pause.png'),
+  mile: require('../../assets/icons/mile.png'),
+  calories: require('../../assets/icons/calories.png'),
+  walkingTime: require('../../assets/icons/walkingTime.png'),
 };
 
 export const appSvgs = {

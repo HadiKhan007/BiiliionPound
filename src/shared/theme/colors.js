@@ -59,6 +59,7 @@ export const colors = {
   //Secondary Gradient
   s_gradient: ['#E79069', '#E7BB69'],
   t_gradient: ['#01BAFF', '#01BAFF'],
+  e_gradient: ['#01BAFF', '#1B6FE9'],
   shadowColor: 'rgba(1, 186, 255, 0.2)',
   box_shadow: 'rgba(0, 0, 0, 0.18)',
   introSliderColor: '#34C8FF',
@@ -66,4 +67,5 @@ export const colors = {
   // red
   red: 'red',
   r1: '#CB0005',
+  r2: '#FF5458',
 };

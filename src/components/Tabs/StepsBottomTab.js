@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {appIcons, colors, family, HP, size, WP} from '../../shared/exporter';
 import {FlatList} from 'react-native-gesture-handler';
 
-export const BottomTab = ({state, descriptors, navigation}) => {
+export const StepsBottomTab = ({state, descriptors, navigation}) => {
   //Tab State
   const [tab, setTab] = useState('Home');
   //Select Tabs
@@ -69,9 +69,9 @@ export const BottomTab = ({state, descriptors, navigation}) => {
                         : index == 1
                         ? appIcons.event
                         : index == 2
-                        ? appIcons.board
+                        ? appIcons.exercise
                         : index == 3
-                        ? appIcons.profile
+                        ? appIcons.settings
                         : null
                     }
                     style={[
@@ -115,6 +115,16 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     alignItems: 'center',
     justifyContent: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+    elevation: 24,
+    backgroundColor: '#fff',
+    width: '100%',
+    zIndex: 0,
   },
   homeImageStyle: {
     height: 16,
