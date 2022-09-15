@@ -1,4 +1,4 @@
-package com.billionpound;
+package com.reactnative.billionpound;
 
 import com.facebook.react.ReactActivity;
 

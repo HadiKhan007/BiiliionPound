@@ -64,6 +64,66 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396667718237:android:9e7576685fecdd08421bb4",
+        "android_client_info": {
+          "package_name": "com.reactnative.billionpound"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396667718237-c2i5n926utnbjq2slvd881543ubig6kt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnative.billionpound",
+            "certificate_hash": "fddc1789521939b9e96841dce5b02115622758b0"
+          }
+        },
+        {
+          "client_id": "396667718237-dfl6bk6j66fmp4qe4a2ko7ljl9ovqttm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnative.billionpound",
+            "certificate_hash": "ff9d9cc246ae50618f3d43644112866e38c4800c"
+          }
+        },
+        {
+          "client_id": "396667718237-fmog20ia8m9ni5qam0ahajogf3frfbcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reactnative.billionpound",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB42QXaN3eCG6WQ-_Yhl54azeebyFsy50Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396667718237-b5871eer19sabub7jg8qhneksq75d443.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "396667718237-3mfpg5rsblm5l1pask805c1g4u4tqcgv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.billionpoundapp.app"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

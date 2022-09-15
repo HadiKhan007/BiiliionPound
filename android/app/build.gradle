@@ -137,11 +137,11 @@ android {
     checkReleaseBuilds false 
         }
     defaultConfig {
-        applicationId "com.billionpound"
+        applicationId "com.reactnative.billionpound"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 13
-        versionName "13.0"
+        versionCode 2
+        versionName "2.0"
     }
     splits {
         abi {
