@@ -45,8 +45,8 @@ const Login = ({ navigation }) => {
     await AsyncStorage.setItem('isRemember', isRemember.toString());
     setloading(false);
     if (res?.user != undefined) {
-      navigation?.navigate('SelectMode');
-      // navigation?.replace('App');
+      // navigation?.navigate('SelectMode');
+      navigation?.replace('App');
     } else {
       Alert.alert('Failed', res?.message || 'Logged In Failed');
     }
