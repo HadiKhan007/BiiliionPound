@@ -16,6 +16,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1799BB709AC241C4BEB8F86D /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2924DC03B7A4359A0BC473F /* OpenSans-ExtraBoldItalic.ttf */; };
 		1800933428C6454300964D84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1800933328C6454300964D84 /* GoogleService-Info.plist */; };
+		182BED0B28D328B80038483F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182BED0A28D328B80038483F /* StoreKit.framework */; };
 		2F2129FFFDEF4B999DDF0F28 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181B22CFEC10458AB9B390DB /* Poppins-Italic.ttf */; };
 		304DEDD0D75F4A30A23AD725 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0A0CED13B2042B18D885505 /* Poppins-Bold.ttf */; };
 		34669E80445F4AE18676C079 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2BC23530CB74202BC199E25 /* Poppins-ExtraLightItalic.ttf */; };
@@ -74,6 +75,7 @@
 		158D870D05E946059FD7107E /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../src/assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		1800933328C6454300964D84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/IOS/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		181B22CFEC10458AB9B390DB /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
+		182BED0A28D328B80038483F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1D33416288444B52A78EDE92 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		27C6C2D5F7834B4CACF36C8F /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		29FF37DD1DC5A1691981BC16 /* Pods-BillionPound-BillionPoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BillionPound-BillionPoundTests.debug.xcconfig"; path = "Target Support Files/Pods-BillionPound-BillionPoundTests/Pods-BillionPound-BillionPoundTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F324716CCB5C712C1B0E5A7 /* libPods-BillionPound.a in Frameworks */,
+				182BED0B28D328B80038483F /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +242,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				182BED0A28D328B80038483F /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				54F5B6B4CD80E4B023D7CBB0 /* libPods-BillionPound.a */,
 				41C378806FDBB03A91F4CDA5 /* libPods-BillionPound-BillionPoundTests.a */,
@@ -676,7 +680,7 @@
 				CODE_SIGN_ENTITLEMENTS = BillionPound/BillionPound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8YC4UH3949;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BillionPound/Info.plist;
@@ -684,13 +688,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.5;
+				MARKETING_VERSION = 1.1.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.reactnative.billionpoundapp.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.billionpoundapp.app;
 				PRODUCT_NAME = BillionPound;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -708,20 +712,20 @@
 				CODE_SIGN_ENTITLEMENTS = BillionPound/BillionPound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8YC4UH3949;
 				INFOPLIST_FILE = BillionPound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.5;
+				MARKETING_VERSION = 1.1.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.reactnative.billionpoundapp.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.billionpoundapp.app;
 				PRODUCT_NAME = BillionPound;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

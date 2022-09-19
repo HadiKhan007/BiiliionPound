@@ -52,3 +52,5 @@ export {
   getActivity,
   getFilteredActivity,
 } from './activity-actions/activity-actions';
+
+export {getSubscriptions} from './subscription-actions/subscription-action';

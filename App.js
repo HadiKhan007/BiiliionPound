@@ -11,6 +11,7 @@ import {
   web_client_id,
 } from './src/shared/exporter';
 import {StripeProvider} from '@stripe/stripe-react-native';
+import {withIAPContext} from 'react-native-iap';
 
 // ignore warnings
 LogBox.ignoreAllLogs();
@@ -30,7 +31,7 @@ const App = () => {
   return (
     <StripeProvider
       publishableKey={stripe_publishableKey}
-      merchantIdentifier="merchant.com.reactnative.billionpound.app">
+      merchantIdentifier="merchant.com.billionpound.app">
       <Provider store={store}>
         <StatusBar
           translucent={true}
@@ -45,4 +46,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withIAPContext(App);

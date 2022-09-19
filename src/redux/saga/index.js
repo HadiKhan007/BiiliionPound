@@ -44,6 +44,7 @@ import {
 } from './event-sega/event-sega';
 
 import {getActivitiesRequest} from './activity-saga/activity-saga';
+import {subscriptionsRequest} from './subscription-saga/subscription-saga';
 
 export function* rootSaga() {
   yield fork(loginRequest);
@@ -82,4 +83,5 @@ export function* rootSaga() {
   yield fork(deleteNotificationRequest);
   yield fork(saveDeviceTokenRequest);
   yield fork(deleteRequestSaga);
+  yield fork(subscriptionsRequest);
 }
