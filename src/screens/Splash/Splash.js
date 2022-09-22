@@ -6,14 +6,13 @@ import {useDispatch, useSelector} from 'react-redux';
 import messaging from '@react-native-firebase/messaging';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  LocalNotification,
   Notification_Listner,
   registerAppWithFCM,
   requestPermission,
 } from '../../shared/exporter';
 
 const Splash = ({navigation}) => {
-  const {walkthrough, userInfo} = useSelector(state => state.auth);
+  const {userWithMode} = useSelector(state => state.auth);
   const dispatch = useDispatch(null);
   useEffect(() => {
     handlerNotifications();
@@ -38,7 +37,19 @@ const Splash = ({navigation}) => {
     const skip = await AsyncStorage.getItem('walkthrough');
     setTimeout(() => {
       if (isRemember === 'true') {
-        navigation.replace('App');
+        if (
+          userWithMode?.personal_information === 'created' &&
+          userWithMode?.user?.mode === 'pedometer'
+        ) {
+          navigation.replace('StepsMainFlow');
+        } else if (
+          userWithMode?.user?.mode === 'pedometer' &&
+          userWithMode?.personal_information === 'not created'
+        ) {
+          navigation?.replace('ModeStack');
+        } else {
+          navigation.replace('App');
+        }
       } else {
         if (skip == 'true') {
           navigation.replace('Auth');

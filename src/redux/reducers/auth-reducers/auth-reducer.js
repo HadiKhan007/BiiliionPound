@@ -9,6 +9,8 @@ const initialState = {
   forgotPassRes: null,
   resetPassRes: null,
   otp_verify: null,
+  userWithMode: null,
+  userPersonalInfo: null,
 };
 const authReducer = (state = initialState, actions) => {
   const {type, payload} = actions;
@@ -144,6 +146,64 @@ const authReducer = (state = initialState, actions) => {
         isFailure: true,
         userInfo: state?.userInfo,
       };
+
+    //************user modes sates*************
+    case TYPES.SELECT_MODE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userWithMode: payload,
+      };
+
+    case TYPES.SELECT_MODE_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userWithMode: null,
+      };
+
+    //************user info sates*************
+    case TYPES.USER_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userPersonalInfo: payload,
+      };
+
+    case TYPES.USER_INFO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userPersonalInfo: null,
+      };
+      
+    //************update user info sates*************
+    case TYPES.UPDATE_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userPersonalInfo: payload,
+      };
+
+    case TYPES.UPDATE_USER_INFO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userPersonalInfo: null,
+      };
+
     //************Walkthrough Sates*************
 
     case TYPES.SET_WALKTHROUGH_SUCCESS:

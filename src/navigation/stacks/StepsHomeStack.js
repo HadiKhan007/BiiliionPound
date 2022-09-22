@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 function StepsHomeStack(props) {
   return (
     <Stack.Navigator
-      initialRouteName="Dasboard"
+      initialRouteName="StepsDashboard"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="StepsDashboard" component={StepsDashboard} />
     </Stack.Navigator>

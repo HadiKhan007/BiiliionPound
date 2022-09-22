@@ -1,8 +1,21 @@
-import {SafeAreaView, Text, View} from 'react-native';
+import {SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import styles from './styles';
+import {colors, family} from '../../../shared/exporter';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {logoutRequset} from '../../../redux/actions';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-const StepsSettingsTab = () => {
+const StepsSettingsTab = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const onLogout = async () => {
+    await AsyncStorage.setItem('isRemember', 'false');
+    dispatch(logoutRequset(null));
+    GoogleSignin.signOut();
+    navigation?.replace('Auth');
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -10,8 +23,8 @@ const StepsSettingsTab = () => {
 
         <View style={styles.calculationContainer}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text>{`Achievements`}</Text>
-            <Text style={styles.history}>{`History`}</Text>
+            {/* <Text>{`Achievements`}</Text>
+            <Text style={styles.history}>{`History`}</Text> */}
           </View>
           <View style={styles.calculationInnerContainer}>
             <View style={styles.iconAndTextContainer}>
@@ -28,6 +41,12 @@ const StepsSettingsTab = () => {
             </View>
           </View>
         </View>
+        <TouchableOpacity
+          onPress={onLogout}
+          activeOpacity={0.8}
+          style={styles.logoutBtn}>
+          <Text style={{fontFamily: family.Poppins_Medium}}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

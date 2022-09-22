@@ -128,6 +128,14 @@ const Profile = ({navigation}) => {
       },
     },
     {
+      title: 'Switch Mode',
+      icon: appIcons.security,
+      style: styles.policyImageStyle,
+      onPress: () => {
+        navigation?.navigate('ModeStack');
+      },
+    },
+    {
       title: 'Terms & Conditions',
       icon: appIcons.policy,
       style: styles.TermsImageStyle,

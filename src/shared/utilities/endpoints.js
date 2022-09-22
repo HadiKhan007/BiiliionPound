@@ -24,9 +24,9 @@ const ENDPOINTS = {
   ACTIVITY: 'exercises',
   CHECKOUT: 'checkout',
   DELETE_USER: 'delete_user',
-  // subscriptions
   GET_SUBSCRIPTIONS: 'subscriptions',
-  
+  SELECT_USER_MODE: 'update_mode',
+  PERSONAL_INFO: 'personal_informations',
 };
 
 export {BASE_URL, ENDPOINTS};

@@ -21,8 +21,6 @@ function AuthStack(props) {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
       <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
-      <Stack.Screen name="SelectMode" component={SelectMode} />
-      <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
     </Stack.Navigator>
   );
 }

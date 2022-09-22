@@ -49,9 +49,20 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_Light,
     color: '#323232',
   },
-  history:{
-    color: colors.p1
-  }
+  history: {
+    color: colors.p1,
+  },
+  logoutBtn: {
+    position: 'absolute',
+    bottom: 10,
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: colors.g10,
+    borderRadius: 10,
+    width: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;

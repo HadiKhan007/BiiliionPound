@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.p1,
     alignItems: 'center',
     padding: WP('5'),
-    height: WP('70'),
+    // height: WP('70'),
     width: WP('90'),
     borderRadius: 10,
     shadowOffset: {

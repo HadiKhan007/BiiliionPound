@@ -27,8 +27,16 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import RNIap, {
+  purchaseErrorListener,
+  purchaseUpdatedListener,
+  type ProductPurchase,
+  type PurchaseError,
+} from 'react-native-iap';
 
 const Dashboard = ({navigation}) => {
+  let purchaseUpdateSubscription;
+  let purchaseErrorSubscription;
   const isFocus = useIsFocused(null);
 
   //Redux States
@@ -44,6 +52,62 @@ const Dashboard = ({navigation}) => {
       getAllRequest();
     }
   }, [isFocus]);
+
+  useEffect(() => {
+    iapInitializer();
+  }, []);
+
+  useEffect(() => {
+    componentMount();
+    return () => {
+      closeIapConnection();
+    };
+  }, []);
+
+  const iapInitializer = async () => {
+    try {
+      const status = await RNIap.initConnection();
+      console.log('IAP Status--', status);
+      if (Platform.OS === 'android') {
+        await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
+      } else {
+        await RNIap.clearTransactionIOS();
+      }
+    } catch (error) {}
+  };
+
+  const componentMount = async () => {
+    try {
+      purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+        const receipt = purchase.transactionReceipt
+          ? purchase.transactionReceipt
+          : purchase?.originalJson;
+        if (receipt) {
+          const finishPurchase = await RNIap.finishTransaction(purchase);
+        } else {
+        }
+      });
+
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        alert(error);
+      });
+    } catch (error) {}
+  };
+
+  const closeIapConnection = () => {
+    if (purchaseUpdateSubscription) {
+      purchaseUpdateSubscription.remove();
+      purchaseUpdateSubscription = null;
+    }
+
+    if (purchaseErrorSubscription) {
+      purchaseErrorSubscription.remove();
+      purchaseErrorSubscription = null;
+    }
+
+    RNIap.endConnection();
+  };
+
   const getAllRequest = async () => {
     const checkInternet = await checkConnected();
     if (checkInternet) {

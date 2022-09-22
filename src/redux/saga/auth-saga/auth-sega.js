@@ -8,6 +8,9 @@ import {
   socialLogin,
   OTPVerify,
   deleteUser,
+  selctedUserMode,
+  userpersonalInformation,
+  updateUserpersonalInformation,
 } from '../../../shared/service/AuthService';
 import * as types from '../../actions/types';
 
@@ -239,5 +242,119 @@ function* deleteAccount(params) {
   } catch (error) {
     console.log(error);
     params?.cbFailure(res?.data);
+  }
+}
+
+//************* SELECT MODE API **************
+export function* selectModeRequestSaga() {
+  yield takeLatest(types.SELECT_MODE_REQUEST, userMode);
+}
+function* userMode(params) {
+  console.log(params);
+  try {
+    const res = yield selctedUserMode(params?.userMode, params?.token);
+    if (res.data) {
+      yield put({
+        type: types.SELECT_MODE_SUCCESS,
+        payload: res.data,
+      });
+      yield put({
+        type: types.GET_PROFILE_SUCCESS,
+        payload: res.data?.user,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.SELECT_MODE_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+      console.log('==============selcted mode failed======================');
+      console.log(res?.data);
+    }
+  } catch (error) {
+    yield put({
+      type: types.SELECT_MODE_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+//************* USER INFO API **************
+export function* userInfoRequestSaga() {
+  yield takeLatest(types.USER_INFO_REQUEST, userPersonalInfo);
+}
+function* userPersonalInfo(params) {
+  try {
+    const res = yield userpersonalInformation(params?.params, params?.token);
+    if (res.data) {
+      yield put({
+        type: types.USER_INFO_SUCCESS,
+        payload: res.data,
+      });
+      yield put({
+        type: types.GET_PROFILE_SUCCESS,
+        payload: res.data?.user,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.USER_INFO_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+      console.log('==============USER INFOR FAILED======================');
+      console.log(res?.data);
+    }
+  } catch (error) {
+    yield put({
+      type: types.USER_INFO_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+//************* UPDATE USER INFO API **************
+export function* UpdateUserInfoRequestSaga() {
+  yield takeLatest(types.UPDATE_USER_INFO_REQUEST, updateUserPersonalInfo);
+}
+function* updateUserPersonalInfo(params) {
+  try {
+    const res = yield updateUserpersonalInformation(
+      params?.params,
+      params?.token,
+    );
+    if (res.data) {
+      yield put({
+        type: types.UPDATE_USER_INFO_SUCCESS,
+        payload: res.data,
+      });
+      yield put({
+        type: types.GET_PROFILE_SUCCESS,
+        payload: res.data?.user,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.UPDATE_USER_INFO_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+      console.log(
+        '==============UPDATE USER INFOR FAILED======================',
+      );
+      console.log(res?.data);
+    }
+  } catch (error) {
+    yield put({
+      type: types.UPDATE_USER_INFO_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
   }
 }
