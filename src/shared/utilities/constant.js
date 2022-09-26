@@ -99,6 +99,21 @@ let image_options = {
     path: 'images',
   },
 };
+
+const productSkus = Platform.select({
+  ios: ['com.cooni.point1000', 'com.cooni.point5000'],
+
+  android: ['billion_pound_iap_1'],
+
+  default: [],
+});
+
+const subscriptionSkus = Platform.select({
+  ios: ['com.billionpoundapp.app.iapId'],
+  android: ['billion_pound_iap'],
+  default: [],
+});
+
 const stripe_publishableKey =
   'pk_test_51LTT25HGH1KG6DkJgIBQzSzDyquIaZBMDSTvBzfVJhQIG8Rh4onEdbptWkzCVWl91ABHTWpdaNkb4KWs9bvCmdTT00FnbVgvRV';
 const profile_uri =
@@ -117,4 +132,6 @@ export {
   filterTeam,
   stripe_publishableKey,
   eventDetail_list,
+  productSkus,
+  subscriptionSkus,
 };
