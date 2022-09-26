@@ -34,130 +34,76 @@ import ReadMore from 'react-native-read-more-text';
 import {useDispatch, useSelector} from 'react-redux';
 import {join_event_team_request} from '../../../../redux/actions';
 import RNIap, {
+  getSubscriptions,
+  PurchaseError,
   purchaseErrorListener,
   purchaseUpdatedListener,
+  requestPurchase,
+  requestSubscription,
+  useIAP,
 } from 'react-native-iap';
 
 const EventDetail = ({navigation}) => {
   let purchaseUpdateSubscription;
   let purchaseErrorSubscription;
 
+  const [success, setSuccess] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState('');
 
-  const yearlySubscription = Platform.select({
-    ios: ['com.billionpoundapp.app.iapId'],
+  const subscriptionSkus = Platform.select({
+    ios: [
+      'com.billionpoundapp.yearly.one',
+      'com.billionpoundapp.yearly.premium',
+    ],
+    android: ['billion_pound_iap','om-billionpound-yearly-premimum34'],
+    default: [],
   });
 
   //References
   const {event_detail} = useSelector(state => state?.event);
   const dispatch = useDispatch(null);
 
-  useEffect(() => {
-    checkSubscriptions();
-    iapInitializer();
-  }, []);
-
-  useEffect(() => {
-    componentMount();
-    return () => {
-      closeIapConnection();
-    };
-  }, []);
-
-  // useEffect(() => {}, [subscriptionPackage]);
-
-  const checkSubscriptions = async () => {
+  const handleGetSubscriptions = async () => {
     try {
-      setisLoading(true);
-      const status = await isSubscriptionActive();
-      console.log('Status--', status);
-      if (status?.validation) {
-        setSubscriptionStatus(status?.validation);
-        // dispatch({
-        //   type: CURRENT_SUBSCRIPTION_PACKAGE,
-        //   payload: status?.receipt,
-        // });
-        setTimeout(() => {
-          setisLoading(false);
-        }, 1500);
-      } else {
-        // dispatch({
-        //   type: CURRENT_SUBSCRIPTION_PACKAGE,
-        //   payload: null,
-        // });
-        setTimeout(() => {
-          setisLoading(false);
-        }, 1500);
-      }
-      //update your subscription status here
+      await getSubscriptions({skus: subscriptionSkus}).then(subscriptions => {
+        console.log('subscriptions--', subscriptions);
+        handleBuySubscription(
+          subscriptions[0]?.productId,
+          subscriptions[0]?.subscriptionOfferDetails[0]?.offerToken,
+        );
+      });
     } catch (error) {
-      setisLoading(false);
+      console.log('Error--', error);
     }
-  };
-
-  const iapInitializer = async () => {
-    try {
-      const status = await RNIap.initConnection();
-      console.log('Status---', status);
-      if (Platform.OS === 'android') {
-        await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
-      } else {
-        await RNIap.clearTransactionIOS();
-      }
-    } catch (error) {}
-  };
-
-  const componentMount = async () => {
-    try {
-      purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
-        const receipt = purchase.transactionReceipt
-          ? purchase.transactionReceipt
-          : purchase?.originalJson;
-        if (receipt) {
-          const finishPurchase = await RNIap.finishTransaction(purchase);
-        } else {
-        }
-      });
-
-      purchaseErrorSubscription = purchaseErrorListener(error => {
-        alert(error);
-      });
-    } catch (error) {}
-  };
-
-  const closeIapConnection = () => {
-    if (purchaseUpdateSubscription) {
-      purchaseUpdateSubscription.remove();
-      purchaseUpdateSubscription = null;
-    }
-
-    if (purchaseErrorSubscription) {
-      purchaseErrorSubscription.remove();
-      purchaseErrorSubscription = null;
-    }
-
-    RNIap.endConnection();
   };
 
   const getSubscriptions = async () => {
     try {
-      setisLoading(true);
-      let subscriptions;
-      subscriptions = await RNIap.getSubscriptions(yearlySubscription);
-      console.log('Subscriptions---', subscriptions);
-      if (subscriptions.length > 0) {
-        await requestSubscription(subscriptions[0].productId);
+      setLoading(true);
+      let product;
+     // product = await RNIap.getSubscriptions(subscriptionSkus);
+      product = await RNIap.getSubscriptions(subscriptionSkus);
+
+
+      console.log('[Products]', product);
+
+      if (product.length > 0) {
+        await requestSubscription(product[0].productId);
         setTimeout(() => {
-          setisLoading(false);
+          setLoading(false);
         }, 1000);
       } else {
-        setisLoading(false);
+        setLoading(false);
       }
     } catch (error) {
-      setisLoading(false);
+      alert(error);
+      setLoading(false);
     }
   };
 
@@ -167,10 +113,38 @@ const EventDetail = ({navigation}) => {
 
       if (subResults) {
       } else {
-        setisLoading(false);
+        setLoading(false);
       }
     } catch (error) {
-      setisLoading(false);
+      setLoading(false);
+    }
+  };
+
+  const handleBuySubscription = async (productId, offerToken) => {
+    if (Platform.OS === 'android' && !offerToken) {
+      console.log(
+        `There are no subscription Offers for selected product (Only requiered for Google Play purchases): ${productId}`,
+      );
+    }
+    try {
+      await requestSubscription({
+        sku: productId,
+        ...(offerToken && {
+          subscriptionOffers: [{sku: productId, offerToken}],
+        }),
+      })
+        .then(response => {
+          console.log('Success response--', response);
+        })
+        .catch(err => {
+          console.log('Error--', err);
+        });
+    } catch (error) {
+      if (error instanceof PurchaseError) {
+        console.log('Purchase error:', error);
+      } else {
+        console.log('error--', error);
+      }
     }
   };
 
@@ -310,6 +284,7 @@ const EventDetail = ({navigation}) => {
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
+                  handleGetSubscriptions()
                   // getSubscriptions();
                   // checkSubscriptions();
                   // joinEvent();

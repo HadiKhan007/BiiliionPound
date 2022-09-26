@@ -61,6 +61,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     elevation: 5,
   },
+  graphView: {
+    width: '95%',
+    backgroundColor: colors.white,
+    shadowColor: 'black',
+    shadowOpacity: 0.2,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowRadius: 6,
+    elevation: 6,
+    borderRadius: 9,
+    alignItems: 'center',
+    marginVertical: WP('6'),
+    alignSelf: 'center',
+  },
+  chartStyle: {
+    paddingVertical: WP('5'),
+  },
 });
 
 export default styles;

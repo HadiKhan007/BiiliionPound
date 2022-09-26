@@ -5,26 +5,38 @@ import * as Progress from 'react-native-progress';
 import {colors, WP} from '../../../shared/exporter';
 import {BarChart} from 'react-native-chart-kit';
 
-const StepsActivityTab = () => {
-  const screenWidth = Dimensions.get('window').width;
-  const chartConfig = {
-    backgroundColor: '#c92ac7',
-    backgroundGradientFrom: '#7bede2',
-    backgroundGradientTo: '#dbb8cd',
-    decimalPlaces: 2,
-    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    style: {
-      borderRadius: 16,
-    },
-  };
+const screenWidth = Dimensions.get('window').width;
 
+const StepsActivityTab = () => {
   const data = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
+        data: [0, 10, 50, 30, 0, 0, 0],
+        withDots: false,
+        color: (opacity = 1) => `rgba(61, 178, 255)`,
+        strokeWidth: 4,
+      },
+      {
+        data: [100],
+        withDots: false,
       },
     ],
+  };
+
+  const chartConfig = {
+    backgroundColor: '#e26a00',
+    backgroundGradientFrom: '#FFFFFF',
+    backgroundGradientTo: '#FFFFFF',
+    decimalPlaces: 2, // optional, defaults to 2dp
+    // labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    color: (opacity = 1) => `${colors.p1}`,
+    strokeWidth: 4,
+    propsForDots: {
+      r: '6',
+      strokeWidth: '2',
+      stroke: '#ffa726',
+    },
   };
 
   return (
@@ -48,30 +60,22 @@ const StepsActivityTab = () => {
               borderRadius={10}
             />
           </View>
-          <BarChart
-            data={{
-              labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-              datasets: [
-                {
-                  data: [20, 45, 28, 80, 99, 43],
-                },
-              ],
-            }}
-            width={Dimensions.get('window').width - 16}
-            height={220}
-            yAxisLabel={'$'}
-            chartConfig={{
-              backgroundColor: '#10c9bd',
-              backgroundGradientFrom: '#f2b40a',
-              backgroundGradientTo: '#99f7e3',
-              decimalPlaces: 2,
-              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              style: {
-                borderRadius: 16,
-              },
-            }}
-            style={{marginVertical: 8, borderRadius: 16}}
-          />
+
+          <View style={styles.graphView}>
+            <BarChart
+              data={data}
+              width={screenWidth - WP('20')}
+              height={200}
+              withHorizontalLines={false}
+              withVerticalLines={false}
+              withOuterLines={false}
+              withDots={false}
+              chartConfig={chartConfig}
+              bezier
+              fromZero={true}
+              style={styles.chartStyle}
+            />
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
