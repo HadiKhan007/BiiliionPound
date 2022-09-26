@@ -1,7 +1,7 @@
 import {Text, SafeAreaView, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './styles';
-import {colors} from '../../../shared/exporter';
+import {colors, family, size} from '../../../shared/exporter';
 import LinearGradient from 'react-native-linear-gradient';
 
 const StepsExerciseTab = ({navigation}) => {
@@ -15,8 +15,15 @@ const StepsExerciseTab = ({navigation}) => {
           <Text style={styles.description}>
             {`You're currently in step mode, would you like to switch to weight mode? Your steps will continue to be counted while in weight mode Include buttons for "Stay in step mode”`}
           </Text>
-          <TouchableOpacity activeOpacity={0.8} style={styles.modeBtn}>
-            <Text style={styles.title}>{`switch mode`}</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ModeStack')}
+            activeOpacity={0.8}
+            style={styles.modeBtn}>
+            <Text
+              style={[
+                styles.title,
+                {fontFamily: family.OpenSans_Medium, fontSize: size.large},
+              ]}>{`switch mode`}</Text>
           </TouchableOpacity>
         </LinearGradient>
       </View>

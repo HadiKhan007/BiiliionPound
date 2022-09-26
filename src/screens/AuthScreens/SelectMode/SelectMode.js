@@ -1,11 +1,16 @@
-import {SafeAreaView, Text, View} from 'react-native';
+import {Alert, SafeAreaView, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles';
-import {AppHeader, SelectButton} from '../../../components';
-import {appIcons} from '../../../shared/exporter';
+import {AppHeader, Loader, SelectButton} from '../../../components';
+import {appIcons, checkConnected} from '../../../shared/exporter';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {useDispatch, useSelector} from 'react-redux';
+import {userModeRequest} from '../../../redux/actions';
 
 const SelectMode = ({navigation}) => {
+  const dispatch = useDispatch(null);
+  const {userInfo} = useSelector(state => state?.auth);
+  const [loading, setloading] = useState(false);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [modes, setModes] = useState([
@@ -13,18 +18,59 @@ const SelectMode = ({navigation}) => {
     {label: ' Billion Steps (step mode)', value: 'step-mode'},
   ]);
 
-  const onPressTickButton = () => {
+  const onPressTickButton = async () => {
     if (value != null) {
-      navigation.navigate('PersonalInfo');
+      const checkInternet = await checkConnected();
+      if (checkInternet) {
+        setloading(true);
+        dispatch(userModeRequest(value, userInfo?.token, onSuccess, onFailure));
+      } else {
+        Alert.alert('Error', 'Check your internet connectivity!');
+      }
     } else {
       alert('Please select mode first to proceed');
     }
   };
 
+  const onSuccess = async res => {
+    setloading(false);
+    if (res?.user != undefined) {
+      console.log('Selected Mode:--', res);
+      if (res?.user?.mode === 'exercise') {
+        // navigation.replace('App');
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'App'}],
+        });
+      } else if (
+        res?.personal_information === 'not created' &&
+        res?.user?.mode === 'pedometer'
+      ) {
+        navigation.replace('PersonalInfo');
+      } else {
+        // navigation.replace('StepsMainFlow');
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'StepsMainFlow'}],
+        });
+      }
+    } else {
+      Alert.alert('Failed', res?.message || 'Select mode Failed');
+    }
+  };
+  const onFailure = res => {
+    console.log('failure response--', res);
+    setloading(false);
+    Alert.alert('Failed', res?.message || 'Select mode Failed');
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
-        <AppHeader icon={appIcons.backArrow} title={'Select Mode'} />
+        <AppHeader
+          // icon={appIcons.backArrow}
+          title={'Select Mode'}
+        />
 
         <View>
           <Text style={styles.titleStyle}>{`Mode`}</Text>
@@ -32,6 +78,7 @@ const SelectMode = ({navigation}) => {
             dropDownContainerStyle={styles.dropDownItemsContianer}
             style={styles.dropDownStyle}
             placeholder="Please select your mode"
+            placeholderStyle={styles.placeholder}
             open={open}
             value={value}
             items={modes}
@@ -44,6 +91,7 @@ const SelectMode = ({navigation}) => {
           <SelectButton onPress={onPressTickButton} />
         </View>
       </View>
+      {loading && <Loader loading={loading} />}
     </SafeAreaView>
   );
 };

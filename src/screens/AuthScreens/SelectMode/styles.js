@@ -34,12 +34,20 @@ const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     borderColor: colors.g8,
     borderWidth: 1,
+    fontSize: size.xsmall,
+    color: colors.b1,
+    fontFamily: family.OpenSans_Regular,
   },
   aiEnd: {
     position: 'absolute',
     bottom: 40,
     right: 15,
     alignItems: 'flex-end',
+  },
+  placeholder: {
+    fontSize: size.xsmall,
+    color: colors.g1,
+    fontFamily: family.OpenSans_Regular,
   },
 });
 

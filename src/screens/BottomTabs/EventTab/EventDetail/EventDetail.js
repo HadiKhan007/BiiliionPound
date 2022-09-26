@@ -18,235 +18,161 @@ import {
   EventInfoCard,
   Button,
   CategorySelection,
-  AddNewExercise,
   Loader,
   EventStatusCard,
 } from '../../../../components';
 import {
   appIcons,
   calculateCurrentDateDiff,
-  calculateDateDiff,
   checkConnected,
   colors,
   spacing,
   WP,
+  isSubscriptionActive,
 } from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
 import {useDispatch, useSelector} from 'react-redux';
 import {join_event_team_request} from '../../../../redux/actions';
-// import RNIap from 'react-native-iap';
 import RNIap, {
-  InAppPurchase,
-  SubscriptionPurchase,
-  finishTransaction,
   purchaseErrorListener,
   purchaseUpdatedListener,
-  Subscription,
-  PurchaseError,
 } from 'react-native-iap';
 
-let purchaseUpdateSubscription: EmitterSubscription;
-let purchaseErrorSubscription: EmitterSubscription;
-
-const itemSubs = Platform.select({
-  default: ['com.billionpoundapp.app.iapId'],
-});
-
-interface Props {
-  children: JSX.Element | Array<JSX.Element>;
-}
-
-const IAPContext =
-  IAPContext >
-  {
-    isSubscription: false,
-    subscription: undefined,
-    showPurchase: () => {},
-  };
-
 const EventDetail = ({navigation}) => {
+  let purchaseUpdateSubscription;
+  let purchaseErrorSubscription;
+
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
   const [isLoading, setisLoading] = useState(false);
-  const [isSubscription, setIsSubscription] = useState(false);
-  const [subscription, setSubscription] = useState(undefined);
+  const [subscriptionStatus, setSubscriptionStatus] = useState('');
 
-  // const yearlySubscription = Platform.select({
-  //   ios: ['com.billionpoundapp.app.iapId'],
-  //   // android: ['com.referralpro.yearlypackage'],
-  // });
+  const yearlySubscription = Platform.select({
+    ios: ['com.billionpoundapp.app.iapId'],
+  });
 
   //References
   const {event_detail} = useSelector(state => state?.event);
   const dispatch = useDispatch(null);
 
-  // useEffect(async () => {
-  //   handleGetSubscriptions();
-  // }, []);
-
-  // const handleGetSubscriptions = async () => {
-  //   try {
-  //     let product = await RNIap.getSubscriptions(yearlySubscription);
-  //     console.log('product', product);
-  //     if (product.length > 0) {
-  //       await requestSubscription(product[0].productId);
-  //       setTimeout(() => {}, 1000);
-  //     } else {
-  //       console.log('Inside else ');
-  //     }
-  //   } catch (error) {}
-  // };
-
-  // const requestSubscription = async sku => {
-  //   console.log('SKU---', sku);
-  //   try {
-  //     const subscriptions = await RNIap.requestSubscription({sku});
-  //     console.log('subscriptions--', subscriptions);
-  //     if (subscriptions) {
-  //     } else {
-  //     }
-  //   } catch (error) {}
-  // };
-
-  // const _checkReceipt = async () => {
-  //   const isValidated = await checkReceipt();
-
-  //   setIsSubscription(isValidated);
-  //   setTimeout(() => {
-  //     SplashScreen.hide();
-  //   }, 1000);
-  // };
-
-  const _requestSubscription = () => {
-    // setShowLoading(true);
-    if (subscription) {
-      RNIap.requestSubscription(subscription.productId);
-    }
-  };
-
-  // const _restorePurchases = () => {
-  //   setShowLoading(true);
-  //   RNIap.getAvailablePurchases()
-  //     .then(purchases => {
-  //       console.debug('restorePurchases');
-  //       let receipt = purchases[0].transactionReceipt;
-  //       if (Platform.OS === 'android' && purchases[0].purchaseToken) {
-  //         receipt = purchases[0].purchaseToken;
-  //       }
-  //       AsyncStorage.setItem('receipt', receipt);
-  //       setShowLoading(false);
-  //       setIsSubscription(true);
-  //       Alert.alert(
-  //         ENV.language['restore successful'],
-  //         ENV.language['you have successfully restored your purchase history'],
-  //         [
-  //           {
-  //             text: ENV.language['ok'],
-  //             onPress: () => actionSheetRef.current?.close(),
-  //           },
-  //         ],
-  //       );
-  //     })
-  //     .catch(err => {
-  //       console.debug('restorePurchases');
-  //       console.error(err);
-  //       setShowLoading(false);
-  //       setIsSubscription(false);
-  //       AsyncStorage.removeItem('receipt');
-  //       Alert.alert(
-  //         ENV.language['restore failed'],
-  //         ENV.language['restore failed reason'],
-  //       );
-  //     });
-  // };
-
-  const _initIAP = useCallback(async (): Promise<void> => {
-    RNIap.clearProductsIOS();
-
-    try {
-      const result = await RNIap.initConnection();
-      console.log('in app purchase connection status--', result);
-      await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
-      if (result === false) {
-        Alert.alert("couldn't get in-app-purchase information");
-        return;
-      }
-    } catch (err) {
-      console.log('Error--', err);
-      // console.error(err.code, err.message);
-      // Alert.alert('fail to get in-app-purchase information');
-    }
-
-    purchaseUpdateSubscription = purchaseUpdatedListener(
-      (purchase: InAppPurchase | SubscriptionPurchase) => {
-        console.log('purchaseUpdatedListener');
-        // setShowLoading(false);
-        // setTimeout(() => {
-        //   actionSheetRef.current?.close();
-        // }, 400);
-        const receipt =
-          Platform.OS === 'ios'
-            ? purchase.transactionReceipt
-            : purchase.purchaseToken;
-        if (receipt) {
-          finishTransaction(purchase)
-            .then(() => {
-              console.log('receipt', receipt);
-              // AsyncStorage.setItem('receipt', receipt);
-              setIsSubscription(true);
-            })
-            .catch(() => {
-              setIsSubscription(false);
-              // Alert.alert('purchase is failed');
-            });
-        }
-      },
-    );
-
-    purchaseErrorSubscription = purchaseErrorListener(
-      (error: PurchaseError) => {
-        // console.debug('purchaseErrorListener');
-        console.error(error);
-        // setShowLoading(false);
-        if (error.code !== 'E_USER_CANCELLED') {
-          // Alert.alert(
-          //   ENV.language['purchase is failed'],
-          //   ENV.language['the purchase is failed'],
-          // );
-        }
-      },
-    );
-
-    const subscriptions = await RNIap.getSubscriptions(itemSubs);
-    console.log('Subscriptions', subscriptions);
-    // setSubscription({
-    //   ...subscriptions[0],
-    // });
+  useEffect(() => {
+    checkSubscriptions();
+    iapInitializer();
   }, []);
 
-  const handleAppStateChange = (nextAppState: string): void => {
-    if (nextAppState === 'active') {
-      // _checkReceipt();
-    }
-  };
-
-  useEffect(async () => {
-    await _initIAP();
-    // _checkReceipt();
-    AppState.addEventListener('change', handleAppStateChange);
-
-    return (): void => {
-      if (purchaseUpdateSubscription) {
-        purchaseUpdateSubscription.remove();
-      }
-      if (purchaseErrorSubscription) {
-        purchaseErrorSubscription.remove();
-      }
-      if (handleAppStateChange) {
-        AppState.removeEventListener('change', handleAppStateChange);
-      }
+  useEffect(() => {
+    componentMount();
+    return () => {
+      closeIapConnection();
     };
   }, []);
+
+  // useEffect(() => {}, [subscriptionPackage]);
+
+  const checkSubscriptions = async () => {
+    try {
+      setisLoading(true);
+      const status = await isSubscriptionActive();
+      console.log('Status--', status);
+      if (status?.validation) {
+        setSubscriptionStatus(status?.validation);
+        // dispatch({
+        //   type: CURRENT_SUBSCRIPTION_PACKAGE,
+        //   payload: status?.receipt,
+        // });
+        setTimeout(() => {
+          setisLoading(false);
+        }, 1500);
+      } else {
+        // dispatch({
+        //   type: CURRENT_SUBSCRIPTION_PACKAGE,
+        //   payload: null,
+        // });
+        setTimeout(() => {
+          setisLoading(false);
+        }, 1500);
+      }
+      //update your subscription status here
+    } catch (error) {
+      setisLoading(false);
+    }
+  };
+
+  const iapInitializer = async () => {
+    try {
+      const status = await RNIap.initConnection();
+      console.log('Status---', status);
+      if (Platform.OS === 'android') {
+        await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
+      } else {
+        await RNIap.clearTransactionIOS();
+      }
+    } catch (error) {}
+  };
+
+  const componentMount = async () => {
+    try {
+      purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
+        const receipt = purchase.transactionReceipt
+          ? purchase.transactionReceipt
+          : purchase?.originalJson;
+        if (receipt) {
+          const finishPurchase = await RNIap.finishTransaction(purchase);
+        } else {
+        }
+      });
+
+      purchaseErrorSubscription = purchaseErrorListener(error => {
+        alert(error);
+      });
+    } catch (error) {}
+  };
+
+  const closeIapConnection = () => {
+    if (purchaseUpdateSubscription) {
+      purchaseUpdateSubscription.remove();
+      purchaseUpdateSubscription = null;
+    }
+
+    if (purchaseErrorSubscription) {
+      purchaseErrorSubscription.remove();
+      purchaseErrorSubscription = null;
+    }
+
+    RNIap.endConnection();
+  };
+
+  const getSubscriptions = async () => {
+    try {
+      setisLoading(true);
+      let subscriptions;
+      subscriptions = await RNIap.getSubscriptions(yearlySubscription);
+      console.log('Subscriptions---', subscriptions);
+      if (subscriptions.length > 0) {
+        await requestSubscription(subscriptions[0].productId);
+        setTimeout(() => {
+          setisLoading(false);
+        }, 1000);
+      } else {
+        setisLoading(false);
+      }
+    } catch (error) {
+      setisLoading(false);
+    }
+  };
+
+  const requestSubscription = async sku => {
+    try {
+      const subResults = await RNIap.requestSubscription({sku});
+
+      if (subResults) {
+      } else {
+        setisLoading(false);
+      }
+    } catch (error) {
+      setisLoading(false);
+    }
+  };
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -384,7 +310,8 @@ const EventDetail = ({navigation}) => {
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
-                  requestSubscription();
+                  // getSubscriptions();
+                  // checkSubscriptions();
                   // joinEvent();
                   // joinSheetRef?.current?.show();
                 }}

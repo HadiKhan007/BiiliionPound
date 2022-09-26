@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, SafeAreaView, Image, StatusBar, Alert } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text, View, SafeAreaView, Image, StatusBar, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
-import { AuthFooter, Input, WelcomeBox } from '../../../components';
+import {AuthFooter, Input, WelcomeBox} from '../../../components';
 import {
   checkConnected,
   colors,
@@ -11,15 +11,15 @@ import {
   onAppleLogin,
   onGoogleLogin,
 } from '../../../shared/exporter';
-import { Icon } from 'react-native-elements';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Formik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { loginRequest } from '../../../redux/actions';
+import {Icon} from 'react-native-elements';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {Formik} from 'formik';
+import {useDispatch} from 'react-redux';
+import {loginRequest} from '../../../redux/actions';
 
 // import {firebase} from '@react-native-firebase/auth';
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const [loading, setloading] = useState(false);
   const [isRemember, setIsRemember] = useState(false);
 
@@ -44,9 +44,22 @@ const Login = ({ navigation }) => {
   const onLoginSuccess = async res => {
     await AsyncStorage.setItem('isRemember', isRemember.toString());
     setloading(false);
+    console.log(res);
     if (res?.user != undefined) {
-      // navigation?.navigate('SelectMode');
-      navigation?.replace('App');
+      if (res?.user?.mode === 'null') {
+        navigation?.replace('ModeStack');
+      } else if (res?.user?.mode === 'exercise') {
+        navigation?.replace('App');
+      } else if (
+        res?.personal_information === 'not created' &&
+        res?.user?.mode === 'pedometer'
+      ) {
+        navigation?.replace('ModeStack', {
+          screen: 'PersonalInfo',
+        });
+      } else {
+        navigation.replace('StepsMainFlow');
+      }
     } else {
       Alert.alert('Failed', res?.message || 'Logged In Failed');
     }

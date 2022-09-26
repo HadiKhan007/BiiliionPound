@@ -10,6 +10,9 @@ import {
   logoutRequestSega,
   OTPVerifyRequest,
   deleteRequestSaga,
+  selectModeRequestSaga,
+  userInfoRequestSaga,
+  UpdateUserInfoRequestSaga,
 } from './auth-saga/auth-sega';
 import {setProfileImageRequest} from './profile-sega/profile-sega';
 import {
@@ -83,5 +86,8 @@ export function* rootSaga() {
   yield fork(deleteNotificationRequest);
   yield fork(saveDeviceTokenRequest);
   yield fork(deleteRequestSaga);
+  yield fork(selectModeRequestSaga);
+  yield fork(userInfoRequestSaga);
+  yield fork(UpdateUserInfoRequestSaga);
   yield fork(subscriptionsRequest);
 }

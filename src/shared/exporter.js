@@ -1,4 +1,5 @@
 export {appImages, appIcons, appLogos, appSvgs, appJSON} from './theme/assets';
+export {isSubscriptionActive} from './utilities/IapPurchase';
 
 export {colors} from './theme/colors';
 export {size, family, appRadius} from './theme/sizes';

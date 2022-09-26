@@ -1,4 +1,4 @@
-import {ENDPOINTS, HTTP_CLIENT} from '../exporter';
+import {ENDPOINTS, HTTP_CLIENT, BASE_URL} from '../exporter';
 //Authentication Requests
 export const registerUser = params => {
   return HTTP_CLIENT.post(ENDPOINTS.REGISTER, params);
@@ -31,4 +31,36 @@ export const logoutUser = () => {
 
 export const deleteUser = () => {
   return HTTP_CLIENT.delete(ENDPOINTS.DELETE_USER);
+};
+
+export const selctedUserMode = async (userMode, token) => {
+  let selctedMode = userMode === 'weight-mode' ? 'exercise' : 'pedometer';
+  return HTTP_CLIENT.post(
+    `${ENDPOINTS.SELECT_USER_MODE}?mode=${selctedMode}`,
+    {},
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    },
+  );
+};
+
+export const userpersonalInformation = async (params, token) => {
+  return HTTP_CLIENT.post(`${ENDPOINTS.PERSONAL_INFO}`, params, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
+export const updateUserpersonalInformation = async (params, token) => {
+  return HTTP_CLIENT.patch(`${ENDPOINTS.PERSONAL_INFO}`, params, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  });
 };

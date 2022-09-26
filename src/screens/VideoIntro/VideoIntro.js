@@ -35,35 +35,35 @@ const VideoIntro = ({navigation}) => {
 
   return (
     <View style={styles.rootContainer}>
-      {/* <Video
+      <Video
         ref={video}
         repeat={true}
         source={appImages.appVideo}
-        resizeMode="cover"
+        resizeMode='contain'
         style={{
           width: '100%',
           height: '100%',
-          backgroundColor: colors.white,
+          backgroundColor: "transparent",
         }}
         paused={pause}
         playInBackground={false}
         ignoreSilentSwitch={'obey'}
-      /> */}
-      {/* <View
-          style={[
-            styles.textContainer,
-            {
-              flex: 1,
-              //  marginTop: HP('30'),
-              zIndex: 1,
-              position: 'absolute',
-              justifyContent: 'center',
-              bottom: HP('25'),
-            },
-          ]}> */}
-      {/* <Text style={styles.title}>{title}</Text>
-          <Text style={styles.desc}>{text}</Text> */}
-      {/* </View> */}
+      />
+      <View
+        style={[
+          styles.textContainer,
+          {
+            flex: 1,
+            //  marginTop: HP('30'),
+            zIndex: 1,
+            position: 'absolute',
+            justifyContent: 'center',
+            bottom: HP('25'),
+          },
+        ]}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.desc}>{text}</Text>
+      </View>
       <TouchableOpacity
         onPress={() => {
           navigation?.replace('Walkthrough');

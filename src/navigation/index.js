@@ -20,6 +20,9 @@ import VideoIntro from '../screens/VideoIntro/VideoIntro';
 
 // V2 stack
 import StepsMainFlow from './StepsBottomTabs/index';
+import SelectMode from '../screens/AuthScreens/SelectMode/SelectMode';
+import PersonalInfo from '../screens/AuthScreens/PersonalInfo/PersonalInfo';
+import ModeStack from './stacks/ModeStack';
 
 const AppStack = createStackNavigator();
 
@@ -48,6 +51,8 @@ const MainAppNav = () => {
           component={OngoingEventDetail}
         />
         <AppStack.Screen name="ActivityTab" component={ActivityTab} />
+        {/* V2 Mode Stack */}
+        <AppStack.Screen name="ModeStack" component={ModeStack} />
         {/* V2 Steps Counter Stack */}
         <AppStack.Screen name="StepsMainFlow" component={StepsMainFlow} />
       </AppStack.Navigator>

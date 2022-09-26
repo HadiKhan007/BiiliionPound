@@ -85,3 +85,36 @@ export const deleteAccountRequest = (cbSuccess, cbFailure) => {
     cbFailure,
   };
 };
+
+// select user mode
+export const userModeRequest = (userMode, token, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.SELECT_MODE_REQUEST,
+    userMode,
+    token,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+// User Info
+export const userInfoRequest = (params, token, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.USER_INFO_REQUEST,
+    params,
+    token,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
+// update user info
+export const updateInfoRequest = (params, token, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.UPDATE_USER_INFO_REQUEST,
+    params,
+    token,
+    cbSuccess,
+    cbFailure,
+  };
+};

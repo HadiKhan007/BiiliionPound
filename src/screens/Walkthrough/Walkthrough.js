@@ -25,16 +25,16 @@ const slides = [
     key: 2,
     title: 'Join Events',
     // text: 'Join your favorite team and help them reach their goals for charity!',
-    image: appImages.slider2,
+    image: appImages.slider5,
     backgroundColor: '#febe29',
   },
-  {
-    key: 3,
-    title: 'Get Your Billion Pound Medallion',
-    // text: 'Once you register for a fund- raising event OR register to use the app as your daily fitness journal... you receive our beautiful TEAM medallion!',
-    image: appImages.slider3,
-    backgroundColor: '#22bcb5',
-  },
+  // {
+  //   key: 3,
+  //   title: 'Get Your Billion Pound Medallion',
+  //   // text: 'Once you register for a fund- raising event OR register to use the app as your daily fitness journal... you receive our beautiful TEAM medallion!',
+  //   image: appImages.slider3,
+  //   backgroundColor: '#22bcb5',
+  // },
   // {
   //   key: 4,
   //   title: 'About Company',
@@ -50,8 +50,8 @@ const Walkthrough = ({navigation}) => {
     return (
       <IntroSlider
         onPressBack={() => {
-          navigation.goBack();
-          // navigation?.replace('VideoIntro');
+          // navigation.goBack();
+          navigation?.replace('VideoIntro');
         }}
         item={item}
         index={index}

@@ -8,6 +8,9 @@ export {
   logoutRequset,
   verifyOTPRequest,
   deleteAccountRequest,
+  userModeRequest,
+  userInfoRequest,
+  updateInfoRequest
 } from './auth-actions/auth-action';
 export {
   setProfileImage,
