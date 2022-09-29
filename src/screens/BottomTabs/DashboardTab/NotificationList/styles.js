@@ -27,6 +27,17 @@ const styles = StyleSheet.create({
     marginHorizontal: WP('3'),
     flex: 1,
   },
+  noNoti: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  noNotifications: {
+    color: colors?.b1,
+    fontFamily: family?.Poppins_Medium,
+    fontSize: size.large,
+    marginBottom: '5%'
+  },
 });
 
 export default styles;

@@ -43,7 +43,7 @@ export const colors = {
   g11: '#C4C4C4',
   g12: '#F7F8F8',
   g13: '#DA840D',
-
+  lightGrey: "#D3D3D3",
   // Yellow
   y1: '#F2AD50',
 

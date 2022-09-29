@@ -2,24 +2,25 @@ import {
   Alert,
   Platform,
   SafeAreaView,
-  StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {AppHeader, HomeCircle, HomeHeader} from '../../../../components';
+import {HomeCircle, HomeHeader, Loader} from '../../../../components';
 import {
   appIcons,
   capitalizeFirstLetter,
   checkConnected,
-  convertNumberSystem,
+  isSubscriptionActive,
   requestPermission,
 } from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import {
   get_lifted_weight_request,
+  get_notification_list_request,
   save_device_token,
   set_event_request,
   set_exercise_screen_request,
@@ -27,85 +28,68 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import RNIap, {
-  purchaseErrorListener,
-  purchaseUpdatedListener,
-  type ProductPurchase,
-  type PurchaseError,
-} from 'react-native-iap';
+import {getAvailablePurchases} from 'react-native-iap';
+import {isIos} from '../../../../shared/utilities/platform';
 
 const Dashboard = ({navigation}) => {
-  let purchaseUpdateSubscription;
-  let purchaseErrorSubscription;
   const isFocus = useIsFocused(null);
+  const {all_notifications} = useSelector(state => state?.exercise);
 
   //Redux States
   const {userInfo} = useSelector(state => state?.auth);
   const {userData} = useSelector(state => state?.profile);
   const {lifted_weight} = useSelector(state => state?.exercise);
   const [isLoading, setisLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [subDisabled, setSubDisabled] = useState(false);
+  const [loading, setloading] = useState(false);
   const dispatch = useDispatch(null);
 
   //Get Wieght Lifted
   useEffect(() => {
     if (isFocus) {
+      // getNotifications();
+      checkSubscriptions();
+      // getAvailablepuechases();
       getAllRequest();
     }
   }, [isFocus]);
 
-  useEffect(() => {
-    iapInitializer();
-  }, []);
+  // //Get Notification List
+  // const getNotifications = async () => {
+  //   const checkInternet = await checkConnected();
+  //   if (checkInternet) {
+  //     setisLoading(true);
+  //     const cbSuccess = () => {
+  //       // console.log('Notification Retrieved');
+  //       setisLoading(false);
+  //     };
+  //     const cbFailure = res => {
+  //       setisLoading(false);
+  //       Alert.alert('Failed', res);
+  //     };
+  //     dispatch(get_notification_list_request(null, cbSuccess, cbFailure));
+  //   } else {
+  //     Alert.alert('Error', 'Check your internet connectivity!');
+  //   }
+  // };
 
-  useEffect(() => {
-    componentMount();
-    return () => {
-      closeIapConnection();
-    };
-  }, []);
-
-  const iapInitializer = async () => {
+  const checkSubscriptions = async () => {
+    setloading(true);
     try {
-      const status = await RNIap.initConnection();
-      console.log('IAP Status--', status);
-      if (Platform.OS === 'android') {
-        await RNIap.flushFailedPurchasesCachedAsPendingAndroid();
+      const checkStatus = await isSubscriptionActive();
+      console.log('checkStatus', checkStatus);
+      if (checkStatus) {
+        setloading(false);
+        setDisabled(false);
+        setSubDisabled(true);
       } else {
-        await RNIap.clearTransactionIOS();
+        setloading(false);
+        setDisabled(true);
+        setSubDisabled(false);
       }
+      //update your subscription status here
     } catch (error) {}
-  };
-
-  const componentMount = async () => {
-    try {
-      purchaseUpdateSubscription = purchaseUpdatedListener(async purchase => {
-        const receipt = purchase.transactionReceipt
-          ? purchase.transactionReceipt
-          : purchase?.originalJson;
-        if (receipt) {
-          const finishPurchase = await RNIap.finishTransaction(purchase);
-        } else {
-        }
-      });
-
-      purchaseErrorSubscription = purchaseErrorListener(error => {
-        alert(error);
-      });
-    } catch (error) {}
-  };
-
-  const closeIapConnection = () => {
-    if (purchaseUpdateSubscription) {
-      purchaseUpdateSubscription.remove();
-      purchaseUpdateSubscription = null;
-    }
-
-    if (purchaseErrorSubscription) {
-      purchaseErrorSubscription.remove();
-      purchaseErrorSubscription = null;
-    }
-
-    RNIap.endConnection();
   };
 
   const getAllRequest = async () => {
@@ -193,6 +177,48 @@ const Dashboard = ({navigation}) => {
       },
     });
   }, []);
+
+  // const getAvailablepuechases = async () => {
+  //   if (isIos) {
+  //     setloading(true);
+  //     const availablePurchases = await getAvailablePurchases();
+  //     // console.log('availablePurchases', availablePurchases);
+  //     const sortedAvailablePurchases = availablePurchases.sort(
+  //       (a, b) => b.transactionDate - a.transactionDate,
+  //     );
+  //     const latestAvailableReceipt =
+  //       sortedAvailablePurchases[0].transactionReceipt;
+  //     console.log('latestAvailableReceipt', latestAvailableReceipt);
+  //     if (latestAvailableReceipt) {
+  //       setloading(false);
+  //       setSubDisabled(true);
+  //       setDisabled(false);
+  //     } else {
+  //       setloading(false);
+  //       setSubDisabled(false);
+  //       setDisabled(true);
+  //     }
+  //   }
+  //   if (Platform.OS === 'android') {
+  //     setloading(true);
+  //     const subscriptionPurchase = await getAvailablePurchases();
+  //     console.log('Purchased Subscription:', subscriptionPurchase);
+  //     if (subscriptionPurchase) {
+  //       if (subscriptionPurchase[0]?.autoRenewingAndroid) {
+  //         setloading(false);
+  //         setSubDisabled(true);
+  //         setDisabled(false);
+  //       } else {
+  //         setloading(false);
+  //         setSubDisabled(false);
+  //         setDisabled(true);
+  //       }
+  //     } else {
+  //       console.log('No subscription available--');
+  //     }
+  //   }
+  // };
+
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -205,13 +231,19 @@ const Dashboard = ({navigation}) => {
             capitalizeFirstLetter(userData?.last_name || '') ||
             capitalizeFirstLetter(userInfo?.user?.last_name || '')
           }`}
-          icon={appIcons.notification}
+          // icon={
+          //   all_notifications?.message
+          //     ? appIcons.notificationIcon
+          //     : appIcons.notification
+          // }
+          icon={appIcons.notificationIcon}
           onPressBtn={() => {
             navigation?.navigate('NotificationList');
           }}
         />
         <View style={styles.itemView}>
           <HomeCircle
+            disabled={disabled}
             icon={appIcons.plus}
             title={lifted_weight || 0}
             isLoading={isLoading}
@@ -224,8 +256,22 @@ const Dashboard = ({navigation}) => {
               );
             }}
           />
+          <TouchableOpacity
+            // disabled={subDisabled}
+            onPress={() => navigation.navigate('SubscriptionPlan')}
+            activeOpacity={0.5}
+            style={[
+              styles.btnAlign,
+              // {backgroundColor: subDisabled ? colors?.lightGrey : colors?.p1},
+            ]}>
+            <Text style={styles.btnText}>
+              {/* {!subDisabled ? 'Subscribe' : 'unsubscribe'} */}
+              {'Subscribe'}
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
+      {loading && <Loader loading={loading} />}
     </SafeAreaView>
   );
 };

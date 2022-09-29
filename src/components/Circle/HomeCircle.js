@@ -11,7 +11,14 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {SmallLoader} from '..';
 
-export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
+export const HomeCircle = ({
+  title,
+  subtitle,
+  icon,
+  onPressAdd,
+  isLoading,
+  disabled,
+}) => {
   return (
     <View style={styles.aiCenter}>
       <View style={styles.circleContainer}>
@@ -35,7 +42,13 @@ export const HomeCircle = ({title, subtitle, icon, onPressAdd, isLoading}) => {
       </View>
       {icon && (
         <LinearGradient colors={colors.t_gradient} style={styles.btnContainer}>
-          <TouchableOpacity style={styles.btnContainer} onPress={onPressAdd}>
+          <TouchableOpacity
+            disabled={disabled}
+            style={[
+              styles.btnContainer,
+              {backgroundColor: disabled ? colors?.lightGrey : colors?.p1},
+            ]}
+            onPress={onPressAdd}>
             <Text style={styles.buttonTxtStyle}>Exercise Library</Text>
             {/* <Image source={icon} style={styles.btnImage} /> */}
           </TouchableOpacity>

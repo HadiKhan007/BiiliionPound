@@ -26,124 +26,156 @@ import {
   calculateCurrentDateDiff,
   checkConnected,
   colors,
+  isSubscriptionActive,
   spacing,
   WP,
-  isSubscriptionActive,
 } from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
 import {useDispatch, useSelector} from 'react-redux';
 import {join_event_team_request} from '../../../../redux/actions';
-import RNIap, {
+import {isIos} from '../../../../shared/utilities/platform';
+import {
+  clearTransactionIOS,
+  flushFailedPurchasesCachedAsPendingAndroid,
   getSubscriptions,
-  PurchaseError,
-  purchaseErrorListener,
-  purchaseUpdatedListener,
-  requestPurchase,
+  initConnection,
   requestSubscription,
-  useIAP,
 } from 'react-native-iap';
+import {errorLog} from '../../../../shared/utilities/logs';
 
 const EventDetail = ({navigation}) => {
-  let purchaseUpdateSubscription;
-  let purchaseErrorSubscription;
-
-  const [success, setSuccess] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-
   const [selectionModal, setSelectionModal] = useState(false);
   const [selectCategoryItem, setselectCategoryItem] = useState(null);
   const [isLoading, setisLoading] = useState(false);
-  const [subscriptionStatus, setSubscriptionStatus] = useState('');
+  //References
+  const {event_detail} = useSelector(state => state?.event);
+  const dispatch = useDispatch(null);
 
+  const [subscriptins, setSubscriptins] = useState([]);
   const subscriptionSkus = Platform.select({
     ios: [
       'com.billionpoundapp.yearly.one',
       'com.billionpoundapp.yearly.premium',
     ],
-    android: ['billion_pound_iap','om-billionpound-yearly-premimum34'],
+    android: ['billion_pound_iap', 'bp_yearly_subscription'],
     default: [],
   });
 
-  //References
-  const {event_detail} = useSelector(state => state?.event);
-  const dispatch = useDispatch(null);
+  useEffect(() => {
+    checkSubscriptions();
+    iapInitializer();
+    if (isIos) {
+      handleGetSubscriptions();
+    }
+  }, []);
+
+  const checkSubscriptions = async () => {
+    setisLoading(true);
+    try {
+      const checkStatus = await isSubscriptionActive();
+      console.log('checkStatus', checkStatus);
+      if (checkStatus) {
+        setisLoading(false);
+        setSubscribe(false);
+      } else {
+        setisLoading(false);
+        setSubscribe(true);
+      }
+      //update your subscription status here
+    } catch (error) {}
+  };
+
+  const iapInitializer = async () => {
+    try {
+      await initConnection();
+      if (isAndroid) {
+        await flushFailedPurchasesCachedAsPendingAndroid();
+      } else {
+        /**
+         * WARNING This line should not be included in production code
+         * This call will call finishTransaction in all pending purchases
+         * on every launch, effectively consuming purchases that you might
+         * not have verified the receipt or given the consumer their product
+         *
+         * TL;DR you will no longer receive any updates from Apple on
+         * every launch for pending purchases
+         */
+        await clearTransactionIOS();
+      }
+    } catch (error) {
+      if (error instanceof PurchaseError) {
+        errorLog({message: `[${error.code}]: ${error.message}`, error});
+      } else {
+        errorLog({message: 'finishTransaction', error});
+      }
+    }
+  };
 
   const handleGetSubscriptions = async () => {
     try {
-      await getSubscriptions({skus: subscriptionSkus}).then(subscriptions => {
-        console.log('subscriptions--', subscriptions);
-        handleBuySubscription(
-          subscriptions[0]?.productId,
-          subscriptions[0]?.subscriptionOfferDetails[0]?.offerToken,
-        );
+      await getSubscriptions({skus: subscriptionSkus}).then(subs => {
+        console.log('Subscription--', subs);
+        if (isIos) {
+          setSubscriptins(subs);
+        } else {
+          handleBuySubscription(
+            subs[0]?.productId,
+            subs[0]?.subscriptionOfferDetails[0]?.offerToken,
+          );
+        }
       });
     } catch (error) {
-      console.log('Error--', error);
-    }
-  };
-
-  const getSubscriptions = async () => {
-    try {
-      setLoading(true);
-      let product;
-     // product = await RNIap.getSubscriptions(subscriptionSkus);
-      product = await RNIap.getSubscriptions(subscriptionSkus);
-
-
-      console.log('[Products]', product);
-
-      if (product.length > 0) {
-        await requestSubscription(product[0].productId);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      } else {
-        setLoading(false);
-      }
-    } catch (error) {
-      alert(error);
-      setLoading(false);
-    }
-  };
-
-  const requestSubscription = async sku => {
-    try {
-      const subResults = await RNIap.requestSubscription({sku});
-
-      if (subResults) {
-      } else {
-        setLoading(false);
-      }
-    } catch (error) {
-      setLoading(false);
+      errorLog({message: 'handleGetSubscriptions', error});
     }
   };
 
   const handleBuySubscription = async (productId, offerToken) => {
     if (Platform.OS === 'android' && !offerToken) {
-      console.log(
-        `There are no subscription Offers for selected product (Only requiered for Google Play purchases): ${productId}`,
-      );
+      console.log(`no subscription Offers for selected product: ${productId}`);
     }
     try {
-      await requestSubscription({
-        sku: productId,
-        ...(offerToken && {
-          subscriptionOffers: [{sku: productId, offerToken}],
-        }),
-      })
-        .then(response => {
-          console.log('Success response--', response);
+      if (isIos) {
+        setisLoading(true);
+        console.log(subscriptins);
+        await requestSubscription({
+          sku: subscriptins[0]?.productId,
+          ...(offerToken && {
+            subscriptionOffers: [{sku: subscriptins[0]?.productId, offerToken}],
+          }),
         })
-        .catch(err => {
-          console.log('Error--', err);
-        });
+          .then(res => {
+            console.log('res--', res);
+            setisLoading(false);
+            navigation?.navigate('Event');
+          })
+          .catch(err => {
+            setisLoading(false);
+            console.log('Error', err);
+          });
+      } else {
+        await requestSubscription({
+          sku: productId,
+          ...(offerToken && {
+            subscriptionOffers: [{sku: productId, offerToken}],
+          }),
+        })
+          .then(res => {
+            console.log('res--', res);
+            setisLoading(false);
+            navigation.goBack();
+          })
+          .catch(err => {
+            setisLoading(false);
+            console.log('Error', err);
+          });
+      }
     } catch (error) {
       if (error instanceof PurchaseError) {
-        console.log('Purchase error:', error);
+        setisLoading(false);
+        errorLog({message: `[${error.code}]: ${error.message}`, error});
       } else {
-        console.log('error--', error);
+        setisLoading(false);
+        errorLog({message: 'handleBuySubscription', error});
       }
     }
   };
@@ -284,9 +316,11 @@ const EventDetail = ({navigation}) => {
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
-                  handleGetSubscriptions()
-                  // getSubscriptions();
-                  // checkSubscriptions();
+                  if (isIos) {
+                    handleBuySubscription();
+                  } else {
+                    handleGetSubscriptions();
+                  }
                   // joinEvent();
                   // joinSheetRef?.current?.show();
                 }}

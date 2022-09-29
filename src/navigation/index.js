@@ -5,6 +5,7 @@ import Splash from '../screens/Splash';
 import Walkthrough from '../screens/Walkthrough';
 import AuthStack from '../navigation/stacks/AuthStack';
 import Dashboard from './BottomTabs';
+import SubscriptionPlan from '../screens/SubscriptionPlan';
 import GettingStarted from '../screens/GettingStarted';
 import ExerciseStack from './stacks/ExcerciseStack';
 import Terms from '../screens/Terms/Terms';
@@ -20,8 +21,6 @@ import VideoIntro from '../screens/VideoIntro/VideoIntro';
 
 // V2 stack
 import StepsMainFlow from './StepsBottomTabs/index';
-import SelectMode from '../screens/AuthScreens/SelectMode/SelectMode';
-import PersonalInfo from '../screens/AuthScreens/PersonalInfo/PersonalInfo';
 import ModeStack from './stacks/ModeStack';
 
 const AppStack = createStackNavigator();
@@ -46,6 +45,7 @@ const MainAppNav = () => {
         <AppStack.Screen name={'ExerciseStack'} component={ExerciseStack} />
         <AppStack.Screen name={'EventDetail'} component={EventDetail} />
         <AppStack.Screen name={'Payment'} component={Payment} />
+        <AppStack.Screen name="SubscriptionPlan" component={SubscriptionPlan} />
         <AppStack.Screen
           name="OngoingEventDetail"
           component={OngoingEventDetail}

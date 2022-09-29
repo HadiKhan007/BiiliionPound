@@ -14,7 +14,7 @@ export const appImages = {
   sample_exercise: require('../../assets/images/sample_excercise.png'),
   selected_icon_button: require('../../assets/images/selected_icon_button.png'),
   gettingStarted: require('../../assets/images/getting_started.png'),
-   appVideo: require('../../assets/images/gym_video.mp4'),
+  appVideo: require('../../assets/images/gym_video.mp4'),
 };
 
 export const appIcons = {
@@ -31,6 +31,7 @@ export const appIcons = {
   board: require('../../assets/icons/board.png'),
   profile: require('../../assets/icons/profile.png'),
   notification: require('../../assets/icons/notification.png'),
+  notificationIcon: require('../../assets/icons/bell-fill.png'),
   backArrow: require('../../assets/icons/backArrow.png'),
   plus: require('../../assets/icons/plus.png'),
   search: require('../../assets/icons/search.png'),
