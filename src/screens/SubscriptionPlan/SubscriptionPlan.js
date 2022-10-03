@@ -8,7 +8,12 @@ import {
   View,
 } from 'react-native';
 import {Button, Loader} from '../../components';
-import {appLogos, colors, isSubscriptionActive} from '../../shared/exporter';
+import {
+  appIcons,
+  appLogos,
+  colors,
+  isSubscriptionActive,
+} from '../../shared/exporter';
 import styles from './styles';
 import {
   requestSubscription,
@@ -21,10 +26,12 @@ import {errorLog} from '../../shared/utilities/logs';
 import {isAndroid, isIos} from '../../shared/utilities/platform';
 import {isIOS} from 'react-native-elements/dist/helpers';
 
-const SubscriptionPlan = ({navigation}) => {
+const SubscriptionPlan = ({navigation, route}) => {
+  console.log(route?.params?.subscriptionPrice);
   const [subscribe, setSubscribe] = useState(false);
   const [loading, setloading] = useState(false);
   const [subscriptins, setSubscriptins] = useState([]);
+
   const subscriptionSkus = Platform.select({
     ios: [
       'com.billionpoundapp.yearly.one',
@@ -47,7 +54,7 @@ const SubscriptionPlan = ({navigation}) => {
     setloading(true);
     try {
       const checkStatus = await isSubscriptionActive();
-      console.log('checkStatus', checkStatus);
+      console.log('Is Subscription Active--', checkStatus);
       if (checkStatus) {
         setloading(false);
         setSubscribe(false);
@@ -65,15 +72,6 @@ const SubscriptionPlan = ({navigation}) => {
       if (isAndroid) {
         await flushFailedPurchasesCachedAsPendingAndroid();
       } else {
-        /**
-         * WARNING This line should not be included in production code
-         * This call will call finishTransaction in all pending purchases
-         * on every launch, effectively consuming purchases that you might
-         * not have verified the receipt or given the consumer their product
-         *
-         * TL;DR you will no longer receive any updates from Apple on
-         * every launch for pending purchases
-         */
         await clearTransactionIOS();
       }
     } catch (error) {
@@ -92,10 +90,19 @@ const SubscriptionPlan = ({navigation}) => {
         if (isIos) {
           setSubscriptins(subs);
         } else {
-          handleBuySubscription(
-            subs[0]?.productId,
-            subs[0]?.subscriptionOfferDetails[0]?.offerToken,
-          );
+          if (route?.params?.subscriptionPrice === '$30') {
+            console.log('In side $30 plan');
+            handleBuySubscription(
+              subs[0]?.productId,
+              subs[0]?.subscriptionOfferDetails[0]?.offerToken,
+            );
+          } else {
+            console.log('In side $50 plan');
+            handleBuySubscription(
+              subs[1]?.productId,
+              subs[1]?.subscriptionOfferDetails[0]?.offerToken,
+            );
+          }
         }
       });
     } catch (error) {
@@ -111,22 +118,47 @@ const SubscriptionPlan = ({navigation}) => {
       if (isIos) {
         setloading(true);
         console.log(subscriptins);
-        await requestSubscription({
-          sku: subscriptins[0]?.productId,
-          ...(offerToken && {
-            subscriptionOffers: [{sku: subscriptins[0]?.productId, offerToken}],
-          }),
-        })
-          .then(res => {
-            console.log('res--', res);
-            setloading(false);
-            navigation.goBack();
+        if (route?.params?.subscriptionPrice === '$30') {
+          console.log('inside $30 plan');
+          await requestSubscription({
+            sku: subscriptins[0]?.productId,
+            ...(offerToken && {
+              subscriptionOffers: [
+                {sku: subscriptins[0]?.productId, offerToken},
+              ],
+            }),
           })
-          .catch(err => {
-            setloading(false);
-            console.log('Error', err);
-          });
+            .then(res => {
+              console.log('res--', res);
+              setloading(false);
+              navigation.goBack();
+            })
+            .catch(err => {
+              setloading(false);
+              console.log('Error', err);
+            });
+        } else {
+          console.log('inside $50 plan');
+          await requestSubscription({
+            sku: subscriptins[1]?.productId,
+            ...(offerToken && {
+              subscriptionOffers: [
+                {sku: subscriptins[1]?.productId, offerToken},
+              ],
+            }),
+          })
+            .then(res => {
+              console.log('res--', res);
+              setloading(false);
+              navigation.goBack();
+            })
+            .catch(err => {
+              setloading(false);
+              console.log('Error', err);
+            });
+        }
       } else {
+        setloading(true);
         await requestSubscription({
           sku: productId,
           ...(offerToken && {
@@ -191,6 +223,13 @@ const SubscriptionPlan = ({navigation}) => {
 
   return (
     <ScrollView style={styles.rootContainer}>
+      <TouchableOpacity onPress={() => navigation?.goBack()}>
+        <Image
+          source={appIcons.cross}
+          style={styles.iconStyle}
+          resizeMode="contain"
+        />
+      </TouchableOpacity>
       <Image
         source={appLogos.appLogo}
         style={styles.imageStyles}
@@ -202,7 +241,9 @@ const SubscriptionPlan = ({navigation}) => {
         </View>
         <Text style={styles.subDetail}>
           {/* {`Billion Pound\nAll access of events\n$50 /Yearly\n Auto Renewal`} */}
-          {`Billion Pound\n$50 /Yearly\n Auto Renewal`}
+          {route?.params?.subscriptionPrice === '$50'
+            ? `Billion Pound\n$50 /Yearly\n Auto Renewal`
+            : `Billion Pound\n$30 /Yearly\n Auto Renewal`}
         </Text>
 
         {/* <Text style={styles.nextBillingTilte}>{`When to next billing?`}</Text>
@@ -215,7 +256,9 @@ const SubscriptionPlan = ({navigation}) => {
         <View style={styles?.descText}>
           <Text style={styles.journalDetail}>
             {/* {`PERSONAL JOURNAL AND EVENTS. YOU CAN JOIN\nAS AN INDIVIDUAL OR ON A TEAM FOR FUN FITNESS\nCOMPETITION`} */}
-            {`Yearly subscription grants access to the exclusive Billion Pounds fitness journal. Track your workouts and total pounds lifted! All members will receive access to the pedometer feature, coming soon!`}
+            {route?.params?.subscriptionPrice === '$30'
+              ? `Thank you for joining the event! you can now subscribe for  only $30/a year\n\nYearly subscription grants access to the exclusive Billion Pounds fitness journal. Track your workouts and total pounds lifted! All members will receive access to the pedometer feature, coming soon!`
+              : `Yearly subscription grants access to the exclusive Billion Pounds fitness journal. Track your workouts and total pounds lifted! All members will receive access to the pedometer feature, coming soon!`}
           </Text>
         </View>
       </View>
@@ -232,6 +275,17 @@ const SubscriptionPlan = ({navigation}) => {
           title={'Subscribe'}
         />
       </View>
+      <View style={[styles.btnAlign, {marginTop: '5%'}]}>
+        <Button
+          onPress={() => {
+            navigation?.goBack();
+          }}
+          bgColor={colors?.g2}
+          shadowColor={colors.g2}
+          title={'Subscribe Later'}
+        />
+      </View>
+
       <View style={styles.termsContainer}>
         <TouchableOpacity
           activeOpacity={0.8}

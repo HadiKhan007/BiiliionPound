@@ -543,6 +543,9 @@ const Payment = ({navigation, route}) => {
         onPress={() => {
           setShowSuccess(false);
           navigation?.navigate('Event');
+          navigation?.navigate('SubscriptionPlan', {
+            subscriptionPrice: '$30',
+          });
         }}
         transactionID={
           pay_with_debit?.transaction_id ||

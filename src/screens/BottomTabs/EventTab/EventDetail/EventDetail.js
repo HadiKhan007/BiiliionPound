@@ -2,15 +2,13 @@ import {
   Text,
   View,
   SafeAreaView,
-  EmitterSubscription,
   ScrollView,
   TouchableOpacity,
   Image,
   Alert,
   Platform,
-  AppState,
 } from 'react-native';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
@@ -52,6 +50,8 @@ const EventDetail = ({navigation}) => {
   const dispatch = useDispatch(null);
 
   const [subscriptins, setSubscriptins] = useState([]);
+  const [laterSubscribe, setLaterSubscribe] = useState(true);
+
   const subscriptionSkus = Platform.select({
     ios: [
       'com.billionpoundapp.yearly.one',
@@ -62,11 +62,11 @@ const EventDetail = ({navigation}) => {
   });
 
   useEffect(() => {
-    checkSubscriptions();
-    iapInitializer();
-    if (isIos) {
-      handleGetSubscriptions();
-    }
+    // checkSubscriptions();
+    // iapInitializer();
+    // if (isIos) {
+    //   handleGetSubscriptions();
+    // }
   }, []);
 
   const checkSubscriptions = async () => {
@@ -91,15 +91,6 @@ const EventDetail = ({navigation}) => {
       if (isAndroid) {
         await flushFailedPurchasesCachedAsPendingAndroid();
       } else {
-        /**
-         * WARNING This line should not be included in production code
-         * This call will call finishTransaction in all pending purchases
-         * on every launch, effectively consuming purchases that you might
-         * not have verified the receipt or given the consumer their product
-         *
-         * TL;DR you will no longer receive any updates from Apple on
-         * every launch for pending purchases
-         */
         await clearTransactionIOS();
       }
     } catch (error) {
@@ -316,12 +307,20 @@ const EventDetail = ({navigation}) => {
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
-                  if (isIos) {
-                    handleBuySubscription();
-                  } else {
-                    handleGetSubscriptions();
-                  }
-                  // joinEvent();
+                  // if (selectCategoryItem) {
+                  //   if (laterSubscribe) {
+                  //     setLaterSubscribe(false);
+                  //     navigation.navigate('SubscriptionPlan', {
+                  //       subscriptionPrice: '$30',
+                  //     });
+                  //   } else {
+                  //     navigation?.navigate('Payment');
+                  //   }
+                  // } else {
+                  //   Alert.alert('Message!', 'Please select team');
+                  // }
+
+                  joinEvent();
                   // joinSheetRef?.current?.show();
                 }}
                 title={'Join'}

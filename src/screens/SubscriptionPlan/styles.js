@@ -16,7 +16,14 @@ const styles = StyleSheet.create({
   imageStyles: {
     width: WP('100%'),
     height: platformOrientedCode(HP('12%'), HP('10%')),
-    marginTop: '20%',
+  },
+  iconStyle: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+    marginTop: '15%',
+    alignSelf: 'flex-end',
+    margin: 20,
   },
   innerContainer: {
     justifyContent: 'center',
@@ -88,6 +95,11 @@ const styles = StyleSheet.create({
   },
   descText: {
     width: '80%',
+  },
+  joinSubs: {
+    fontSize: size.small,
+    fontFamily: family.OpenSans_Medium,
+    color: colors.b1,
   },
 });
 

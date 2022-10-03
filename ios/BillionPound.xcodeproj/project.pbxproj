@@ -680,7 +680,7 @@
 				CODE_SIGN_ENTITLEMENTS = BillionPound/BillionPound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 8YC4UH3949;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = BillionPound/Info.plist;
@@ -712,7 +712,7 @@
 				CODE_SIGN_ENTITLEMENTS = BillionPound/BillionPound.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 8YC4UH3949;
 				INFOPLIST_FILE = BillionPound/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -243,7 +243,7 @@ const Dashboard = ({navigation}) => {
         />
         <View style={styles.itemView}>
           <HomeCircle
-            disabled={disabled}
+            // disabled={disabled}
             icon={appIcons.plus}
             title={lifted_weight || 0}
             isLoading={isLoading}
@@ -258,7 +258,11 @@ const Dashboard = ({navigation}) => {
           />
           <TouchableOpacity
             // disabled={subDisabled}
-            onPress={() => navigation.navigate('SubscriptionPlan')}
+            onPress={() =>
+              navigation.navigate('SubscriptionPlan', {
+                subscriptionPrice: '$50',
+              })
+            }
             activeOpacity={0.5}
             style={[
               styles.btnAlign,
