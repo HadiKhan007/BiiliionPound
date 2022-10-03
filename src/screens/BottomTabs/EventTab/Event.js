@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, SafeAreaView, FlatList, ScrollView, Alert} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  FlatList,
+  ScrollView,
+  Alert,
+  Text,
+} from 'react-native';
 import styles from './styles';
 import {
   AppHeader,
@@ -147,6 +154,10 @@ const Event = ({navigation}) => {
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader title={'Event'} />
+
+        {/* <Text style={styles.journalDetail}>
+          {`Join any event and you can subscribe for $30 that grants access to the exclusive Billion Pounds fitness journal. Track your workouts and total pounds lifted! All members will receive access to the pedometer feature, coming soon!`}
+        </Text> */}
 
         <ScrollView
           showsVerticalScrollIndicator={false}

@@ -6,7 +6,6 @@ import {
   DeleteItemModal,
   Loader,
   NotificationCard,
-  ParaBox,
 } from '../../../../components';
 import {appIcons, checkConnected, colors} from '../../../../shared/exporter';
 import {FlatList} from 'react-native-gesture-handler';
@@ -107,31 +106,39 @@ const NotificationList = ({navigation}) => {
       <View style={styles.contentContainer}>
         <AppHeader icon={appIcons.backArrow} title={'Notification'} />
         <View style={styles.itemContainer}>
-          <FlatList
-            data={all_notifications}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => {
-              return (
-                <NotificationCard
-                  profileImage={item?.event?.event_image_url}
-                  title={item?.body}
-                  event_name={item?.event?.title}
-                  subtitle={`Last ${moment(item?.event?.start_date).fromNow()}`}
-                  onPressThreeDots={() => {
-                    setcurrentItem(item);
-                    deleteModalRef?.current?.show();
-                  }}
-                  onPressCard={() => {
-                    onPressCard(item);
-                  }}
-                />
-              );
-            }}
-            ItemSeparatorComponent={() => {
-              return <View style={styles.separator} />;
-            }}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          {all_notifications?.message ? (
+            <View style={styles?.noNoti}>
+              <Text style={styles.noNotifications}>No Notifications found</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={all_notifications}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => {
+                return (
+                  <NotificationCard
+                    profileImage={item?.event?.event_image_url}
+                    title={item?.body}
+                    event_name={item?.event?.title}
+                    subtitle={`Last ${moment(
+                      item?.event?.start_date,
+                    ).fromNow()}`}
+                    onPressThreeDots={() => {
+                      setcurrentItem(item);
+                      deleteModalRef?.current?.show();
+                    }}
+                    onPressCard={() => {
+                      onPressCard(item);
+                    }}
+                  />
+                );
+              }}
+              ItemSeparatorComponent={() => {
+                return <View style={styles.separator} />;
+              }}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )}
         </View>
       </View>
 

@@ -10,15 +10,13 @@ export async function isSubscriptionActive() {
       );
       const latestAvailableReceipt =
         sortedAvailablePurchases[0]?.transactionReceipt;
-      const isTestEnvironment = __DEV__;
-      const decodedReceipt = await RNIap?.validateReceiptIos(
-        {
-          'receipt-data': latestAvailableReceipt,
-          password: '0a81761139ae463bb9d81ca8e430c5c1',
-        },
-        true,
-      );
-      const {latest_receipt_info} = decodedReceipt;
+      const receiptBody = {
+        'receipt-data': latestAvailableReceipt,
+        password: '0a81761139ae463bb9d81ca8e430c5c1',
+      };
+      const result = await RNIap.validateReceiptIos(receiptBody, false);
+      console.log('Result--', result);
+      const {latest_receipt_info} = result;
       const isSubValid = !!latest_receipt_info?.find(receipt => {
         const expirationInMilliseconds = Number(receipt.expires_date_ms);
         const nowInMilliseconds = Date?.now();
@@ -33,22 +31,26 @@ export async function isSubscriptionActive() {
 
     if (Platform.OS === 'android') {
       const availablePurchases = await RNIap?.getAvailablePurchases();
-
-      let check;
-      for (let i = 0; i < availablePurchases.length; i++) {
-        if (
-          availablePurchases[i].productId &&
-          availablePurchases[i].autoRenewingAndroid
-        ) {
-          check = {
-            validation: true,
-            receipt: availablePurchases[i],
-          };
+      if (availablePurchases.length > 0) {
+        let check;
+        for (let i = 0; i < availablePurchases.length; i++) {
+          if (
+            availablePurchases[i].productId &&
+            availablePurchases[i].autoRenewingAndroid
+          ) {
+            check = {
+              validation: true,
+              receipt: availablePurchases[i],
+            };
+          }
         }
+        return check;
+      } else {
+        return false;
       }
-      return check;
     }
   } catch (error) {
+    console.log('Error--', error);
     return false;
   }
 }

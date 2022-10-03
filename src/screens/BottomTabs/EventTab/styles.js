@@ -22,6 +22,13 @@ const styles = StyleSheet.create({
   itemConatiner: {
     flex: 1,
   },
+  journalDetail: {
+    fontSize: size.tiny,
+    fontFamily: family.Poppins_Medium,
+    color: colors.gr1,
+    textAlign: 'justify',
+    marginBottom: '5%'
+  },
 });
 
 export default styles;

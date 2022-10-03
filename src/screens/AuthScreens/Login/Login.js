@@ -46,20 +46,22 @@ const Login = ({navigation}) => {
     setloading(false);
     console.log(res);
     if (res?.user != undefined) {
-      if (res?.user?.mode === 'null') {
-        navigation?.replace('ModeStack');
-      } else if (res?.user?.mode === 'exercise') {
-        navigation?.replace('App');
-      } else if (
-        res?.personal_information === 'not created' &&
-        res?.user?.mode === 'pedometer'
-      ) {
-        navigation?.replace('ModeStack', {
-          screen: 'PersonalInfo',
-        });
-      } else {
-        navigation.replace('StepsMainFlow');
-      }
+      navigation?.replace('App');
+
+      // if (res?.user?.mode === 'null') {
+      //   navigation?.replace('ModeStack');
+      // } else if (res?.user?.mode === 'exercise') {
+      //   navigation?.replace('App');
+      // } else if (
+      //   res?.personal_information === 'not created' &&
+      //   res?.user?.mode === 'pedometer'
+      // ) {
+      //   navigation?.replace('ModeStack', {
+      //     screen: 'PersonalInfo',
+      //   });
+      // } else {
+      //   navigation.replace('StepsMainFlow');
+      // }
     } else {
       Alert.alert('Failed', res?.message || 'Logged In Failed');
     }
