@@ -116,9 +116,9 @@ const SubscriptionPlan = ({navigation, route}) => {
     }
     try {
       if (isIos) {
-        setloading(true);
         console.log(subscriptins);
         if (route?.params?.subscriptionPrice === '$30') {
+          setloading(true);
           console.log('inside $30 plan');
           await requestSubscription({
             sku: subscriptins[0]?.productId,
@@ -138,6 +138,7 @@ const SubscriptionPlan = ({navigation, route}) => {
               console.log('Error', err);
             });
         } else {
+          setloading(true);
           console.log('inside $50 plan');
           await requestSubscription({
             sku: subscriptins[1]?.productId,
