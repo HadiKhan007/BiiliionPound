@@ -13,6 +13,7 @@ import {
   appIcons,
   capitalizeFirstLetter,
   checkConnected,
+  colors,
   isSubscriptionActive,
   requestPermission,
 } from '../../../../shared/exporter';
@@ -106,7 +107,7 @@ const Dashboard = ({navigation}) => {
     setisLoading(true);
     //Get Lifted Weight Succees
     const getWeightSuccess = res => {
-      console.log('Total Weight Lifted', res);
+      console.log('Total Weight Lifted--', res);
       setisLoading(false);
     };
     //Get Lifted Weight Failure
@@ -243,7 +244,7 @@ const Dashboard = ({navigation}) => {
         />
         <View style={styles.itemView}>
           <HomeCircle
-            // disabled={disabled}
+            disabled={disabled}
             icon={appIcons.plus}
             title={lifted_weight || 0}
             isLoading={isLoading}
@@ -256,23 +257,25 @@ const Dashboard = ({navigation}) => {
               );
             }}
           />
-          <TouchableOpacity
-            // disabled={subDisabled}
-            onPress={() =>
-              navigation.navigate('SubscriptionPlan', {
-                subscriptionPrice: '$50',
-              })
-            }
-            activeOpacity={0.5}
-            style={[
-              styles.btnAlign,
-              // {backgroundColor: subDisabled ? colors?.lightGrey : colors?.p1},
-            ]}>
-            <Text style={styles.btnText}>
-              {/* {!subDisabled ? 'Subscribe' : 'unsubscribe'} */}
-              {'Subscribe'}
-            </Text>
-          </TouchableOpacity>
+          {!subDisabled && (
+            <TouchableOpacity
+              disabled={subDisabled}
+              onPress={() =>
+                navigation.navigate('SubscriptionPlan', {
+                  subscriptionPrice: '$50',
+                })
+              }
+              activeOpacity={0.5}
+              style={[
+                styles.btnAlign,
+                {backgroundColor: subDisabled ? colors?.lightGrey : colors?.p1},
+              ]}>
+              <Text style={styles.btnText}>
+                {/* {!subDisabled ? 'Subscribe' : 'unsubscribe'} */}
+                {'Subscribe'}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
       {loading && <Loader loading={loading} />}

@@ -1,5 +1,12 @@
-import {Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import {
+  Image,
+  NativeModules,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {HomeHeader, StepsCircle} from '../../../components';
 import {appIcons} from '../../../shared/exporter';
@@ -31,6 +38,7 @@ const StepsDashboard = ({navigation}) => {
               onPressPlayPause={onPressPlayPause}
               playPauseStatus={play}
             />
+
             <View style={styles.calculationContainer}>
               <View style={styles.calculationInnerContainer}>
                 <View style={styles.iconAndTextContainer}>

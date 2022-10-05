@@ -38,25 +38,27 @@ const Splash = ({navigation}) => {
     setTimeout(() => {
       if (isRemember === 'true') {
         navigation.replace('App');
-        // if (
-        //   userWithMode?.personal_information === 'created' &&
-        //   userWithMode?.user?.mode === 'pedometer'
-        // ) {
-        //   navigation.replace('StepsMainFlow');
-        // } else if (
-        //   userWithMode?.user?.mode === 'pedometer' &&
-        //   userWithMode?.personal_information === 'not created'
-        // ) {
-        //   navigation?.replace('ModeStack');
-        // } else {
-        //   navigation.replace('App');
-        // }
+      //   if (
+      //     userWithMode?.personal_information === 'created' &&
+      //     userWithMode?.user?.mode === 'pedometer'
+      //   ) {
+      //     navigation.replace('StepsMainFlow');
+      //   } else if (
+      //     userWithMode?.user?.mode === 'pedometer' &&
+      //     userWithMode?.personal_information === 'not created'
+      //   ) {
+      //     navigation?.replace('ModeStack');
+      //   } else {
+      //     navigation.replace('App');
+      //   }
+      // } else {
+      //   if (skip == 'true') {
+      //     navigation.replace('Auth');
+      //   } else {
+      //     navigation.replace('GettingStarted');
+      //   }
       } else {
-        if (skip == 'true') {
-          navigation.replace('Auth');
-        } else {
-          navigation.replace('GettingStarted');
-        }
+        navigation.replace('GettingStarted');
       }
     }, 2500);
   };
