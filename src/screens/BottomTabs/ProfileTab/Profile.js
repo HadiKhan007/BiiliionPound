@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   FlatList,
   Alert,
+  Linking,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
@@ -34,6 +35,7 @@ import {
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {isIos} from '../../../shared/utilities/platform';
 
 const Profile = ({navigation}) => {
   //Redux States
@@ -149,6 +151,22 @@ const Profile = ({navigation}) => {
       style: styles.faqsImageStyle,
       onPress: () => {
         navigation?.navigate('Faqs');
+      },
+    },
+    {
+      title: 'Unsubscribe Membership',
+      icon: appIcons.security,
+      style: styles.policyImageStyle,
+      onPress: () => {
+        if (isIos) {
+          // Linking.openURL(
+          //   'https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/manageSubscriptions',
+          // );
+        } else {
+          Linking.openURL(
+            'https://play.google.com/store/account/subscriptions',
+          );
+        }
       },
     },
     {

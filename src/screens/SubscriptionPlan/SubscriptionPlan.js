@@ -131,7 +131,7 @@ const SubscriptionPlan = ({navigation, route}) => {
             .then(res => {
               console.log('res--', res);
               setloading(false);
-              navigation.goBack();
+              // navigation.goBack();
             })
             .catch(err => {
               setloading(false);
@@ -150,7 +150,7 @@ const SubscriptionPlan = ({navigation, route}) => {
             .then(res => {
               console.log('res--', res);
               setloading(false);
-              navigation.goBack();
+              // navigation.goBack();
             })
             .catch(err => {
               setloading(false);
@@ -168,7 +168,7 @@ const SubscriptionPlan = ({navigation, route}) => {
           .then(res => {
             console.log('res--', res);
             setloading(false);
-            navigation.goBack();
+            // navigation.goBack();
           })
           .catch(err => {
             setloading(false);

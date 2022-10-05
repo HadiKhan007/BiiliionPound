@@ -34,15 +34,10 @@ export async function isSubscriptionActive() {
       if (availablePurchases.length > 0) {
         let check;
         for (let i = 0; i < availablePurchases.length; i++) {
-          if (
-            availablePurchases[i].productId &&
-            availablePurchases[i].autoRenewingAndroid
-          ) {
-            check = {
-              validation: true,
-              receipt: availablePurchases[i],
-            };
-          }
+          check = {
+            validation: true,
+            receipt: availablePurchases[i],
+          };
         }
         return check;
       } else {
