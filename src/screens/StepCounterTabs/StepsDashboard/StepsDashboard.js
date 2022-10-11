@@ -10,9 +10,61 @@ import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {HomeHeader, StepsCircle} from '../../../components';
 import {appIcons} from '../../../shared/exporter';
+import {
+  accelerometer,
+  SensorTypes,
+  setUpdateIntervalForType,
+} from 'react-native-sensors';
+
+setUpdateIntervalForType(SensorTypes.accelerometer, 400);
 
 const StepsDashboard = ({navigation}) => {
+  const [xAcceleration, setXAcceleration] = useState(0);
+  const [yAcceleration, setYAcceleration] = useState(0);
+  const [zAcceleration, setZAcceleration] = useState(0);
+  const [magnitudePrevious, setMagnitudePrevious] = useState(0);
+  const [steps, setSteps] = useState(0);
+
   const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    if (play) {
+      const subscription = accelerometer
+        .pipe(data => data)
+        .subscribe(speed => {
+          console.log(speed);
+          setXAcceleration(speed.x);
+          setYAcceleration(speed.y);
+          setZAcceleration(speed.z);
+        });
+      return () => {
+        subscription.unsubscribe();
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    const magnitude = Math.sqrt(
+      Math.pow(xAcceleration, 2) +
+        Math.pow(yAcceleration, 2) +
+        Math.pow(zAcceleration, 2),
+    );
+
+    const magnitudeDelta = magnitude - magnitudePrevious;
+    setMagnitudePrevious(() => magnitude);
+    if (magnitudeDelta > 4) {
+      setSteps(prevSteps => prevSteps + 1);
+      calculateMiles();
+    }
+  }, [xAcceleration, yAcceleration, zAcceleration]);
+
+  const calculateMiles = () => {
+    let gender = 'male';
+    let strideLength = gender === 'male' ? 2.5 : 2.2;
+    let steps = strideLength * 500;
+    const stepsInMiles = steps / 5280;
+    console.log('stepsInMiles', stepsInMiles);
+  };
 
   const onPressPlayPause = () => {
     setPlay(!play);
@@ -33,7 +85,7 @@ const StepsDashboard = ({navigation}) => {
           <View style={styles.itemView}>
             <StepsCircle
               icon={appIcons.plus}
-              title={`6,000, 000`}
+              title={steps || `0`}
               subtitle={'/1000,000,000 steps'}
               onPressPlayPause={onPressPlayPause}
               playPauseStatus={play}

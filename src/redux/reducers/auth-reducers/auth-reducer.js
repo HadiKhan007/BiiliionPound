@@ -53,7 +53,6 @@ const authReducer = (state = initialState, actions) => {
         otp_verify: null,
       };
     //************Social Login Sates*************
-
     case TYPES.SOCIAL_LOGIN_REQUEST_SUCCESS:
       return {
         ...state,
@@ -73,7 +72,6 @@ const authReducer = (state = initialState, actions) => {
       };
 
     //************SignUp Sates*************
-
     case TYPES.SIGNUP_SUCCESS:
       return {
         ...state,
@@ -92,7 +90,6 @@ const authReducer = (state = initialState, actions) => {
       };
 
     //************Forgot Password Sates*************
-
     case TYPES.FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
@@ -109,8 +106,8 @@ const authReducer = (state = initialState, actions) => {
         isFailure: true,
         forgotPassRes: null,
       };
+      
     //************Reset Password Sates*************
-
     case TYPES.RESET_PASSWORD_SUCCESS:
       return {
         ...state,

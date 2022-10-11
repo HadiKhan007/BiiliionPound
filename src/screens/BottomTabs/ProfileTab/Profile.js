@@ -129,14 +129,14 @@ const Profile = ({navigation}) => {
         navigation?.navigate('PrivacyPolicy');
       },
     },
-    // {
-    //   title: 'Switch Mode',
-    //   icon: appIcons.security,
-    //   style: styles.policyImageStyle,
-    //   onPress: () => {
-    //     navigation?.navigate('ModeStack');
-    //   },
-    // },
+    {
+      title: 'Switch Mode',
+      icon: appIcons.security,
+      style: styles.policyImageStyle,
+      onPress: () => {
+        navigation?.navigate('ModeStack');
+      },
+    },
     {
       title: 'Terms & Conditions',
       icon: appIcons.policy,

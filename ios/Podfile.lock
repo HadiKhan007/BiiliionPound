@@ -493,6 +493,8 @@ PODS:
   - RNScreens (3.17.0):
     - React-Core
     - React-RCTImage
+  - RNSensors (7.3.5):
+    - React-Core
   - RNSVG (12.4.4):
     - React-Core
   - RNVectorIcons (9.2.0):
@@ -587,6 +589,7 @@ DEPENDENCIES:
   - RNIap (from `../node_modules/react-native-iap`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSensors (from `../node_modules/react-native-sensors`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
@@ -724,6 +727,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSensors:
+    :path: "../node_modules/react-native-sensors"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   RNVectorIcons:
@@ -810,6 +815,7 @@ SPEC CHECKSUMS:
   RNIap: 45c674b3f57d8c2a80bd926436015cefbf1d2dfd
   RNReanimated: c38d82b0e910e2478439686c58c02bac6e4232e9
   RNScreens: 0df01424e9e0ed7827200d6ed1087ddd06c493f9
+  RNSensors: e74c8bd9606400c1048ab67af7f41eb2091cb2fc
   RNSVG: ecd661f380a07ba690c9c5929c475a44f432d674
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   Stripe: 22c1b8da5ee20a1aaf40fd198160efa72e71644a
@@ -819,6 +825,6 @@ SPEC CHECKSUMS:
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: e9ef83fa01792bdde39e5f5b871bdf6e020fa467
+PODFILE CHECKSUM: 798fa91e3d2fb128379f70dd7a3e8edb3ef11b2c
 
 COCOAPODS: 1.11.3

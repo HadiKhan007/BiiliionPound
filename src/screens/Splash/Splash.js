@@ -13,6 +13,7 @@ import {
 
 const Splash = ({navigation}) => {
   const {userWithMode} = useSelector(state => state.auth);
+  console.log(userWithMode);
   const dispatch = useDispatch(null);
   useEffect(() => {
     handlerNotifications();
@@ -37,28 +38,25 @@ const Splash = ({navigation}) => {
     const skip = await AsyncStorage.getItem('walkthrough');
     setTimeout(() => {
       if (isRemember === 'true') {
-        navigation.replace('App');
-      //   if (
-      //     userWithMode?.personal_information === 'created' &&
-      //     userWithMode?.user?.mode === 'pedometer'
-      //   ) {
-      //     navigation.replace('StepsMainFlow');
-      //   } else if (
-      //     userWithMode?.user?.mode === 'pedometer' &&
-      //     userWithMode?.personal_information === 'not created'
-      //   ) {
-      //     navigation?.replace('ModeStack');
-      //   } else {
-      //     navigation.replace('App');
-      //   }
-      // } else {
-      //   if (skip == 'true') {
-      //     navigation.replace('Auth');
-      //   } else {
-      //     navigation.replace('GettingStarted');
-      //   }
+        if (
+          userWithMode?.personal_information === 'created' &&
+          userWithMode?.user?.mode === 'pedometer'
+        ) {
+          navigation.replace('StepsMainFlow');
+        } else if (
+          userWithMode?.user?.mode === 'pedometer' &&
+          userWithMode?.personal_information === 'not created'
+        ) {
+          navigation?.replace('ModeStack');
+        } else {
+          navigation.replace('App');
+        }
       } else {
-        navigation.replace('GettingStarted');
+        if (skip == 'true') {
+          navigation.replace('Auth');
+        } else {
+          navigation.replace('GettingStarted');
+        }
       }
     }, 2500);
   };
