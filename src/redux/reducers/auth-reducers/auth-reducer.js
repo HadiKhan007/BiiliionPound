@@ -106,7 +106,7 @@ const authReducer = (state = initialState, actions) => {
         isFailure: true,
         forgotPassRes: null,
       };
-      
+
     //************Reset Password Sates*************
     case TYPES.RESET_PASSWORD_SUCCESS:
       return {
@@ -181,7 +181,25 @@ const authReducer = (state = initialState, actions) => {
         isFailure: true,
         userPersonalInfo: null,
       };
-      
+    //************get user info sates*************
+    case TYPES.GET_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: true,
+        isFailure: false,
+        userPersonalInfo: payload,
+      };
+
+    case TYPES.GET_USER_INFO_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        isSuccess: false,
+        isFailure: true,
+        userPersonalInfo: null,
+      };
+
     //************update user info sates*************
     case TYPES.UPDATE_USER_INFO_SUCCESS:
       return {

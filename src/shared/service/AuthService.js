@@ -56,6 +56,15 @@ export const userpersonalInformation = async (params, token) => {
   });
 };
 
+export const getPersonalInformation = async token => {
+  return HTTP_CLIENT.get(`${ENDPOINTS.PERSONAL_INFO}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  });
+};
+
 export const updateUserpersonalInformation = async (params, token) => {
   return HTTP_CLIENT.patch(`${ENDPOINTS.PERSONAL_INFO}`, params, {
     headers: {

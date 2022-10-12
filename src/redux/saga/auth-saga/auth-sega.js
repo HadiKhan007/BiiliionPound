@@ -11,6 +11,7 @@ import {
   selctedUserMode,
   userpersonalInformation,
   updateUserpersonalInformation,
+  getPersonalInformation,
 } from '../../../shared/service/AuthService';
 import * as types from '../../actions/types';
 
@@ -311,6 +312,38 @@ function* userPersonalInfo(params) {
   } catch (error) {
     yield put({
       type: types.USER_INFO_FAILURE,
+      payload: null,
+    });
+    let msg = responseValidator(error?.response?.status, error?.response?.data);
+    params?.cbFailure(msg);
+  }
+}
+
+//************* GET USER INFO API **************
+export function* getUserInfoRequestSaga() {
+  yield takeLatest(types.GET_USER_INFO_REQUEST, getUserPersonalInfo);
+}
+function* getUserPersonalInfo(params) {
+  try {
+    const res = yield getPersonalInformation(params?.token);
+    if (res.data) {
+      yield put({
+        type: types.GET_USER_INFO_SUCCESS,
+        payload: res.data,
+      });
+      params?.cbSuccess(res.data);
+    } else {
+      yield put({
+        type: types.GET_USER_INFO_FAILURE,
+        payload: null,
+      });
+      params?.cbFailure(res?.data);
+      console.log('==============USER INFO FAILED======================');
+      console.log(res?.data);
+    }
+  } catch (error) {
+    yield put({
+      type: types.GET_USER_INFO_FAILURE,
       payload: null,
     });
     let msg = responseValidator(error?.response?.status, error?.response?.data);

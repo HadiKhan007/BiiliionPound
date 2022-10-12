@@ -13,6 +13,7 @@ import {
   selectModeRequestSaga,
   userInfoRequestSaga,
   UpdateUserInfoRequestSaga,
+  getUserInfoRequestSaga,
 } from './auth-saga/auth-sega';
 import {setProfileImageRequest} from './profile-sega/profile-sega';
 import {
@@ -88,6 +89,7 @@ export function* rootSaga() {
   yield fork(deleteRequestSaga);
   yield fork(selectModeRequestSaga);
   yield fork(userInfoRequestSaga);
+  yield fork(getUserInfoRequestSaga);
   yield fork(UpdateUserInfoRequestSaga);
   yield fork(subscriptionsRequest);
 }

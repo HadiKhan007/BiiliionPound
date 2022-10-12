@@ -108,6 +108,16 @@ export const userInfoRequest = (params, token, cbSuccess, cbFailure) => {
   };
 };
 
+// User Info
+export const getUserInfoRequest = (token, cbSuccess, cbFailure) => {
+  return {
+    type: TYPES.GET_USER_INFO_REQUEST,
+    token,
+    cbSuccess,
+    cbFailure,
+  };
+};
+
 // update user info
 export const updateInfoRequest = (params, token, cbSuccess, cbFailure) => {
   return {
