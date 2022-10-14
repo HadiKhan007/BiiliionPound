@@ -74,6 +74,7 @@ const StepsDashboard = ({navigation}) => {
     );
 
     const magnitudeDelta = magnitude - magnitudePrevious;
+
     setMagnitudePrevious(() => magnitude);
     if (magnitudeDelta > 4) {
       setSteps(prevSteps => prevSteps + 1);
@@ -94,12 +95,12 @@ const StepsDashboard = ({navigation}) => {
     setMiles(parseFloat(stepsInMiles).toFixed(3));
     console.log('steps in Miles--', stepsInMiles);
 
-    const walkingTime = moment
-      .utc(moment(now).diff(moment(then)))
-      .format('hh:mm:ss');
-    console.log('START TIME IS---', moment(now).format('hh:mm:ss'));
-    console.log('END TIME IS---', moment(then).format('hh:mm:ss'));
-    console.log('walkingTime---', walkingTime);
+    // const walkingTime = moment
+    //   .utc(moment(now).diff(moment(then)))
+    //   .format('hh:mm:ss');
+    // console.log('START TIME IS---', moment(now).format('hh:mm:ss'));
+    // console.log('END TIME IS---', moment(then).format('hh:mm:ss'));
+    // console.log('walkingTime---', walkingTime);
   };
 
   const getPersonalInfomation = async () => {
