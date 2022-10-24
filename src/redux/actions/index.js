@@ -10,7 +10,7 @@ export {
   deleteAccountRequest,
   userModeRequest,
   userInfoRequest,
-  updateInfoRequest
+  updateInfoRequest,
 } from './auth-actions/auth-action';
 export {
   setProfileImage,
@@ -55,5 +55,7 @@ export {
   getActivity,
   getFilteredActivity,
 } from './activity-actions/activity-actions';
+
+export {pedometerRequest} from './pedometer-actions/pedometer-actions';
 
 export {getSubscriptions} from './subscription-actions/subscription-action';

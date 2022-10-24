@@ -4,7 +4,9 @@ import {StepsBottomTab} from '../../components';
 
 import StepsDashboard from '../../screens/StepCounterTabs/StepsDashboard';
 import StepsActivity from '../../screens/StepCounterTabs/StepsActivityTab';
-import StepsExerciseTab from '../../screens/StepCounterTabs/StepsExerciseTab';
+// import StepsExerciseTab from '../../screens/StepCounterTabs/StepsExerciseTab';
+import EventStack from '../stacks/EventStack';
+
 import StepsSettingsTab from '../../screens/StepCounterTabs/StepsSettingsTab';
 
 const Tab = createBottomTabNavigator();
@@ -16,7 +18,8 @@ const StepsMainFlow = () => {
       tabBar={props => <StepsBottomTab {...props} />}>
       <Tab.Screen component={StepsDashboard} name={'Home'} />
       <Tab.Screen component={StepsActivity} name={'Activity'} />
-      <Tab.Screen component={StepsExerciseTab} name={'Exercise'} />
+      <Tab.Screen component={EventStack} name={'Event'} />
+      {/* <Tab.Screen component={StepsExerciseTab} name={'Exercise'} /> */}
       <Tab.Screen component={StepsSettingsTab} name={'Settings'} />
     </Tab.Navigator>
   );

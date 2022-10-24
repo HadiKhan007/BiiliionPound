@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors?.g10,
     borderColor: 'transparent',
     paddingHorizontal: WP('5'),
+    height: 45,
   },
   dropDownItemsContianer: {
     borderTopColor: 'transparent',
@@ -48,6 +49,11 @@ const styles = StyleSheet.create({
     fontSize: size.xsmall,
     color: colors.g1,
     fontFamily: family.OpenSans_Regular,
+  },
+  selectedTextStyle: {
+    fontFamily: family.Poppins_Regular,
+    color: colors?.b1,
+    fontSize: size.small,
   },
 });
 

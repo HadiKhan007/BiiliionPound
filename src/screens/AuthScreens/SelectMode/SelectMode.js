@@ -6,12 +6,12 @@ import {appIcons, checkConnected} from '../../../shared/exporter';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {useDispatch, useSelector} from 'react-redux';
 import {userModeRequest} from '../../../redux/actions';
+import {Dropdown} from 'react-native-element-dropdown';
 
 const SelectMode = ({navigation}) => {
   const dispatch = useDispatch(null);
   const {userInfo} = useSelector(state => state?.auth);
   const [loading, setloading] = useState(false);
-  const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [modes, setModes] = useState([
     {label: 'Billion Pounds  (weight mode)', value: 'weight-mode'},
@@ -67,14 +67,24 @@ const SelectMode = ({navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
-        <AppHeader
-          // icon={appIcons.backArrow}
-          title={'Select Mode'}
-        />
+        <AppHeader icon={appIcons.backArrow} title={'Select Mode'} />
 
         <View>
           <Text style={styles.titleStyle}>{`Mode`}</Text>
-          <DropDownPicker
+          <Dropdown
+            style={[styles.dropDownStyle]}
+            placeholderStyle={styles.placeholder}
+            selectedTextStyle={styles.selectedTextStyle}
+            data={modes}
+            labelField="label"
+            valueField="value"
+            placeholder={'Select your mode'}
+            value={value}
+            onChange={item => {
+              setValue(item.value);
+            }}
+          />
+          {/* <DropDownPicker
             dropDownContainerStyle={styles.dropDownItemsContianer}
             style={styles.dropDownStyle}
             placeholder="Please select your mode"
@@ -85,7 +95,7 @@ const SelectMode = ({navigation}) => {
             setOpen={setOpen}
             setValue={setValue}
             setItems={setModes}
-          />
+          /> */}
         </View>
         <View style={styles.aiEnd}>
           <SelectButton onPress={onPressTickButton} />

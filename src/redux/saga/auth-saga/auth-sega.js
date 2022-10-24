@@ -290,6 +290,7 @@ export function* userInfoRequestSaga() {
 function* userPersonalInfo(params) {
   try {
     const res = yield userpersonalInformation(params?.params, params?.token);
+    console.log(res);
     if (res.data) {
       yield put({
         type: types.USER_INFO_SUCCESS,

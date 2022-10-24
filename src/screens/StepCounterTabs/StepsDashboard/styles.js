@@ -55,6 +55,38 @@ const styles = StyleSheet.create({
     fontFamily: family.OpenSans_Light,
     color: '#323232',
   },
+  titleStyle: {
+    fontSize: size.tiny,
+    color: colors.g1,
+    fontFamily: family.OpenSans_Regular,
+    paddingLeft: WP('6'),
+    paddingBottom: 5,
+  },
+  dropDownStyle: {
+    borderRadius: 25,
+    backgroundColor: colors?.g10,
+    borderColor: 'transparent',
+    paddingHorizontal: WP('5'),
+    height: 45,
+  },
+  dropDownItemsContianer: {
+    backgroundColor: 'red',
+    borderColor: colors.g8,
+    borderWidth: 1,
+    fontSize: size.xsmall,
+    color: colors.b1,
+    fontFamily: family.OpenSans_Regular,
+  },
+  placeholder: {
+    fontSize: size.xsmall,
+    color: colors.g1,
+    fontFamily: family.OpenSans_Regular,
+  },
+  selectedTextStyle: {
+    fontFamily: family.Poppins_Regular,
+    color: colors?.b1,
+    fontSize: size.small,
+  },
 });
 
 export default styles;

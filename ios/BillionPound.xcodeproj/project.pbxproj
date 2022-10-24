@@ -17,6 +17,8 @@
 		1799BB709AC241C4BEB8F86D /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2924DC03B7A4359A0BC473F /* OpenSans-ExtraBoldItalic.ttf */; };
 		1800933428C6454300964D84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1800933328C6454300964D84 /* GoogleService-Info.plist */; };
 		182BED0B28D328B80038483F /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182BED0A28D328B80038483F /* StoreKit.framework */; };
+		184A685D28FEDC6C0044BC0C /* RCTPedometerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 184A685C28FEDC6C0044BC0C /* RCTPedometerModule.m */; };
+		184A685E28FEDC6C0044BC0C /* RCTPedometerModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 184A685C28FEDC6C0044BC0C /* RCTPedometerModule.m */; };
 		2F2129FFFDEF4B999DDF0F28 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 181B22CFEC10458AB9B390DB /* Poppins-Italic.ttf */; };
 		304DEDD0D75F4A30A23AD725 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B0A0CED13B2042B18D885505 /* Poppins-Bold.ttf */; };
 		34669E80445F4AE18676C079 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C2BC23530CB74202BC199E25 /* Poppins-ExtraLightItalic.ttf */; };
@@ -76,6 +78,10 @@
 		1800933328C6454300964D84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/IOS/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		181B22CFEC10458AB9B390DB /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		182BED0A28D328B80038483F /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		184A685628FEDAD50044BC0C /* BillionPound-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BillionPound-Bridging-Header.h"; sourceTree = "<group>"; };
+		184A685728FEDAD50044BC0C /* BillionPoundTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BillionPoundTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		184A685828FEDAD50044BC0C /* RCTPedometerModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTPedometerModule.h; sourceTree = "<group>"; };
+		184A685C28FEDC6C0044BC0C /* RCTPedometerModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTPedometerModule.m; sourceTree = "<group>"; };
 		1D33416288444B52A78EDE92 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		27C6C2D5F7834B4CACF36C8F /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		29FF37DD1DC5A1691981BC16 /* Pods-BillionPound-BillionPoundTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BillionPound-BillionPoundTests.debug.xcconfig"; path = "Target Support Files/Pods-BillionPound-BillionPoundTests/Pods-BillionPound-BillionPoundTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +185,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				184A685828FEDAD50044BC0C /* RCTPedometerModule.h */,
+				184A685628FEDAD50044BC0C /* BillionPound-Bridging-Header.h */,
+				184A685728FEDAD50044BC0C /* BillionPoundTests-Bridging-Header.h */,
+				184A685C28FEDC6C0044BC0C /* RCTPedometerModule.m */,
 			);
 			name = BillionPound;
 			sourceTree = "<group>";
@@ -350,10 +360,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						LastSwiftMigration = 1320;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -593,6 +604,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* BillionPoundTests.m in Sources */,
+				184A685E28FEDC6C0044BC0C /* RCTPedometerModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +614,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				184A685D28FEDC6C0044BC0C /* RCTPedometerModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +634,7 @@
 			baseConfigurationReference = 29FF37DD1DC5A1691981BC16 /* Pods-BillionPound-BillionPoundTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = 8YC4UH3949;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -641,6 +655,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BillionPoundTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BillionPound.app/BillionPound";
 			};
 			name = Debug;
@@ -650,6 +667,7 @@
 			baseConfigurationReference = 0CC907E26A5170E160BEA9FE /* Pods-BillionPound-BillionPoundTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 8YC4UH3949;
@@ -667,6 +685,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BillionPoundTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BillionPound.app/BillionPound";
 			};
 			name = Release;
@@ -697,6 +717,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.billionpoundapp.app;
 				PRODUCT_NAME = BillionPound;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BillionPound-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -728,6 +749,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.billionpoundapp.app;
 				PRODUCT_NAME = BillionPound;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BillionPound-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -1,6 +1,5 @@
-// const BASE_URL = 'https://billion-pound.herokuapp.com/api/v1/';
-// const BASE_URL = 'http://192.168.11.164:3000/api/v1/';
-const BASE_URL = 'http://18.212.50.13/api/v1/';
+const BASE_URL = 'https://billion-pound.herokuapp.com/api/v1/';
+// const BASE_URL = 'http://18.212.50.13/api/v1/';
 
 const ENDPOINTS = {
   REGISTER: 'signup',
@@ -27,6 +26,7 @@ const ENDPOINTS = {
   GET_SUBSCRIPTIONS: 'subscriptions',
   SELECT_USER_MODE: 'update_mode',
   PERSONAL_INFO: 'personal_informations',
+  PEDOMETER: 'user_steps',
 };
 
 export {BASE_URL, ENDPOINTS};

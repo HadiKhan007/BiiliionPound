@@ -1,57 +1,94 @@
-import {Alert, Image, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {
+  Alert,
+  Image,
+  NativeModules,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import styles from './styles';
 import {HomeHeader, Loader, StepsCircle} from '../../../components';
-import {appIcons, checkConnected} from '../../../shared/exporter';
+import {
+  appIcons,
+  capitalizeFirstLetter,
+  checkConnected,
+} from '../../../shared/exporter';
 import {
   accelerometer,
   SensorTypes,
   setUpdateIntervalForType,
 } from 'react-native-sensors';
-import {getUserInfoRequest} from '../../../redux/actions/auth-actions/auth-action';
+import {
+  getUserInfoRequest,
+  userModeRequest,
+} from '../../../redux/actions/auth-actions/auth-action';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFocusEffect} from '@react-navigation/native';
 import moment from 'moment';
+import {Dropdown} from 'react-native-element-dropdown';
+import {pedometerRequest} from '../../../redux/actions';
 
 setUpdateIntervalForType(SensorTypes.accelerometer, 400);
 
 const StepsDashboard = ({navigation}) => {
-  const {userInfo} = useSelector(state => state?.auth);
-  const dispatch = useDispatch(null);
+  // NativeModules.PedometerModule.getDeviceName((err, name) => {
+  //   console.log(err, name);
+  // });
 
+  const dispatch = useDispatch(null);
+  const {userWithMode} = useSelector(state => state?.auth);
+  const {userInfo} = useSelector(state => state?.auth);
+  const {userData} = useSelector(state => state?.profile);
+
+  const [value, setValue] = useState(
+    userWithMode?.user?.mode === 'pedometer' ? 'step-mode' : null,
+  );
+  const [modes, setModes] = useState([
+    {label: 'Billion Pounds  (weight mode)', value: 'weight-mode'},
+    {label: ' Billion Steps (step mode)', value: 'step-mode'},
+  ]);
   const [xAcceleration, setXAcceleration] = useState(0);
   const [yAcceleration, setYAcceleration] = useState(0);
   const [zAcceleration, setZAcceleration] = useState(0);
   const [magnitudePrevious, setMagnitudePrevious] = useState(0);
   const [isLoading, setisLoading] = useState(false);
   const [userPersonalInfo, setUserPersonalInfo] = useState(null);
+  const [stepsGoal, setStepsGoal] = useState(0);
 
   const [miles, setMiles] = useState(0);
   const [caloriesBurn, setCaloriesBurn] = useState(0);
+  const [walkTime, setWalkTime] = useState(null);
   const [now, setNow] = useState(null);
   const [then, setThen] = useState(null);
 
   const [steps, setSteps] = useState(0);
-
   const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    if (userWithMode?.user?.mode === 'pedometer') {
+      setValue('step-mode');
+    }
+  }, [userWithMode?.user?.mode]);
 
   useFocusEffect(
     useCallback(() => {
       getPersonalInfomation();
+
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
       };
     }, [navigation]),
   );
+
   useEffect(() => {
     if (play) {
-      var now = new Date();
-      setNow(now);
       const subscription = accelerometer
         .pipe(data => data)
         .subscribe(speed => {
-          console.log(speed);
+          console.log('Sensor Speed--', speed);
           setXAcceleration(speed.x);
           setYAcceleration(speed.y);
           setZAcceleration(speed.z);
@@ -60,8 +97,6 @@ const StepsDashboard = ({navigation}) => {
         subscription.unsubscribe();
       };
     } else {
-      var then = new Date();
-      setThen(then);
       calculateVariations();
     }
   }, [play]);
@@ -73,7 +108,11 @@ const StepsDashboard = ({navigation}) => {
         Math.pow(zAcceleration, 2),
     );
 
+    // console.log('Magnitude--', magnitude);
+    // console.log('Previous Magnitude--', magnitudePrevious);
+
     const magnitudeDelta = magnitude - magnitudePrevious;
+    // console.log('Magnitude Delta--', magnitudeDelta);
 
     setMagnitudePrevious(() => magnitude);
     if (magnitudeDelta > 4) {
@@ -89,18 +128,17 @@ const StepsDashboard = ({navigation}) => {
     var walkingDistance = distanceCovered.toFixed(3);
     var calories = walkingDistance * 60;
     setCaloriesBurn(parseFloat(calories).toFixed(3));
-    console.log('calories burn--', calories);
+    // console.log('calories burn--', calories);
 
     const stepsInMiles = stepsFt / 5280;
     setMiles(parseFloat(stepsInMiles).toFixed(3));
-    console.log('steps in Miles--', stepsInMiles);
+    // console.log('steps in Miles--', stepsInMiles);
 
-    // const walkingTime = moment
-    //   .utc(moment(now).diff(moment(then)))
-    //   .format('hh:mm:ss');
-    // console.log('START TIME IS---', moment(now).format('hh:mm:ss'));
-    // console.log('END TIME IS---', moment(then).format('hh:mm:ss'));
-    // console.log('walkingTime---', walkingTime);
+    var duration = moment.duration(now?.diff(then));
+    var asSeconds = duration.asSeconds();
+    const time = moment.utc(asSeconds * 1000).format('mm:ss');
+    // console.log('formatted-', time);
+    setWalkTime(time);
   };
 
   const getPersonalInfomation = async () => {
@@ -109,13 +147,15 @@ const StepsDashboard = ({navigation}) => {
       setisLoading(true);
       const getSuccess = res => {
         if (res?.personalinfo) {
-          console.log('Personal Information--', res);
+          // console.log('Personal Information--', res);
           setUserPersonalInfo(res?.personalinfo);
+          setStepsGoal(res?.personalinfo?.step_goals || 0);
         }
         setisLoading(false);
       };
       //Get Lifted Weight Failure
       const getFailure = res => {
+        console.log(res);
         setisLoading(false);
         if (res) {
           Alert.alert('Error', res);
@@ -127,8 +167,105 @@ const StepsDashboard = ({navigation}) => {
     }
   };
 
+  const updateMode = async value => {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setisLoading(true);
+      dispatch(userModeRequest(value, userInfo?.token, onSuccess, onFailure));
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+
+  const onSuccess = async res => {
+    setisLoading(false);
+    console.log(res);
+    setisLoading(false);
+    if (res?.user != undefined) {
+      if (res?.user?.mode === 'exercise') {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'App'}],
+        });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'StepsMainFlow'}],
+        });
+      }
+    } else {
+      Alert.alert('Failed', res?.message || 'Select mode Failed');
+    }
+  };
+  const onFailure = res => {
+    console.log('failure response--', res);
+    setisLoading(false);
+    Alert.alert('Failed', res?.message || 'Select mode Failed');
+  };
+
+  //On Submit Login Form
+  const onEndWorkOut = async values => {
+    const checkInternet = await checkConnected();
+    if (checkInternet) {
+      setisLoading(true);
+      const requestBody = {
+        user_steps: {
+          // "event_id": 67,
+          pedometers_attributes: [
+            {
+              steps: steps,
+              miles: miles,
+              calories: caloriesBurn,
+              walk_time: walkTime,
+            },
+          ],
+        },
+      };
+      dispatch(
+        pedometerRequest(
+          requestBody,
+          userInfo?.token,
+          onPedometerSuccess,
+          onPedometerFailure,
+        ),
+      );
+    } else {
+      Alert.alert('Error', 'Check your internet connectivity!');
+    }
+  };
+  //pedometer Success
+  const onPedometerSuccess = async res => {
+    setisLoading(false);
+    console.log(res);
+    Alert.alert('Success', 'Your steps data saved successfully', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          setSteps(0);
+          setCaloriesBurn(0);
+          setMiles(0);
+          setWalkTime(null);
+        },
+      },
+    ]);
+  };
+  //pedometer Failure
+  const onPedometerFailure = res => {
+    setisLoading(false);
+    Alert.alert('Failed', res?.message || 'Steps counts Failed');
+  };
+
   const onPressPlayPause = () => {
     setPlay(!play);
+    if (play) {
+      setNow(moment());
+    } else {
+      setThen(moment());
+    }
   };
 
   return (
@@ -136,20 +273,43 @@ const StepsDashboard = ({navigation}) => {
       <View style={styles.contentContainer}>
         <HomeHeader
           title={'Welcome Back'}
-          subtitle={'Stefani Wong'}
-          icon={appIcons.notification}
+          icon={appIcons.notificationIcon}
+          subtitle={`${
+            capitalizeFirstLetter(userData?.first_name || '') ||
+            capitalizeFirstLetter(userInfo?.user?.first_name || '')
+          } ${
+            capitalizeFirstLetter(userData?.last_name || '') ||
+            capitalizeFirstLetter(userInfo?.user?.last_name || '')
+          }`}
           onPressBtn={() => {
             // navigation?.navigate('NotificationList');
           }}
         />
         <ScrollView showsVerticalScrollIndicator={false}>
+          <View>
+            <Text style={styles.titleStyle}>{`Mode`}</Text>
+            <Dropdown
+              style={[styles.dropDownStyle]}
+              placeholderStyle={styles.placeholder}
+              selectedTextStyle={styles.selectedTextStyle}
+              data={modes}
+              labelField="label"
+              valueField="value"
+              placeholder={'Choose'}
+              value={value}
+              onChange={item => {
+                updateMode(item.value);
+              }}
+            />
+          </View>
           <View style={styles.itemView}>
             <StepsCircle
               icon={appIcons.plus}
               title={steps || `0`}
-              subtitle={'/1000,000,000 steps'}
+              subtitle={`/${stepsGoal} steps` || '/1000 steps'}
               onPressPlayPause={onPressPlayPause}
               playPauseStatus={play}
+              onPressEnd={onEndWorkOut}
             />
 
             <View style={styles.calculationContainer}>
@@ -166,7 +326,7 @@ const StepsDashboard = ({navigation}) => {
                 </View>
                 <View style={styles.iconAndTextContainer}>
                   <Image source={appIcons?.walkingTime} style={styles?.icon} />
-                  <Text style={styles.count}>{`0h.0m`}</Text>
+                  <Text style={styles.count}>{walkTime || '00:00'}</Text>
                   <Text style={styles.category}>{`Walking time`}</Text>
                 </View>
               </View>

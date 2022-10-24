@@ -47,7 +47,7 @@ const Login = ({navigation}) => {
     console.log(res);
     if (res?.user != undefined) {
       if (res?.user?.mode === 'null') {
-        navigation?.replace('ModeStack');
+        navigation?.navigate('ModeStack');
       } else if (res?.user?.mode === 'exercise') {
         navigation?.replace('App');
       } else if (

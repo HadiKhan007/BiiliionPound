@@ -16,6 +16,7 @@ export * from './IntroSlider/IntroSlider';
 //Input
 export * from './Input/Input';
 export * from './Input/RepsInput';
+export * from './Input/SettingsInputs';
 
 //CheckBox
 export * from './CheckBox/CheckBox';
@@ -76,3 +77,6 @@ export * from './Headings/NormHeading';
 
 //Field
 export * from './Field/PaymentCardFiled';
+
+//Dropdown
+export * from './DropDown/SettingsDropDown';

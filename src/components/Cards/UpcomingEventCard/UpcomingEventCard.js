@@ -3,12 +3,9 @@ import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import {
   appIcons,
   appImages,
-  calculateDateDiff,
   capitalizeFirstLetter,
-  checkEventDate,
   colors,
   family,
-  profile_uri,
   size,
   spacing,
   WP,
@@ -63,6 +60,7 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
               <Image source={appIcons.location} style={styles.locationStyle} />
               <Text style={styles.textStyle}>Your Favorite Gym</Text>
             </View>
+
             {upcoming_event_item?.status_event?.match('joined') ? (
               <TouchableOpacity
                 style={[

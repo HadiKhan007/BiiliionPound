@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  SafeAreaView,
-  FlatList,
-  ScrollView,
-  Alert,
-  Text,
-} from 'react-native';
+import {View, SafeAreaView, FlatList, ScrollView, Alert} from 'react-native';
 import styles from './styles';
 import {
   AppHeader,
@@ -23,7 +16,6 @@ import {
   get_upcoming_event_request,
   set_event_request,
   set_exercise_screen_request,
-  set_upcoming_event_request,
 } from '../../../redux/actions';
 
 const Event = ({navigation}) => {
@@ -71,7 +63,7 @@ const Event = ({navigation}) => {
     const checkInternet = await checkConnected();
     if (checkInternet) {
       const onOngoingSuccess = res => {
-        // console.log('Ongoing Events', res);
+        // console.log(res);
         console.log('Ongoing Event Success');
       };
       //On get Ongoing event failure
@@ -162,6 +154,7 @@ const Event = ({navigation}) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.itemConatiner}>
+
           {ongoing_events?.length > 0 ? (
             <>
               <PrimaryHeading
@@ -196,6 +189,7 @@ const Event = ({navigation}) => {
               </View>
             </>
           ) : null}
+
           {upcoming_events?.length > 0 ? (
             <>
               <PrimaryHeading title={'Upcoming Events'} />

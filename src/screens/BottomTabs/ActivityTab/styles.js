@@ -38,11 +38,21 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontFamily: family.OpenSans_Regular,
   },
+  noItem: {
+    fontSize: size.medium,
+    color: colors.p1,
+    fontFamily: family.Poppins_Bold,
+  },
   imageStyle: {
     height: 5,
     width: 9,
     resizeMode: 'contain',
     marginHorizontal: 5,
+  },
+  noItemContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

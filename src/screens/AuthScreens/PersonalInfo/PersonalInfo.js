@@ -35,13 +35,14 @@ const PersonalInfo = ({navigation}) => {
       const checkInternet = await checkConnected();
       if (checkInternet) {
         setloading(true);
-        var formdata = new FormData();
-        formdata.append('gender', value);
-        formdata.append('height_feet', heightFt);
-        formdata.append('height_inches', heightInc);
-        formdata.append('weight', weight);
+        const requestBody = {
+          gender: value,
+          height_feet: heightFt,
+          height_inches: heightInc,
+          weight: weight,
+        };
         dispatch(
-          userInfoRequest(formdata, userInfo?.token, onSuccess, onFailure),
+          userInfoRequest(requestBody, userInfo?.token, onSuccess, onFailure),
         );
       } else {
         Alert.alert('Error', 'Check your internet connectivity!');
@@ -128,13 +129,16 @@ const PersonalInfo = ({navigation}) => {
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
-        <AppHeader icon={appIcons.backArrow} title={'Personal info'} />
+        <AppHeader
+          //  icon={appIcons.backArrow}
+          title={'Personal info'}
+        />
         <KeyboardAwareScrollView>
           <Text style={styles.titleStyle}>{`Gender`}</Text>
           <DropDownPicker
             dropDownContainerStyle={styles.dropDownItemsContianer}
             style={styles.dropDownStyle}
-            placeholder="Select Gender"
+            placeholder="Gender"
             open={open}
             value={value}
             items={gender}

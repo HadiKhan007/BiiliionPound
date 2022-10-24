@@ -19,7 +19,7 @@ export const AppHeader = ({
   rightContainerWidth,
   centerContainerWidth,
   marginTop,
-  marginLeft
+  marginLeft,
 }) => {
   const navigation = useNavigation();
   return (

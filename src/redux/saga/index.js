@@ -49,6 +49,7 @@ import {
 
 import {getActivitiesRequest} from './activity-saga/activity-saga';
 import {subscriptionsRequest} from './subscription-saga/subscription-saga';
+import {pedometerDataRequest} from './pedometer-saga/pedometer-saga';
 
 export function* rootSaga() {
   yield fork(loginRequest);
@@ -92,4 +93,5 @@ export function* rootSaga() {
   yield fork(getUserInfoRequestSaga);
   yield fork(UpdateUserInfoRequestSaga);
   yield fork(subscriptionsRequest);
+  yield fork(pedometerDataRequest);
 }

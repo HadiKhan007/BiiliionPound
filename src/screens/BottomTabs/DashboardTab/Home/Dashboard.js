@@ -21,7 +21,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useIsFocused} from '@react-navigation/native';
 import {
   get_lifted_weight_request,
-  get_notification_list_request,
   save_device_token,
   set_event_request,
   set_exercise_screen_request,
@@ -29,12 +28,9 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {getAvailablePurchases} from 'react-native-iap';
-import {isIos} from '../../../../shared/utilities/platform';
 
 const Dashboard = ({navigation}) => {
   const isFocus = useIsFocused(null);
-  const {all_notifications} = useSelector(state => state?.exercise);
 
   //Redux States
   const {userInfo} = useSelector(state => state?.auth);
@@ -49,31 +45,10 @@ const Dashboard = ({navigation}) => {
   //Get Wieght Lifted
   useEffect(() => {
     if (isFocus) {
-      // getNotifications();
       checkSubscriptions();
-      // getAvailablepuechases();
       getAllRequest();
     }
   }, [isFocus]);
-
-  // //Get Notification List
-  // const getNotifications = async () => {
-  //   const checkInternet = await checkConnected();
-  //   if (checkInternet) {
-  //     setisLoading(true);
-  //     const cbSuccess = () => {
-  //       // console.log('Notification Retrieved');
-  //       setisLoading(false);
-  //     };
-  //     const cbFailure = res => {
-  //       setisLoading(false);
-  //       Alert.alert('Failed', res);
-  //     };
-  //     dispatch(get_notification_list_request(null, cbSuccess, cbFailure));
-  //   } else {
-  //     Alert.alert('Error', 'Check your internet connectivity!');
-  //   }
-  // };
 
   const checkSubscriptions = async () => {
     setloading(true);
@@ -178,47 +153,6 @@ const Dashboard = ({navigation}) => {
       },
     });
   }, []);
-
-  // const getAvailablepuechases = async () => {
-  //   if (isIos) {
-  //     setloading(true);
-  //     const availablePurchases = await getAvailablePurchases();
-  //     // console.log('availablePurchases', availablePurchases);
-  //     const sortedAvailablePurchases = availablePurchases.sort(
-  //       (a, b) => b.transactionDate - a.transactionDate,
-  //     );
-  //     const latestAvailableReceipt =
-  //       sortedAvailablePurchases[0].transactionReceipt;
-  //     console.log('latestAvailableReceipt', latestAvailableReceipt);
-  //     if (latestAvailableReceipt) {
-  //       setloading(false);
-  //       setSubDisabled(true);
-  //       setDisabled(false);
-  //     } else {
-  //       setloading(false);
-  //       setSubDisabled(false);
-  //       setDisabled(true);
-  //     }
-  //   }
-  //   if (Platform.OS === 'android') {
-  //     setloading(true);
-  //     const subscriptionPurchase = await getAvailablePurchases();
-  //     console.log('Purchased Subscription:', subscriptionPurchase);
-  //     if (subscriptionPurchase) {
-  //       if (subscriptionPurchase[0]?.autoRenewingAndroid) {
-  //         setloading(false);
-  //         setSubDisabled(true);
-  //         setDisabled(false);
-  //       } else {
-  //         setloading(false);
-  //         setSubDisabled(false);
-  //         setDisabled(true);
-  //       }
-  //     } else {
-  //       console.log('No subscription available--');
-  //     }
-  //   }
-  // };
 
   return (
     <SafeAreaView style={styles.main}>

@@ -72,6 +72,12 @@ export const appIcons = {
   mile: require('../../assets/icons/mile.png'),
   calories: require('../../assets/icons/calories.png'),
   walkingTime: require('../../assets/icons/walkingTime.png'),
+  stepGoal: require('../../assets/icons/steps_goal.png'),
+  heightIcon: require('../../assets/icons/height_icon.png'),
+  weightIcon: require('../../assets/icons/weight_icon.png'),
+  genderIcon: require('../../assets/icons/gender_icon.png'),
+  pedometerIcon: require('../../assets/icons/pedo_sensitivity.png'),
+  editIcon: require('../../assets/icons/edit_icon.png'),
 };
 
 export const appSvgs = {
