@@ -78,6 +78,7 @@ export const appIcons = {
   genderIcon: require('../../assets/icons/gender_icon.png'),
   pedometerIcon: require('../../assets/icons/pedo_sensitivity.png'),
   editIcon: require('../../assets/icons/edit_icon.png'),
+  steps: require('../../assets/icons/stepsIcon.png'),
 };
 
 export const appSvgs = {

@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, TextInput, View} from 'react-native';
 import React from 'react';
 import {colors, family, size} from '../../shared/exporter';
 
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     paddingStart: 10,
     fontFamily: family.Poppins_Medium,
     color: colors?.p1,
+    height: Platform.OS === 'ios' ? 30 : null,
   },
   editIconContainer: {
     width: 35,

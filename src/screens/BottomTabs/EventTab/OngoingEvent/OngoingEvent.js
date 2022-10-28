@@ -1,29 +1,8 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  FlatList,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import {View, SafeAreaView, FlatList, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
-import {
-  AppHeader,
-  Loader,
-  OngoingEventCard,
-  OngoingItem,
-  PrimaryHeading,
-  UpcomingEventCard,
-} from '../../../../components';
-import {
-  appIcons,
-  checkConnected,
-  colors,
-  profile_uri,
-  spacing,
-} from '../../../../shared/exporter';
+import {AppHeader, Loader, OngoingEventCard} from '../../../../components';
+import {appIcons, checkConnected, colors} from '../../../../shared/exporter';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   get_ongoing_event_request,
@@ -51,7 +30,6 @@ const OngoingEvent = ({navigation}) => {
     if (checkInternet) {
       setisLoading(true);
       const onOngoingSuccess = res => {
-        // console.log('Ongoing Events', res);
         console.log('Ongoing Event Success');
         setisLoading(false);
       };
@@ -124,6 +102,7 @@ const OngoingEvent = ({navigation}) => {
                 event_price={item?.price}
                 users_lists={item?.users}
                 event_date={item?.start_date}
+                user_mode={item?.event_mode}
                 event_image={item?.event_image_url}
                 allEvents={true}
                 event_user_status={

@@ -22,6 +22,7 @@ import VideoIntro from '../screens/VideoIntro/VideoIntro';
 // V2 stack
 import StepsMainFlow from './StepsBottomTabs/index';
 import ModeStack from './stacks/ModeStack';
+import HistoryScreen from '../screens/StepCounterTabs/StepsSettingsTab/HistoryScreen';
 
 const AppStack = createStackNavigator();
 
@@ -55,6 +56,7 @@ const MainAppNav = () => {
         <AppStack.Screen name="ModeStack" component={ModeStack} />
         {/* V2 Steps Counter Stack */}
         <AppStack.Screen name="StepsMainFlow" component={StepsMainFlow} />
+        <AppStack.Screen name="HistoryScreen" component={HistoryScreen} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

@@ -1,19 +1,6 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
 import React from 'react';
-import {
-  appIcons,
-  colors,
-  eventDetail_list,
-  family,
-  size,
-} from '../../../shared/exporter';
+import {appIcons, colors, family, size} from '../../../shared/exporter';
 import {EventCard} from '../..';
 import moment from 'moment';
 export const EventInfoCard = ({
@@ -27,7 +14,8 @@ export const EventInfoCard = ({
     <View>
       <View style={styles.container}>
         <Text style={styles.headerStyle}>
-          {title} <Text style={styles.title2}>{subtitle}</Text>
+          {title}
+          <Text style={styles.title2}>{subtitle}</Text>
         </Text>
         {rightIcon && (
           <TouchableOpacity disabled={disabled} style={styles.rightIconStyle}>

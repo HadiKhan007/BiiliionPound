@@ -85,7 +85,6 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   [RNCPushNotificationIOS didReceiveNotificationResponse:response];
 }
 
-
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {
 #if DEBUG

@@ -49,6 +49,7 @@ export const colors = {
 
   //Green Color
   gr1: '#24D18F',
+  gr2: '#24D18F40',
   //White colors
   white: '#ffffff',
 

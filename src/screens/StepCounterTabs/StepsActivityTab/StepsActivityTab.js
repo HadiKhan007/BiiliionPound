@@ -64,7 +64,7 @@ const StepsActivityTab = () => {
             />
           </View>
 
-          {/* <View style={styles.graphView}>
+          <View style={styles.graphView}>
             <LineChart
               data={data}
               chartConfig={chartConfig}
@@ -76,7 +76,7 @@ const StepsActivityTab = () => {
               // yAxisSuffix="k"
               style={styles.chartStyle}
             />
-          </View> */}
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>

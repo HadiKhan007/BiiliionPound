@@ -14,6 +14,7 @@ import {
   appIcons,
   capitalizeFirstLetter,
   checkConnected,
+  IOS,
 } from '../../../shared/exporter';
 import {
   accelerometer,
@@ -33,9 +34,7 @@ import {pedometerRequest} from '../../../redux/actions';
 setUpdateIntervalForType(SensorTypes.accelerometer, 400);
 
 const StepsDashboard = ({navigation}) => {
-  // NativeModules.PedometerModule.getDeviceName((err, name) => {
-  //   console.log(err, name);
-  // });
+  const {Pedometer} = NativeModules;
 
   const dispatch = useDispatch(null);
   const {userWithMode} = useSelector(state => state?.auth);
@@ -65,17 +64,45 @@ const StepsDashboard = ({navigation}) => {
 
   const [steps, setSteps] = useState(0);
   const [play, setPlay] = useState(false);
+  const [disableEndWork, setDisableEndWork] = useState(true);
+  const [sensitivity, setSensitivity] = useState(null);
+
+  useEffect(() => {
+    if (IOS) {
+      console.log("--", Pedometer);
+      // Pedometer.open({message: 'Bridge with Swift Dev.to Tutorial'});
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   if (steps == stepsGoal) {
+  //     Alert.alert(
+  //       'Great',
+  //       'You have completed your goal steps\nClick proceed button to cotinue OR endwork',
+  //       [
+  //         {text: 'PROCEED'},
+  //         {
+  //           text: 'ENDWORKOUT',
+  //           onPress: () => {
+  //             onEndWorkOut();
+  //           },
+  //         },
+  //       ],
+  //     );
+  //   }
+  // }, [steps]);
 
   useEffect(() => {
     if (userWithMode?.user?.mode === 'pedometer') {
       setValue('step-mode');
+    } else {
+      setValue('weight-mode');
     }
   }, [userWithMode?.user?.mode]);
 
   useFocusEffect(
     useCallback(() => {
       getPersonalInfomation();
-
       return () => {
         // Do something when the screen is unfocused
         // Useful for cleanup functions
@@ -107,17 +134,28 @@ const StepsDashboard = ({navigation}) => {
         Math.pow(yAcceleration, 2) +
         Math.pow(zAcceleration, 2),
     );
-
-    // console.log('Magnitude--', magnitude);
-    // console.log('Previous Magnitude--', magnitudePrevious);
-
     const magnitudeDelta = magnitude - magnitudePrevious;
-    // console.log('Magnitude Delta--', magnitudeDelta);
-
     setMagnitudePrevious(() => magnitude);
-    if (magnitudeDelta > 4) {
-      setSteps(prevSteps => prevSteps + 1);
-      calculateVariations();
+
+    // Handle sensitivity
+    if (sensitivity === 'low') {
+      if (magnitudeDelta > 5) {
+        console.log('Low');
+        setSteps(prevSteps => prevSteps + 1);
+        calculateVariations();
+      }
+    } else if (sensitivity === 'medium') {
+      if (magnitudeDelta > 3) {
+        console.log('Medium');
+        setSteps(prevSteps => prevSteps + 1);
+        calculateVariations();
+      }
+    } else {
+      if (magnitudeDelta > 2) {
+        console.log('Fast');
+        setSteps(prevSteps => prevSteps + 1);
+        calculateVariations();
+      }
     }
   }, [xAcceleration, yAcceleration, zAcceleration]);
 
@@ -146,10 +184,11 @@ const StepsDashboard = ({navigation}) => {
     if (checkInternet) {
       setisLoading(true);
       const getSuccess = res => {
+        // console.log(res?.personalinfo?.step_goals);
         if (res?.personalinfo) {
-          // console.log('Personal Information--', res);
           setUserPersonalInfo(res?.personalinfo);
           setStepsGoal(res?.personalinfo?.step_goals || 0);
+          setSensitivity(res?.personalinfo?.sensitivity);
         }
         setisLoading(false);
       };
@@ -197,6 +236,7 @@ const StepsDashboard = ({navigation}) => {
       Alert.alert('Failed', res?.message || 'Select mode Failed');
     }
   };
+
   const onFailure = res => {
     console.log('failure response--', res);
     setisLoading(false);
@@ -204,7 +244,7 @@ const StepsDashboard = ({navigation}) => {
   };
 
   //On Submit Login Form
-  const onEndWorkOut = async values => {
+  const onEndWorkOut = async () => {
     const checkInternet = await checkConnected();
     if (checkInternet) {
       setisLoading(true);
@@ -233,6 +273,7 @@ const StepsDashboard = ({navigation}) => {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
   };
+
   //pedometer Success
   const onPedometerSuccess = async res => {
     setisLoading(false);
@@ -249,21 +290,26 @@ const StepsDashboard = ({navigation}) => {
           setCaloriesBurn(0);
           setMiles(0);
           setWalkTime(null);
+          setPlay(false);
         },
       },
     ]);
   };
+
   //pedometer Failure
   const onPedometerFailure = res => {
     setisLoading(false);
     Alert.alert('Failed', res?.message || 'Steps counts Failed');
   };
 
+  //Play and pause counter
   const onPressPlayPause = () => {
     setPlay(!play);
     if (play) {
+      setDisableEndWork(false);
       setNow(moment());
     } else {
+      setDisableEndWork(true);
       setThen(moment());
     }
   };
@@ -310,6 +356,7 @@ const StepsDashboard = ({navigation}) => {
               onPressPlayPause={onPressPlayPause}
               playPauseStatus={play}
               onPressEnd={onEndWorkOut}
+              disableEndWorkBtn={disableEndWork}
             />
 
             <View style={styles.calculationContainer}>

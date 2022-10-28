@@ -212,6 +212,7 @@ export function* payWithDebitRequest() {
 function* payWithDebit(params) {
   try {
     const res = yield payWithDebitCard(params?.params);
+
     if (res.data) {
       yield put({
         type: types.PAY_WITH_DEBIT_SUCCESS,

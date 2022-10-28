@@ -34,7 +34,7 @@ export const addDebitCard = params => {
 
 //Pay With Debit Card Requests
 export const payWithDebitCard = params => {
-  console.log(params);
+  console.log('params--', params);
   return HTTP_CLIENT.post(`${ENDPOINTS.CHECKOUT}/card_payment_only`, params);
 };
 

@@ -39,7 +39,7 @@ const Event = ({navigation}) => {
     if (checkInternet) {
       setLoading(true);
       const onUpcomingSuccess = res => {
-        // console.log('Upcoming Events', res);
+        console.log('Upcoming Events', res);
         setLoading(false);
       };
       //On get upcoming event failure
@@ -154,7 +154,6 @@ const Event = ({navigation}) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={styles.itemConatiner}>
-
           {ongoing_events?.length > 0 ? (
             <>
               <PrimaryHeading
@@ -175,6 +174,7 @@ const Event = ({navigation}) => {
                         onPressCard={() => {
                           OnGoingEventPress(item);
                         }}
+                        user_mode={item?.event_mode}
                         users_lists={item?.users}
                         event_date={item?.start_date}
                         event_status={item?.status}

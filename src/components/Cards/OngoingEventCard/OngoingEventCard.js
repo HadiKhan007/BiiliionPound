@@ -3,19 +3,15 @@ import {
   Text,
   View,
   ImageBackground,
-  FlatList,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import {
   appIcons,
   appImages,
-  appRadius,
-  calculateDateDiff,
   capitalizeFirstLetter,
   colors,
   family,
-  profile_uri,
   size,
   spacing,
   WP,
@@ -33,6 +29,7 @@ export const OngoingEventCard = ({
   event_status,
   event_price,
   event_user_status,
+  user_mode,
 }) => {
   return (
     <View style={spacing.mx1}>
@@ -60,13 +57,20 @@ export const OngoingEventCard = ({
                 resizeMode: event_image ? 'cover' : 'contain',
               },
             ]}>
-            <View style={styles.littleBox}>
-              <Text style={styles.textStyle1}>
-                {moment(event_date).format('DD')}{' '}
-              </Text>
-              <Text style={styles.textStyle2}>
-                {moment(event_date).format('MMM')}
-              </Text>
+            <View style={styles.boxesContainer}>
+              <View style={styles.littleBox}>
+                <Text style={styles.textStyle1}>
+                  {moment(event_date).format('DD')}{' '}
+                </Text>
+                <Text style={styles.textStyle2}>
+                  {moment(event_date).format('MMM')}
+                </Text>
+              </View>
+              <View style={[styles.littleBox, {height: 25, width: 65}]}>
+                <Text style={[styles.textStyle2, {fontSize: size.xxsmall}]}>
+                  {user_mode === 'Step' ? 'Steps' : 'Weight'}
+                </Text>
+              </View>
             </View>
           </ImageBackground>
         </View>
@@ -255,5 +259,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '60%',
+  },
+  boxesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

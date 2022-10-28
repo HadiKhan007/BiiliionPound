@@ -28,7 +28,6 @@ import {
   checkBrand,
   checkConnected,
   colors,
-  filterTeam,
   spacing,
 } from '../../../../shared/exporter';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -42,7 +41,6 @@ import {
 import {
   add_card_request,
   get_payment_cards_request,
-  join_event_request,
   pay_with_debit_request,
   pay_with_social_request,
 } from '../../../../redux/actions';
@@ -228,6 +226,7 @@ const Payment = ({navigation, route}) => {
           type: 'Card',
           setupFutureUsage: 'OffSession',
         });
+        console.log('DATA', data);
         if (data?.token?.id) {
           const requestBody = {
             stripe_token: data?.token?.id,
@@ -236,12 +235,14 @@ const Payment = ({navigation, route}) => {
               join_team_event?.name != 'None' ? join_team_event?.id : null,
           };
           const payWithDebitSuccees = res => {
+            console.log('Resposne--', res);
             console.log('Pay with Debit Success');
             setShowSuccess(true);
             setisLoading(false);
             stripeField?.current?.clear();
           };
           const payWithDebitFailure = res => {
+            console.log('Failure---', res);
             Alert.alert('Failed', res);
             setisLoading(false);
           };

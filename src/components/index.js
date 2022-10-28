@@ -58,6 +58,7 @@ export * from './Cards/TitleCard/TitleCard';
 export * from './Cards/BlankCard/BlankFiled';
 export * from './Cards/EventCard/EventCard';
 export * from './Cards/EventStatusCard/EventStatusCard';
+export * from './Cards/ActivityHistoryCard/ActivityHistoryCard';
 
 //Modals
 export * from './Modal/ExcerciseFilter';

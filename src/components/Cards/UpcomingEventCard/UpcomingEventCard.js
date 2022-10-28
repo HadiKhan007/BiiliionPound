@@ -13,6 +13,7 @@ import {
 import {Image} from 'react-native-elements';
 import moment from 'moment';
 export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
+  // console.log(upcoming_event_item?.event_mode);
   return (
     <View style={spacing.mx1}>
       <TouchableOpacity
@@ -42,6 +43,17 @@ export const UpcomingEventCard = ({onPressCard, upcoming_event_item}) => {
           </View>
         </View>
         <View style={styles.rightContainer}>
+          {upcoming_event_item?.event_mode === 'Step' ? (
+            <View style={[styles.userMode]}>
+              <Text style={styles.userText}>Steps</Text>
+            </View>
+          ) : (
+            <View style={[styles.userMode, {backgroundColor: colors.gr2}]}>
+              <Text style={[styles.userText, {color: colors?.gr1}]}>
+                Weight
+              </Text>
+            </View>
+          )}
           <Text style={styles.title}>
             {moment(upcoming_event_item?.start_date).format('ddd, MMM DD')} •{' '}
             {moment(upcoming_event_item?.start_date).format('hh:mm A')}
@@ -174,15 +186,32 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     backgroundColor: colors.gr1,
-    height: 22,
+    width: 70,
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 8,
   },
+  userMode: {
+    width: 90,
+    height: 28,
+    backgroundColor: colors.p7,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+    position: 'absolute',
+    right: 10,
+    top: 5,
+  },
+  userText: {
+    color: colors.p1,
+    fontSize: size.tiny,
+    fontFamily: family.OpenSans_SemiBold,
+  },
   btnText: {
     color: colors.white,
-    fontSize: size.tiny,
+    fontSize: size.medium,
     fontFamily: family.OpenSans_SemiBold,
   },
   textAlignment: {

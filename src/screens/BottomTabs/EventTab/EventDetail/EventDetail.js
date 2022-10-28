@@ -6,9 +6,8 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  Platform,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './styles';
 import {
   AppHeader,
@@ -24,22 +23,12 @@ import {
   calculateCurrentDateDiff,
   checkConnected,
   colors,
-  isSubscriptionActive,
   spacing,
   WP,
 } from '../../../../shared/exporter';
 import ReadMore from 'react-native-read-more-text';
 import {useDispatch, useSelector} from 'react-redux';
 import {join_event_team_request} from '../../../../redux/actions';
-import {isIos} from '../../../../shared/utilities/platform';
-import {
-  clearTransactionIOS,
-  flushFailedPurchasesCachedAsPendingAndroid,
-  getSubscriptions,
-  initConnection,
-  requestSubscription,
-} from 'react-native-iap';
-import {errorLog} from '../../../../shared/utilities/logs';
 
 const EventDetail = ({navigation}) => {
   const [selectionModal, setSelectionModal] = useState(false);
@@ -48,128 +37,6 @@ const EventDetail = ({navigation}) => {
   //References
   const {event_detail} = useSelector(state => state?.event);
   const dispatch = useDispatch(null);
-
-  const [subscriptins, setSubscriptins] = useState([]);
-  const [laterSubscribe, setLaterSubscribe] = useState(true);
-
-  const subscriptionSkus = Platform.select({
-    ios: [
-      'com.billionpoundapp.yearly.one',
-      'com.billionpoundapp.yearly.premium',
-    ],
-    android: ['billion_pound_iap', 'bp_yearly_subscription'],
-    default: [],
-  });
-
-  useEffect(() => {
-    // checkSubscriptions();
-    // iapInitializer();
-    // if (isIos) {
-    //   handleGetSubscriptions();
-    // }
-  }, []);
-
-  const checkSubscriptions = async () => {
-    setisLoading(true);
-    try {
-      const checkStatus = await isSubscriptionActive();
-      console.log('checkStatus', checkStatus);
-      if (checkStatus) {
-        setisLoading(false);
-        setSubscribe(false);
-      } else {
-        setisLoading(false);
-        setSubscribe(true);
-      }
-      //update your subscription status here
-    } catch (error) {}
-  };
-
-  const iapInitializer = async () => {
-    try {
-      await initConnection();
-      if (isAndroid) {
-        await flushFailedPurchasesCachedAsPendingAndroid();
-      } else {
-        await clearTransactionIOS();
-      }
-    } catch (error) {
-      if (error instanceof PurchaseError) {
-        errorLog({message: `[${error.code}]: ${error.message}`, error});
-      } else {
-        errorLog({message: 'finishTransaction', error});
-      }
-    }
-  };
-
-  const handleGetSubscriptions = async () => {
-    try {
-      await getSubscriptions({skus: subscriptionSkus}).then(subs => {
-        console.log('Subscription--', subs);
-        if (isIos) {
-          setSubscriptins(subs);
-        } else {
-          handleBuySubscription(
-            subs[0]?.productId,
-            subs[0]?.subscriptionOfferDetails[0]?.offerToken,
-          );
-        }
-      });
-    } catch (error) {
-      errorLog({message: 'handleGetSubscriptions', error});
-    }
-  };
-
-  const handleBuySubscription = async (productId, offerToken) => {
-    if (Platform.OS === 'android' && !offerToken) {
-      console.log(`no subscription Offers for selected product: ${productId}`);
-    }
-    try {
-      if (isIos) {
-        setisLoading(true);
-        console.log(subscriptins);
-        await requestSubscription({
-          sku: subscriptins[0]?.productId,
-          ...(offerToken && {
-            subscriptionOffers: [{sku: subscriptins[0]?.productId, offerToken}],
-          }),
-        })
-          .then(res => {
-            console.log('res--', res);
-            setisLoading(false);
-            navigation?.navigate('Event');
-          })
-          .catch(err => {
-            setisLoading(false);
-            console.log('Error', err);
-          });
-      } else {
-        await requestSubscription({
-          sku: productId,
-          ...(offerToken && {
-            subscriptionOffers: [{sku: productId, offerToken}],
-          }),
-        })
-          .then(res => {
-            console.log('res--', res);
-            setisLoading(false);
-            navigation.goBack();
-          })
-          .catch(err => {
-            setisLoading(false);
-            console.log('Error', err);
-          });
-      }
-    } catch (error) {
-      if (error instanceof PurchaseError) {
-        setisLoading(false);
-        errorLog({message: `[${error.code}]: ${error.message}`, error});
-      } else {
-        setisLoading(false);
-        errorLog({message: 'handleBuySubscription', error});
-      }
-    }
-  };
 
   const _renderTruncatedFooter = handlePress => {
     return (
@@ -307,21 +174,7 @@ const EventDetail = ({navigation}) => {
             <View style={styles.btnAlign}>
               <Button
                 onPress={() => {
-                  // if (selectCategoryItem) {
-                  //   if (laterSubscribe) {
-                  //     setLaterSubscribe(false);
-                  //     navigation.navigate('SubscriptionPlan', {
-                  //       subscriptionPrice: '$30',
-                  //     });
-                  //   } else {
-                  //     navigation?.navigate('Payment');
-                  //   }
-                  // } else {
-                  //   Alert.alert('Message!', 'Please select team');
-                  // }
-
                   joinEvent();
-                  // joinSheetRef?.current?.show();
                 }}
                 title={'Join'}
                 withRightIcon={true}

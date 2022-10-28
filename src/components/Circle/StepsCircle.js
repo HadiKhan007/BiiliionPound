@@ -10,6 +10,7 @@ export const StepsCircle = ({
   isLoading,
   onPressPlayPause,
   playPauseStatus,
+  disableEndWorkBtn,
 }) => {
   return (
     <View style={styles.aiCenter}>
@@ -20,12 +21,14 @@ export const StepsCircle = ({
               {title?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             </Text>
             <Text style={styles.subtitle}>{subtitle}</Text>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              style={styles.btnContainer}
-              onPress={onPressEnd}>
-              <Text style={styles.buttonTxtStyle}>{`End Workout`}</Text>
-            </TouchableOpacity>
+            {!disableEndWorkBtn && (
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={styles.btnContainer}
+                onPress={onPressEnd}>
+                <Text style={styles.buttonTxtStyle}>{`End Workout`}</Text>
+              </TouchableOpacity>
+            )}
           </>
         ) : (
           <SmallLoader size={30} />

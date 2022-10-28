@@ -15,6 +15,8 @@ export const Loader = ({loading, tagline = '', showTagLine = false}) => {
       avoidKeyboard={true}
       isVisible={loading}
       hasBackdrop={false}
+      animationIn="fadeIn"
+      animationOut="fadeOut"
       style={styles.container}>
       <View style={showTagLine ? styles.alertWithTagline : styles.alert}>
         <ActivityIndicator
@@ -37,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     margin: 0,
-    backgroundColor: 'rgba(0,0,0, 0.5)',
+    backgroundColor: 'rgba(0,0,0, 0.2)',
   },
   alert: {
     backgroundColor: colors.white,

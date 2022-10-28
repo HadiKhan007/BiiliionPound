@@ -8,5 +8,9 @@
 #import <React/RCTBridgeModule.h>
 
 @interface RCTPedometerModule : NSObject <RCTBridgeModule>
+
+
+
+
 @end
 

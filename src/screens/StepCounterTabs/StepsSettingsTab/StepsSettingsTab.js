@@ -143,7 +143,11 @@ const StepsSettingsTab = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.txtContainer}>
             <Text style={[styles.achievements]}>{`Achievements`}</Text>
-            <Text style={styles.history}>{`History`}</Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('HistoryScreen')}
+              activeOpacity={0.8}>
+              <Text style={styles.history}>{`History`}</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.calculationContainer}>
             <View style={styles.calculationInnerContainer}>
