@@ -6,7 +6,7 @@ platform :ios, '11.0'
 target 'BillionPound' do
   config = use_native_modules!
 
-  pod 'RNSensors', :path => '../node_modules/react-native-sensors'
+  # pod 'RNSensors', :path => '../node_modules/react-native-sensors'
 
   use_react_native!(
     :path => config[:reactNativePath],
