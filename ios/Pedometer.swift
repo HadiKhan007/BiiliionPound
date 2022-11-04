@@ -42,6 +42,7 @@ class Pedometer : UIViewController {
           }
         }
       }
+    }else{
     }
     
     if CMPedometer.isStepCountingAvailable(){

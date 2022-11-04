@@ -49,6 +49,8 @@
 		EA47FC6C938F4A68A78DBA31 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A92D22C4BC46498DB656257D /* OpenSans-Regular.ttf */; };
 		EC8791CEBD6C400A9EE12BEE /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0AA8D687276041A6B00ACB64 /* OpenSans-Italic.ttf */; };
 		EF820AD558E94A9E83C59449 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C45627150F114F0DA18E5293 /* Poppins-Medium.ttf */; };
+		FADFA3F729128FFB007CB80D /* BHealthKit.m in Sources */ = {isa = PBXBuildFile; fileRef = FADFA3F629128FFB007CB80D /* BHealthKit.m */; };
+		FADFA3F9291290E2007CB80D /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADFA3F8291290E2007CB80D /* HealthKit.framework */; };
 		FAFA5FEA29116CA60075B135 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAFA5FE929116CA60075B135 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +139,9 @@
 		F4CCBD326D1C43788922F1F5 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		F61090BB10E94E69AFA3B828 /* OpenSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Medium.ttf"; path = "../src/assets/fonts/OpenSans-Medium.ttf"; sourceTree = "<group>"; };
 		F7B4B82A539E4BE7BF07B9EF /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		FADFA3F529128F66007CB80D /* BHealthKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BHealthKit.h; sourceTree = "<group>"; };
+		FADFA3F629128FFB007CB80D /* BHealthKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BHealthKit.m; sourceTree = "<group>"; };
+		FADFA3F8291290E2007CB80D /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		FAFA5FE929116CA60075B135 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FADFA3F9291290E2007CB80D /* HealthKit.framework in Frameworks */,
 				0F324716CCB5C712C1B0E5A7 /* libPods-BillionPound.a in Frameworks */,
 				182BED0B28D328B80038483F /* StoreKit.framework in Frameworks */,
 			);
@@ -194,6 +200,8 @@
 				184A685C28FEDC6C0044BC0C /* RCTPedometerModule.m */,
 				1855A8B2290A8541007859FC /* Pedometer.swift */,
 				1855A8B4290A8569007859FC /* Pedometer.m */,
+				FADFA3F529128F66007CB80D /* BHealthKit.h */,
+				FADFA3F629128FFB007CB80D /* BHealthKit.m */,
 			);
 			name = BillionPound;
 			sourceTree = "<group>";
@@ -257,6 +265,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FADFA3F8291290E2007CB80D /* HealthKit.framework */,
 				182BED0A28D328B80038483F /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				54F5B6B4CD80E4B023D7CBB0 /* libPods-BillionPound.a */,
@@ -619,6 +628,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				FADFA3F729128FFB007CB80D /* BHealthKit.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				184A685D28FEDC6C0044BC0C /* RCTPedometerModule.m in Sources */,
 				1855A8B5290A8569007859FC /* Pedometer.m in Sources */,

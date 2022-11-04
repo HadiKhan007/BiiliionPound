@@ -9,8 +9,5 @@
 
 @interface RCTPedometerModule : NSObject <RCTBridgeModule>
 
-
-
-
 @end
 

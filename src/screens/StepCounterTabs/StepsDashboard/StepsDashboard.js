@@ -31,11 +31,12 @@ import moment from 'moment';
 import {Dropdown} from 'react-native-element-dropdown';
 import {pedometerRequest} from '../../../redux/actions';
 
+//iOS Pedomter Native Module
+import {RCTPedometerModule} from '../../../shared/pedometer-module/PedometerService';
+
 setUpdateIntervalForType(SensorTypes.accelerometer, 400);
 
 const StepsDashboard = ({navigation}) => {
-  const {Pedometer} = NativeModules;
-
   const dispatch = useDispatch(null);
   const {userWithMode} = useSelector(state => state?.auth);
   const {userInfo} = useSelector(state => state?.auth);
@@ -69,8 +70,10 @@ const StepsDashboard = ({navigation}) => {
 
   useEffect(() => {
     if (IOS) {
-      console.log("--", Pedometer);
-      // Pedometer.open({message: 'Bridge with Swift Dev.to Tutorial'});
+      console.log('[Inside iOS Native Module Code]');
+      RCTPedometerModule.isPedometerAvaialble(res => {
+        console.log('[res]', res);
+      });
     }
   }, []);
 
@@ -103,13 +106,11 @@ const StepsDashboard = ({navigation}) => {
   useFocusEffect(
     useCallback(() => {
       getPersonalInfomation();
-      return () => {
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
-      };
+      return () => {};
     }, [navigation]),
   );
 
+  //Android Pedometer Code
   useEffect(() => {
     if (play) {
       const subscription = accelerometer
@@ -128,6 +129,7 @@ const StepsDashboard = ({navigation}) => {
     }
   }, [play]);
 
+  //Android Pedometer Code
   useEffect(() => {
     const magnitude = Math.sqrt(
       Math.pow(xAcceleration, 2) +
@@ -159,6 +161,7 @@ const StepsDashboard = ({navigation}) => {
     }
   }, [xAcceleration, yAcceleration, zAcceleration]);
 
+  //Android Pedometer Code
   const calculateVariations = () => {
     let strideLength = userPersonalInfo?.gender === 'male' ? 2.5 : 2.2;
     let stepsFt = strideLength * steps;
