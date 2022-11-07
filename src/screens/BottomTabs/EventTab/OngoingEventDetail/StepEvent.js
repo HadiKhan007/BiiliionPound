@@ -5,10 +5,10 @@ import {
   SafeAreaView,
   FlatList,
   ScrollView,
-  Dimensions,
 } from 'react-native';
+import moment from 'moment';
+import {Image} from 'react-native-elements';
 import React from 'react';
-import styles from './styles';
 import {
   AppHeader,
   Button,
@@ -21,6 +21,7 @@ import {
   UpcomingEventCard,
   Loader,
 } from '../../../../components';
+import {useSelector} from 'react-redux';
 import {
   appIcons,
   capitalizeFirstLetter,
@@ -29,25 +30,13 @@ import {
   HP,
   profile_uri,
   spacing,
-  WP,
 } from '../../../../shared/exporter';
-import {Divider} from 'react-native-elements';
-import {useSelector} from 'react-redux';
-import moment from 'moment';
-import {Image} from 'react-native-elements';
-import StepEvent from './StepEvent';
-import OngoingEvent from '../OngoingEvent/OngoingEvent';
-const OngoingEventDetail = ({navigation}) => {
+import styles from './styles';
+
+const StepEvent = ({navigation}) => {
   const {event_detail} = useSelector(state => state?.event);
-  console.log('Event Detail--', event_detail?.event_mode);
-  const onPressParticipate = async () => {
-    if (event_detail?.current_user?.event_status == 'joined') {
-      navigation?.navigate('ExerciseStack');
-    } else {
-      navigation?.navigate('EventDetail');
-    }
-  };
-  return event_detail?.event_mode == 'Weight Mode' ? (
+  console.log('Hello Step', event_detail);
+  return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
         <AppHeader
@@ -75,21 +64,20 @@ const OngoingEventDetail = ({navigation}) => {
               'hh:mm A',
             )} - ${moment(event_detail?.end_date).format('hh:mm A')}`}
             title={event_detail?.title}
-            subTitleText="Your Amount :"
-            subTitle={`${convertNumberSystem(
-              event_detail?.current_user?.event_weight_lifted,
-            )} LBS`}
+            subTitleText="Your Steps :"
+            subTitle={` ${convertNumberSystem(
+              event_detail?.current_user?.event_steps,
+            )} steps`}
             price={event_detail?.price || 0}
-            liftedAmount={convertNumberSystem(event_detail?.goal_amount) || 0}
-            liftunit="lbs"
-            subUnit="Total Lifted Amount"
+            liftedAmount={'15000' || 0}
+            subUnit="Total Cover distance"
+            liftunit="Km"
             onPressCard={() => navigation.navigate('ActivityTab')}
             joined_team={event_detail?.current_user?.selected_team}
           />
           {event_detail?.users?.length > 0 ? (
             <>
               <OngoingItem
-                Item
                 title={`${event_detail?.users.length} People enrolled`}
                 title_part={''}
                 titleStyle={styles.countStyle}
@@ -159,9 +147,7 @@ const OngoingEventDetail = ({navigation}) => {
         </View>
       </View>
     </SafeAreaView>
-  ) : (
-    <StepEvent />
   );
 };
 
-export default OngoingEventDetail;
+export default StepEvent;

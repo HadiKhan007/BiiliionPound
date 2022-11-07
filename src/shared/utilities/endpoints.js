@@ -1,3 +1,4 @@
+// const BASE_URL = 'https://billion-pound.herokuapp.com/api/v1/';
 const BASE_URL = 'https://billion-pound.herokuapp.com/api/v1/';
 // const BASE_URL = 'http://18.212.50.13/api/v1/';
 

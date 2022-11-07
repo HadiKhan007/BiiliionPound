@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontFamily: family.Poppins_Medium,
     color: colors.gr1,
     textAlign: 'justify',
-    marginBottom: '5%'
+    marginBottom: '5%',
   },
 });
 

@@ -20,11 +20,14 @@ import {TitleCard} from '../TitleCard/TitleCard';
 export const OngoingEventDetailCard = ({
   title,
   subTitle,
+  subTitleText,
   price,
   liftedAmount,
+  liftunit,
   onPressCard,
   date,
   sutitleDate,
+  subUnit,
   joined_team,
 }) => {
   const data = [
@@ -56,7 +59,8 @@ export const OngoingEventDetailCard = ({
         <View>
           <Text style={styles.headerStyle}>{title}</Text>
           <Text style={styles.subtitleStyle}>
-            Your Amount: <Text style={styles.coloredSubTitle}>{subTitle}</Text>
+            {subTitleText}{' '}
+            <Text style={styles.coloredSubTitle}>{subTitle}</Text>
           </Text>
         </View>
         <TouchableOpacity disabled={true} style={styles.rightIconStyle}>
@@ -68,9 +72,9 @@ export const OngoingEventDetailCard = ({
         <View style={styles.coloredView}>
           <Text style={styles.coloredViewTitle}>
             {liftedAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
-            <Text style={styles.coloredViewSimple}>lbs</Text>
+            <Text style={styles.coloredViewSimple}>{liftunit}</Text>
           </Text>
-          <Text style={styles.coloredViewSubtitle}>Total Lifted Goal</Text>
+          <Text style={styles.coloredViewSubtitle}>{subUnit}</Text>
         </View>
 
         <View

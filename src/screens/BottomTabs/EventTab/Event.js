@@ -75,14 +75,18 @@ const Event = ({navigation}) => {
     } else {
       Alert.alert('Error', 'Check your internet connectivity!');
     }
+    console.log('====================================');
+    console.log(get_ongoing_event_request);
+    console.log('====================================');
   };
 
   //**********On Press On Upcoming Events**********
   const UpcomingEventPress = async item => {
+    console.log('item2333', item?.event_mode);
     //set  upcoming event success
     setLoading(true);
     const checkInternet = await checkConnected();
-    const onUpcomingPressSuccess = () => {
+    const onUpcomingPressSuccess = item => {
       navigation.navigate('EventDetail');
       console.log('On Upcoming Event Success');
       setLoading(false);
