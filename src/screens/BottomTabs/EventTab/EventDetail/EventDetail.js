@@ -36,7 +36,6 @@ const EventDetail = ({navigation}) => {
   const [isLoading, setisLoading] = useState(false);
   //References
   const {event_detail} = useSelector(state => state?.event);
-  console.log('Event details------', event_detail);
   const dispatch = useDispatch(null);
 
   const _renderTruncatedFooter = handlePress => {

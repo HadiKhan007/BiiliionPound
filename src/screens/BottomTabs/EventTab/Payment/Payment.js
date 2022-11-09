@@ -230,6 +230,7 @@ const Payment = ({navigation, route}) => {
         if (data?.token?.id) {
           const requestBody = {
             stripe_token: data?.token?.id,
+            // stripe_token: 'tok_visa',
             event_id: event_detail?.id,
             team_id:
               join_team_event?.name != 'None' ? join_team_event?.id : null,
@@ -265,6 +266,7 @@ const Payment = ({navigation, route}) => {
 
   //Proceed With Selected Card
   const payWithSelectedCardHanlder = async () => {
+    console.log('fasjfjafjhaksfkasf');
     setisLoading(true);
     const requestBody = {
       card_id: cardSelection?.id,

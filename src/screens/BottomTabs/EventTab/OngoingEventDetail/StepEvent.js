@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  FlatList,
-  ScrollView,
-} from 'react-native';
+import {Text, View, SafeAreaView, FlatList, ScrollView} from 'react-native';
 import moment from 'moment';
 import {Image} from 'react-native-elements';
 import React from 'react';
@@ -14,12 +7,8 @@ import {
   Button,
   HomeCircle,
   OngoingEventDetailCard,
-  OngoingEventCard,
   OngoingItem,
-  PrimaryHeading,
   Title,
-  UpcomingEventCard,
-  Loader,
 } from '../../../../components';
 import {useSelector} from 'react-redux';
 import {
@@ -32,10 +21,18 @@ import {
   spacing,
 } from '../../../../shared/exporter';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/native';
 
-const StepEvent = ({navigation}) => {
+const StepEvent = () => {
   const {event_detail} = useSelector(state => state?.event);
-  console.log('Hello Step', event_detail);
+  const navigation = useNavigation();
+  const onPressParticipate = async () => {
+    if (event_detail?.current_user?.event_status == 'joined') {
+      navigation?.navigate('ExerciseStack');
+    } else {
+      navigation?.navigate('EventDetail');
+    }
+  };
   return (
     <SafeAreaView style={styles.main}>
       <View style={styles.contentContainer}>
@@ -141,7 +138,7 @@ const StepEvent = ({navigation}) => {
             title="Participate"
             withRightIcon
             onPress={() => {
-              onPressParticipate();
+              navigation.navigate('StepCount');
             }}
           />
         </View>

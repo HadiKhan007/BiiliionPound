@@ -43,6 +43,12 @@ export const OngoingEventDetailCard = ({
       leftIcon: appIcons.badge,
       rightIcon: appIcons.arrow,
     },
+    {
+      id: 2,
+      title: 'Team Red',
+      subtitle: 'You are in team red',
+      leftIcon: appIcons.peoples,
+    },
   ];
   {
     joined_team &&

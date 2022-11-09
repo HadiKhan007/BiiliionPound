@@ -61,7 +61,11 @@ export const TransactionSuccess = ({
             <PrimaryHeading title={'Event Details'} />
             <View style={styles.center}>
               <Text style={styles.h1}>{event_detail?.goal_amount || 0}</Text>
-              <Text style={styles.h2}>Total Pounds Goals</Text>
+              <Text style={styles.h2}>
+                {event_detail?.event_mode == 'Weight Mode'
+                  ? 'Total Pounds Lifted'
+                  : 'Total Steps'}
+              </Text>
             </View>
           </View>
           <View style={spacing.my2}>

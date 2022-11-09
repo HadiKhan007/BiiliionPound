@@ -39,7 +39,6 @@ import StepEvent from './StepEvent';
 import OngoingEvent from '../OngoingEvent/OngoingEvent';
 const OngoingEventDetail = ({navigation}) => {
   const {event_detail} = useSelector(state => state?.event);
-  console.log('Event Detail--', event_detail?.event_mode);
   const onPressParticipate = async () => {
     if (event_detail?.current_user?.event_status == 'joined') {
       navigation?.navigate('ExerciseStack');
@@ -58,7 +57,11 @@ const OngoingEventDetail = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false}>
           <View style={styles.itemView}>
             <HomeCircle
-              title={event_detail?.total_pounds_lifted || 0}
+              title={
+                event_detail?.event_mode == 'Weight Mode'
+                  ? event_detail?.total_pounds_lifted || 0
+                  : event_detail?.event_steps || 0
+              }
               subtitle={
                 event_detail?.event_mode == 'Weight Mode'
                   ? 'Total Pounds Lifted'
