@@ -89,7 +89,6 @@ const StepEvent = () => {
                 data={event_detail?.users}
                 contentContainerStyle={spacing.mb12}
                 renderItem={({item}) => {
-                  // console.log(item);
                   return (
                     <View style={styles.cardContainer}>
                       <View

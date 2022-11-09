@@ -30,12 +30,10 @@ const OngoingEvent = ({navigation}) => {
     if (checkInternet) {
       setisLoading(true);
       const onOngoingSuccess = res => {
-        console.log('Ongoing Event Success');
         setisLoading(false);
       };
       //On get Ongoing event failure
       const onOngoingFailure = res => {
-        console.log('Ongoing Event Failed');
         setisLoading(false);
       };
       //Get Upcomig Events
@@ -58,12 +56,10 @@ const OngoingEvent = ({navigation}) => {
         } else {
           navigation.navigate('EventDetail');
         }
-        // console.log('On Going Event Success');
         setisLoading(false);
       };
       //Set  onGoing event failure
       const onGoingPressFailure = () => {
-        // console.log('On Going Event Failure');
         Alert.alert('Error', 'Something went wrong!');
         setisLoading(false);
       };
@@ -73,7 +69,6 @@ const OngoingEvent = ({navigation}) => {
       );
       dispatch(
         set_exercise_screen_request(false, () => {
-          console.log('Event Screens');
         }),
       );
     } else {

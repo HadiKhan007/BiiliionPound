@@ -48,7 +48,6 @@ const StepCount = ({navigation}) => {
       const subscription = accelerometer
         .pipe(data => data)
         .subscribe(speed => {
-          console.log('Sensor Speed--', speed);
           setXAcceleration(speed.x);
           setYAcceleration(speed.y);
           setZAcceleration(speed.z);
@@ -73,17 +72,14 @@ const StepCount = ({navigation}) => {
     // Handle sensitivity
     if (sensitivity === 'low') {
       if (magnitudeDelta > 5) {
-        console.log('Low');
         setSteps(prevSteps => prevSteps + 1);
       }
     } else if (sensitivity === 'medium') {
       if (magnitudeDelta > 3) {
-        console.log('Medium');
         setSteps(prevSteps => prevSteps + 1);
       }
     } else {
       if (magnitudeDelta > 2) {
-        console.log('Fast');
         setSteps(prevSteps => prevSteps + 1);
       }
     }
@@ -94,7 +90,6 @@ const StepCount = ({navigation}) => {
     if (checkInternet) {
       setisLoading(true);
       const getSuccess = res => {
-        // console.log(res?.personalinfo?.step_goals);
         if (res?.personalinfo) {
           setStepsGoal(res?.personalinfo?.step_goals || 0);
           setSensitivity(res?.personalinfo?.sensitivity);
@@ -103,7 +98,6 @@ const StepCount = ({navigation}) => {
       };
       //Get Lifted Weight Failure
       const getFailure = res => {
-        console.log(res);
         setisLoading(false);
         if (res) {
           Alert.alert('Error', res);

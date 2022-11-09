@@ -29,7 +29,6 @@ const ActivityTab = ({navigation}) => {
   const [index, setIndex] = React.useState(0);
   const {event_detail} = useSelector(state => state?.event);
 
-  console.log('Event Detailsss', event_detail.event_mode);
   const [historyData, setHistoryData] = useState([
     {
       id: 0,
