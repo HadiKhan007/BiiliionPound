@@ -129,7 +129,7 @@ const OngoingEventDetail = ({navigation}) => {
                             Lifted Amount :
                             <Text style={[styles.subtitleBoldStyle]}>
                               {convertNumberSystem(item?.event_weight_lifted)}
-                              LBS
+                              {' LBS'}
                             </Text>
                           </Text>
                         </View>

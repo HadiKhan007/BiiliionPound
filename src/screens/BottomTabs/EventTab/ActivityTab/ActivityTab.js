@@ -72,7 +72,6 @@ const ActivityTab = ({navigation}) => {
   const renderStepMode = ({item}) => {
     return <ActivityHistoryCard item={item} />;
   };
-  console.log('event detail card----');
 
   return (
     <SafeAreaView style={styles.main}>

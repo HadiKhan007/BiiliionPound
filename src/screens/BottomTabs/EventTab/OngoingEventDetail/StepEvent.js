@@ -48,7 +48,7 @@ const StepEvent = () => {
               subtitle={
                 event_detail?.event_mode == 'Weight Mode'
                   ? 'Total Pounds Lifted'
-                  : 'Events Total Steps'
+                  : 'Event Total Steps'
               }
               onPressAdd={() => {
                 navigation?.navigate('ExerciseStack');
@@ -108,10 +108,10 @@ const StepEvent = () => {
                             {capitalizeFirstLetter(item.last_name)}
                           </Text>
                           <Text style={styles.subtitleStyle}>
-                            Lifted Amount :
+                            Total Steps :
                             <Text style={[styles.subtitleBoldStyle]}>
                               {convertNumberSystem(item?.event_weight_lifted)}
-                              LBS
+                              {' Steps'}
                             </Text>
                           </Text>
                         </View>
